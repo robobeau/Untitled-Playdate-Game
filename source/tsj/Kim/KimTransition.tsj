@@ -7,18 +7,18 @@
      "width":1
     },
  "margin":0,
- "name":"KimJumpTransition",
+ "name":"KimTransition",
  "spacing":0,
  "tilecount":1,
  "tiledversion":"1.9.1",
- "tileheight":40,
+ "tileheight":80,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/Kim\/KimJumpTransition1.png",
-         "imageheight":40,
-         "imagewidth":40,
+         "image":"..\/..\/images\/Kim\/KimTransition1.png",
+         "imageheight":80,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -27,25 +27,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":39,
+                     "height":78,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":21,
-                     "x":13,
-                     "y":1
+                     "width":42,
+                     "x":26,
+                     "y":2
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":-2
+                     "width":72,
+                     "x":4,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -60,7 +60,7 @@
                  "value":3
                 }]
         }],
- "tilewidth":40,
+ "tilewidth":80,
  "type":"tileset",
  "version":"1.8"
 }

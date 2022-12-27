@@ -12,14 +12,14 @@
  "spacing":0,
  "tilecount":7,
  "tiledversion":"1.9.1",
- "tileheight":64,
+ "tileheight":128,
  "tiles":[
         {
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimJumpForward1.png",
-         "imageheight":64,
-         "imagewidth":40,
+         "imageheight":128,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -28,25 +28,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":43,
+                     "height":86,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":22,
-                     "x":12,
-                     "y":14
+                     "width":44,
+                     "x":24,
+                     "y":28
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":22
+                     "width":72,
+                     "x":4,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -80,8 +80,8 @@
          "class":"Frame",
          "id":2,
          "image":"..\/..\/images\/Kim\/KimJumpForward2.png",
-         "imageheight":64,
-         "imagewidth":40,
+         "imageheight":128,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -90,25 +90,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":45,
+                     "height":90,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":10,
-                     "y":11
+                     "width":40,
+                     "x":20,
+                     "y":22
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":22
+                     "width":72,
+                     "x":4,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -142,8 +142,8 @@
          "class":"Frame",
          "id":3,
          "image":"..\/..\/images\/Kim\/KimJumpForward3.png",
-         "imageheight":64,
-         "imagewidth":40,
+         "imageheight":128,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -152,25 +152,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":37,
+                     "height":74,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":10,
-                     "y":22
+                     "width":40,
+                     "x":20,
+                     "y":44
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":22
+                     "width":72,
+                     "x":4,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -204,8 +204,8 @@
          "class":"Frame",
          "id":4,
          "image":"..\/..\/images\/Kim\/KimJumpForward4.png",
-         "imageheight":64,
-         "imagewidth":40,
+         "imageheight":128,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -214,25 +214,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":18,
+                     "height":36,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":37,
-                     "x":3,
-                     "y":35
+                     "width":74,
+                     "x":6,
+                     "y":70
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":22
+                     "width":72,
+                     "x":4,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -266,8 +266,8 @@
          "class":"Frame",
          "id":5,
          "image":"..\/..\/images\/Kim\/KimJumpForward5.png",
-         "imageheight":64,
-         "imagewidth":40,
+         "imageheight":128,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -276,25 +276,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":38,
+                     "height":76,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":9,
-                     "y":22
+                     "width":40,
+                     "x":18,
+                     "y":44
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":22
+                     "width":72,
+                     "x":4,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -328,8 +328,8 @@
          "class":"Frame",
          "id":6,
          "image":"..\/..\/images\/Kim\/KimJumpForward6.png",
-         "imageheight":64,
-         "imagewidth":40,
+         "imageheight":128,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -338,25 +338,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":18,
+                     "height":36,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":37,
+                     "width":74,
                      "x":0,
-                     "y":28
+                     "y":56
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":22
+                     "width":72,
+                     "x":4,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -390,8 +390,8 @@
          "class":"Frame",
          "id":7,
          "image":"..\/..\/images\/Kim\/KimJumpForward2.png",
-         "imageheight":64,
-         "imagewidth":40,
+         "imageheight":128,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -400,25 +400,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":45,
+                     "height":90,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":10,
-                     "y":11
+                     "width":40,
+                     "x":20,
+                     "y":22
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":22
+                     "width":72,
+                     "x":4,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -453,7 +453,7 @@
                  "value":true
                 }]
         }],
- "tilewidth":40,
+ "tilewidth":80,
  "type":"tileset",
  "version":"1.8"
 }

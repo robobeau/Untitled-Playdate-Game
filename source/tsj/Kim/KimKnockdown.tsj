@@ -11,14 +11,14 @@
  "spacing":0,
  "tilecount":1,
  "tiledversion":"1.9.1",
- "tileheight":24,
+ "tileheight":48,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
          "image":"..\/..\/images\/Kim\/KimKnockdown1.png",
-         "imageheight":24,
-         "imagewidth":56,
+         "imageheight":48,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -27,14 +27,14 @@
              "objects":[
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":10,
-                     "y":-20
+                     "width":72,
+                     "x":20,
+                     "y":-40
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -49,7 +49,7 @@
                  "value":10
                 }]
         }],
- "tilewidth":56,
+ "tilewidth":112,
  "type":"tileset",
  "version":"1.8"
 }

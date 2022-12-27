@@ -11,14 +11,14 @@
  "spacing":0,
  "tilecount":5,
  "tiledversion":"1.9.1",
- "tileheight":64,
+ "tileheight":128,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
          "image":"..\/..\/images\/Kim\/KimKickJumpNeutral1.png",
-         "imageheight":64,
-         "imagewidth":56,
+         "imageheight":128,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -27,25 +27,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":37,
+                     "height":74,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":19,
-                     "x":18,
-                     "y":22
+                     "width":38,
+                     "x":36,
+                     "y":44
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":3,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":10,
-                     "y":22
+                     "width":72,
+                     "x":20,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -64,8 +64,8 @@
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimKickJumpNeutral2.png",
-         "imageheight":64,
-         "imagewidth":56,
+         "imageheight":128,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -74,7 +74,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":15,
+                     "height":30,
                      "id":1,
                      "name":"Hitbox",
                      "properties":[
@@ -90,31 +90,31 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":24,
-                     "x":34,
-                     "y":35
+                     "width":48,
+                     "x":68,
+                     "y":70
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":34,
+                     "height":68,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":19,
-                     "x":9,
-                     "y":19
+                     "width":38,
+                     "x":18,
+                     "y":38
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":3,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
+                     "width":72,
                      "x":0,
-                     "y":19
+                     "y":38
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -133,8 +133,8 @@
          "class":"Frame",
          "id":2,
          "image":"..\/..\/images\/Kim\/KimKickJumpNeutral1.png",
-         "imageheight":64,
-         "imagewidth":56,
+         "imageheight":128,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -143,25 +143,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":37,
+                     "height":74,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":19,
-                     "x":18,
-                     "y":22
+                     "width":38,
+                     "x":36,
+                     "y":44
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":10,
-                     "y":22
+                     "width":72,
+                     "x":20,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -180,8 +180,8 @@
          "class":"Frame",
          "id":3,
          "image":"..\/..\/images\/Kim\/KimKickJumpNeutral4.png",
-         "imageheight":64,
-         "imagewidth":56,
+         "imageheight":128,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -190,25 +190,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":37,
+                     "height":74,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":18,
-                     "y":22
+                     "width":40,
+                     "x":36,
+                     "y":44
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":10,
-                     "y":22
+                     "width":72,
+                     "x":20,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -227,8 +227,8 @@
          "class":"Frame",
          "id":4,
          "image":"..\/..\/images\/Kim\/KimKickJumpNeutral5.png",
-         "imageheight":64,
-         "imagewidth":56,
+         "imageheight":128,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -237,25 +237,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":45,
+                     "height":90,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":18,
-                     "y":11
+                     "width":40,
+                     "x":36,
+                     "y":22
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":10,
-                     "y":22
+                     "width":72,
+                     "x":20,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -275,7 +275,7 @@
                  "value":true
                 }]
         }],
- "tilewidth":56,
+ "tilewidth":112,
  "type":"tileset",
  "version":"1.8"
 }

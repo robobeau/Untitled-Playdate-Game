@@ -11,14 +11,14 @@
  "spacing":0,
  "tilecount":7,
  "tiledversion":"1.9.1",
- "tileheight":64,
+ "tileheight":128,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
          "image":"..\/..\/images\/Kim\/KimKickBack1.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":128,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -27,25 +27,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":39,
+                     "height":78,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":21,
-                     "x":25,
-                     "y":25
+                     "width":42,
+                     "x":50,
+                     "y":50
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":14,
-                     "y":22
+                     "width":72,
+                     "x":28,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -69,8 +69,8 @@
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimKickBack2.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":128,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -79,25 +79,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":38,
+                     "height":76,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":27,
-                     "y":19
+                     "width":40,
+                     "x":54,
+                     "y":38
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":14,
-                     "y":22
+                     "width":72,
+                     "x":28,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -116,8 +116,8 @@
          "class":"Frame",
          "id":2,
          "image":"..\/..\/images\/Kim\/KimKickBack3.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":128,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -126,7 +126,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":25,
+                     "height":50,
                      "id":2,
                      "name":"Hitbox",
                      "properties":[
@@ -142,31 +142,31 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":21,
-                     "y":3
+                     "width":40,
+                     "x":42,
+                     "y":6
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":32,
+                     "height":64,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":18,
-                     "x":19,
-                     "y":16
+                     "width":36,
+                     "x":36,
+                     "y":32
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
+                     "width":72,
                      "x":0,
-                     "y":22
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -195,8 +195,8 @@
          "class":"Frame",
          "id":3,
          "image":"..\/..\/images\/Kim\/KimKickBack4.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":128,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -205,7 +205,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":20,
+                     "height":40,
                      "id":2,
                      "name":"Hitbox",
                      "properties":[
@@ -221,31 +221,31 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":40,
-                     "y":6
+                     "width":40,
+                     "x":80,
+                     "y":12
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":32,
+                     "height":64,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":18,
-                     "x":16,
-                     "y":17
+                     "width":36,
+                     "x":32,
+                     "y":34
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
+                     "width":72,
                      "x":0,
-                     "y":22
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -264,8 +264,8 @@
          "class":"Frame",
          "id":4,
          "image":"..\/..\/images\/Kim\/KimKickBack5.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":128,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -274,7 +274,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":17,
+                     "height":34,
                      "id":2,
                      "name":"Hitbox",
                      "properties":[
@@ -290,31 +290,31 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":23,
-                     "x":43,
-                     "y":33
+                     "width":46,
+                     "x":86,
+                     "y":66
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":33,
+                     "height":66,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":18,
-                     "x":15,
-                     "y":20
+                     "width":36,
+                     "x":30,
+                     "y":40
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
+                     "width":72,
                      "x":0,
-                     "y":22
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -333,8 +333,8 @@
          "class":"Frame",
          "id":5,
          "image":"..\/..\/images\/Kim\/KimKickBack2.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":128,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -343,25 +343,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":38,
+                     "height":76,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":27,
-                     "y":19
+                     "width":40,
+                     "x":54,
+                     "y":38
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":14,
-                     "y":22
+                     "width":72,
+                     "x":28,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -380,8 +380,8 @@
          "class":"Frame",
          "id":6,
          "image":"..\/..\/images\/Kim\/KimKickBack1.png",
-         "imageheight":64,
-         "imagewidth":64,
+         "imageheight":128,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -390,25 +390,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":39,
+                     "height":78,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":21,
-                     "x":25,
-                     "y":25
+                     "width":42,
+                     "x":50,
+                     "y":50
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":14,
-                     "y":22
+                     "width":72,
+                     "x":28,
+                     "y":44
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -423,7 +423,7 @@
                  "value":2
                 }]
         }],
- "tilewidth":64,
+ "tilewidth":128,
  "type":"tileset",
  "version":"1.8"
 }

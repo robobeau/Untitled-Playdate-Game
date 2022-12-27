@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.1" name="KimStand" class="Animation" tilewidth="40" tileheight="48" tilecount="4" columns="0" objectalignment="bottom">
+<tileset version="1.9" tiledversion="1.9.1" name="KimStand" class="Animation" tilewidth="80" tileheight="96" tilecount="4" columns="0" objectalignment="bottom">
  <editorsettings>
   <export target="../source/tsj/Kim/KimStand.tsj" format="json"/>
  </editorsettings>
@@ -16,10 +16,10 @@
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
   </properties>
-  <image width="40" height="48" source="../source/images/Kim/KimStand1.png"/>
+  <image width="80" height="96" source="../source/images/Kim/KimStand1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="10" y="6" width="20" height="42"/>
-   <object id="2" name="Pushbox" class="Pushbox" x="2" y="6" width="36" height="42"/>
+   <object id="1" name="Hurtbox" class="Hurtbox" x="20" y="12" width="40" height="84"/>
+   <object id="2" name="Pushbox" class="Pushbox" x="4" y="12" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="1" class="Frame">
@@ -31,10 +31,10 @@
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
   </properties>
-  <image width="40" height="48" source="../source/images/Kim/KimStand2.png"/>
+  <image width="80" height="96" source="../source/images/Kim/KimStand2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="10" y="5" width="19" height="43"/>
-   <object id="2" name="Pushbox" class="Pushbox" x="2" y="6" width="36" height="42"/>
+   <object id="1" name="Hurtbox" class="Hurtbox" x="20" y="10" width="38" height="86"/>
+   <object id="2" name="Pushbox" class="Pushbox" x="4" y="12" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="2" class="Frame">
@@ -46,10 +46,10 @@
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
   </properties>
-  <image width="40" height="48" source="../source/images/Kim/KimStand3.png"/>
+  <image width="80" height="96" source="../source/images/Kim/KimStand3.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="10" y="5" width="20" height="43"/>
-   <object id="2" name="Pushbox" class="Pushbox" x="2" y="6" width="36" height="42"/>
+   <object id="1" name="Hurtbox" class="Hurtbox" x="20" y="10" width="40" height="86"/>
+   <object id="2" name="Pushbox" class="Pushbox" x="4" y="12" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="4" class="Frame">
@@ -61,10 +61,10 @@
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
   </properties>
-  <image width="40" height="48" source="../source/images/Kim/KimStand1.png"/>
+  <image width="80" height="96" source="../source/images/Kim/KimStand1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="10" y="6" width="20" height="42"/>
-   <object id="2" name="Pushbox" class="Pushbox" x="2" y="6" width="36" height="42"/>
+   <object id="1" name="Hurtbox" class="Hurtbox" x="20" y="12" width="40" height="84"/>
+   <object id="2" name="Pushbox" class="Pushbox" x="4" y="12" width="72" height="84"/>
   </objectgroup>
  </tile>
 </tileset>
