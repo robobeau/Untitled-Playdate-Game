@@ -1,0 +1,171 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "extensionsPath": "extensions",
+    "folders": [
+        "."
+    ],
+    "propertyTypes": [
+        {
+            "color": "#ffa0a0a4",
+            "id": 3,
+            "members": [
+                {
+                    "name": "loops",
+                    "type": "bool",
+                    "value": false
+                }
+            ],
+            "name": "Animation",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 2,
+            "members": [
+                {
+                    "name": "airborne",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "attackCancellable",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "frameDuration",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "ignoreGravity",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "jumpCancellable",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "loops",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "moveCancellable",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "velocityX",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "velocityY",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "specialCancellable",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "superCancellable",
+                    "type": "bool",
+                    "value": false
+                }
+            ],
+            "name": "Frame",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffaa0000",
+            "id": 4,
+            "members": [
+                {
+                    "name": "velocityX",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "velocityY",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "name": "Hitbox",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffaa00ff",
+            "id": 5,
+            "members": [
+            ],
+            "name": "Hurtbox",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ff00ff00",
+            "id": 6,
+            "members": [
+            ],
+            "name": "Pushbox",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        }
+    ]
+}
