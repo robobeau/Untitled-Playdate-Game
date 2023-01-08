@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.1" name="KimFlashKick" class="Animation" tilewidth="112" tileheight="128" tilecount="9" columns="0">
+<tileset version="1.9" tiledversion="1.9.1" name="KimFlashKick" class="Animation" tilewidth="112" tileheight="128" tilecount="8" columns="0">
  <editorsettings>
   <export target="../source/tsj/KimFlashKick.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
- <tile id="1" class="Frame">
-  <properties>
-   <property name="frameDuration" type="int" value="2"/>
-   <property name="velocityX" type="int" value="0"/>
-  </properties>
-  <image width="112" height="128" source="../source/images/Kim/KimFlashKick2.png"/>
-  <objectgroup draworder="index" id="2">
-   <object id="2" name="Hurtbox" class="Hurtbox" x="40" y="50" width="42" height="78"/>
-   <object id="1" name="Pushbox" class="Pushbox" x="20" y="44" width="72" height="84"/>
-  </objectgroup>
- </tile>
  <tile id="2" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="1"/>

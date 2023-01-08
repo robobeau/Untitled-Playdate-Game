@@ -9,62 +9,10 @@
  "margin":0,
  "name":"KimFlashKick",
  "spacing":0,
- "tilecount":9,
+ "tilecount":8,
  "tiledversion":"1.9.1",
  "tileheight":128,
  "tiles":[
-        {
-         "class":"Frame",
-         "id":1,
-         "image":"..\/..\/images\/Kim\/KimFlashKick2.png",
-         "imageheight":128,
-         "imagewidth":112,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":2,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":42,
-                     "x":40,
-                     "y":50
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":20,
-                     "y":44
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":2
-                }, 
-                {
-                 "name":"velocityX",
-                 "type":"int",
-                 "value":0
-                }]
-        }, 
         {
          "class":"Frame",
          "id":2,

@@ -7,6 +7,8 @@
  <tile id="0" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="3"/>
+   <property name="specialCancellable" type="bool" value="true"/>
+   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="80" height="80" source="../source/images/Kim/KimTransition1.png"/>
   <objectgroup draworder="index" id="2">

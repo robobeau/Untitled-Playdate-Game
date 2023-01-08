@@ -58,6 +58,16 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":3
+                }, 
+                {
+                 "name":"specialCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"superCancellable",
+                 "type":"bool",
+                 "value":true
                 }]
         }],
  "tilewidth":80,
