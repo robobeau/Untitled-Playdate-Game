@@ -107,8 +107,6 @@ function Character:init(config)
 end
 
 function Character:update()
-  local state <const> = self.states[self.counter]
-
   self:CheckCrank()
 
   if (self.frozen == true) then
@@ -124,9 +122,8 @@ function Character:update()
   self:UpdateAnimation()
   self:UpdatePhysics()
   self:UpdatePosition()
-
-  self.counter += 1
-  self.states[self.counter] = table.deepcopy(state)
+  self:UpdateImageTableIndex()
+  self:UpdateCounter()
 end
 
 function Character:UpdateFrozenSprite()
@@ -414,8 +411,6 @@ end
 function Character:DeriveImageTableFromState()
   local filteredState <const> = self:GetFilteredStateForTilesets()
   local state <const> = self.states[self.counter]
-
-  -- print('DeriveImageTableFromState', state)
 
   self.imageTable = self.imageTables[filteredState]
   state.imageTableIndex = 1
@@ -1033,11 +1028,12 @@ function Character:SetState(state)
     keyset[v] = k
   end
 
-  print('SetState', keyset[state], state)
+  -- print('SetState()', keyset[state], state)
 
   self.states[self.counter].state = state
 
   self:DeriveImageTableFromState()
+  self:UpdateAnimation()
   self:DerivePhysicsFromState()
 end
 
@@ -1124,9 +1120,8 @@ end
 
 function Character:UpdateAnimation()
   self:UpdateImage()
-  self:UpdateImageTableIndex()
-  self:UpdatePushboxPosition()
   self:UpdateCollisions()
+  self:UpdatePushboxPosition()
   self:setImageFlip(self:GetFlip(), true)
 end
 
@@ -1192,6 +1187,13 @@ function Character:UpdateCollisions()
   end
 end
 
+function Character:UpdateCounter()
+  local state <const> = self.states[self.counter]
+
+  self.counter += 1
+  self.states[self.counter] = table.deepcopy(state)
+end
+
 function Character:UpdateDirection()
   local opponentCenter <const> = self.opponent:getBoundsRect():centerPoint()
   local selfCenter <const> = self:getBoundsRect():centerPoint()
@@ -1219,10 +1221,10 @@ function Character:UpdatePhysics()
   local state <const> = self.states[self.counter]
 
   -- Apply drag
-  if (math.abs(state.velocity.x) > 0) then
-    -- TODO: Implement drag based on stage weather...?
-    -- self:ChangeVelocityX(self.drag, false)
-  end
+  -- if (math.abs(state.velocity.x) > 0) then
+  --   -- TODO: Implement drag based on stage weather...?
+  --   self:ChangeVelocityX(self.drag, false)
+  -- end
 
   -- Apply gravity
   state.velocity.y += self.gravity
@@ -1242,7 +1244,7 @@ function Character:UpdateImageTableIndex()
     state.imageTableIndex = 1
   end
 
-  -- print(state.imageTableIndex)
+  -- print('UpdateImageTableIndex()', state.imageTableIndex)
 end
 
 function Character:UpdatePosition()
