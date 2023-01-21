@@ -9,10 +9,10 @@ import 'inputs'
 local pd <const> = playdate
 
 local defaults <const> = {
-  dashSpeed = 8,
-  jumpHeight = 12,
+  -- dashSpeed = 8,
+  -- jumpHeight = 12,
   name = 'Kim',
-  speed = 4,
+  -- speed = 4,
 }
 
 class('Kim', defaults).extends(Character)

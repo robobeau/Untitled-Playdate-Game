@@ -48,15 +48,15 @@ charStates = {
 local defaults <const> = {
   canDoubleJump = false,
   counter = 1,
-  dashSpeed = 8,
+  dashSpeed = 10,
   drag = 1,
   emptyCollisionSprites = {},
   gravity = 1,
   imageTables = {},
-  jumpHeight = 12,
+  jumpHeight = 14,
   name = 'Character',
   runSpeed = 10,
-  speed = 4,
+  speed = 5,
   startingPosition = {
     x = 0,
     y = 0,
@@ -320,16 +320,22 @@ function Character:CheckMovementInputs()
     if (Inputs:CheckJumpInput(self)) then
       local newState = charStates.JUMP | charStates.BEGIN
 
-      if (self:IsBack()) then
+      if (Inputs:CheckMoveBackInput(self)) then
         newState |= charStates.BACK
-      elseif (self:IsForward()) then
-        newState |= charStates.FORWARD
-      end
 
-      if (self:IsRunning()) then
-        newState |= charStates.RUN
-      elseif (self:IsMoving()) then
-        newState |= charStates.MOVE
+        if (self:IsRunning()) then
+          newState |= charStates.RUN
+        else
+          newState |= charStates.MOVE
+        end
+      elseif (Inputs:CheckMoveForwardInput(self)) then
+        newState |= charStates.FORWARD
+
+        if (self:IsRunning()) then
+          newState |= charStates.RUN
+        else
+          newState |= charStates.MOVE
+        end
       end
 
       self:SetState(newState)
@@ -629,6 +635,19 @@ function Character:HasAnimationEnded()
   local state <const> = self.states[self.counter]
 
   return state.imageTableIndex >= self.imageTable:getLength()
+end
+
+function Character:HasDirectionChanged()
+  local current <const> = self.states[self.counter]
+  local prev <const> = self.states[self.counter - 1]
+
+  if (prev == nil) then
+    return false
+  end
+
+  -- print('Prev:' .. prev.direction, 'Next:' .. current.direction, current.direction ~= prev.direction)
+
+  return current.direction ~= prev.direction
 end
 
 function Character:HasStateChanged()
@@ -933,7 +952,8 @@ function Character:LoadTilesets()
   local hurtCrouchTileset <const> = self:HydrateTileset(self:LoadTSJ('HurtCrouch'))
   local hurtTileset <const> = self:HydrateTileset(self:LoadTSJ('Hurt'))
   local hurtJumpTileset <const> = self:HydrateTileset(self:LoadTSJ('HurtJump'))
-  local moveTileset <const> = self:HydrateTileset(self:LoadTSJ('Move'))
+  local moveBackTileset <const> = self:HydrateTileset(self:LoadTSJ('MoveBack'))
+  local moveForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('MoveForward'))
   local jumpBackTileset <const> = self:HydrateTileset(self:LoadTSJ('JumpBack'))
   local jumpForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('JumpForward'))
   local jumpNeutralTileset <const> = self:HydrateTileset(self:LoadTSJ('JumpNeutral'))
@@ -984,8 +1004,8 @@ function Character:LoadTilesets()
     [charStates.JUMP | charStates.FORWARD] = jumpForwardTileset,
 
     -- Moving
-    [charStates.MOVE | charStates.BACK] = moveTileset,
-    [charStates.MOVE | charStates.FORWARD] = moveTileset,
+    [charStates.MOVE | charStates.BACK] = moveBackTileset,
+    [charStates.MOVE | charStates.FORWARD] = moveForwardTileset,
 
     -- Punching
     [charStates.PUNCH | charStates.CROUCH] = self:HydrateTileset(self:LoadTSJ('PunchCrouch')),
@@ -1022,11 +1042,11 @@ function Character:NormalizeMovementVelocityX(velocityX)
 end
 
 function Character:SetState(state)
-  local keyset = {}
+  -- local keyset = {}
 
-  for k, v in pairs(charStates) do
-    keyset[v] = k
-  end
+  -- for k, v in pairs(charStates) do
+  --   keyset[v] = k
+  -- end
 
   -- print('SetState()', keyset[state], state)
 
@@ -1048,6 +1068,16 @@ function Character:TransitionState()
   local tileProperties <const> = self:GetTileProperties(state.imageTableIndex)
   local tilesetProperties <const> = self:GetTilesetProperties()
   local loops = tilesetProperties.loops or tileProperties.loops
+
+  if (self:HasDirectionChanged()) then
+    if (self:IsMoving()) then
+      if (self:IsForward()) then
+        self:SetState(charStates.MOVE | charStates.BACK)
+      else
+        self:SetState(charStates.MOVE | charStates.FORWARD)
+      end
+    end
+  end
 
   if (not self:HasAnimationEnded()) then
     return
@@ -1199,7 +1229,7 @@ function Character:UpdateDirection()
   local selfCenter <const> = self:getBoundsRect():centerPoint()
   local state <const> = self.states[self.counter]
 
-  if (not self:IsCrouching(true) and not self:IsMoving() and not self:IsStanding(true)) then
+  if (self:IsJumping() or self:IsRunning()) then
     return
   end
 
@@ -1255,6 +1285,8 @@ function Character:UpdatePosition()
   local state <const> = self.states[self.counter]
 
   if (not self:IsBeginning() and not self:IsEnding()) then
+    print(state.velocity.x)
+
     attemptedPosition.x += state.velocity.x
     attemptedPosition.y += state.velocity.y
     -- We also need to update the position of the pushbox's rect.

@@ -6,8 +6,8 @@ import "CoreLibs/sprites"
 import "CoreLibs/timer"
 
 import 'ball'
+import 'characters/kim'
 import 'collisionTypes'
-import 'kim'
 
 -- Convenience variables
 local pd <const> = playdate
