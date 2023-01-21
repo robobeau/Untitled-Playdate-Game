@@ -11,14 +11,14 @@
  "spacing":0,
  "tilecount":5,
  "tiledversion":"1.9.1",
- "tileheight":40,
+ "tileheight":80,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
          "image":"..\/..\/images\/Kim\/KimTransitionHurtJump1.png",
-         "imageheight":40,
-         "imagewidth":64,
+         "imageheight":80,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -27,14 +27,14 @@
              "objects":[
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":14,
-                     "y":-4
+                     "width":72,
+                     "x":28,
+                     "y":-8
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -58,8 +58,8 @@
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimTransitionHurtJump2.png",
-         "imageheight":40,
-         "imagewidth":64,
+         "imageheight":80,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -68,14 +68,14 @@
              "objects":[
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":14,
-                     "y":-4
+                     "width":72,
+                     "x":28,
+                     "y":-8
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -94,8 +94,8 @@
          "class":"Frame",
          "id":2,
          "image":"..\/..\/images\/Kim\/KimTransitionHurtJump3.png",
-         "imageheight":40,
-         "imagewidth":64,
+         "imageheight":80,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -104,14 +104,14 @@
              "objects":[
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":14,
-                     "y":-2
+                     "width":72,
+                     "x":28,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -135,8 +135,8 @@
          "class":"Frame",
          "id":3,
          "image":"..\/..\/images\/Kim\/KimTransitionHurtJump3.png",
-         "imageheight":40,
-         "imagewidth":64,
+         "imageheight":80,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -145,14 +145,14 @@
              "objects":[
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":14,
-                     "y":-2
+                     "width":72,
+                     "x":28,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -171,8 +171,8 @@
          "class":"Frame",
          "id":4,
          "image":"..\/..\/images\/Kim\/KimTransitionHurtJump2.png",
-         "imageheight":40,
-         "imagewidth":64,
+         "imageheight":80,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -181,14 +181,14 @@
              "objects":[
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":14,
-                     "y":-4
+                     "width":72,
+                     "x":28,
+                     "y":-8
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -208,7 +208,7 @@
                  "value":0
                 }]
         }],
- "tilewidth":64,
+ "tilewidth":128,
  "type":"tileset",
  "version":"1.8"
 }

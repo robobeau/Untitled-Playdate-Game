@@ -11,14 +11,14 @@
  "spacing":0,
  "tilecount":4,
  "tiledversion":"1.9.1",
- "tileheight":40,
+ "tileheight":80,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
          "image":"..\/..\/images\/Kim\/KimKickCrouch1.png",
-         "imageheight":40,
-         "imagewidth":64,
+         "imageheight":80,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -27,25 +27,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":37,
+                     "height":74,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":19,
-                     "x":11,
-                     "y":3
+                     "width":38,
+                     "x":22,
+                     "y":6
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":-2
+                     "width":72,
+                     "x":4,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -64,8 +64,8 @@
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimKickCrouch2.png",
-         "imageheight":40,
-         "imagewidth":64,
+         "imageheight":80,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -74,7 +74,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":11,
+                     "height":22,
                      "id":3,
                      "name":"Hitbox",
                      "properties":[
@@ -90,31 +90,31 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":12,
-                     "x":29,
-                     "y":29
+                     "width":24,
+                     "x":58,
+                     "y":58
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":38,
+                     "height":76,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":19,
-                     "x":10,
-                     "y":2
+                     "width":38,
+                     "x":20,
+                     "y":4
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":-2
+                     "width":72,
+                     "x":4,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -133,8 +133,8 @@
          "class":"Frame",
          "id":2,
          "image":"..\/..\/images\/Kim\/KimKickCrouch3.png",
-         "imageheight":40,
-         "imagewidth":64,
+         "imageheight":80,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -143,7 +143,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":14,
+                     "height":28,
                      "id":3,
                      "name":"Hitbox",
                      "properties":[
@@ -159,31 +159,31 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":28,
-                     "x":38,
-                     "y":26
+                     "width":56,
+                     "x":76,
+                     "y":52
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":33,
+                     "height":66,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":19,
-                     "x":16,
-                     "y":7
+                     "width":38,
+                     "x":32,
+                     "y":14
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":-2
+                     "width":72,
+                     "x":4,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -212,8 +212,8 @@
          "class":"Frame",
          "id":3,
          "image":"..\/..\/images\/Kim\/KimKickCrouch4.png",
-         "imageheight":40,
-         "imagewidth":64,
+         "imageheight":80,
+         "imagewidth":128,
          "objectgroup":
             {
              "draworder":"index",
@@ -222,25 +222,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":38,
+                     "height":76,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":19,
-                     "x":10,
-                     "y":2
+                     "width":38,
+                     "x":20,
+                     "y":4
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":-2
+                     "width":72,
+                     "x":4,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -255,7 +255,7 @@
                  "value":4
                 }]
         }],
- "tilewidth":64,
+ "tilewidth":128,
  "type":"tileset",
  "version":"1.8"
 }

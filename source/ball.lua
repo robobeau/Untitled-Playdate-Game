@@ -46,8 +46,8 @@ ballSizes = {
     y = 10,
   },
   [ballTypes.TENNISBALL] = {
-    x = 10,
-    y = 10,
+    x = 16,
+    y = 16,
   },
   [ballTypes.VOLLEYBALL] = {
     x = 10,

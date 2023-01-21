@@ -9,10 +9,10 @@ import 'inputs'
 local pd <const> = playdate
 
 local defaults <const> = {
-  dashSpeed = 8,
-  jumpHeight = 12,
+  -- dashSpeed = 8,
+  -- jumpHeight = 12,
   name = 'Kim',
-  speed = 4,
+  -- speed = 4,
 }
 
 class('Kim', defaults).extends(Character)
@@ -36,7 +36,17 @@ function Kim:CheckSpecialInputs()
     return true
   end
 
-  if (not self:IsJumping() and Inputs:CheckSpecialUpInput(self)) then
+  if (
+    (
+      self:IsCrouching() or
+      self:IsStanding() or
+      (
+        self:IsBeginning() and
+        self:IsJumping()
+      )
+    ) and
+    Inputs:CheckSpecialUpInput(self)
+  ) then
     self:SetState(charStates.SPECIAL | charStates.UP)
 
     return true

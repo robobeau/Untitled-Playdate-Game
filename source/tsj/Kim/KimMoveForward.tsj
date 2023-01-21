@@ -7,19 +7,25 @@
      "width":1
     },
  "margin":0,
- "name":"KimKickNeutral",
+ "name":"KimMoveForward",
  "objectalignment":"bottom",
+ "properties":[
+        {
+         "name":"loops",
+         "type":"bool",
+         "value":true
+        }],
  "spacing":0,
- "tilecount":4,
+ "tilecount":3,
  "tiledversion":"1.9.1",
  "tileheight":96,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/Kim\/KimKickNeutral1.png",
+         "image":"..\/..\/images\/Kim\/KimMove1.png",
          "imageheight":96,
-         "imagewidth":96,
+         "imagewidth":64,
          "objectgroup":
             {
              "draworder":"index",
@@ -28,140 +34,24 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":34,
-                     "x":50,
-                     "y":18
-                    }, 
-                    {
-                     "class":"Pushbox",
                      "height":84,
-                     "id":3,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":24,
-                     "y":12
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":2
-                }]
-        }, 
-        {
-         "class":"Frame",
-         "id":1,
-         "image":"..\/..\/images\/Kim\/KimKickNeutral2.png",
-         "imageheight":96,
-         "imagewidth":96,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":90,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
                      "width":40,
-                     "x":26,
-                     "y":6
+                     "x":12,
+                     "y":12
                     }, 
                     {
                      "class":"Pushbox",
                      "height":84,
-                     "id":4,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":24,
-                     "y":12
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":2
-                }]
-        }, 
-        {
-         "class":"Frame",
-         "id":2,
-         "image":"..\/..\/images\/Kim\/KimKickNeutral3.png",
-         "imageheight":96,
-         "imagewidth":96,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hitbox",
-                     "height":48,
                      "id":2,
-                     "name":"Hitbox",
-                     "properties":[
-                            {
-                             "name":"velocityX",
-                             "type":"int",
-                             "value":6
-                            }, 
-                            {
-                             "name":"velocityY",
-                             "type":"int",
-                             "value":6
-                            }],
-                     "rotation":0,
-                     "visible":true,
-                     "width":48,
-                     "x":54,
-                     "y":8
-                    }, 
-                    {
-                     "class":"Hurtbox",
-                     "height":88,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":40,
-                     "x":10,
-                     "y":8
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":3,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
                      "width":72,
-                     "x":24,
+                     "x":-6,
                      "y":12
                     }],
              "opacity":1,
@@ -172,9 +62,24 @@
             },
          "properties":[
                 {
+                 "name":"attackCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":9
+                 "value":3
+                }, 
+                {
+                 "name":"jumpCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"moveCancellable",
+                 "type":"bool",
+                 "value":true
                 }, 
                 {
                  "name":"specialCancellable",
@@ -189,10 +94,10 @@
         }, 
         {
          "class":"Frame",
-         "id":4,
-         "image":"..\/..\/images\/Kim\/KimKickNeutral4.png",
+         "id":1,
+         "image":"..\/..\/images\/Kim\/KimMove2.png",
          "imageheight":96,
-         "imagewidth":96,
+         "imagewidth":64,
          "objectgroup":
             {
              "draworder":"index",
@@ -201,24 +106,24 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":78,
-                     "id":4,
+                     "height":86,
+                     "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":34,
-                     "x":50,
-                     "y":18
+                     "width":38,
+                     "x":12,
+                     "y":10
                     }, 
                     {
                      "class":"Pushbox",
                      "height":84,
-                     "id":5,
+                     "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
                      "width":72,
-                     "x":24,
+                     "x":-6,
                      "y":12
                     }],
              "opacity":1,
@@ -229,12 +134,109 @@
             },
          "properties":[
                 {
+                 "name":"attackCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
+                }, 
+                {
+                 "name":"jumpCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"moveCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"specialCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"superCancellable",
+                 "type":"bool",
+                 "value":true
+                }]
+        }, 
+        {
+         "class":"Frame",
+         "id":2,
+         "image":"..\/..\/images\/Kim\/KimMove3.png",
+         "imageheight":96,
+         "imagewidth":64,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "class":"Hurtbox",
+                     "height":84,
+                     "id":1,
+                     "name":"Hurtbox",
+                     "rotation":0,
+                     "visible":true,
+                     "width":42,
+                     "x":10,
+                     "y":12
+                    }, 
+                    {
+                     "class":"Pushbox",
+                     "height":84,
+                     "id":2,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "visible":true,
+                     "width":72,
+                     "x":-6,
+                     "y":12
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"attackCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"frameDuration",
+                 "type":"int",
+                 "value":5
+                }, 
+                {
+                 "name":"jumpCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"moveCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"specialCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"superCancellable",
+                 "type":"bool",
+                 "value":true
                 }]
         }],
- "tilewidth":96,
+ "tilewidth":64,
  "type":"tileset",
  "version":"1.8"
 }

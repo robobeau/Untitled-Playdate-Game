@@ -18,14 +18,14 @@
  "spacing":0,
  "tilecount":1,
  "tiledversion":"1.9.1",
- "tileheight":48,
+ "tileheight":96,
  "tiles":[
         {
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimDashBack1.png",
-         "imageheight":48,
-         "imagewidth":40,
+         "imageheight":96,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -34,25 +34,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":34,
+                     "height":68,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":7,
-                     "y":4
+                     "width":40,
+                     "x":14,
+                     "y":8
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":6
+                     "width":72,
+                     "x":4,
+                     "y":12
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -67,7 +67,7 @@
                  "value":4
                 }]
         }],
- "tilewidth":40,
+ "tilewidth":80,
  "type":"tileset",
  "version":"1.8"
 }

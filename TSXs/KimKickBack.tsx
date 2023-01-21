@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.1" name="KimKickBack" class="Animation" tilewidth="64" tileheight="64" tilecount="7" columns="0">
+<tileset version="1.9" tiledversion="1.9.1" name="KimKickBack" class="Animation" tilewidth="128" tileheight="128" tilecount="7" columns="0">
  <editorsettings>
   <export target="../source/tsj/KimKickBack.tsj" format="json"/>
  </editorsettings>
@@ -9,20 +9,20 @@
    <property name="frameDuration" type="int" value="2"/>
    <property name="velocityX" type="int" value="0"/>
   </properties>
-  <image width="64" height="64" source="../source/images/Kim/KimKickBack1.png"/>
+  <image width="128" height="128" source="../source/images/Kim/KimKickBack1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="25" y="25" width="21" height="39"/>
-   <object id="2" name="Pushbox" class="Pushbox" x="14" y="22" width="36" height="42"/>
+   <object id="1" name="Hurtbox" class="Hurtbox" x="50" y="50" width="42" height="78"/>
+   <object id="2" name="Pushbox" class="Pushbox" x="28" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="1" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="64" height="64" source="../source/images/Kim/KimKickBack2.png"/>
+  <image width="128" height="128" source="../source/images/Kim/KimKickBack2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hurtbox" class="Hurtbox" x="27" y="19" width="20" height="38"/>
-   <object id="1" name="Pushbox" class="Pushbox" x="14" y="22" width="36" height="42"/>
+   <object id="2" name="Hurtbox" class="Hurtbox" x="54" y="38" width="40" height="76"/>
+   <object id="1" name="Pushbox" class="Pushbox" x="28" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="2" class="Frame">
@@ -31,68 +31,68 @@
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
   </properties>
-  <image width="64" height="64" source="../source/images/Kim/KimKickBack3.png"/>
+  <image width="128" height="128" source="../source/images/Kim/KimKickBack3.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hitbox" class="Hitbox" x="21" y="3" width="20" height="25">
+   <object id="2" name="Hitbox" class="Hitbox" x="42" y="6" width="40" height="50">
     <properties>
      <property name="velocityX" type="int" value="0"/>
      <property name="velocityY" type="int" value="6"/>
     </properties>
    </object>
-   <object id="3" name="Hurtbox" class="Hurtbox" x="19" y="16" width="18" height="32"/>
-   <object id="1" name="Pushbox" class="Pushbox" x="0" y="22" width="36" height="42"/>
+   <object id="3" name="Hurtbox" class="Hurtbox" x="36" y="32" width="36" height="64"/>
+   <object id="1" name="Pushbox" class="Pushbox" x="0" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="3" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
-  <image width="64" height="64" source="../source/images/Kim/KimKickBack4.png"/>
+  <image width="128" height="128" source="../source/images/Kim/KimKickBack4.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hitbox" class="Hitbox" x="40" y="6" width="20" height="20">
+   <object id="2" name="Hitbox" class="Hitbox" x="80" y="12" width="40" height="40">
     <properties>
      <property name="velocityX" type="int" value="4"/>
      <property name="velocityY" type="int" value="6"/>
     </properties>
    </object>
-   <object id="3" name="Hurtbox" class="Hurtbox" x="16" y="17" width="18" height="32"/>
-   <object id="1" name="Pushbox" class="Pushbox" x="0" y="22" width="36" height="42"/>
+   <object id="3" name="Hurtbox" class="Hurtbox" x="32" y="34" width="36" height="64"/>
+   <object id="1" name="Pushbox" class="Pushbox" x="0" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="4" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
-  <image width="64" height="64" source="../source/images/Kim/KimKickBack5.png"/>
+  <image width="128" height="128" source="../source/images/Kim/KimKickBack5.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hitbox" class="Hitbox" x="43" y="33" width="23" height="17">
+   <object id="2" name="Hitbox" class="Hitbox" x="86" y="66" width="46" height="34">
     <properties>
      <property name="velocityX" type="int" value="4"/>
      <property name="velocityY" type="int" value="2"/>
     </properties>
    </object>
-   <object id="3" name="Hurtbox" class="Hurtbox" x="15" y="20" width="18" height="33"/>
-   <object id="1" name="Pushbox" class="Pushbox" x="0" y="22" width="36" height="42"/>
+   <object id="3" name="Hurtbox" class="Hurtbox" x="30" y="40" width="36" height="66"/>
+   <object id="1" name="Pushbox" class="Pushbox" x="0" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="5" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="64" height="64" source="../source/images/Kim/KimKickBack2.png"/>
+  <image width="128" height="128" source="../source/images/Kim/KimKickBack2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hurtbox" class="Hurtbox" x="27" y="19" width="20" height="38"/>
-   <object id="1" name="Pushbox" class="Pushbox" x="14" y="22" width="36" height="42"/>
+   <object id="2" name="Hurtbox" class="Hurtbox" x="54" y="38" width="40" height="76"/>
+   <object id="1" name="Pushbox" class="Pushbox" x="28" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="6" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="64" height="64" source="../source/images/Kim/KimKickBack1.png"/>
+  <image width="128" height="128" source="../source/images/Kim/KimKickBack1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="25" y="25" width="21" height="39"/>
-   <object id="2" name="Pushbox" class="Pushbox" x="14" y="22" width="36" height="42"/>
+   <object id="1" name="Hurtbox" class="Hurtbox" x="50" y="50" width="42" height="78"/>
+   <object id="2" name="Pushbox" class="Pushbox" x="28" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
 </tileset>

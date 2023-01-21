@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.1" name="KimJumpTransition" class="Animation" tilewidth="40" tileheight="40" tilecount="1" columns="0">
+<tileset version="1.9" tiledversion="1.9.1" name="KimTransition" class="Animation" tilewidth="80" tileheight="80" tilecount="1" columns="0">
  <editorsettings>
-  <export target="../source/tsj/Kim/KimJumpTransition.tsj" format="json"/>
+  <export target="../source/tsj/Kim/KimTransition.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="3"/>
+   <property name="specialCancellable" type="bool" value="true"/>
+   <property name="superCancellable" type="bool" value="true"/>
   </properties>
-  <image width="40" height="40" source="../source/images/Kim/KimJumpTransition1.png"/>
+  <image width="80" height="80" source="../source/images/Kim/KimTransition1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="13" y="1" width="21" height="39"/>
-   <object id="2" name="Pushbox" class="Pushbox" x="2" y="-2" width="36" height="42"/>
+   <object id="1" name="Hurtbox" class="Hurtbox" x="26" y="2" width="42" height="78"/>
+   <object id="2" name="Pushbox" class="Pushbox" x="4" y="-4" width="72" height="84"/>
   </objectgroup>
  </tile>
 </tileset>

@@ -12,14 +12,14 @@
  "spacing":0,
  "tilecount":4,
  "tiledversion":"1.9.1",
- "tileheight":40,
+ "tileheight":80,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
          "image":"..\/..\/images\/Kim\/KimHurt1.png",
-         "imageheight":40,
-         "imagewidth":56,
+         "imageheight":80,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -28,25 +28,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":36,
+                     "height":72,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":22,
-                     "x":20,
-                     "y":4
+                     "width":44,
+                     "x":40,
+                     "y":8
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":9,
-                     "y":-2
+                     "width":72,
+                     "x":18,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -70,8 +70,8 @@
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimHurt2.png",
-         "imageheight":40,
-         "imagewidth":56,
+         "imageheight":80,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -80,25 +80,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":33,
+                     "height":66,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":33,
-                     "x":3,
-                     "y":7
+                     "width":66,
+                     "x":6,
+                     "y":14
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":20,
-                     "y":-2
+                     "width":72,
+                     "x":40,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -122,8 +122,8 @@
          "class":"Frame",
          "id":2,
          "image":"..\/..\/images\/Kim\/KimHurt2.png",
-         "imageheight":40,
-         "imagewidth":56,
+         "imageheight":80,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -132,25 +132,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":33,
+                     "height":66,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":33,
-                     "x":3,
-                     "y":7
+                     "width":66,
+                     "x":6,
+                     "y":14
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":20,
-                     "y":-2
+                     "width":72,
+                     "x":40,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -169,8 +169,8 @@
          "class":"Frame",
          "id":3,
          "image":"..\/..\/images\/Kim\/KimHurt1.png",
-         "imageheight":40,
-         "imagewidth":56,
+         "imageheight":80,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -179,25 +179,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":36,
+                     "height":72,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":22,
-                     "x":20,
-                     "y":4
+                     "width":44,
+                     "x":40,
+                     "y":8
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":9,
-                     "y":-2
+                     "width":72,
+                     "x":18,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -217,7 +217,7 @@
                  "value":0
                 }]
         }],
- "tilewidth":56,
+ "tilewidth":112,
  "type":"tileset",
  "version":"1.8"
 }

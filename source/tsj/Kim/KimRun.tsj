@@ -17,14 +17,14 @@
  "spacing":0,
  "tilecount":6,
  "tiledversion":"1.9.1",
- "tileheight":40,
+ "tileheight":80,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
          "image":"..\/..\/images\/Kim\/KimRun1.png",
-         "imageheight":40,
-         "imagewidth":48,
+         "imageheight":80,
+         "imagewidth":96,
          "objectgroup":
             {
              "draworder":"index",
@@ -33,25 +33,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":40,
+                     "height":80,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":24,
-                     "x":15,
+                     "width":48,
+                     "x":30,
                      "y":0
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":9,
-                     "y":-2
+                     "width":72,
+                     "x":18,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -95,8 +95,8 @@
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimRun2.png",
-         "imageheight":40,
-         "imagewidth":48,
+         "imageheight":80,
+         "imagewidth":96,
          "objectgroup":
             {
              "draworder":"index",
@@ -105,25 +105,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":40,
+                     "height":80,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":23,
-                     "x":16,
+                     "width":46,
+                     "x":32,
                      "y":0
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":9,
-                     "y":-2
+                     "width":72,
+                     "x":18,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -167,8 +167,8 @@
          "class":"Frame",
          "id":2,
          "image":"..\/..\/images\/Kim\/KimRun3.png",
-         "imageheight":40,
-         "imagewidth":48,
+         "imageheight":80,
+         "imagewidth":96,
          "objectgroup":
             {
              "draworder":"index",
@@ -177,25 +177,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":40,
+                     "height":80,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":22,
-                     "x":17,
+                     "width":44,
+                     "x":34,
                      "y":0
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":9,
-                     "y":-2
+                     "width":72,
+                     "x":18,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -239,8 +239,8 @@
          "class":"Frame",
          "id":3,
          "image":"..\/..\/images\/Kim\/KimRun4.png",
-         "imageheight":40,
-         "imagewidth":48,
+         "imageheight":80,
+         "imagewidth":96,
          "objectgroup":
             {
              "draworder":"index",
@@ -249,25 +249,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":40,
+                     "height":80,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":24,
-                     "x":15,
+                     "width":48,
+                     "x":30,
                      "y":0
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":9,
-                     "y":-2
+                     "width":72,
+                     "x":18,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -311,8 +311,8 @@
          "class":"Frame",
          "id":4,
          "image":"..\/..\/images\/Kim\/KimRun5.png",
-         "imageheight":40,
-         "imagewidth":48,
+         "imageheight":80,
+         "imagewidth":96,
          "objectgroup":
             {
              "draworder":"index",
@@ -321,25 +321,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":40,
+                     "height":80,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":22,
-                     "x":17,
+                     "width":44,
+                     "x":34,
                      "y":0
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":9,
-                     "y":-2
+                     "width":72,
+                     "x":18,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -383,8 +383,8 @@
          "class":"Frame",
          "id":5,
          "image":"..\/..\/images\/Kim\/KimRun6.png",
-         "imageheight":40,
-         "imagewidth":48,
+         "imageheight":80,
+         "imagewidth":96,
          "objectgroup":
             {
              "draworder":"index",
@@ -393,25 +393,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":40,
+                     "height":80,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":22,
-                     "x":17,
+                     "width":44,
+                     "x":34,
                      "y":0
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":9,
-                     "y":-2
+                     "width":72,
+                     "x":18,
+                     "y":-4
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -451,7 +451,7 @@
                  "value":true
                 }]
         }],
- "tilewidth":48,
+ "tilewidth":96,
  "type":"tileset",
  "version":"1.8"
 }

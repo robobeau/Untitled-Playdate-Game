@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.1" name="KimDashForward" class="Animation" tilewidth="32" tileheight="56" tilecount="1" columns="0" objectalignment="bottom">
+<tileset version="1.9" tiledversion="1.9.1" name="KimDashForward" class="Animation" tilewidth="64" tileheight="112" tilecount="1" columns="0" objectalignment="bottom">
  <editorsettings>
   <export target="../source/tsj/Kim/KimDashForward.tsj" format="json"/>
  </editorsettings>
@@ -11,10 +11,10 @@
   <properties>
    <property name="frameDuration" type="int" value="6"/>
   </properties>
-  <image width="32" height="56" source="../source/images/Kim/KimDashForward1.png"/>
+  <image width="64" height="112" source="../source/images/Kim/KimDashForward1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="8" y="6" width="22" height="43"/>
-   <object id="2" name="Pushbox" class="Pushbox" x="-2" y="14" width="36" height="42"/>
+   <object id="1" name="Hurtbox" class="Hurtbox" x="16" y="12" width="44" height="86"/>
+   <object id="2" name="Pushbox" class="Pushbox" x="-4" y="28" width="72" height="84"/>
   </objectgroup>
  </tile>
 </tileset>

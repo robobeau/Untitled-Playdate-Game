@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.1" name="KimDiveKick" class="Animation" tilewidth="40" tileheight="56" tilecount="2" columns="0">
+<tileset version="1.9" tiledversion="1.9.1" name="KimDiveKick" class="Animation" tilewidth="80" tileheight="112" tilecount="2" columns="0">
  <editorsettings>
   <export target="../source/tsj/KimDiveKick.tsj" format="json"/>
  </editorsettings>
@@ -14,16 +14,16 @@
    <property name="velocityX" type="int" value="4"/>
    <property name="velocityY" type="int" value="8"/>
   </properties>
-  <image width="40" height="56" source="../source/images/Kim/KimDiveKick1.png"/>
+  <image width="80" height="112" source="../source/images/Kim/KimDiveKick1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="3" name="Hitbox" class="Hitbox" x="10" y="43" width="27" height="13">
+   <object id="3" name="Hitbox" class="Hitbox" x="20" y="86" width="54" height="26">
     <properties>
      <property name="velocityX" type="int" value="4"/>
      <property name="velocityY" type="int" value="4"/>
     </properties>
    </object>
-   <object id="2" name="Hurtbox" class="Hurtbox" x="10" y="5" width="20" height="38"/>
-   <object id="1" name="Pushbox" class="Pushbox" x="2" y="14" width="36" height="42"/>
+   <object id="2" name="Hurtbox" class="Hurtbox" x="20" y="10" width="40" height="76"/>
+   <object id="1" name="Pushbox" class="Pushbox" x="4" y="28" width="72" height="84"/>
   </objectgroup>
  </tile>
  <tile id="1" class="Frame">
@@ -31,16 +31,16 @@
    <property name="frameDuration" type="int" value="4"/>
    <property name="ignoreGravity" type="bool" value="true"/>
   </properties>
-  <image width="40" height="56" source="../source/images/Kim/KimDiveKick2.png"/>
+  <image width="80" height="112" source="../source/images/Kim/KimDiveKick2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="3" name="Hitbox" class="Hitbox" x="10" y="43" width="27" height="13">
+   <object id="3" name="Hitbox" class="Hitbox" x="20" y="86" width="54" height="26">
     <properties>
      <property name="velocityX" type="int" value="4"/>
      <property name="velocityY" type="int" value="4"/>
     </properties>
    </object>
-   <object id="2" name="Hurtbox" class="Hurtbox" x="10" y="5" width="20" height="38"/>
-   <object id="1" name="Pushbox" class="Pushbox" x="2" y="14" width="36" height="42"/>
+   <object id="2" name="Hurtbox" class="Hurtbox" x="20" y="10" width="40" height="76"/>
+   <object id="1" name="Pushbox" class="Pushbox" x="4" y="28" width="72" height="84"/>
   </objectgroup>
  </tile>
 </tileset>

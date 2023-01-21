@@ -123,21 +123,33 @@ end
 function Inputs:CheckSpecialUpInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
-  if (buttonState.hasPressedB and buttonState.isPressingUp) then
-    local start <const> = #character.states - 1
-    local stop <const> = #character.states - 40
+  if (buttonState.hasPressedB or buttonState.hasReleasedB) then
+    local chargeTarget <const> = 30
+    local start <const> = #character.states
+    local stop <const> = math.max(start - 45, 1)
 
-    if (stop >= 1) then
-      local chargeCounter = 0
+    local chargeCounter = 0
+    local hasPressedUp = false
 
-      for i = start, stop, -1 do
-        local buttonState <const> = self:GetButtonState(character, i)
+    for i = start, stop, -1 do
+      local buttonState <const> = self:GetButtonState(character, i)
 
+      if (not hasPressedUp) then
+        if (
+          buttonState.hasPressedUp or
+          buttonState.hasReleasedUp or
+          buttonState.isPressingUp
+        ) then
+          hasPressedUp = true
+        end
+      end
+
+      if (hasPressedUp) then
         if (buttonState.isPressingDown) then
           chargeCounter += 1
         end
 
-        if (chargeCounter >= 30) then
+        if (chargeCounter >= chargeTarget) then
           return true
         end
       end

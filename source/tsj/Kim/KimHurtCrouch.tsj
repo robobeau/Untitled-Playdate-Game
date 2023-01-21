@@ -11,14 +11,14 @@
  "spacing":0,
  "tilecount":2,
  "tiledversion":"1.9.1",
- "tileheight":32,
+ "tileheight":64,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
          "image":"..\/..\/images\/Kim\/KimHurtCrouch1.png",
-         "imageheight":32,
-         "imagewidth":56,
+         "imageheight":64,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -27,25 +27,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":29,
+                     "height":58,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":29,
-                     "x":3,
-                     "y":3
+                     "width":58,
+                     "x":6,
+                     "y":6
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":20,
-                     "y":-10
+                     "width":72,
+                     "x":40,
+                     "y":-20
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -69,8 +69,8 @@
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimHurtCrouch1.png",
-         "imageheight":32,
-         "imagewidth":56,
+         "imageheight":64,
+         "imagewidth":112,
          "objectgroup":
             {
              "draworder":"index",
@@ -79,25 +79,25 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":29,
+                     "height":58,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":29,
-                     "x":3,
-                     "y":3
+                     "width":58,
+                     "x":6,
+                     "y":6
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":20,
-                     "y":-10
+                     "width":72,
+                     "x":40,
+                     "y":-20
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -112,7 +112,7 @@
                  "value":5
                 }]
         }],
- "tilewidth":56,
+ "tilewidth":112,
  "type":"tileset",
  "version":"1.8"
 }

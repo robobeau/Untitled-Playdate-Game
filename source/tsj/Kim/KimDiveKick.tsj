@@ -17,14 +17,14 @@
  "spacing":0,
  "tilecount":2,
  "tiledversion":"1.9.1",
- "tileheight":56,
+ "tileheight":112,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
          "image":"..\/..\/images\/Kim\/KimDiveKick1.png",
-         "imageheight":56,
-         "imagewidth":40,
+         "imageheight":112,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -33,7 +33,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":13,
+                     "height":26,
                      "id":3,
                      "name":"Hitbox",
                      "properties":[
@@ -49,31 +49,31 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":27,
-                     "x":10,
-                     "y":43
+                     "width":54,
+                     "x":20,
+                     "y":86
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":38,
+                     "height":76,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":10,
-                     "y":5
+                     "width":40,
+                     "x":20,
+                     "y":10
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":14
+                     "width":72,
+                     "x":4,
+                     "y":28
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -107,8 +107,8 @@
          "class":"Frame",
          "id":1,
          "image":"..\/..\/images\/Kim\/KimDiveKick2.png",
-         "imageheight":56,
-         "imagewidth":40,
+         "imageheight":112,
+         "imagewidth":80,
          "objectgroup":
             {
              "draworder":"index",
@@ -117,7 +117,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":13,
+                     "height":26,
                      "id":3,
                      "name":"Hitbox",
                      "properties":[
@@ -133,31 +133,31 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":27,
-                     "x":10,
-                     "y":43
+                     "width":54,
+                     "x":20,
+                     "y":86
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":38,
+                     "height":76,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":20,
-                     "x":10,
-                     "y":5
+                     "width":40,
+                     "x":20,
+                     "y":10
                     }, 
                     {
                      "class":"Pushbox",
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":2,
-                     "y":14
+                     "width":72,
+                     "x":4,
+                     "y":28
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -177,7 +177,7 @@
                  "value":true
                 }]
         }],
- "tilewidth":40,
+ "tilewidth":80,
  "type":"tileset",
  "version":"1.8"
 }
