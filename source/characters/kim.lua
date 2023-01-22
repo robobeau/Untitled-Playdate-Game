@@ -30,7 +30,7 @@ function Kim:CheckSpecialInputs()
     return
   end
 
-  if (self:IsFalling() and Inputs:CheckSpecialDownInput(self)) then
+  if (Inputs:CheckSpecialDownInput(self)) then
     self:SetState(charStates.SPECIAL | charStates.DOWN)
 
     return true
