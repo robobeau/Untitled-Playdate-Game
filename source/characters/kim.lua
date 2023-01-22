@@ -30,7 +30,11 @@ function Kim:CheckSpecialInputs()
     return
   end
 
-  if (Inputs:CheckSpecialDownInput(self)) then
+  if (
+    not self:IsCrouching() and
+    not self:IsStanding() and 
+    Inputs:CheckSpecialDownInput(self)
+  ) then
     self:SetState(charStates.SPECIAL | charStates.DOWN)
 
     return true
