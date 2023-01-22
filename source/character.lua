@@ -45,6 +45,21 @@ charStates = {
 -- 16777216
 -- 33554432
 
+local defaultState <const> = {
+  buttonState = {},
+  direction = charDirections.RIGHT,
+  imageTableIndex = 1,
+  position = {
+    x = 0,
+    y = 0,
+  },
+  pushboxRect = nil,
+  state = charStates.STAND,
+  velocity = {
+    x = 0,
+    y = 0,
+  },
+}
 local defaults <const> = {
   canDoubleJump = false,
   counter = 1,
@@ -62,21 +77,7 @@ local defaults <const> = {
     y = 0,
   },
   states = {
-    {
-      buttonState = {},
-      direction = charDirections.RIGHT,
-      imageTableIndex = 1,
-      position = {
-        x = 0,
-        y = 0,
-      },
-      pushboxRect = nil,
-      state = charStates.STAND,
-      velocity = {
-        x = 0,
-        y = 0,
-      },
-    },
+    defaultState,
   },
   tilesets = {},
 }
@@ -556,8 +557,8 @@ function Character:HandleBallCollision(collision)
     gfx.sprite.removeSprites({ collision.sprite })
     other:ChangeVelocity(properties.velocityX, properties.velocityY)
   elseif (spriteIsHurtbox) then
-    local isBallDangerous <const> = math.abs(other.velocity.x) > 3 or
-      math.abs(other.velocity.y) > 3
+    local isBallDangerous <const> = math.abs(other.velocity.x) > 5 or
+      math.abs(other.velocity.y) > 5
 
     if (isBallDangerous) then
       local newState = charStates.HURT
@@ -1041,6 +1042,20 @@ function Character:NormalizeMovementVelocityX(velocityX)
   return velocityX * flipSign * moveSign
 end
 
+function Character:Reset()
+  self:ResetPosition()
+  self:ResetState()
+end
+
+function Character:ResetPosition()
+  self:moveTo(self.startingPosition.x, self.startingPosition.y)
+end
+
+function Character:ResetState()
+  self.states[self.counter] = defaultState;
+  self:SetState(charStates.STAND)
+end
+
 function Character:SetState(state)
   -- local keyset = {}
 
@@ -1229,7 +1244,11 @@ function Character:UpdateDirection()
   local selfCenter <const> = self:getBoundsRect():centerPoint()
   local state <const> = self.states[self.counter]
 
-  if (self:IsJumping() or self:IsRunning()) then
+  if (
+    self:IsAttacking() or
+    self:IsJumping() or
+    self:IsRunning()
+  ) then
     return
   end
 
@@ -1285,8 +1304,6 @@ function Character:UpdatePosition()
   local state <const> = self.states[self.counter]
 
   if (not self:IsBeginning() and not self:IsEnding()) then
-    print(state.velocity.x)
-
     attemptedPosition.x += state.velocity.x
     attemptedPosition.y += state.velocity.y
     -- We also need to update the position of the pushbox's rect.

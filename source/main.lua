@@ -64,7 +64,7 @@ function init()
   theBall = Ball({
     startingPosition = {
       x = 200,
-      y = 100,
+      y = 20,
     },
     type = ballTypes.TENNISBALL,
   })
@@ -82,8 +82,9 @@ function init()
   local menu <const> = pd.getSystemMenu()
 
   menu:addMenuItem(
-    "Reset Ball",
+    "Reset",
     function ()
+      kim:Reset()
       theBall:Reset()
     end
   )
