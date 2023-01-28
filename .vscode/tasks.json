@@ -4,33 +4,17 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Clean",
-			"type": "shell",
-			"command": "Remove-Item",
-			"args": [
-				"'${workspaceFolder}\\builds\\*'",
-				"-Recurse",
-				"-Force"
-			],
-			"presentation": {
-				"panel": "shared",
-				"reveal": "always",
-				"showReuseMessage": false
-			}
-		},
-		{
 			"label": "Build",
 			"type": "shell",
 			"command": "pdc",
 			"args": [
 				"-sdkpath",
-				"${env:PLAYDATE_SDK_PATH}",
-				"'${workspaceFolder}\\source'", // source folder
-				// "'${workspaceFolder}/builds/${workspaceFolderBasename}.pdx'" // output file
-				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'" // output file
+				"C:\\Dev\\PlaydateSDK",
+				"'${workspaceFolder}\\source'",
+				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'"
 			],
 			"options": {
-				"cwd": "${env:PLAYDATE_SDK_PATH}" // run from sdk folder to ensure imports work
+				"cwd": "C:\\Dev\\PlaydateSDK"
 			},
 			"presentation": {
 				"panel": "shared",
@@ -39,29 +23,19 @@
 			}
 		},
 		{
-			"label": "Close Existing Sim",
-			"type": "shell",
-			"command": "${workspaceFolder}\\closeSim.ps1",
-			"args": [],
-			"presentation": {
-				"panel": "shared",
-				"reveal": "always",
-				"showReuseMessage": false
-			}
-		},
-		{
-			"label": "Run (Simulator)",
-			"type": "shell",
-			"command": "${env:PLAYDATE_SDK_PATH}/bin/PlaydateSimulator.exe",
-			"args": [
-				// "'${workspaceFolder}/builds/${workspaceFolderBasename}.pdx'"
-				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'"
+			"label": "Build and Publish (to itch.io)",
+			"dependsOn": [
+				"Clean",
+				"Build",
+				"Publish"
 			],
+			"dependsOrder": "sequence",
 			"presentation": {
 				"panel": "shared",
 				"reveal": "always",
 				"showReuseMessage": false
-			}
+			},
+			"problemMatcher": [],
 		},
 		{
 			"label": "Build and Run (Simulator)",
@@ -81,6 +55,60 @@
 			"group": {
 				"kind": "build",
 				"isDefault": true
+			}
+		},
+		{
+			"label": "Clean",
+			"type": "shell",
+			"command": "Remove-Item",
+			"args": [
+				"'${workspaceFolder}\\builds\\*'",
+				"-Recurse",
+				"-Force"
+			],
+			"presentation": {
+				"panel": "shared",
+				"reveal": "always",
+				"showReuseMessage": false
+			}
+		},
+		{
+			"label": "Close Existing Sim",
+			"type": "shell",
+			"command": "${workspaceFolder}\\closeSim.ps1",
+			"args": [],
+			"presentation": {
+				"panel": "shared",
+				"reveal": "always",
+				"showReuseMessage": false
+			}
+		},
+		{
+			"label": "Publish",
+			"type": "shell",
+			"command": "butler push",
+			"args": [
+				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'",
+				"robobeau/untitled-playdate-game",
+				"--useversion 0.3.0"
+			],
+			"presentation": {
+				"panel": "shared",
+				"reveal": "always",
+				"showReuseMessage": false
+			}
+		},
+		{
+			"label": "Run (Simulator)",
+			"type": "shell",
+			"command": "C:\\Dev\\PlaydateSDK/bin/PlaydateSimulator.exe",
+			"args": [
+				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'"
+			],
+			"presentation": {
+				"panel": "shared",
+				"reveal": "always",
+				"showReuseMessage": false
 			}
 		},
 		{

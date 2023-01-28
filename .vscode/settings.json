@@ -17,7 +17,7 @@
   ],
   "Lua.runtime.version": "Lua 5.4",
   "Lua.workspace.library": [
-    "$PLAYDATE_SDK_PATH/CoreLibs"
+    "C:/Dev/PlaydateSDK/CoreLibs"
   ],
   "Lua.workspace.preloadFileSize": 1000
 }
