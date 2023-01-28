@@ -90,7 +90,8 @@
 			"args": [
 				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'",
 				"robobeau/untitled-playdate-game",
-				"--useversion 0.3.0"
+				"--useversion",
+				"0.3.0"
 			],
 			"presentation": {
 				"panel": "shared",
