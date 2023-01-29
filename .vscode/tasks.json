@@ -86,12 +86,13 @@
 		{
 			"label": "Publish",
 			"type": "shell",
-			"command": "butler push",
+			"command": "butler",
 			"args": [
+				"push",
 				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'",
-				"robobeau/untitled-playdate-game",
-				"--useversion",
-				"0.3.0"
+				"robobeau/untitled-playdate-game:playdate",
+				"--userversion",
+				"0.3.2"
 			],
 			"presentation": {
 				"panel": "shared",

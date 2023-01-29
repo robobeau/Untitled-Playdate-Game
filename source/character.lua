@@ -1013,7 +1013,7 @@ function Character:LoadTilesets()
     [charStates.PUNCH | charStates.CROUCH] = self:HydrateTileset(self:LoadTSJ('PunchCrouch')),
     [charStates.PUNCH | charStates.JUMP | charStates.BACK] = punchJumpForwardTileset,
     [charStates.PUNCH | charStates.JUMP | charStates.FORWARD] = punchJumpForwardTileset,
-    [charStates.PUNCH | charStates.JUMP] = punchForwardTileset,
+    [charStates.PUNCH | charStates.JUMP] = punchJumpForwardTileset,
     [charStates.PUNCH | charStates.STAND] = punchForwardTileset,
 
     -- Rising
