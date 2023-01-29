@@ -552,10 +552,12 @@ function Character:HandleBallCollision(collision)
   local spriteIsHurtbox <const> = spriteGroupMask & collisionTypes.HURTBOX ~= 0
 
   if (spriteIsHitbox) then
+    local flipSign <const> = self:IsFlipped() and -1 or 1
     local properties <const> = sprite.collisionProperties
+    local velocityX <const> = properties.velocityX * flipSign
 
     gfx.sprite.removeSprites({ collision.sprite })
-    other:ChangeVelocity(properties.velocityX, properties.velocityY)
+    other:ChangeVelocity(velocityX, properties.velocityY)
   elseif (spriteIsHurtbox) then
     local isBallDangerous <const> = math.abs(other.velocity.x) > 5 or
       math.abs(other.velocity.y) > 5
