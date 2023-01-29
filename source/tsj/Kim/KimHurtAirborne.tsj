@@ -7,7 +7,7 @@
      "width":1
     },
  "margin":0,
- "name":"KimHurtJump",
+ "name":"KimHurtAirborne",
  "spacing":0,
  "tilecount":3,
  "tiledversion":"1.9.1",
@@ -16,7 +16,7 @@
         {
          "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/Kim\/KimHurtJump1.png",
+         "image":"..\/..\/images\/Kim\/KimHurtAirborne1.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -57,7 +57,7 @@
         {
          "class":"Frame",
          "id":1,
-         "image":"..\/..\/images\/Kim\/KimHurtJump1.png",
+         "image":"..\/..\/images\/Kim\/KimHurtAirborne1.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -93,7 +93,7 @@
         {
          "class":"Frame",
          "id":2,
-         "image":"..\/..\/images\/Kim\/KimHurtJump2.png",
+         "image":"..\/..\/images\/Kim\/KimHurtAirborne2.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":

@@ -51,7 +51,7 @@ function Kim:CheckSpecialInputs()
     ) and
     Inputs:CheckSpecialUpInput(self)
   ) then
-    self:SetState(charStates.SPECIAL | charStates.UP)
+    self:SetState(charStates.SPECIAL | charStates.AIRBORNE | charStates.UP)
 
     return true
   end

@@ -16,32 +16,32 @@ charDirections = {
   RIGHT = 2,
 }
 charStates = {
-  ATTACK = 1,
-  ATTACK_NEUTRAL = 2,
-  BACK = 4,
-  BEGIN = 8,
-  BLOCK = 16,
-  CROUCH = 32,
-  DASH = 64,
-  DOWN = 128,
-  END = 256,
-  FORWARD = 512,
-  HURT = 1024,
-  JUMP = 2048,
-  KICK = 4096,
-  KNOCKDOWN = 8192,
-  MOVE = 16384,
-  PARRY = 32768,
-  PUNCH = 65536,
-  RISE = 131072,
-  RUN = 262144,
-  SPECIAL = 524288,
-  STAND = 1048576,
-  TAUNT = 2097152,
-  UP = 4194304,
+  AIRBORNE = 1,
+  ATTACK = 2,
+  ATTACK_NEUTRAL = 4,
+  BACK = 8,
+  BEGIN = 16,
+  BLOCK = 32,
+  CROUCH = 64,
+  DASH = 128,
+  DOWN = 256,
+  END = 512,
+  FORWARD = 1024,
+  HURT = 2048,
+  JUMP = 4096,
+  KICK = 8192,
+  KNOCKDOWN = 16384,
+  MOVE = 32768,
+  PARRY = 65536,
+  PUNCH = 131072,
+  RISE = 262144,
+  RUN = 524288,
+  SPECIAL = 1048576,
+  STAND = 2097152,
+  TAUNT = 4194304,
+  UP = 8388608,
 }
 
--- 8388608
 -- 16777216
 -- 33554432
 
@@ -183,7 +183,7 @@ function Character:CheckCrank()
   if (acceleratedChange ~= 0) then
     local delta <const> = math.floor(self.counter + change)
 
-    print(change, acceleratedChange, self.counter, delta)
+    -- print(change, acceleratedChange, self.counter, delta)
 
     if (delta > 0 and delta < #self.states) then
       self.counter = delta
@@ -250,7 +250,7 @@ function Character:CheckAttackInputs()
     local newState = charStates.KICK
 
     if (self:IsJumping()) then
-      newState |= charStates.JUMP
+      newState |= charStates.JUMP | charStates.AIRBORNE
 
       if (self:IsBack()) then
         newState |= charStates.BACK
@@ -285,7 +285,7 @@ function Character:CheckAttackInputs()
     local newState = charStates.PUNCH
 
     if (self:IsJumping()) then
-      newState |= charStates.JUMP
+      newState |= charStates.JUMP | charStates.AIRBORNE
 
       if (self:IsBack()) then
         newState |= charStates.BACK
@@ -319,7 +319,7 @@ function Character:CheckMovementInputs()
   -- Jump check
   if (tileProperties.jumpCancellable and not self:IsJumping()) then
     if (Inputs:CheckJumpInput(self)) then
-      local newState = charStates.JUMP | charStates.BEGIN
+      local newState = charStates.JUMP | charStates.AIRBORNE | charStates.BEGIN
 
       if (Inputs:CheckMoveBackInput(self)) then
         newState |= charStates.BACK
@@ -490,6 +490,12 @@ function Character:GetFilteredStateForTilesets()
     statesToRemove |= charStates.DASH | charStates.MOVE | charStates.RUN
   end
 
+  -- The only thing visually effected by being airborne
+  -- is getting hurt in mid-air.
+  if (not self:IsHurt()) then
+    statesToRemove |= charStates.AIRBORNE
+  end
+
   -- There's currently only one possible transition tileset,
   -- so we don't need to distinguish between back/forward movement.
   if (self:IsTransitioning()) then
@@ -565,8 +571,8 @@ function Character:HandleBallCollision(collision)
     if (isBallDangerous) then
       local newState = charStates.HURT
 
-      if (self:IsJumping()) then
-        newState |= charStates.JUMP
+      if (self:IsAirborne()) then
+        newState |= charStates.AIRBORNE
       elseif (
         self:IsMoving() or
         self:IsStanding() or
@@ -688,6 +694,12 @@ function Character:HydrateImageTable(tileset)
   end
 
   return imageTable
+end
+
+function Character:IsAirborne()
+  local state <const> = self.states[self.counter]
+
+  return state.state & charStates.AIRBORNE ~= 0
 end
 
 function Character:IsAttacking()
@@ -952,9 +964,9 @@ end
 function Character:LoadTilesets()
   local dashBackTileset <const> = self:HydrateTileset(self:LoadTSJ('DashBack'))
   local dashForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('DashForward'))
+  local hurtAirborneTileset <const> = self:HydrateTileset(self:LoadTSJ('HurtAirborne'))
   local hurtCrouchTileset <const> = self:HydrateTileset(self:LoadTSJ('HurtCrouch'))
   local hurtTileset <const> = self:HydrateTileset(self:LoadTSJ('Hurt'))
-  local hurtJumpTileset <const> = self:HydrateTileset(self:LoadTSJ('HurtJump'))
   local moveBackTileset <const> = self:HydrateTileset(self:LoadTSJ('MoveBack'))
   local moveForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('MoveForward'))
   local jumpBackTileset <const> = self:HydrateTileset(self:LoadTSJ('JumpBack'))
@@ -983,8 +995,8 @@ function Character:LoadTilesets()
     [charStates.DASH | charStates.FORWARD] = dashForwardTileset,
 
     -- Hurting
+    [charStates.HURT | charStates.AIRBORNE] = hurtAirborneTileset,
     [charStates.HURT | charStates.CROUCH] = hurtCrouchTileset,
-    [charStates.HURT | charStates.JUMP] = hurtJumpTileset,
     [charStates.HURT | charStates.JUMP | charStates.END] = self:HydrateTileset(self:LoadTSJ('TransitionHurtJump')),
     [charStates.HURT | charStates.STAND] = hurtTileset,
 
@@ -1105,6 +1117,16 @@ function Character:TransitionState()
 
   if (self:IsBeginning()) then
     local statesToRemove <const> = charStates.BEGIN
+
+    if (self:IsDashing()) then
+      local newState = state.state &~ statesToRemove
+      newState |= charStates.AIRBORNE
+
+      self:SetState(newState)
+
+      return
+    end
+
     local newState = state.state &~ statesToRemove
 
     self:SetState(newState)
@@ -1113,6 +1135,8 @@ function Character:TransitionState()
   end
 
   if (self:IsEnding()) then
+    local statesToRemove <const> = charStates.END
+
     if (self:IsDashing()) then
       self:SetState(charStates.STAND)
 
@@ -1131,7 +1155,6 @@ function Character:TransitionState()
       return
     end
 
-    local statesToRemove <const> = charStates.END
     local newState = state.state &~ statesToRemove
 
     self:SetState(newState)
