@@ -20,7 +20,7 @@
   </properties>
   <image width="112" height="128" source="../source/images/Kim/KimKickJumpNeutral2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hitbox" class="Hitbox" x="68" y="70" width="48" height="30">
+   <object id="1" name="Hitbox" class="Hitbox" x="56" y="70" width="60" height="30">
     <properties>
      <property name="velocityX" type="int" value="6"/>
      <property name="velocityY" type="int" value="4"/>

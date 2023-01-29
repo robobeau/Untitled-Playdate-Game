@@ -22,7 +22,7 @@
   </properties>
   <image width="128" height="80" source="../source/images/Kim/KimPunchForward2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hitbox" class="Hitbox" x="88" y="26" width="44" height="30">
+   <object id="2" name="Hitbox" class="Hitbox" x="90" y="26" width="42" height="30">
     <properties>
      <property name="velocityX" type="int" value="6"/>
     </properties>

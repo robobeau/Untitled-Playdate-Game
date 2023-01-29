@@ -11,7 +11,6 @@
   </properties>
   <image width="128" height="96" source="../source/images/Kim/KimHurtJump1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hurtbox" class="Hurtbox" x="20" y="6" width="56" height="62"/>
    <object id="1" name="Pushbox" class="Pushbox" x="28" y="12" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -21,7 +20,6 @@
   </properties>
   <image width="128" height="96" source="../source/images/Kim/KimHurtJump1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hurtbox" class="Hurtbox" x="20" y="6" width="56" height="62"/>
    <object id="1" name="Pushbox" class="Pushbox" x="28" y="12" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -32,7 +30,6 @@
   </properties>
   <image width="128" height="96" source="../source/images/Kim/KimHurtJump2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hurtbox" class="Hurtbox" x="12" y="12" width="70" height="56"/>
    <object id="1" name="Pushbox" class="Pushbox" x="28" y="12" width="72" height="84"/>
   </objectgroup>
  </tile>

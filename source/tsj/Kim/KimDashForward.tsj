@@ -64,7 +64,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":6
+                 "value":8
                 }]
         }],
  "tilewidth":64,

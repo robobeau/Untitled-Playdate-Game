@@ -79,7 +79,7 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":76,
+                     "height":90,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
@@ -142,20 +142,20 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":40,
-                     "x":42,
+                     "width":44,
+                     "x":38,
                      "y":6
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":64,
+                     "height":72,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":36,
-                     "x":36,
-                     "y":32
+                     "width":40,
+                     "x":38,
+                     "y":56
                     }, 
                     {
                      "class":"Pushbox",
@@ -205,7 +205,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":40,
+                     "height":52,
                      "id":2,
                      "name":"Hitbox",
                      "properties":[
@@ -221,13 +221,13 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":40,
-                     "x":80,
+                     "width":52,
+                     "x":68,
                      "y":12
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":64,
+                     "height":94,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
@@ -274,7 +274,7 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":34,
+                     "height":38,
                      "id":2,
                      "name":"Hitbox",
                      "properties":[
@@ -290,13 +290,13 @@
                             }],
                      "rotation":0,
                      "visible":true,
-                     "width":46,
-                     "x":86,
-                     "y":66
+                     "width":66,
+                     "x":66,
+                     "y":62
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":66,
+                     "height":88,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
@@ -343,7 +343,7 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":76,
+                     "height":90,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,

@@ -8,7 +8,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="148" height="80" source="../source/images/Kim/KimPunchCrouch1.png"/>
+  <image width="144" height="80" source="../source/images/Kim/KimPunchCrouch1.png"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Hurtbox" class="Hurtbox" x="44" y="10" width="38" height="70"/>
    <object id="1" name="Pushbox" class="Pushbox" x="28" y="-4" width="72" height="84"/>
@@ -18,9 +18,9 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="148" height="80" source="../source/images/Kim/KimPunchCrouch2.png"/>
+  <image width="144" height="80" source="../source/images/Kim/KimPunchCrouch2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="3" name="Hitbox" class="Hitbox" x="82" y="38" width="22" height="28">
+   <object id="3" name="Hitbox" class="Hitbox" x="84" y="38" width="20" height="28">
     <properties>
      <property name="velocityX" type="int" value="6"/>
      <property name="velocityY" type="int" value="4"/>
@@ -34,9 +34,9 @@
   <properties>
    <property name="frameDuration" type="int" value="9"/>
   </properties>
-  <image width="148" height="80" source="../source/images/Kim/KimPunchCrouch3.png"/>
+  <image width="144" height="80" source="../source/images/Kim/KimPunchCrouch3.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="3" name="Hitbox" class="Hitbox" x="100" y="52" width="48" height="28">
+   <object id="3" name="Hitbox" class="Hitbox" x="94" y="52" width="54" height="28">
     <properties>
      <property name="velocityX" type="int" value="6"/>
      <property name="velocityY" type="int" value="4"/>
@@ -50,7 +50,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="148" height="80" source="../source/images/Kim/KimPunchCrouch4.png"/>
+  <image width="144" height="80" source="../source/images/Kim/KimPunchCrouch4.png"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Hurtbox" class="Hurtbox" x="42" y="10" width="42" height="70"/>
    <object id="1" name="Pushbox" class="Pushbox" x="28" y="-4" width="72" height="84"/>
@@ -60,7 +60,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="148" height="80" source="../source/images/Kim/KimPunchCrouch5.png"/>
+  <image width="144" height="80" source="../source/images/Kim/KimPunchCrouch5.png"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Hurtbox" class="Hurtbox" x="44" y="10" width="38" height="70"/>
    <object id="1" name="Pushbox" class="Pushbox" x="28" y="-4" width="72" height="84"/>

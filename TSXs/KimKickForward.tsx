@@ -38,7 +38,7 @@
   </properties>
   <image width="128" height="96" source="../source/images/Kim/KimKickForward3.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hitbox" class="Hitbox" x="70" y="30" width="62" height="34">
+   <object id="2" name="Hitbox" class="Hitbox" x="58" y="30" width="74" height="34">
     <properties>
      <property name="velocityX" type="int" value="6"/>
      <property name="velocityY" type="int" value="2"/>
@@ -56,7 +56,7 @@
   </properties>
   <image width="128" height="96" source="../source/images/Kim/KimKickForward3.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hitbox" class="Hitbox" x="70" y="30" width="62" height="34">
+   <object id="2" name="Hitbox" class="Hitbox" x="58" y="30" width="74" height="34">
     <properties>
      <property name="velocityX" type="int" value="6"/>
      <property name="velocityY" type="int" value="2"/>

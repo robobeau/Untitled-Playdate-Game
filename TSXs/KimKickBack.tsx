@@ -21,7 +21,7 @@
   </properties>
   <image width="128" height="128" source="../source/images/Kim/KimKickBack2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hurtbox" class="Hurtbox" x="54" y="38" width="40" height="76"/>
+   <object id="2" name="Hurtbox" class="Hurtbox" x="54" y="38" width="40" height="90"/>
    <object id="1" name="Pushbox" class="Pushbox" x="28" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -33,13 +33,13 @@
   </properties>
   <image width="128" height="128" source="../source/images/Kim/KimKickBack3.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hitbox" class="Hitbox" x="42" y="6" width="40" height="50">
+   <object id="2" name="Hitbox" class="Hitbox" x="38" y="6" width="44" height="50">
     <properties>
      <property name="velocityX" type="int" value="0"/>
      <property name="velocityY" type="int" value="6"/>
     </properties>
    </object>
-   <object id="3" name="Hurtbox" class="Hurtbox" x="36" y="32" width="36" height="64"/>
+   <object id="3" name="Hurtbox" class="Hurtbox" x="38" y="56" width="40" height="72"/>
    <object id="1" name="Pushbox" class="Pushbox" x="0" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -49,13 +49,13 @@
   </properties>
   <image width="128" height="128" source="../source/images/Kim/KimKickBack4.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hitbox" class="Hitbox" x="80" y="12" width="40" height="40">
+   <object id="2" name="Hitbox" class="Hitbox" x="68" y="12" width="52" height="52">
     <properties>
      <property name="velocityX" type="int" value="4"/>
      <property name="velocityY" type="int" value="6"/>
     </properties>
    </object>
-   <object id="3" name="Hurtbox" class="Hurtbox" x="32" y="34" width="36" height="64"/>
+   <object id="3" name="Hurtbox" class="Hurtbox" x="32" y="34" width="36" height="94"/>
    <object id="1" name="Pushbox" class="Pushbox" x="0" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -65,13 +65,13 @@
   </properties>
   <image width="128" height="128" source="../source/images/Kim/KimKickBack5.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hitbox" class="Hitbox" x="86" y="66" width="46" height="34">
+   <object id="2" name="Hitbox" class="Hitbox" x="66" y="62" width="66" height="38">
     <properties>
      <property name="velocityX" type="int" value="4"/>
      <property name="velocityY" type="int" value="2"/>
     </properties>
    </object>
-   <object id="3" name="Hurtbox" class="Hurtbox" x="30" y="40" width="36" height="66"/>
+   <object id="3" name="Hurtbox" class="Hurtbox" x="30" y="40" width="36" height="88"/>
    <object id="1" name="Pushbox" class="Pushbox" x="0" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -81,7 +81,7 @@
   </properties>
   <image width="128" height="128" source="../source/images/Kim/KimKickBack2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Hurtbox" class="Hurtbox" x="54" y="38" width="40" height="76"/>
+   <object id="2" name="Hurtbox" class="Hurtbox" x="54" y="38" width="40" height="90"/>
    <object id="1" name="Pushbox" class="Pushbox" x="28" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>

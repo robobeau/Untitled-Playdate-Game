@@ -16,7 +16,8 @@
      <property name="velocityY" type="int" value="2"/>
     </properties>
    </object>
-   <object id="2" name="Hurtbox" class="Hurtbox" x="28" y="44" width="38" height="70"/>
+   <object id="2" name="Hurtbox" class="Hurtbox" x="28" y="44" width="38" height="34"/>
+   <object id="4" name="Hurtbox" class="Hurtbox" x="28" y="78" width="32" height="36"/>
    <object id="3" name="Pushbox" class="Pushbox" x="12" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>

@@ -26,17 +26,6 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":62,
-                     "id":2,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":56,
-                     "x":20,
-                     "y":6
-                    }, 
-                    {
                      "class":"Pushbox",
                      "height":84,
                      "id":1,
@@ -78,17 +67,6 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":62,
-                     "id":2,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":56,
-                     "x":20,
-                     "y":6
-                    }, 
-                    {
                      "class":"Pushbox",
                      "height":84,
                      "id":1,
@@ -124,17 +102,6 @@
              "id":2,
              "name":"",
              "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":56,
-                     "id":2,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":70,
-                     "x":12,
-                     "y":12
-                    }, 
                     {
                      "class":"Pushbox",
                      "height":84,

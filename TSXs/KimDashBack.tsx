@@ -9,7 +9,7 @@
  </properties>
  <tile id="1" class="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="frameDuration" type="int" value="8"/>
   </properties>
   <image width="80" height="96" source="../source/images/Kim/KimDashBack1.png"/>
   <objectgroup draworder="index" id="2">
