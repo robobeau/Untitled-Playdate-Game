@@ -964,6 +964,7 @@ function Character:LoadTilesets()
   local kickNeutralTileset <const> = self:HydrateTileset(self:LoadTSJ('KickNeutral'))
   local kickBackTileset <const> = self:HydrateTileset(self:LoadTSJ('KickBack'))
   local punchForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('PunchForward'))
+  local punchJumpForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('PunchJumpForward'))
   local transitionTileset <const> = self:HydrateTileset(self:LoadTSJ('Transition'))
 
   self.tilesets = {
@@ -1010,8 +1011,8 @@ function Character:LoadTilesets()
 
     -- Punching
     [charStates.PUNCH | charStates.CROUCH] = self:HydrateTileset(self:LoadTSJ('PunchCrouch')),
-    [charStates.PUNCH | charStates.JUMP | charStates.BACK] = punchForwardTileset,
-    [charStates.PUNCH | charStates.JUMP | charStates.FORWARD] = punchForwardTileset,
+    [charStates.PUNCH | charStates.JUMP | charStates.BACK] = punchJumpForwardTileset,
+    [charStates.PUNCH | charStates.JUMP | charStates.FORWARD] = punchJumpForwardTileset,
     [charStates.PUNCH | charStates.JUMP] = punchForwardTileset,
     [charStates.PUNCH | charStates.STAND] = punchForwardTileset,
 

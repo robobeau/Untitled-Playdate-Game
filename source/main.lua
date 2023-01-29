@@ -88,6 +88,8 @@ function init()
       theBall:Reset()
     end
   )
+
+  pd.setMenuImage(gfx.image.new('images/Controls'))
 end
 
 function pd.cranked(change, acceleratedChange)
