@@ -18,8 +18,8 @@
   <objectgroup draworder="index" id="2">
    <object id="3" name="Hitbox" class="Hitbox" x="20" y="86" width="54" height="26">
     <properties>
-     <property name="velocityX" type="int" value="4"/>
-     <property name="velocityY" type="int" value="4"/>
+     <property name="velocityX" type="int" value="12"/>
+     <property name="velocityY" type="int" value="12"/>
     </properties>
    </object>
    <object id="2" name="Hurtbox" class="Hurtbox" x="20" y="10" width="40" height="76"/>
@@ -35,8 +35,8 @@
   <objectgroup draworder="index" id="2">
    <object id="3" name="Hitbox" class="Hitbox" x="20" y="86" width="54" height="26">
     <properties>
-     <property name="velocityX" type="int" value="4"/>
-     <property name="velocityY" type="int" value="4"/>
+     <property name="velocityX" type="int" value="12"/>
+     <property name="velocityY" type="int" value="12"/>
     </properties>
    </object>
    <object id="2" name="Hurtbox" class="Hurtbox" x="20" y="10" width="40" height="76"/>

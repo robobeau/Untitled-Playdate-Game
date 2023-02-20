@@ -26,30 +26,8 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
-                     "height":44,
-                     "id":1,
-                     "name":"Hitbox",
-                     "properties":[
-                            {
-                             "name":"velocityX",
-                             "type":"int",
-                             "value":2
-                            }, 
-                            {
-                             "name":"velocityY",
-                             "type":"int",
-                             "value":2
-                            }],
-                     "rotation":0,
-                     "visible":true,
-                     "width":26,
-                     "x":60,
-                     "y":78
-                    }, 
-                    {
                      "class":"Hurtbox",
-                     "height":34,
+                     "height":70,
                      "id":2,
                      "name":"Hurtbox",
                      "rotation":0,
@@ -57,17 +35,6 @@
                      "width":38,
                      "x":28,
                      "y":44
-                    }, 
-                    {
-                     "class":"Hurtbox",
-                     "height":36,
-                     "id":4,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":32,
-                     "x":28,
-                     "y":78
                     }, 
                     {
                      "class":"Pushbox",
@@ -114,12 +81,12 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":6
+                             "value":16
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":4
+                             "value":10
                             }],
                      "rotation":0,
                      "visible":true,

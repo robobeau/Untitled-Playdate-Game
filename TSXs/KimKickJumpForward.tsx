@@ -10,14 +10,7 @@
   </properties>
   <image width="96" height="128" source="../source/images/Kim/KimKickJumpForward1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hitbox" class="Hitbox" x="60" y="78" width="26" height="44">
-    <properties>
-     <property name="velocityX" type="int" value="2"/>
-     <property name="velocityY" type="int" value="2"/>
-    </properties>
-   </object>
-   <object id="2" name="Hurtbox" class="Hurtbox" x="28" y="44" width="38" height="34"/>
-   <object id="4" name="Hurtbox" class="Hurtbox" x="28" y="78" width="32" height="36"/>
+   <object id="2" name="Hurtbox" class="Hurtbox" x="28" y="44" width="38" height="70"/>
    <object id="3" name="Pushbox" class="Pushbox" x="12" y="44" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -29,8 +22,8 @@
   <objectgroup draworder="index" id="2">
    <object id="1" name="Hitbox" class="Hitbox" x="56" y="92" width="44" height="36">
     <properties>
-     <property name="velocityX" type="int" value="6"/>
-     <property name="velocityY" type="int" value="4"/>
+     <property name="velocityX" type="int" value="16"/>
+     <property name="velocityY" type="int" value="10"/>
     </properties>
    </object>
    <object id="2" name="Hurtbox" class="Hurtbox" x="16" y="44" width="40" height="72"/>

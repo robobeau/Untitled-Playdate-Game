@@ -81,12 +81,7 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":6
-                            }, 
-                            {
-                             "name":"velocityY",
-                             "type":"int",
-                             "value":4
+                             "value":16
                             }],
                      "rotation":0,
                      "visible":true,

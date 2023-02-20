@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.9" tiledversion="1.9.1" name="KimKickJumpNeutral" class="Animation" tilewidth="112" tileheight="128" tilecount="5" columns="0">
  <editorsettings>
-  <export target="../source/tsj/KimKickJumpNeutral.tsj" format="json"/>
+  <export target="../source/tsj/Kim/KimKickJumpNeutral.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" class="Frame">
@@ -22,8 +22,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" name="Hitbox" class="Hitbox" x="56" y="70" width="60" height="30">
     <properties>
-     <property name="velocityX" type="int" value="6"/>
-     <property name="velocityY" type="int" value="4"/>
+     <property name="velocityX" type="int" value="16"/>
     </properties>
    </object>
    <object id="2" name="Hurtbox" class="Hurtbox" x="18" y="38" width="38" height="68"/>

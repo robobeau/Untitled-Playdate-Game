@@ -114,7 +114,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":2
+                 "value":1
                 }]
         }, 
         {
@@ -138,12 +138,12 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":2
+                             "value":12
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":6
+                             "value":-6
                             }],
                      "rotation":0,
                      "visible":true,
@@ -200,41 +200,19 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":44,
-                     "id":4,
-                     "name":"Hitbox",
-                     "properties":[
-                            {
-                             "name":"velocityX",
-                             "type":"int",
-                             "value":4
-                            }, 
-                            {
-                             "name":"velocityY",
-                             "type":"int",
-                             "value":4
-                            }],
-                     "rotation":0,
-                     "visible":true,
-                     "width":44,
-                     "x":62,
-                     "y":64
-                    }, 
-                    {
-                     "class":"Hitbox",
-                     "height":58,
+                     "height":94,
                      "id":2,
                      "name":"Hitbox",
                      "properties":[
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":2
+                             "value":16
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":6
+                             "value":-16
                             }],
                      "rotation":0,
                      "visible":true,
@@ -291,41 +269,19 @@
              "objects":[
                     {
                      "class":"Hitbox",
-                     "height":44,
-                     "id":4,
-                     "name":"Hitbox",
-                     "properties":[
-                            {
-                             "name":"velocityX",
-                             "type":"int",
-                             "value":4
-                            }, 
-                            {
-                             "name":"velocityY",
-                             "type":"int",
-                             "value":4
-                            }],
-                     "rotation":0,
-                     "visible":true,
-                     "width":44,
-                     "x":62,
-                     "y":64
-                    }, 
-                    {
-                     "class":"Hitbox",
-                     "height":58,
+                     "height":94,
                      "id":5,
                      "name":"Hitbox",
                      "properties":[
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":2
+                             "value":12
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":6
+                             "value":-12
                             }],
                      "rotation":0,
                      "visible":true,

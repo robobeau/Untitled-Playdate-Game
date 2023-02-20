@@ -73,28 +73,6 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
-                     "height":28,
-                     "id":3,
-                     "name":"Hitbox",
-                     "properties":[
-                            {
-                             "name":"velocityX",
-                             "type":"int",
-                             "value":6
-                            }, 
-                            {
-                             "name":"velocityY",
-                             "type":"int",
-                             "value":4
-                            }],
-                     "rotation":0,
-                     "visible":true,
-                     "width":20,
-                     "x":84,
-                     "y":38
-                    }, 
-                    {
                      "class":"Hurtbox",
                      "height":70,
                      "id":2,
@@ -150,12 +128,12 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":6
+                             "value":12
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":4
+                             "value":-6
                             }],
                      "rotation":0,
                      "visible":true,

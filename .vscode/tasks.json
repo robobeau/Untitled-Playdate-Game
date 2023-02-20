@@ -89,10 +89,10 @@
 			"command": "butler",
 			"args": [
 				"push",
-				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'",
+				"'${workspaceFolder}/builds'",
 				"robobeau/untitled-playdate-game:playdate",
 				"--userversion",
-				"0.3.2"
+				"0.3.3"
 			],
 			"presentation": {
 				"panel": "shared",

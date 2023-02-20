@@ -18,7 +18,7 @@
  </tile>
  <tile id="3" class="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="frameDuration" type="int" value="1"/>
   </properties>
   <image width="112" height="128" source="../source/images/Kim/KimFlashKick3.png"/>
   <objectgroup draworder="index" id="2">
@@ -34,8 +34,8 @@
   <objectgroup draworder="index" id="2">
    <object id="2" name="Hitbox" class="Hitbox" x="82" y="74" width="30" height="38">
     <properties>
-     <property name="velocityX" type="int" value="2"/>
-     <property name="velocityY" type="int" value="6"/>
+     <property name="velocityX" type="int" value="12"/>
+     <property name="velocityY" type="int" value="-6"/>
     </properties>
    </object>
    <object id="3" name="Hurtbox" class="Hurtbox" x="4" y="64" width="92" height="40"/>
@@ -48,16 +48,10 @@
   </properties>
   <image width="112" height="128" source="../source/images/Kim/KimFlashKick5.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="4" name="Hitbox" class="Hitbox" x="62" y="64" width="44" height="44">
+   <object id="2" name="Hitbox" class="Hitbox" x="6" y="6" width="100" height="94">
     <properties>
-     <property name="velocityX" type="int" value="4"/>
-     <property name="velocityY" type="int" value="4"/>
-    </properties>
-   </object>
-   <object id="2" name="Hitbox" class="Hitbox" x="6" y="6" width="100" height="58">
-    <properties>
-     <property name="velocityX" type="int" value="2"/>
-     <property name="velocityY" type="int" value="6"/>
+     <property name="velocityX" type="int" value="16"/>
+     <property name="velocityY" type="int" value="-16"/>
     </properties>
    </object>
    <object id="3" name="Hurtbox" class="Hurtbox" x="26" y="60" width="36" height="48"/>
@@ -70,16 +64,10 @@
   </properties>
   <image width="112" height="128" source="../source/images/Kim/KimFlashKick6.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="4" name="Hitbox" class="Hitbox" x="62" y="64" width="44" height="44">
+   <object id="5" name="Hitbox" class="Hitbox" x="6" y="6" width="100" height="94">
     <properties>
-     <property name="velocityX" type="int" value="4"/>
-     <property name="velocityY" type="int" value="4"/>
-    </properties>
-   </object>
-   <object id="5" name="Hitbox" class="Hitbox" x="6" y="6" width="100" height="58">
-    <properties>
-     <property name="velocityX" type="int" value="2"/>
-     <property name="velocityY" type="int" value="6"/>
+     <property name="velocityX" type="int" value="12"/>
+     <property name="velocityY" type="int" value="-12"/>
     </properties>
    </object>
    <object id="3" name="Hurtbox" class="Hurtbox" x="26" y="52" width="46" height="56"/>

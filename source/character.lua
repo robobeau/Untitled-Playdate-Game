@@ -48,7 +48,8 @@ charStates = {
 local defaultState <const> = {
   buttonState = {},
   direction = charDirections.RIGHT,
-  imageTableIndex = 1,
+  frameCounter = 1,
+  frameIndex = 1,
   position = {
     x = 0,
     y = 0,
@@ -108,6 +109,10 @@ function Character:init(config)
 end
 
 function Character:update()
+  -- local current <const> = self.states[self.counter]
+  -- local prev <const> = self.states[self.counter - 1]
+
+  -- print('Update', '|', 'Frame Counter: ' .. current.frameCounter, 'Frame Index: ' .. current.frameIndex)
   self:CheckCrank()
 
   if (self.frozen == true) then
@@ -118,57 +123,14 @@ function Character:update()
 
   self:TransitionState()
   self:UpdateDirection()
-  self:UpdateButtonStates()
   self:CheckInputs()
-  self:UpdateAnimation()
+
+  self:UpdateAnimationFrame()
   self:UpdatePhysics()
   self:UpdatePosition()
-  self:UpdateImageTableIndex()
-  self:UpdateCounter()
+
+  self:PrepareForNextLoop()
 end
-
-function Character:UpdateFrozenSprite()
-  local filteredState <const> = self:GetFilteredStateForTilesets()
-  local state <const> = self.states[self.counter]
-
-  self.imageTable = self.imageTables[filteredState]
-  self:UpdateImage()
-  self:moveTo(state.position.x, state.position.y)
-end
-
--- function Character:ChangeVelocityX(x, isIncrease)
---   local changeSign = isIncrease ~= false and 1 or -1
---   local state <const> = self.states[self.counter]
---   local newVelocity = state.velocity.x
---   local velocitySign <const> = Sign(state.velocity.x)
-
---   if (x ~= nil) then
---     newVelocity = math.abs(state.velocity.x) + (x * changeSign)
-
---     if (velocitySign ~= 0) then
---       newVelocity *= velocitySign
---     end
---   end
-
---   state.velocity.x = newVelocity
--- end
-
--- function Character:ChangeVelocityY(y, isIncrease)
---   local changeSign = isIncrease ~= false and 1 or -1
---   local state <const> = self.states[self.counter]
---   local newVelocity = state.velocity.y
---   local velocitySign <const> = Sign(state.velocity.y)
-
---   if (y ~= nil) then
---     newVelocity = math.abs(state.velocity.y) + (y * changeSign)
-
---     if (velocitySign ~= 0) then
---       newVelocity *= velocitySign
---     end
---   end
-
---   state.velocity.y = newVelocity
--- end
 
 -- TODO: Buddy, you gotta decouple your logic so that you draw based on a state simulation
 function Character:CheckCrank()
@@ -192,6 +154,8 @@ function Character:CheckCrank()
 end
 
 function Character:CheckInputs()
+  self:UpdateButtonStates()
+
   if (self:CheckSpecialInputs()) then
     return
   end
@@ -207,7 +171,7 @@ end
 
 function Character:CheckAttackInputs()
   local state <const> = self.states[self.counter]
-  local tileProperties <const> = self:GetTileProperties(state.imageTableIndex)
+  local tileProperties <const> = self:GetTileProperties(state.frameIndex)
 
   -- If we can't perform an attack, exit early.
   if (not tileProperties.attackCancellable) then
@@ -263,7 +227,6 @@ function Character:CheckAttackInputs()
       elseif (self:IsDashing()) then
         newState |= charStates.DASH
       end
-    -- TODO: Separate state for running?
     elseif (self:IsDashing() or self:IsMoving() or self:IsStanding() or self:IsRunning()) then
       newState |= charStates.STAND
 
@@ -298,7 +261,6 @@ function Character:CheckAttackInputs()
       elseif (self:IsDashing()) then
         newState |= charStates.DASH
       end
-    -- TODO: Separate state for running?
     elseif (self:IsDashing() or self:IsMoving() or self:IsStanding() or self:IsRunning()) then
       newState |= charStates.STAND
     elseif (self:IsCrouching()) then
@@ -314,7 +276,7 @@ end
 function Character:CheckMovementInputs()
   local buttonState = Inputs:GetButtonState(self)
   local state <const> = self.states[self.counter]
-  local tileProperties <const> = self:GetTileProperties(state.imageTableIndex)
+  local tileProperties <const> = self:GetTileProperties(state.frameIndex)
 
   -- Jump check
   if (tileProperties.jumpCancellable and not self:IsJumping()) then
@@ -420,15 +382,18 @@ function Character:DeriveImageTableFromState()
   local state <const> = self.states[self.counter]
 
   self.imageTable = self.imageTables[filteredState]
-  state.imageTableIndex = 1
+
+  -- TODO: Why 0...?
+  state.frameCounter = 0
+  state.frameIndex = 1
 end
 
 function Character:DerivePhysicsFromCurrentFrame()
   local state <const> = self.states[self.counter]
-  local properties <const> = self:GetTileProperties(state.imageTableIndex)
+  local properties <const> = self:GetTileProperties(state.frameIndex)
 
   if (properties.velocityX ~= nil) then
-    local flipSign <const> = self:IsFlipped() and -1 or 1
+    local flipSign <const> = self:GetFlipSign()
     -- local moveSign <const> = self:IsBack() and -1 or 1
 
     -- state.velocity.x = properties.velocityX * moveSign * flipSign
@@ -509,6 +474,32 @@ function Character:GetFlip()
   return self:IsFlipped() and gfx.kImageFlippedX or gfx.kImageUnflipped
 end
 
+function Character:GetFlipSign()
+  return self:IsFlipped() and -1 or 1
+end
+
+function Character:GetHitByBall(hurtbox, ball)
+  local newState = charStates.HURT
+
+  if (self:IsAirborne()) then
+    newState |= charStates.AIRBORNE
+  elseif (
+    self:IsMoving() or
+    self:IsStanding() or
+    self:IsTransitioning()
+  ) then
+    newState |= charStates.STAND
+  elseif (self:IsCrouching()) then
+    newState |= charStates.CROUCH
+  else
+    newState |= charStates.STAND
+  end
+
+  self:SetState(newState)
+
+  gfx.sprite.removeSprites({ hurtbox })
+end
+
 function Character:GetMoveVelocityX()
   return self:NormalizeMovementVelocityX(self.speed)
 end
@@ -550,43 +541,67 @@ function Character:GetTilesetForCurrentState()
   return self.tilesets[state]
 end
 
-function Character:HandleBallCollision(collision)
-  local other <const> = collision.other
-  local sprite <const> = collision.sprite
+function Character:HitBall(collision, hitbox, ball)
+  local properties <const> = hitbox.collisionProperties
+
+  -- print(collision.normal)
+
+  if (
+    properties.velocityX ~= nil
+    -- and collision.normal.x ~= 0
+  ) then
+    local flipSign <const> = self:GetFlipSign()
+    local velocityX <const> = properties.velocityX * flipSign
+
+    ball:SetVelocityX(velocityX)
+  end
+
+  if (
+    properties.velocityY ~= nil
+    -- and collision.normal.y ~= 0
+  ) then
+    local velocityY <const> = properties.velocityY
+
+    ball:SetVelocityY(velocityY)
+  end
+
+  gfx.sprite.removeSprites({ hitbox })
+end
+
+function Character:HandleBallCollision(collision, sprite, ball)
   local spriteGroupMask <const> = sprite:getGroupMask()
   local spriteIsHitbox <const> = spriteGroupMask & collisionTypes.HITBOX ~= 0
   local spriteIsHurtbox <const> = spriteGroupMask & collisionTypes.HURTBOX ~= 0
 
   if (spriteIsHitbox) then
-    local flipSign <const> = self:IsFlipped() and -1 or 1
-    local properties <const> = sprite.collisionProperties
-    local velocityX <const> = properties.velocityX * flipSign
-
-    gfx.sprite.removeSprites({ collision.sprite })
-    other:ChangeVelocity(velocityX, properties.velocityY)
+    self:HitBall(collision, sprite, ball)
   elseif (spriteIsHurtbox) then
-    local isBallDangerous <const> = math.abs(other.velocity.x) > 5 or
-      math.abs(other.velocity.y) > 5
+    if (ball:IsDangerous()) then
+      self:GetHitByBall(sprite, ball)
 
-    if (isBallDangerous) then
-      local newState = charStates.HURT
+      -- if (collision.normal.x == -1) then
+      --   local attemptedPositionX <const> = collision.spriteRect.x + collision.spriteRect.width
+      --   local newPositionX <const> = math.min(attemptedPositionX, 400)
 
-      if (self:IsAirborne()) then
-        newState |= charStates.AIRBORNE
-      elseif (
-        self:IsMoving() or
-        self:IsStanding() or
-        self:IsTransitioning()
-      ) then
-        newState |= charStates.STAND
-      elseif (self:IsCrouching()) then
-        newState |= charStates.CROUCH
-      else -- TODO: Find a better default
-        newState |= charStates.STAND
-      end
+      --   other:moveTo(newPositionX, other.y)
+      -- elseif (collision.normal.x == 1) then
+      --   local attemptedPositionX <const> = collision.spriteRect.x - other.width
+      --   local newPositionX <const> = math.max(attemptedPositionX, 0)
 
-      self:SetState(newState)
-      gfx.sprite.removeSprites({ sprite })
+      --   other:moveTo(newPositionX, other.y)
+      -- end
+
+      -- if (collision.normal.y == -1) then
+      --   local attemptedPositionY <const> = collision.spriteRect.y - other.height
+      --   local newPositionY <const> = math.min(attemptedPositionY, 240)
+
+      --   other:moveTo(other.x, newPositionY)
+      -- elseif (collision.normal.y == 1) then
+      --   local attemptedPositionY <const> = collision.spriteRect.y - other.height
+      --   local newPositionY <const> = math.max(attemptedPositionY, 0)
+
+      --   other:moveTo(other.x, newPositionY)
+      -- end
     end
   end
 end
@@ -599,7 +614,7 @@ function Character:HandleCollisions(attemptedPosition, actualPosition, collision
     local collidedWithWall = otherGroupMask & collisionTypes.WALL ~= 0
 
     if (collidedWithBall) then
-      self:HandleBallCollision(collision)
+      self:HandleBallCollision(collision, collision.sprite, other)
     elseif (collidedWithWall) then
       self:HandleWallCollision(attemptedPosition, actualPosition, collision)
     end
@@ -615,7 +630,11 @@ function Character:HandleWallCollision(attemptedPosition, actualPosition, collis
     local newPositionX <const> = math.abs(xDelta) * xDeltaSign
 
     state.position.x += newPositionX
-    state.pushboxRect.x += newPositionX
+
+    if (state.pushboxRect ~= nil) then
+      state.pushboxRect.x += newPositionX
+    end
+
     state.velocity.x = 0
   end
 
@@ -635,7 +654,11 @@ function Character:HandleWallCollision(attemptedPosition, actualPosition, collis
     end
 
     state.position.y += newPositionY
-    state.pushboxRect.y += newPositionY
+
+    if (state.pushboxRect ~= nil) then
+      state.pushboxRect.y += newPositionY
+    end
+
     state.velocity.y = 0
   end
 end
@@ -643,7 +666,14 @@ end
 function Character:HasAnimationEnded()
   local state <const> = self.states[self.counter]
 
-  return state.imageTableIndex >= self.imageTable:getLength()
+  return state.frameIndex == self.imageTable:getLength()
+end
+
+function Character:HasAnimationFrameEnded()
+  local state <const> = self.states[self.counter]
+  local tileProperties <const> = self:GetTileProperties(state.frameIndex)
+
+  return state.frameCounter == tileProperties.frameDuration
 end
 
 function Character:HasDirectionChanged()
@@ -657,6 +687,19 @@ function Character:HasDirectionChanged()
   -- print('Prev:' .. prev.direction, 'Next:' .. current.direction, current.direction ~= prev.direction)
 
   return current.direction ~= prev.direction
+end
+
+function Character:HasFrameIndexChanged()
+  local current <const> = self.states[self.counter]
+  local prev <const> = self.states[self.counter - 1]
+
+  -- print(prev ~= nil and prev.frameIndex or 1, current.frameIndex)
+
+  if (prev == nil) then
+    return false
+  end
+
+  return prev.frameIndex ~= current.frameIndex
 end
 
 function Character:HasStateChanged()
@@ -706,36 +749,7 @@ function Character:IsAttacking()
   local state <const> = self.states[self.counter]
 
   return self:IsKicking() or self:IsPunching() or self:IsSpecialing()
-
-  -- return self:IsAttackingBack() or
-  --   self:IsAttackingDown() or
-  --   self:IsAttackingForward() or
-  --   self:IsAttackingUp()
 end
-
--- function Character:IsAttackingBack()
---   local state <const> = self.states[self.counter]
-
---   return state.state & charStates.BACK ~= 0
--- end
-
--- function Character:IsAttackingDown()
---   local state <const> = self.states[self.counter]
-
---   return state.state & charStates.DOWN ~= 0
--- end
-
--- function Character:IsAttackingForward()
---   local state <const> = self.states[self.counter]
-
---   return state.state & charStates.FORWARD ~= 0
--- end
-
--- function Character:IsAttackingUp()
---   local state <const> = self.states[self.counter]
-
---   return state.state & charStates.UP ~= 0
--- end
 
 function Character:IsBack()
   local state <const> = self.states[self.counter]
@@ -782,7 +796,7 @@ function Character:IsFalling()
   local state <const> = self.states[self.counter]
 
   -- Since gravity is always being applied, we need to check above it.
-  return state.velocity.y > self.gravity + 2
+  return self:IsAirborne() and state.velocity.y > self.gravity
 end
 
 function Character:IsFlipped()
@@ -813,18 +827,6 @@ function Character:IsJumping()
   return state.state & charStates.JUMP ~= 0
 end
 
--- function Character:IsJumpingBack()
---   local state <const> = self.states[self.counter]
-
---   return self:IsJumping() and state.state & charStates.BACK ~= 0
--- end
-
--- function Character:IsJumpingForward()
---   local state <const> = self.states[self.counter]
-
---   return self:IsJumping() and state.state & charStates.FORWARD ~= 0
--- end
-
 function Character:IsKicking()
   local state <const> = self.states[self.counter]
 
@@ -842,28 +844,6 @@ function Character:IsMoving()
 
   return state.state & charStates.MOVE ~= 0
 end
-
--- function Character:IsMovingBack(exclusive)
---   local isExclusive <const> = exclusive or false
---   local state <const> = self.states[self.counter]
-
---   if (isExclusive) then
---     return state.state == charStates.MOVE | charStates.BACK
---   end
-
---   return self:IsMoving() and state.state & charStates.BACK ~= 0
--- end
-
--- function Character:IsMovingForward(exclusive)
---   local isExclusive <const> = exclusive or false
---   local state <const> = self.states[self.counter]
-
---   if (isExclusive) then
---     return state.state == charStates.MOVE | charStates.FORWARD
---   end
-
---   return self:IsMoving() and state.state & charStates.FORWARD ~= 0
--- end
 
 function Character:IsPunching()
   local state <const> = self.states[self.counter]
@@ -919,7 +899,6 @@ function Character:Load()
 end
 
 function Character:HydrateTileset(tileset)
-  local index = 0
   local tilesetProperties <const> = ConvertCustomPropertiesToTable(tileset.properties or {})
   local tiles = {}
 
@@ -943,10 +922,7 @@ function Character:HydrateTileset(tileset)
       collision.properties = collisionProperties
     end
 
-    for k = 1, tileProperties.frameDuration do
-      index += 1
-      tiles[index] = tile
-    end
+    tiles[i] = tile
   end
 
   tileset.properties = tilesetProperties
@@ -1049,12 +1025,101 @@ function Character:LoadTSJ(state)
   return json.decodeFile(filePath)
 end
 
+function Character:MoveCollisions()
+  local state <const> = self.states[self.counter]
+
+  for i, collisionSprite in ipairs(self.emptyCollisionSprites) do
+    local attemptedPosition = {
+      x = collisionSprite.x + state.velocity.x,
+      y = collisionSprite.y + state.velocity.y,
+    }
+    local actualX, actualY, collisions, length = collisionSprite:moveWithCollisions(
+      attemptedPosition.x,
+      attemptedPosition.y
+    )
+
+    if (#collisions > 0) then
+      local actualPosition <const> = {
+        x = actualX,
+        y = actualY,
+      }
+
+      self:HandleCollisions(attemptedPosition, actualPosition, collisions, length)
+    end
+  end
+end
+
+function Character:MoveSelf()
+  local state <const> = self.states[self.counter]
+  local attemptedPosition = {
+    x = self.x + state.velocity.x,
+    y = self.y + state.velocity.y,
+  }
+  local actualX, actualY, collisions, length = self:moveWithCollisions(
+    attemptedPosition.x,
+    attemptedPosition.y
+  )
+
+  state.position.x = actualX
+  state.position.y = actualY
+
+  -- local delta <const> = {
+  --   x = actualX - attemptedPosition.x,
+  --   y = actualY - attemptedPosition.y,
+  -- }
+
+  -- print(actualX, actualY, delta.x, delta.y)
+
+  -- We also need to update the position of the pushbox's rect.
+  if (state.pushboxRect ~= nil) then
+    -- local attemptedPushboxPosition <const> = {
+    --   x = state.pushboxRect.x + delta.x,
+    --   y = state.pushboxRect.y + delta.y,
+    -- }
+
+    -- print(
+    --   state.pushboxRect.x,
+    --   state.pushboxRect.y,
+    --   state.pushboxRect.x + state.velocity.x,
+    --   state.pushboxRect.y + state.velocity.y,
+    --   attemptedPushboxPosition.x,
+    --   attemptedPushboxPosition.y
+    -- )
+
+    -- TODO: Why don't we need to account for the actual position, here...?
+    state.pushboxRect.x += state.velocity.x
+    state.pushboxRect.y += state.velocity.y
+    -- state.pushboxRect.x = attemptedPushboxPosition.x
+    -- state.pushboxRect.y = attemptedPushboxPosition.y
+  end
+
+  if (#collisions > 0) then
+    local actualPosition <const> = {
+      x = actualX,
+      y = actualY,
+    }
+
+    self:HandleCollisions(attemptedPosition, actualPosition, collisions, length)
+  end
+end
+
 function Character:NormalizeMovementVelocityX(velocityX)
-  local flipSign <const> = self:IsFlipped() and -1 or 1
+  local flipSign <const> = self:GetFlipSign()
   local moveSign <const> = self:IsBack() and -1 or
     self:IsForward() and 1 or 0
 
   return velocityX * flipSign * moveSign
+end
+
+function Character:PrepareForNextLoop()
+  local state <const> = self.states[self.counter]
+  local nextState <const> = table.deepcopy(state)
+
+  self.counter += 1
+
+  self.states[self.counter] = nextState
+
+  self:UpdateFrameIndex()
 end
 
 function Character:Reset()
@@ -1071,6 +1136,86 @@ function Character:ResetState()
   self:SetState(charStates.STAND)
 end
 
+function Character:SetAnimationFrame()
+  self:SetFrameImage()
+  self:UpdatePushboxPosition()
+  self:SetFrameCollisions()
+end
+
+function Character:SetFrameCollisions()
+  local state <const> = self.states[self.counter]
+  local nextTile <const> = self:GetTile(state.frameIndex)
+  local selfBoundsRect <const> = self:getBoundsRect()
+
+  gfx.sprite.removeSprites(self.emptyCollisionSprites)
+  self.emptyCollisionSprites = {}
+
+  for i, collision in ipairs(nextTile.objectgroup.objects) do
+    local collidesWithGroupMasks <const> = {
+      Hitbox = collisionTypes.BALL,
+      Hurtbox = collisionTypes.BALL,
+      Pushbox = collisionTypes.WALL,
+    }
+    local groupMasks <const> = {
+      Hitbox = collisionTypes.HITBOX,
+      Hurtbox = collisionTypes.HURTBOX,
+      Pushbox = collisionTypes.PUSHBOX,
+    }
+    local isHitbox <const> = collision.class == 'Hitbox'
+    local isHurtbox <const> = collision.class == 'Hurtbox'
+    local isPushbox <const> = collision.class == 'Pushbox'
+
+    if (isPushbox) then
+      -- Setting the collide rect is center-aware, so no need for any math.
+      local collideRect <const> = geo.rect.new(
+        collision.x,
+        collision.y,
+        collision.width,
+        collision.height
+      )
+
+      self.collisionProperties = collision.properties
+      self:setCollideRect(collideRect)
+      self:setCollidesWithGroupsMask(collidesWithGroupMasks[collision.class])
+      self:setGroupMask(groupMasks[collision.class])
+    elseif (isHitbox or isHurtbox) then
+      -- Setting an empty collision sprite is not center-aware, so we need a bit of math.
+      local collisionX <const> = (self.x - (self.width / 2)) + collision.x
+      local collisionY <const> = (self.y - self.height) + collision.y
+      local collideRect <const> = geo.rect.new(
+        collisionX,
+        collisionY,
+        collision.width,
+        collision.height
+      )
+      local flip <const> = self:GetFlip()
+
+      collideRect:flipRelativeToRect(selfBoundsRect, flip)
+
+      local sprite <const> = self.addEmptyCollisionSprite(collideRect)
+
+      sprite.collisionProperties = collision.properties
+      sprite.parent = self
+      sprite:setCollidesWithGroupsMask(collidesWithGroupMasks[collision.class])
+      sprite:setGroupMask(groupMasks[collision.class])
+      sprite:setImageFlip(flip, true)
+
+      table.insert(self.emptyCollisionSprites, sprite)
+    end
+  end
+end
+
+function Character:SetFrameImage()
+  local state <const> = self.states[self.counter]
+  local nextImage <const> = self.imageTable:getImage(state.frameIndex)
+
+  self:setImage(nextImage)
+
+  -- This won't flip the image when we're in a single-frame looping animation, like crouching.
+  -- To account for that, we are also setting the image flip during "UpdateDirection()".
+  self:setImageFlip(self:GetFlip(), true)
+end
+
 function Character:SetState(state)
   -- local keyset = {}
 
@@ -1083,22 +1228,11 @@ function Character:SetState(state)
   self.states[self.counter].state = state
 
   self:DeriveImageTableFromState()
-  self:UpdateAnimation()
+  self:SetAnimationFrame()
   self:DerivePhysicsFromState()
 end
 
-function Character:UpdateButtonStates()
-  local state <const> = self.states[self.counter]
-
-  state.buttonState = { pd.getButtonState() }
-end
-
 function Character:TransitionState()
-  local state <const> = self.states[self.counter]
-  local tileProperties <const> = self:GetTileProperties(state.imageTableIndex)
-  local tilesetProperties <const> = self:GetTilesetProperties()
-  local loops = tilesetProperties.loops or tileProperties.loops
-
   if (self:HasDirectionChanged()) then
     if (self:IsMoving()) then
       if (self:IsForward()) then
@@ -1109,9 +1243,14 @@ function Character:TransitionState()
     end
   end
 
-  if (not self:HasAnimationEnded()) then
+  if (not self:HasAnimationFrameEnded() or not self:HasAnimationEnded()) then
     return
   end
+
+  local state <const> = self.states[self.counter]
+  local tileProperties <const> = self:GetTileProperties(state.frameIndex)
+  local tilesetProperties <const> = self:GetTilesetProperties()
+  local loops = tilesetProperties.loops or tileProperties.loops
 
   -- Beginning and ending checks should come first
 
@@ -1120,7 +1259,6 @@ function Character:TransitionState()
 
     if (self:IsDashing()) then
       local newState = state.state &~ statesToRemove
-      newState |= charStates.AIRBORNE
 
       self:SetState(newState)
 
@@ -1189,80 +1327,16 @@ function Character:TransitionState()
   end
 end
 
-function Character:UpdateAnimation()
-  self:UpdateImage()
-  self:UpdateCollisions()
-  self:UpdatePushboxPosition()
-  self:setImageFlip(self:GetFlip(), true)
-end
-
-function Character:UpdateCollisions()
-  local state <const> = self.states[self.counter]
-  local nextTile <const> = self:GetTile(state.imageTableIndex)
-  local selfBoundsRect <const> = self:getBoundsRect()
-
-  gfx.sprite.removeSprites(self.emptyCollisionSprites)
-  self.emptyCollisionSprites = {}
-
-  for i, collision in ipairs(nextTile.objectgroup.objects) do
-    local collidesWithGroupMasks <const> = {
-      Hitbox = collisionTypes.BALL,
-      Hurtbox = collisionTypes.BALL,
-      Pushbox = collisionTypes.WALL,
-    }
-    local groupMasks <const> = {
-      Hitbox = collisionTypes.HITBOX,
-      Hurtbox = collisionTypes.HURTBOX,
-      Pushbox = collisionTypes.PUSHBOX,
-    }
-    local isHitbox <const> = collision.class == 'Hitbox'
-    local isHurtbox <const> = collision.class == 'Hurtbox'
-    local isPushbox <const> = collision.class == 'Pushbox'
-
-    if (isPushbox) then
-      -- Setting the collide rect is center-aware, so no need for any math.
-      local collideRect <const> = geo.rect.new(
-        collision.x,
-        collision.y,
-        collision.width,
-        collision.height
-      )
-
-      self.collisionProperties = collision.properties
-      self:setCollideRect(collideRect)
-      self:setCollidesWithGroupsMask(collidesWithGroupMasks[collision.class])
-      self:setGroupMask(groupMasks[collision.class])
-    elseif (isHitbox or isHurtbox) then
-      -- Setting an empty collision sprite is not center-aware, so we need a bit of math.
-      local collisionX <const> = (self.x - (self.width / 2)) + collision.x
-      local collisionY <const> = (self.y - self.height) + collision.y
-      local collideRect <const> = geo.rect.new(
-        collisionX,
-        collisionY,
-        collision.width,
-        collision.height
-      )
-      local flip <const> = self:GetFlip()
-
-      collideRect:flipRelativeToRect(selfBoundsRect, flip)
-
-      local sprite <const> = self.addEmptyCollisionSprite(collideRect)
-
-      sprite.collisionProperties = collision.properties
-      sprite:setCollidesWithGroupsMask(collidesWithGroupMasks[collision.class])
-      sprite:setGroupMask(groupMasks[collision.class])
-      sprite:setImageFlip(flip, true)
-
-      table.insert(self.emptyCollisionSprites, sprite)
-    end
+function Character:UpdateAnimationFrame()
+  if (self:HasFrameIndexChanged()) then
+    self:SetAnimationFrame()
   end
 end
 
-function Character:UpdateCounter()
+function Character:UpdateButtonStates()
   local state <const> = self.states[self.counter]
 
-  self.counter += 1
-  self.states[self.counter] = table.deepcopy(state)
+  state.buttonState = { pd.getButtonState() }
 end
 
 function Character:UpdateDirection()
@@ -1278,18 +1352,47 @@ function Character:UpdateDirection()
     return
   end
 
-  if (opponentCenter.x > selfCenter.x) then
+  if (opponentCenter.x > selfCenter.x and state.direction ~= charDirections.RIGHT) then
     state.direction = charDirections.RIGHT
-  elseif (opponentCenter.x < selfCenter.x) then
+    self:setImageFlip(self:GetFlip(), true)
+  elseif (opponentCenter.x < selfCenter.x and state.direction ~= charDirections.LEFT) then
     state.direction = charDirections.LEFT
+    self:setImageFlip(self:GetFlip(), true)
   end
 end
 
-function Character:UpdateImage()
-  local state <const> = self.states[self.counter]
-  local nextImage <const> = self.imageTable:getImage(state.imageTableIndex)
+function Character:UpdateFrameIndex()
+  local nextState <const> = self.states[self.counter]
+  nextState.frameCounter += 1
 
-  self:setImage(nextImage)
+  local tileProperties <const> = self:GetTileProperties(nextState.frameIndex)
+  local shouldUpdateFrameIndex <const> = nextState.frameCounter > tileProperties.frameDuration
+
+  if (not shouldUpdateFrameIndex) then
+    return
+  end
+
+  local tilesetProperties <const> = self:GetTilesetProperties()
+
+  if (not self:HasAnimationEnded()) then
+    nextState.frameIndex += 1
+  elseif (self:HasAnimationEnded() and tilesetProperties.loops) then
+    nextState.frameIndex = 1
+  end
+
+  -- Reset the frame counter.
+  nextState.frameCounter = 1
+
+  -- print('UpdateFrameIndex()', nextState.frameCounter, nextState.frameIndex)
+end
+
+function Character:UpdateFrozenSprite()
+  local filteredState <const> = self:GetFilteredStateForTilesets()
+  local state <const> = self.states[self.counter]
+
+  self.imageTable = self.imageTables[filteredState]
+  self:SetFrameImage()
+  self:moveTo(state.position.x, state.position.y)
 end
 
 function Character:UpdatePhysics()
@@ -1309,63 +1412,10 @@ function Character:UpdatePhysics()
   -- print(state.velocity.x, state.velocity.y)
 end
 
-function Character:UpdateImageTableIndex()
-  local state <const> = self.states[self.counter]
-  local tilesetProperties <const> = self:GetTilesetProperties()
-
-  if (not self:HasAnimationEnded()) then
-    state.imageTableIndex += 1
-  elseif (self:HasAnimationEnded() and tilesetProperties.loops) then
-    state.imageTableIndex = 1
-  end
-
-  -- print('UpdateImageTableIndex()', state.imageTableIndex)
-end
-
 function Character:UpdatePosition()
-  local attemptedPosition = {
-    x = self.x,
-    y = self.y,
-  }
-  local state <const> = self.states[self.counter]
-
   if (not self:IsBeginning() and not self:IsEnding()) then
-    attemptedPosition.x += state.velocity.x
-    attemptedPosition.y += state.velocity.y
-    -- We also need to update the position of the pushbox's rect.
-    state.pushboxRect.x += state.velocity.x
-    state.pushboxRect.y += state.velocity.y
-  end
-
-  local actualX, actualY, collisions, length = self:moveWithCollisions(attemptedPosition.x, attemptedPosition.y)
-
-  state.position.x = actualX
-  state.position.y = actualY
-
-  if (#collisions > 0) then
-    local actualPosition <const> = {
-      x = actualX,
-      y = actualY,
-    }
-
-    self:HandleCollisions(attemptedPosition, actualPosition, collisions, length)
-  end
-
-  for i, collisionSprite in ipairs(self.emptyCollisionSprites) do
-    local actualX, actualY, collisions, length = collisionSprite:checkCollisions(collisionSprite.x, collisionSprite.y)
-
-    if (#collisions > 0) then
-      local actualPosition <const> = {
-        x = actualX,
-        y = actualY,
-      }
-      local attemptedPosition <const> = {
-        x = collisionSprite.x,
-        y = collisionSprite.y,
-      }
-
-      self:HandleCollisions(attemptedPosition, actualPosition, collisions, length)
-    end
+    self:MoveSelf()
+    self:MoveCollisions()
   end
 end
 
@@ -1375,11 +1425,11 @@ function Character:UpdatePushboxPosition()
     y = self.y,
   }
   local state <const> = self.states[self.counter]
-  local nextPushboxRect <const> = self:GetPushboxRectForFrame(state.imageTableIndex)
+  local nextPushboxRect <const> = self:GetPushboxRectForFrame(state.frameIndex)
   local prevPushboxRect <const> = state.pushboxRect
 
   if (prevPushboxRect ~= nil) then
-    local flipSign <const> = self:IsFlipped() and -1 or 1
+    local flipSign <const> = self:GetFlipSign()
     local nextPushboxCenter <const> = nextPushboxRect:centerPoint()
     local prevPushboxCenter <const> = prevPushboxRect:centerPoint()
     local x <const> = (prevPushboxCenter.x - nextPushboxCenter.x) * flipSign

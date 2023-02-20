@@ -23,7 +23,7 @@ end
 
 function Kim:CheckSpecialInputs()
   local state <const> = self.states[self.counter]
-  local tileProperties <const> = self:GetTileProperties(state.imageTableIndex)
+  local tileProperties <const> = self:GetTileProperties(state.frameIndex)
 
   -- If we can't perform a special move, exit early.
   if (not tileProperties.specialCancellable) then

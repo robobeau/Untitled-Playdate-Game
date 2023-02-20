@@ -40,12 +40,12 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":4
+                             "value":12
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":4
+                             "value":12
                             }],
                      "rotation":0,
                      "visible":true,
@@ -124,12 +124,12 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":4
+                             "value":12
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":4
+                             "value":12
                             }],
                      "rotation":0,
                      "visible":true,

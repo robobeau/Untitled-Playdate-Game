@@ -14,8 +14,8 @@
    <object id="4" name="Pushbox" class="Pushbox" x="-4" y="12" width="72" height="84"/>
    <object id="5" name="Hitbox" class="Hitbox" x="34" y="68" width="34" height="32">
     <properties>
-     <property name="velocityX" type="int" value="6"/>
-     <property name="velocityY" type="int" value="2"/>
+     <property name="velocityX" type="int" value="12"/>
+     <property name="velocityY" type="int" value="16"/>
     </properties>
    </object>
   </objectgroup>

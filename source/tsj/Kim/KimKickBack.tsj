@@ -9,62 +9,10 @@
  "margin":0,
  "name":"KimKickBack",
  "spacing":0,
- "tilecount":7,
+ "tilecount":5,
  "tiledversion":"1.9.1",
  "tileheight":128,
  "tiles":[
-        {
-         "class":"Frame",
-         "id":0,
-         "image":"..\/..\/images\/Kim\/KimKickBack1.png",
-         "imageheight":128,
-         "imagewidth":128,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":42,
-                     "x":50,
-                     "y":50
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":44
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":2
-                }, 
-                {
-                 "name":"velocityX",
-                 "type":"int",
-                 "value":0
-                }]
-        }, 
         {
          "class":"Frame",
          "id":1,
@@ -109,7 +57,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":2
+                 "value":4
                 }]
         }, 
         {
@@ -133,17 +81,17 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":0
+                             "value":2
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":6
+                             "value":-16
                             }],
                      "rotation":0,
                      "visible":true,
                      "width":44,
-                     "x":38,
+                     "x":37,
                      "y":6
                     }, 
                     {
@@ -212,12 +160,12 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":4
+                             "value":12
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":6
+                             "value":-12
                             }],
                      "rotation":0,
                      "visible":true,
@@ -281,12 +229,12 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":4
+                             "value":12
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":2
+                             "value":6
                             }],
                      "rotation":0,
                      "visible":true,
@@ -373,54 +321,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":2
-                }]
-        }, 
-        {
-         "class":"Frame",
-         "id":6,
-         "image":"..\/..\/images\/Kim\/KimKickBack1.png",
-         "imageheight":128,
-         "imagewidth":128,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":42,
-                     "x":50,
-                     "y":50
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":44
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":2
+                 "value":4
                 }]
         }],
  "tilewidth":128,

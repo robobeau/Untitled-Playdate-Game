@@ -24,7 +24,8 @@
   <objectgroup draworder="index" id="2">
    <object id="2" name="Hitbox" class="Hitbox" x="90" y="26" width="42" height="30">
     <properties>
-     <property name="velocityX" type="int" value="6"/>
+     <property name="velocityX" type="int" value="16"/>
+     <property name="velocityY" type="int" value="-8"/>
     </properties>
    </object>
    <object id="1" name="Hurtbox" class="Hurtbox" x="48" y="6" width="42" height="74"/>

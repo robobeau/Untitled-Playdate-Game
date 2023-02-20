@@ -73,7 +73,7 @@ function Ball:collisionResponse(other)
   local groupMask <const> = other:getGroupMask()
   local collidedWithHitbox = groupMask & collisionTypes.HITBOX ~= 0
   local collidedWithHurtbox = groupMask & collisionTypes.HURTBOX ~= 0
-  local collidedWithWall = groupMask & collisionTypes.WALL ~= 0
+  -- local collidedWithWall = groupMask & collisionTypes.WALL ~= 0
 
   if (collidedWithHitbox or collidedWithHurtbox) then
     return gfx.sprite.kCollisionTypeOverlap
@@ -85,7 +85,6 @@ end
 function Ball:init(config)
   Ball.super.init(self)
 
-  -- self.collisionResponse = gfx.sprite.kCollisionTypeSlide
   self.startingPosition = config.startingPosition or self.startingPosition
   self.type = config.type or self.type
   self.gravity = ballGravities[self.type]
@@ -110,27 +109,16 @@ function Ball:update()
 end
 
 function Ball:ChangeVelocity(x, y)
-  local newVelocity <const> = self.velocity
-  local signX <const> = Sign(self.velocity.x)
-  local signY <const> = Sign(self.velocity.y)
+  self:ChangeVelocityX(x)
+  self:ChangeVelocityY(y)
+end
 
-  if (x ~= nil) then
-    newVelocity.x = math.abs(self.velocity.x) + x
+function Ball:ChangeVelocityX(x)
+  self:SetVelocity(math.abs(self.velocity.x) + x)
+end
 
-    if (signX ~= 0) then
-      newVelocity.x *= signX
-    end
-  end
-
-  if (y ~= nil) then
-    newVelocity.y = math.abs(self.velocity.y) + y
-
-    if (signY ~= 0) then
-      newVelocity.y *= signY
-    end
-  end
-
-  self.velocity = newVelocity
+function Ball:ChangeVelocityY(y)
+  self:SetVelocity(math.abs(self.velocity.y) + y)
 end
 
 function Ball:CheckButtons()
@@ -143,6 +131,7 @@ function Ball:CheckButtons()
   -- end
 end
 
+-- TODO: Separate floor and wall collision checks?
 function Ball:HandleCollisions(actualX, actualY, collisions, length)
   for i, collision in ipairs(collisions) do
     local groupMask <const> = collision.other:getGroupMask()
@@ -150,11 +139,46 @@ function Ball:HandleCollisions(actualX, actualY, collisions, length)
     local collidedWithHurtbox = groupMask & collisionTypes.HURTBOX ~= 0
     local collidedWithWall = groupMask & collisionTypes.WALL ~= 0
 
-    -- TODO: This check might be unnecessary?
-    -- if (collidedWithHurtbox or collidedWithWall) then
+    if (collidedWithHurtbox) then
+      self:HandleCharacterCollision(collision)
+    elseif (collidedWithWall) then
       self:HandleWallCollision(collision)
-    -- end
+    end
   end
+end
+
+function Ball:HandleCharacterCollision(collision)
+  local ball <const> = collision.sprite
+  local other <const> = collision.other
+
+  -- if (collision.normal.x == -1) then
+  --   local attemptedPositionX <const> = collision.otherRect.x - self.width
+  --   local newPositionX <const> = math.max(attemptedPositionX, 0)
+
+  --   self:moveTo(newPositionX, self.y)
+  -- elseif (collision.normal.x == 1) then
+  --   local attemptedPositionX <const> = collision.otherRect.x + collision.otherRect.width
+  --   local newPositionX <const> = math.min(attemptedPositionX, 400)
+
+  --   self:moveTo(newPositionX, self.y)
+  -- end
+
+  -- if (collision.normal.y == -1) then
+  --   local attemptedPositionY <const> = collision.otherRect.y - self.height
+  --   local newPositionY <const> = math.max(attemptedPositionY, 0)
+
+  --   self:moveTo(self.x, newPositionY)
+  -- elseif (collision.normal.y == 1) then
+  --   local attemptedPositionY <const> = collision.otherRect.y - self.height
+  --   local newPositionY <const> = math.min(attemptedPositionY, 240)
+
+  --   self:moveTo(self.x, newPositionY)
+  -- end
+
+  other.parent:HandleBallCollision(other, ball)
+
+  -- A character is technically a wall!
+  self:HandleWallCollision(collision)
 end
 
 function Ball:HandleWallCollision(collision)
@@ -171,6 +195,21 @@ function Ball:HandleWallCollision(collision)
       self.velocity.y *= -1
     end
   end
+end
+
+function Ball:IsDangerous()
+  return (
+    self:IsDangerousX() or
+    self:IsDangerousY()
+  )
+end
+
+function Ball:IsDangerousX()
+  return math.abs(self.velocity.x) > 5
+end
+
+function Ball:IsDangerousY()
+  return math.abs(self.velocity.y) > 5
 end
 
 function Ball:Reset()
@@ -202,10 +241,30 @@ function Ball:SetPosition(x, y)
 end
 
 function Ball:SetVelocity(x, y)
-  self.velocity = {
-    x = x or self.velocity.x,
-    y = y or self.velocity.y
-  }
+  self:SetVelocityX(x)
+  self:SetVelocityY(y)
+end
+
+function Ball:SetVelocityX(x)
+  local newVelocityX = x
+  local signX <const> = Sign(self.velocity.x)
+
+  if (signX ~= 0) then
+    newVelocityX *= signX
+  end
+
+  self.velocity.x = newVelocityX
+end
+
+function Ball:SetVelocityY(y)
+  local newVelocityY = y
+  local signY <const> = Sign(self.velocity.y)
+
+  if (signY ~= 0) then
+    newVelocityY *= signY
+  end
+
+  self.velocity.y = newVelocityY
 end
 
 function Ball:UpdateDebugInfo()

@@ -20,12 +20,6 @@
   </properties>
   <image width="128" height="80" source="../source/images/Kim/KimKickCrouch2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="3" name="Hitbox" class="Hitbox" x="58" y="58" width="24" height="22">
-    <properties>
-     <property name="velocityX" type="int" value="2"/>
-     <property name="velocityY" type="int" value="2"/>
-    </properties>
-   </object>
    <object id="2" name="Hurtbox" class="Hurtbox" x="20" y="4" width="38" height="76"/>
    <object id="1" name="Pushbox" class="Pushbox" x="4" y="-4" width="72" height="84"/>
   </objectgroup>
@@ -40,8 +34,8 @@
   <objectgroup draworder="index" id="2">
    <object id="3" name="Hitbox" class="Hitbox" x="70" y="52" width="62" height="28">
     <properties>
-     <property name="velocityX" type="int" value="6"/>
-     <property name="velocityY" type="int" value="4"/>
+     <property name="velocityX" type="int" value="12"/>
+     <property name="velocityY" type="int" value="-6"/>
     </properties>
    </object>
    <object id="2" name="Hurtbox" class="Hurtbox" x="32" y="14" width="38" height="66"/>

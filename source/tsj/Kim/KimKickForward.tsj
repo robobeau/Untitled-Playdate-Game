@@ -10,7 +10,7 @@
  "name":"KimKickForward",
  "objectalignment":"bottom",
  "spacing":0,
- "tilecount":6,
+ "tilecount":5,
  "tiledversion":"1.9.1",
  "tileheight":96,
  "tiles":[
@@ -74,28 +74,6 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
-                     "height":24,
-                     "id":2,
-                     "name":"Hitbox",
-                     "properties":[
-                            {
-                             "name":"velocityX",
-                             "type":"int",
-                             "value":2
-                            }, 
-                            {
-                             "name":"velocityY",
-                             "type":"int",
-                             "value":2
-                            }],
-                     "rotation":0,
-                     "visible":true,
-                     "width":20,
-                     "x":72,
-                     "y":42
-                    }, 
-                    {
                      "class":"Hurtbox",
                      "height":82,
                      "id":1,
@@ -132,85 +110,6 @@
         }, 
         {
          "class":"Frame",
-         "id":2,
-         "image":"..\/..\/images\/Kim\/KimKickForward3.png",
-         "imageheight":96,
-         "imagewidth":128,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hitbox",
-                     "height":34,
-                     "id":2,
-                     "name":"Hitbox",
-                     "properties":[
-                            {
-                             "name":"velocityX",
-                             "type":"int",
-                             "value":6
-                            }, 
-                            {
-                             "name":"velocityY",
-                             "type":"int",
-                             "value":2
-                            }],
-                     "rotation":0,
-                     "visible":true,
-                     "width":74,
-                     "x":58,
-                     "y":30
-                    }, 
-                    {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":36,
-                     "x":22,
-                     "y":18
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":3,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":8,
-                     "y":12
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":1
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
-         "class":"Frame",
          "id":3,
          "image":"..\/..\/images\/Kim\/KimKickForward3.png",
          "imageheight":96,
@@ -230,12 +129,12 @@
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":6
+                             "value":16
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":2
+                             "value":-8
                             }],
                      "rotation":0,
                      "visible":true,
@@ -275,7 +174,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":7
+                 "value":8
                 }, 
                 {
                  "name":"specialCancellable",
