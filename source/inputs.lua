@@ -7,8 +7,8 @@ function Inputs:CheckDashBackInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
   if (buttonState.isPressingBack) then
-    local start <const> = #character.states - 1
-    local stop <const> = #character.states - 7
+    local start <const> = #character.history.ticks - 1
+    local stop <const> = #character.history.ticks - 7
 
     if (stop >= 1) then
       local counter = 0
@@ -32,8 +32,8 @@ function Inputs:CheckDashForwardInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
   if (buttonState.isPressingForward) then
-    local start <const> = #character.states - 1
-    local stop <const> = #character.states - 7
+    local start <const> = #character.history.ticks - 1
+    local stop <const> = #character.history.ticks - 7
 
     if (stop >= 1) then
       local counter = 0
@@ -89,8 +89,8 @@ function Inputs:CheckRunForwardInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
   if (buttonState.isPressingForward) then
-    local start <const> = #character.states - 1
-    local stop <const> = #character.states - 7
+    local start <const> = #character.history.ticks - 1
+    local stop <const> = #character.history.ticks - 7
 
     if (stop >= 1) then
       local counter = 0
@@ -125,7 +125,7 @@ function Inputs:CheckSpecialUpInput(character)
 
   if (buttonState.hasPressedB or buttonState.hasReleasedB) then
     local chargeTarget <const> = 30
-    local start <const> = #character.states
+    local start <const> = #character.history.ticks
     local stop <const> = math.max(start - 45, 1)
 
     local chargeCounter = 0
@@ -158,10 +158,10 @@ function Inputs:CheckSpecialUpInput(character)
 end
 
 function Inputs:GetButtonState(character, index)
-  local counter <const> = index or character.counter
-  local state <const> = character.states[counter]
   local backInput <const>, forwardInput <const> = character:GetBackAndForwardInputs()
-  local current <const>, pressed <const>, released <const> = table.unpack(state.buttonState)
+  local counter <const> = index or character.history.counter
+  local frame <const> = character.history:GetFrame(counter)
+  local current <const>, pressed <const>, released <const> = table.unpack(frame.buttonState)
 
   return {
     hasPressedA = pressed & pd.kButtonA ~= 0,

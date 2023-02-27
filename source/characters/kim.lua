@@ -22,8 +22,8 @@ function Kim:init(config)
 end
 
 function Kim:CheckSpecialInputs()
-  local state <const> = self.states[self.counter]
-  local tileProperties <const> = self:GetTileProperties(state.frameIndex)
+  local frame <const> = self.history:GetFrame()
+  local tileProperties <const> = self:GetTileProperties(frame.frameIndex)
 
   -- If we can't perform a special move, exit early.
   if (not tileProperties.specialCancellable) then
@@ -32,7 +32,7 @@ function Kim:CheckSpecialInputs()
 
   if (
     not self:IsCrouching() and
-    not self:IsStanding() and 
+    not self:IsStanding() and
     Inputs:CheckSpecialDownInput(self)
   ) then
     self:SetState(charStates.SPECIAL | charStates.DOWN)
