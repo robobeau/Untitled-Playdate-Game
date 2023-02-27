@@ -149,7 +149,7 @@ function Character:CheckCrank()
 
     -- print(change, acceleratedChange, self.counter, delta)
 
-    if (delta > 0 and delta < #self.history.ticks) then
+    if (delta > 0 and delta < #self.history.frames) then
       self.counter = delta
     end
   end

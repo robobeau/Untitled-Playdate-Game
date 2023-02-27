@@ -7,8 +7,8 @@ function Inputs:CheckDashBackInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
   if (buttonState.isPressingBack) then
-    local start <const> = #character.history.ticks - 1
-    local stop <const> = #character.history.ticks - 7
+    local start <const> = #character.history.frames - 1
+    local stop <const> = #character.history.frames - 7
 
     if (stop >= 1) then
       local counter = 0
@@ -32,8 +32,8 @@ function Inputs:CheckDashForwardInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
   if (buttonState.isPressingForward) then
-    local start <const> = #character.history.ticks - 1
-    local stop <const> = #character.history.ticks - 7
+    local start <const> = #character.history.frames - 1
+    local stop <const> = #character.history.frames - 7
 
     if (stop >= 1) then
       local counter = 0
@@ -89,8 +89,8 @@ function Inputs:CheckRunForwardInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
   if (buttonState.isPressingForward) then
-    local start <const> = #character.history.ticks - 1
-    local stop <const> = #character.history.ticks - 7
+    local start <const> = #character.history.frames - 1
+    local stop <const> = #character.history.frames - 7
 
     if (stop >= 1) then
       local counter = 0
@@ -125,7 +125,7 @@ function Inputs:CheckSpecialUpInput(character)
 
   if (buttonState.hasPressedB or buttonState.hasReleasedB) then
     local chargeTarget <const> = 30
-    local start <const> = #character.history.ticks
+    local start <const> = #character.history.frames
     local stop <const> = math.max(start - 45, 1)
 
     local chargeCounter = 0
