@@ -112,8 +112,10 @@ function Character:init(config)
 end
 
 function Character:update()
-  -- local frame <const> = self.history:GetFrame()
-  -- print('Bounds', self:getBoundsRect())
+  local frame <const> = self.history:GetFrame()
+
+  print('Update')
+  -- print('Position', self.x, self.y)
 
   self:CheckCrank()
 
@@ -132,6 +134,34 @@ function Character:update()
   self:UpdatePosition()
 
   self:PrepareForNextLoop()
+end
+
+function Character:AdjustPositionRelativeToPushbox()
+  local frame <const> = self.history:GetFrame()
+  local newPosition = {
+    x = self.x,
+    y = self.y,
+  }
+  local nextPushboxRect <const> = self:GetPushboxRectForFrameIndex(frame.frameIndex)
+  local prevPushboxRect <const> = (frame.pushboxRect or nextPushboxRect):copy()
+
+  if (prevPushboxRect ~= nil) then
+    local flipSign <const> = self:GetFlipSign()
+    local nextPushboxCenter <const> = nextPushboxRect:centerPoint()
+    local prevPushboxCenter <const> = prevPushboxRect:centerPoint()
+    local x <const> = (prevPushboxCenter.x - nextPushboxCenter.x) * flipSign
+    local y <const> = prevPushboxCenter.y - nextPushboxCenter.y
+
+    newPosition.x += x
+    newPosition.y += y
+    nextPushboxRect.x += x
+    nextPushboxRect.y += y
+  end
+
+  self.history:MutateTick({
+    pushboxRect = nextPushboxRect
+  })
+  self:moveTo(newPosition.x, newPosition.y)
 end
 
 -- TODO: Buddy, you gotta decouple your logic so that you draw based on a state simulation
@@ -402,7 +432,7 @@ function Character:DerivePhysicsFromCurrentFrame()
     -- newVelocity.x = properties.velocityX * moveSign * flipSign
     newVelocity.x = properties.velocityX * flipSign
   end
-  
+
   if (properties.velocityY ~= nil) then
     newVelocity.y = properties.velocityY
   end
@@ -631,30 +661,46 @@ function Character:HandleBallCollision(collision, sprite, ball)
 end
 
 function Character:HandleCollisions(collisions)
+  -- print(#collisions)
+
   for i, collision in ipairs(collisions) do
     local other <const> = collision.other
     local otherGroupMask <const> = other:getGroupMask()
     local collidedWithBall = otherGroupMask & collisionTypes.BALL ~= 0
+    local collidedWithFloor = otherGroupMask & collisionTypes.FLOOR ~= 0
     local collidedWithWall = otherGroupMask & collisionTypes.WALL ~= 0
 
     if (collidedWithBall) then
       self:HandleBallCollision(collision, collision.sprite, other)
+    elseif (collidedWithFloor) then
+      self:HandleFloorCollision(collision)
     elseif (collidedWithWall) then
       self:HandleWallCollision(collision)
     end
   end
 end
 
-function Character:HandleWallCollision(collision)
+function Character:HandleFloorCollision(collision)
   local frame <const> = self.history:GetFrame()
   local newVelocity <const> = table.deepcopy(frame.velocity)
 
-  if (collision.normal.x ~= 0) then
-    newVelocity.x = 0
-  end
+  print('--------- Floor ---------')
+  -- print('Position', self.x, self.y)
+  -- print('Normal', collision.normal.x, collision.normal.y)
+  print('Move', collision.move.x, collision.move.y)
+  print('Touch', collision.touch.x, collision.touch.y)
 
   if (collision.normal.y ~= 0) then
     newVelocity.y = 0
+
+    self.history:MutateTick({
+      position = {
+        x = self.x,
+        y = self.y,
+      },
+      pushboxRect = self:GetCollideRectRelativeToScreen(),
+      velocity = newVelocity
+    })
 
     if (collision.normal.y == -1) then
       if (self:IsFalling() and not self:IsTransitioning()) then
@@ -665,6 +711,21 @@ function Character:HandleWallCollision(collision)
         end
       end
     end
+  end
+end
+
+function Character:HandleWallCollision(collision)
+  local frame <const> = self.history:GetFrame()
+  local newVelocity <const> = table.deepcopy(frame.velocity)
+
+  print('--------- Wall ----------')
+  -- print('Position', self.x, self.y)
+  -- print('Normal', collision.normal.x, collision.normal.y)
+  print('Move', collision.move.x, collision.move.y)
+  print('Touch', collision.touch.x, collision.touch.y)
+
+  if (collision.normal.x ~= 0) then
+    newVelocity.x = 0
   end
 
   self.history:MutateTick({
@@ -1033,6 +1094,11 @@ end
 
 function Character:MoveSelf()
   local frame <const> = self.history:GetFrame()
+
+  -- print('Velocity', frame.velocity.x, frame.velocity.y)
+
+  print('MoveSelf', self.x, self.y, frame.velocity.x, frame.velocity.y)
+
   local _actualX <const>, _actualY <const>, collisions <const> = self:moveWithCollisions(
     self.x + frame.velocity.x,
     self.y + frame.velocity.y
@@ -1078,7 +1144,7 @@ end
 
 function Character:SetAnimationFrame()
   self:SetFrameImage()
-  -- self:UpdatePushboxPosition()
+  -- self:AdjustPositionRelativeToPushbox()
   self:SetFrameCollisions()
 end
 
@@ -1153,19 +1219,20 @@ function Character:SetPushbox(pushbox)
   )
 
   self:setCollideRect(pushboxRect)
-  self:setCollidesWithGroupsMask(collisionTypes.WALL)
+  self:setCollidesWithGroupsMask(collisionTypes.FLOOR | collisionTypes.WALL)
+  print('TEST')
   self:setGroupMask(collisionTypes.PUSHBOX)
-  self:UpdatePushboxPosition()
+  self:AdjustPositionRelativeToPushbox()
 end
 
 function Character:SetState(state)
-  -- local keyset = {}
+  local keyset = {}
 
-  -- for k, v in pairs(charStates) do
-  --   keyset[v] = k
-  -- end
+  for k, v in pairs(charStates) do
+    keyset[v] = k
+  end
 
-  -- print('SetState()', keyset[state], state)
+  print('SetState()', keyset[state], state)
 
   self.history:MutateTick({
     state = state,
@@ -1381,32 +1448,4 @@ function Character:UpdatePosition()
     self:MoveSelf()
     self:MoveEmptyCollisionSprites()
   end
-end
-
-function Character:UpdatePushboxPosition()
-  local frame <const> = self.history:GetFrame()
-  local newPosition = {
-    x = self.x,
-    y = self.y,
-  }
-  local nextPushboxRect <const> = self:GetPushboxRectForFrameIndex(frame.frameIndex)
-  local prevPushboxRect <const> = (frame.pushboxRect or nextPushboxRect):copy()
-
-  if (prevPushboxRect ~= nil) then
-    local flipSign <const> = self:GetFlipSign()
-    local nextPushboxCenter <const> = nextPushboxRect:centerPoint()
-    local prevPushboxCenter <const> = prevPushboxRect:centerPoint()
-    local x <const> = (prevPushboxCenter.x - nextPushboxCenter.x) * flipSign
-    local y <const> = prevPushboxCenter.y - nextPushboxCenter.y
-
-    newPosition.x += x
-    newPosition.y += y
-    nextPushboxRect.x += x
-    nextPushboxRect.y += y
-  end
-
-  self.history:MutateTick({
-    pushboxRect = nextPushboxRect
-  })
-  self:moveTo(newPosition.x, newPosition.y)
 end
