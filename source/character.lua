@@ -1206,7 +1206,7 @@ function Character:LoadTilesets()
 end
 
 function Character:LoadTSJ(state)
-  local filePath = 'tsj/' .. self.name .. '/' .. self.name .. state .. '.tsj'
+  local filePath = 'tsj/characters/' .. self.name .. '/' .. self.name .. state .. '.tsj'
 
   return json.decodeFile(filePath)
 end
