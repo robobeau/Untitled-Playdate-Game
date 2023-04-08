@@ -85,6 +85,15 @@ function Inputs:CheckMoveForwardInput(character)
   end
 end
 
+-- Typically used to check if the character is going from crouching to standing
+function Inputs:CheckRiseInput(character)
+  local buttonState <const> = self:GetButtonState(character)
+
+  if (buttonState.hasReleasedDown) then
+    return true
+  end
+end
+
 function Inputs:CheckRunForwardInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
@@ -157,6 +166,7 @@ function Inputs:CheckSpecialUpInput(character)
   end
 end
 
+-- TODO: Consider memoizing the results in each frame
 function Inputs:GetButtonState(character, index)
   local backInput <const>, forwardInput <const> = character:GetBackAndForwardInputs()
   local counter <const> = index or character.history.counter

@@ -6,6 +6,7 @@ import 'utils'
 
 -- Convenience variables
 local pd <const> = playdate
+local geo <const> = pd.geometry
 local gfx <const> = pd.graphics
 
 ballTypes = {
@@ -79,7 +80,7 @@ function Ball:collisionResponse(other)
     return gfx.sprite.kCollisionTypeOverlap
   end
 
-  return gfx.sprite.kCollisionTypeSlide
+  return gfx.sprite.kCollisionTypeFreeze
 end
 
 function Ball:init(config)
@@ -93,11 +94,12 @@ function Ball:init(config)
   local image <const> = gfx.image.new(ballImages[self.type])
 
   self:moveTo(self.startingPosition.x, self.startingPosition.y)
-  self:setCenter(0, 0)
+  self:setCenter(0.5, 0.5)
   self:setCollideRect(0, 0, ballSizes[self.type].x, ballSizes[self.type].y)
   self:setCollidesWithGroupsMask(collisionTypes.FLOOR | collisionTypes.HITBOX | collisionTypes.HURTBOX | collisionTypes.WALL)
   self:setGroupMask(collisionTypes.BALL)
   self:setImage(image)
+  self:setZIndex(2)
 end
 
 function Ball:update()
@@ -209,17 +211,18 @@ function Ball:HandleWallCollision(collision)
 end
 
 function Ball:IsDangerous()
-  return (
-    self:IsDangerousX() or
-    self:IsDangerousY()
-  )
+  return self:IsDeadly()
 end
 
-function Ball:IsDangerousX()
+function Ball:IsDeadly()
+  return self:IsDeadlyX() or self:IsDeadlyY()
+end
+
+function Ball:IsDeadlyX()
   return math.abs(self.velocity.x) > 5
 end
 
-function Ball:IsDangerousY()
+function Ball:IsDeadlyY()
   return math.abs(self.velocity.y) > 5
 end
 

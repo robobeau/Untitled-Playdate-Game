@@ -67,6 +67,11 @@
                  "value":true
                 }, 
                 {
+                 "name":"blockCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":3
@@ -135,6 +140,11 @@
          "properties":[
                 {
                  "name":"attackCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"blockCancellable",
                  "type":"bool",
                  "value":true
                 }, 
@@ -211,6 +221,11 @@
                  "value":true
                 }, 
                 {
+                 "name":"blockCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":5
@@ -279,6 +294,11 @@
          "properties":[
                 {
                  "name":"attackCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"blockCancellable",
                  "type":"bool",
                  "value":true
                 }, 

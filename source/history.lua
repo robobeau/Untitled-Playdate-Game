@@ -11,12 +11,14 @@ function History:GetFrame(index)
   return self.frames[index or self.counter]
 end
 
-function History:init()
-  -- Do nothing, I guess!
+function History:init(properties)
+  self.firstFrame = table.deepcopy(properties) or {}
+
+  self:MutateFrame(self.firstFrame, self.counter)
 end
 
-function History:MutateTick(properties, index)
-  local current = self:GetFrame(index)
+function History:MutateFrame(properties, frame)
+  local current = self:GetFrame(frame)
 
   if (current == nil) then
     current = {}
@@ -28,8 +30,10 @@ function History:MutateTick(properties, index)
 end
 
 function History:Reset()
-  self.counter = 0
+  self.counter = 1
   self.frames = {}
+
+  self:MutateFrame(self.firstFrame, self.counter)
 end
 
 function History:Tick()

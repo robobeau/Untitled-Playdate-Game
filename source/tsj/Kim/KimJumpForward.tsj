@@ -61,6 +61,11 @@
                  "value":true
                 }, 
                 {
+                 "name":"blockCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
@@ -119,6 +124,11 @@
          "properties":[
                 {
                  "name":"attackCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"blockCancellable",
                  "type":"bool",
                  "value":true
                 }, 
@@ -185,6 +195,11 @@
                  "value":true
                 }, 
                 {
+                 "name":"blockCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
@@ -243,6 +258,11 @@
          "properties":[
                 {
                  "name":"attackCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"blockCancellable",
                  "type":"bool",
                  "value":true
                 }, 
@@ -309,6 +329,11 @@
                  "value":true
                 }, 
                 {
+                 "name":"blockCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
@@ -371,6 +396,11 @@
                  "value":true
                 }, 
                 {
+                 "name":"blockCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
@@ -429,6 +459,11 @@
          "properties":[
                 {
                  "name":"attackCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"blockCancellable",
                  "type":"bool",
                  "value":true
                 }, 

@@ -8,6 +8,8 @@ import "CoreLibs/timer"
 import 'ball'
 import 'characters/kim'
 import 'collisionTypes'
+import 'math'
+import 'stage'
 
 -- Convenience variables
 local pd <const> = playdate
@@ -16,50 +18,9 @@ local gfx <const> = pd.graphics
 -- local theBall = nil
 
 function init()
-  -- pd.display.setRefreshRate(1)
+  -- pd.display.setRefreshRate(5)
   -- pd.display.setScale(2)
   -- pd.display.setOffset(0, -0)
-
-  -- local floorImage = gfx.image.new('images/floor')
-  local beachImage = gfx.image.new('images/BGBeach')
-
-  -- local bgBeachSprite <const> = gfx.sprite.new(beachImage)
-
-  gfx.sprite.setBackgroundDrawingCallback(
-    function(x, y, width, height)
-      -- x,y,width,height is the updated area in sprite-local coordinates
-      -- The clip rect is already set to this area, so we don't need to set it ourselves
-      beachImage:draw(0, 0)
-    end
-  )
-
-  ceiling = gfx.sprite.new()
-  ceiling:setCenter(0, 0)
-  ceiling:setCollideRect(0, 0, 380, 60)
-  ceiling:setGroupMask(collisionTypes.FLOOR)
-  ceiling:moveTo(10, -50)
-  ceiling:add()
-
-  leftWall = gfx.sprite.new()
-  leftWall:setCenter(0, 0)
-  leftWall:setCollideRect(0, 0, 60, 240)
-  leftWall:setGroupMask(collisionTypes.WALL)
-  leftWall:moveTo(-50, 0)
-  leftWall:add()
-
-  rightWall = gfx.sprite.new()
-  rightWall:setCenter(0, 0)
-  rightWall:setCollideRect(0, 0, 60, 240)
-  rightWall:setGroupMask(collisionTypes.WALL)
-  rightWall:moveTo(390, 0)
-  rightWall:add()
-
-  floor = gfx.sprite.new()
-  floor:setCenter(0, 0)
-  floor:setCollideRect(0, 0, 380, 60)
-  floor:setGroupMask(collisionTypes.FLOOR)
-  floor:moveTo(10, 230)
-  floor:add()
 
   theBall = Ball({
     startingPosition = {
@@ -78,6 +39,11 @@ function init()
     }
   })
   kim:add()
+
+  stage = Stage({
+    character = kim,
+    id = stages.CLIFTON,
+  })
 
   local menu <const> = pd.getSystemMenu()
 
@@ -110,6 +76,7 @@ end
 function pd.update()
   pd.timer.updateTimers()
   gfx.sprite.update()
+  stage:update()
 
   -- print('===== UPDATE BITCH =====')
 

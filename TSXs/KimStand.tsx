@@ -10,6 +10,7 @@
  <tile id="0" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="3"/>
    <property name="jumpCancellable" type="bool" value="true"/>
    <property name="moveCancellable" type="bool" value="true"/>
@@ -25,6 +26,7 @@
  <tile id="1" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="4"/>
    <property name="jumpCancellable" type="bool" value="true"/>
    <property name="moveCancellable" type="bool" value="true"/>
@@ -40,6 +42,7 @@
  <tile id="2" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="5"/>
    <property name="jumpCancellable" type="bool" value="true"/>
    <property name="moveCancellable" type="bool" value="true"/>
@@ -55,6 +58,7 @@
  <tile id="4" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="3"/>
    <property name="jumpCancellable" type="bool" value="true"/>
    <property name="moveCancellable" type="bool" value="true"/>

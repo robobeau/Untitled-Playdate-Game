@@ -67,6 +67,11 @@
                  "value":true
                 }, 
                 {
+                 "name":"blockCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":3
@@ -139,6 +144,11 @@
                  "value":true
                 }, 
                 {
+                 "name":"blockCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
@@ -207,6 +217,11 @@
          "properties":[
                 {
                  "name":"attackCancellable",
+                 "type":"bool",
+                 "value":true
+                }, 
+                {
+                 "name":"blockCancellable",
                  "type":"bool",
                  "value":true
                 }, 

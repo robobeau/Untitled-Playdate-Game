@@ -1,8 +1,13 @@
 collisionTypes = {
   BALL = 1,
-  FLOOR = 2,
-  HITBOX = 4,
-  HURTBOX = 8,
-  PUSHBOX = 16,
-  WALL = 32,
+  CEILING = 2,
+  FLOOR = 4,
+  HITBOX = 8,
+  HURTBOX = 16,
+  LEFT_WALL = 32,
+  PROJECTILE =  64,
+  PROXIMITY = 128,
+  PUSHBOX = 256,
+  RIGHT_WALL = 512,
+  WALL = 1024,
 }

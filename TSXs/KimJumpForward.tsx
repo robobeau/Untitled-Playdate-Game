@@ -7,6 +7,7 @@
  <tile id="1" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="2"/>
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
@@ -20,6 +21,7 @@
  <tile id="2" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="2"/>
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
@@ -33,6 +35,7 @@
  <tile id="3" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="2"/>
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
@@ -46,6 +49,7 @@
  <tile id="4" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="4"/>
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
@@ -59,6 +63,7 @@
  <tile id="5" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="4"/>
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
@@ -72,6 +77,7 @@
  <tile id="6" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="4"/>
    <property name="specialCancellable" type="bool" value="true"/>
    <property name="superCancellable" type="bool" value="true"/>
@@ -85,6 +91,7 @@
  <tile id="7" class="Frame">
   <properties>
    <property name="attackCancellable" type="bool" value="true"/>
+   <property name="blockCancellable" type="bool" value="true"/>
    <property name="frameDuration" type="int" value="1"/>
    <property name="loops" type="bool" value="true"/>
    <property name="specialCancellable" type="bool" value="true"/>
