@@ -11,7 +11,6 @@
   </properties>
   <image width="112" height="80" source="../../../source/images/characters/Kim/KimHurt1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="40" y="8" width="44" height="72"/>
    <object id="2" name="Pushbox" class="Pushbox" x="18" y="-4" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -22,7 +21,6 @@
   </properties>
   <image width="112" height="80" source="../../../source/images/characters/Kim/KimHurt2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="6" y="14" width="66" height="66"/>
    <object id="2" name="Pushbox" class="Pushbox" x="40" y="-4" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -32,7 +30,6 @@
   </properties>
   <image width="112" height="80" source="../../../source/images/characters/Kim/KimHurt2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="6" y="14" width="66" height="66"/>
    <object id="2" name="Pushbox" class="Pushbox" x="40" y="-4" width="72" height="84"/>
   </objectgroup>
  </tile>
@@ -43,7 +40,6 @@
   </properties>
   <image width="112" height="80" source="../../../source/images/characters/Kim/KimHurt1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Hurtbox" class="Hurtbox" x="40" y="8" width="44" height="72"/>
    <object id="2" name="Pushbox" class="Pushbox" x="18" y="-4" width="72" height="84"/>
   </objectgroup>
  </tile>

@@ -27,23 +27,23 @@ charStates = {
   DOWN = 64,
   END = 128,
   ENTRANCE = 256,
-  FORWARD = 512,
-  HURT = 1024,
-  JUMP = 2048,
-  KICK = 4096,
-  KNOCKDOWN = 8192,
-  MOVE = 16384,
-  PARRY = 32768,
-  PUNCH = 65536,
-  RISE = 131072,
-  RUN = 262144,
-  SPECIAL = 524288,
-  STAND = 1048576,
-  TAUNT = 2097152,
-  UP = 4194304,
+  FALL = 512,
+  FORWARD = 1024,
+  HURT = 2048,
+  JUMP = 4096,
+  KICK = 8192,
+  KNOCKDOWN = 16384,
+  MOVE = 32768,
+  PARRY = 65536,
+  PUNCH = 131072,
+  RISE = 262144,
+  RUN = 524288,
+  SPECIAL = 1048576,
+  STAND = 2097152,
+  TAUNT = 4194304,
+  UP = 8388608,
 }
 
--- 8388608
 -- 16777216
 -- 33554432
 
@@ -101,8 +101,7 @@ function Character:init(config)
 
   self:Load()
   self:setCenter(0.5, 1)
-  self:moveTo(self.startingPosition.x, self.startingPosition.y)
-  self:SetState(firstFrame.state)
+  self:Reset()
   self:setZIndex(1)
 end
 
@@ -1156,6 +1155,9 @@ function Character:LoadTilesets()
     -- Entrance
     [charStates.ENTRANCE] = self:HydrateTileset(self:LoadTSJ('Entrance')),
 
+    -- Fall
+    [charStates.FALL] = self:HydrateTileset(self:LoadTSJ('Fall')),
+
     -- Hurting
     [charStates.HURT | charStates.AIRBORNE] = hurtAirborneTileset,
     [charStates.HURT | charStates.CROUCH] = hurtCrouchTileset,
@@ -1272,7 +1274,7 @@ end
 
 function Character:ResetState()
   self.history:Reset()
-  self:SetState(charStates.STAND)
+  self:SetState(firstFrame.state)
 end
 
 function Character:SetAnimationFrame()
@@ -1419,13 +1421,13 @@ function Character:PreventClipping()
 end
 
 function Character:SetState(state)
-  local keyset = {}
+  -- local keyset = {}
 
-  for k, v in pairs(charStates) do
-    keyset[v] = k
-  end
+  -- for k, v in pairs(charStates) do
+  --   keyset[v] = k
+  -- end
 
-  print('SetState()', state, keyset[state])
+  -- print('SetState()', state, keyset[state])
 
   self.history:MutateFrame({
     state = state,
@@ -1455,7 +1457,13 @@ function Character:TransitionState()
   local frame <const> = self.history:GetFrame()
   local tileProperties <const> = self:GetTileProperties(frame.frameIndex)
   local tilesetProperties <const> = self:GetTilesetProperties()
-  local loops = tilesetProperties.loops or tileProperties.loops
+  local loops <const> = tilesetProperties.loops or tileProperties.loops
+
+  if (tileProperties.nextState ~= nil) then
+    self:SetState(tileProperties.nextState)
+
+    return
+  end
 
   -- Beginning and ending checks should come first
 

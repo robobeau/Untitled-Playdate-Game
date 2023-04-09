@@ -9,14 +9,14 @@
  "margin":0,
  "name":"KimFlashKick",
  "spacing":0,
- "tilecount":8,
+ "tilecount":7,
  "tiledversion":"1.9.1",
  "tileheight":128,
  "tiles":[
         {
          "class":"Frame",
          "id":2,
-         "image":"..\/..\/images\/characters\/Kim\/KimFlashKick3.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick1.png",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -73,7 +73,7 @@
         {
          "class":"Frame",
          "id":3,
-         "image":"..\/..\/images\/characters\/Kim\/KimFlashKick3.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick1.png",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -120,7 +120,7 @@
         {
          "class":"Frame",
          "id":4,
-         "image":"..\/..\/images\/characters\/Kim\/KimFlashKick4.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick2.png",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -189,7 +189,7 @@
         {
          "class":"Frame",
          "id":5,
-         "image":"..\/..\/images\/characters\/Kim\/KimFlashKick5.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick3.png",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -222,14 +222,14 @@
                     }, 
                     {
                      "class":"Hurtbox",
-                     "height":48,
+                     "height":38,
                      "id":3,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
                      "width":36,
                      "x":26,
-                     "y":60
+                     "y":70
                     }, 
                     {
                      "class":"Pushbox",
@@ -258,7 +258,7 @@
         {
          "class":"Frame",
          "id":6,
-         "image":"..\/..\/images\/characters\/Kim\/KimFlashKick6.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick4.png",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -327,7 +327,7 @@
         {
          "class":"Frame",
          "id":7,
-         "image":"..\/..\/images\/characters\/Kim\/KimFlashKick7.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick5.png",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -374,7 +374,7 @@
         {
          "class":"Frame",
          "id":8,
-         "image":"..\/..\/images\/characters\/Kim\/KimFlashKick8.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick6.png",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -416,58 +416,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
-        }, 
-        {
-         "class":"Frame",
-         "id":9,
-         "image":"..\/..\/images\/characters\/Kim\/KimFlashKick9.png",
-         "imageheight":128,
-         "imagewidth":112,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":90,
-                     "id":2,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":40,
-                     "x":36,
-                     "y":22
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":20,
-                     "y":44
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":1
                 }, 
                 {
-                 "name":"loops",
-                 "type":"bool",
-                 "value":true
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
+                 "type":"int",
+                 "value":513
                 }]
         }],
  "tilewidth":112,
