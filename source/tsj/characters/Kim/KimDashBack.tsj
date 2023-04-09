@@ -23,7 +23,7 @@
         {
          "class":"Frame",
          "id":1,
-         "image":"..\/..\/images\/characters\/Kim\/KimDashBack1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimDashBack1.png",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":
@@ -65,6 +65,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":8
+                }, 
+                {
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
+                 "type":"int",
+                 "value":160
                 }]
         }],
  "tilewidth":80,

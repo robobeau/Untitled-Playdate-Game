@@ -10,6 +10,7 @@
  <tile id="1" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="8"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="160"/>
   </properties>
   <image width="64" height="112" source="../../../source/images/characters/Kim/KimDashForward1.png"/>
   <objectgroup draworder="index" id="2">

@@ -10,16 +10,16 @@
  "name":"KimJumpNeutral",
  "objectalignment":"bottom",
  "spacing":0,
- "tilecount":3,
+ "tilecount":2,
  "tiledversion":"1.9.1",
  "tileheight":128,
  "tiles":[
         {
          "class":"Frame",
          "id":1,
-         "image":"..\/..\/..\/images\/characters\/Kim\/KimJumpNeutral1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimAirborne1.png",
          "imageheight":128,
-         "imagewidth":80,
+         "imagewidth":64,
          "objectgroup":
             {
              "draworder":"index",
@@ -28,14 +28,14 @@
              "objects":[
                     {
                      "class":"Hurtbox",
-                     "height":86,
+                     "height":76,
                      "id":1,
                      "name":"Hurtbox",
                      "rotation":0,
                      "visible":true,
-                     "width":44,
-                     "x":24,
-                     "y":28
+                     "width":40,
+                     "x":14,
+                     "y":22
                     }, 
                     {
                      "class":"Pushbox",
@@ -45,7 +45,7 @@
                      "rotation":0,
                      "visible":true,
                      "width":72,
-                     "x":4,
+                     "x":-4,
                      "y":44
                     }],
              "opacity":1,
@@ -69,6 +69,11 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
+                }, 
+                {
+                 "name":"loops",
+                 "type":"bool",
+                 "value":false
                 }, 
                 {
                  "name":"specialCancellable",
@@ -84,9 +89,9 @@
         {
          "class":"Frame",
          "id":2,
-         "image":"..\/..\/..\/images\/characters\/Kim\/KimJumpNeutral2.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimAirborne2.png",
          "imageheight":128,
-         "imagewidth":80,
+         "imagewidth":64,
          "objectgroup":
             {
              "draworder":"index",
@@ -101,7 +106,7 @@
                      "rotation":0,
                      "visible":true,
                      "width":40,
-                     "x":20,
+                     "x":14,
                      "y":22
                     }, 
                     {
@@ -112,7 +117,7 @@
                      "rotation":0,
                      "visible":true,
                      "width":72,
-                     "x":2,
+                     "x":-4,
                      "y":44
                     }],
              "opacity":1,
@@ -134,81 +139,13 @@
                 }, 
                 {
                  "name":"frameDuration",
-                 "type":"int",
-                 "value":2
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
-         "class":"Frame",
-         "id":3,
-         "image":"..\/..\/..\/images\/characters\/Kim\/KimJumpNeutral3.png",
-         "imageheight":128,
-         "imagewidth":80,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":76,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":40,
-                     "x":20,
-                     "y":22
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":2,
-                     "y":44
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"attackCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"blockCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":10
-                }, 
-                {
-                 "name":"nextState",
-                 "propertytype":"CharacterStates",
                  "type":"int",
                  "value":1
+                }, 
+                {
+                 "name":"loops",
+                 "type":"bool",
+                 "value":true
                 }, 
                 {
                  "name":"specialCancellable",
@@ -221,7 +158,7 @@
                  "value":true
                 }]
         }],
- "tilewidth":80,
+ "tilewidth":64,
  "type":"tileset",
  "version":"1.8"
 }

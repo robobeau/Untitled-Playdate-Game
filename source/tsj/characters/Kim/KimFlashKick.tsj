@@ -9,7 +9,7 @@
  "margin":0,
  "name":"KimFlashKick",
  "spacing":0,
- "tilecount":7,
+ "tilecount":6,
  "tiledversion":"1.9.1",
  "tileheight":128,
  "tiles":[
@@ -369,59 +369,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
-        }, 
-        {
-         "class":"Frame",
-         "id":8,
-         "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick6.png",
-         "imageheight":128,
-         "imagewidth":112,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":74,
-                     "id":2,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":40,
-                     "x":36,
-                     "y":32
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":20,
-                     "y":32
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":2
                 }, 
                 {
                  "name":"nextState",
                  "propertytype":"CharacterStates",
                  "type":"int",
-                 "value":513
+                 "value":1
                 }]
         }],
  "tilewidth":112,

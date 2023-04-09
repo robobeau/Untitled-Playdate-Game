@@ -16,7 +16,7 @@
         {
          "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimKnockdown1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimKnockdown1.png",
          "imageheight":48,
          "imagewidth":112,
          "objectgroup":
@@ -47,6 +47,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":10
+                }, 
+                {
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
+                 "type":"int",
+                 "value":262144
                 }]
         }],
  "tilewidth":112,

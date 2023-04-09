@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.1" name="KimFlashKick" class="Animation" tilewidth="112" tileheight="128" tilecount="7" columns="0">
+<tileset version="1.9" tiledversion="1.9.1" name="KimFlashKick" class="Animation" tilewidth="112" tileheight="128" tilecount="6" columns="0">
  <editorsettings>
   <export target="../../../source/tsj/characters/Kim/KimFlashKick.tsj" format="json"/>
  </editorsettings>
@@ -77,22 +77,12 @@
  <tile id="7" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
   </properties>
   <image width="112" height="128" source="../../../source/images/characters/Kim/KimFlashKick5.png"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Hurtbox" class="Hurtbox" x="20" y="66" width="74" height="36"/>
    <object id="1" name="Pushbox" class="Pushbox" x="20" y="44" width="72" height="84"/>
-  </objectgroup>
- </tile>
- <tile id="8" class="Frame">
-  <properties>
-   <property name="frameDuration" type="int" value="2"/>
-   <property name="nextState" type="int" propertytype="CharacterStates" value="513"/>
-  </properties>
-  <image width="112" height="128" source="../../../source/images/characters/Kim/KimFlashKick6.png"/>
-  <objectgroup draworder="index" id="2">
-   <object id="2" name="Hurtbox" class="Hurtbox" x="36" y="32" width="40" height="74"/>
-   <object id="1" name="Pushbox" class="Pushbox" x="20" y="32" width="72" height="84"/>
   </objectgroup>
  </tile>
 </tileset>

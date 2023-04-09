@@ -250,12 +250,12 @@ function Character:CheckAttackInputs()
   if (hasPressedB) then
     local newState = charStates.KICK
 
-    if (self:IsJumping()) then
-      newState |= charStates.JUMP | charStates.AIRBORNE
+    if (self:IsAirborne()) then
+      newState |= charStates.AIRBORNE
 
-      if (self:IsBack()) then
+      if (isPressingBack) then
         newState |= charStates.BACK
-      elseif (self:IsForward()) then
+      elseif (isPressingForward) then
         newState |= charStates.FORWARD
       end
 
@@ -264,7 +264,9 @@ function Character:CheckAttackInputs()
       elseif (self:IsDashing()) then
         newState |= charStates.DASH
       end
-    elseif (self:IsDashing() or self:IsMoving() or self:IsStanding() or self:IsRunning()) then
+    elseif (self:IsCrouching()) then
+      newState |= charStates.CROUCH
+    else
       newState |= charStates.STAND
 
       if (isPressingBack) then
@@ -272,8 +274,6 @@ function Character:CheckAttackInputs()
       elseif (isPressingForward) then
         newState |= charStates.FORWARD
       end
-    elseif (self:IsCrouching()) then
-      newState |= charStates.CROUCH
     end
 
     self:SetState(newState)
@@ -284,12 +284,12 @@ function Character:CheckAttackInputs()
   if (hasPressedA) then
     local newState = charStates.PUNCH
 
-    if (self:IsJumping()) then
-      newState |= charStates.JUMP | charStates.AIRBORNE
+    if (self:IsAirborne()) then
+      newState |= charStates.AIRBORNE
 
-      if (self:IsBack()) then
+      if (isPressingBack) then
         newState |= charStates.BACK
-      elseif (self:IsForward()) then
+      elseif (isPressingForward) then
         newState |= charStates.FORWARD
       end
 
@@ -298,10 +298,10 @@ function Character:CheckAttackInputs()
       elseif (self:IsDashing()) then
         newState |= charStates.DASH
       end
-    elseif (self:IsDashing() or self:IsMoving() or self:IsStanding() or self:IsRunning()) then
-      newState |= charStates.STAND
     elseif (self:IsCrouching()) then
       newState |= charStates.CROUCH
+    else
+      newState |= charStates.STAND
     end
 
     self:SetState(newState)
@@ -346,14 +346,8 @@ function Character:CheckBlockInputs()
     if (Inputs:CheckMoveBackInput(self) and self:HasCollisionInProximity()) then
       local newState = charStates.BLOCK
 
-      if (self:IsJumping()) then
-        newState |= charStates.JUMP | charStates.AIRBORNE
-
-        -- if (self:IsBack()) then
-        --   newState |= charStates.BACK
-        -- elseif (self:IsForward()) then
-        --   newState |= charStates.FORWARD
-        -- end
+      if (self:IsAirborne()) then
+        newState |= charStates.AIRBORNE
       elseif (self:IsCrouching()) then
         newState |= charStates.CROUCH
       else
@@ -377,7 +371,7 @@ function Character:CheckJumpInputs()
 
   if (not self:IsJumping()) then
     if (Inputs:CheckJumpInput(self)) then
-      local newState = charStates.JUMP | charStates.AIRBORNE | charStates.BEGIN
+      local newState = charStates.JUMP | charStates.BEGIN
 
       if (Inputs:CheckMoveBackInput(self)) then
         newState |= charStates.BACK
@@ -621,12 +615,6 @@ function Character:GetFilteredStateForTilesets()
     statesToRemove |= charStates.DASH | charStates.MOVE | charStates.RUN
   end
 
-  -- The only things visually effected by being airborne
-  -- is blocking and getting hurt in mid-air.
-  if (not self:IsBlocking() and not self:IsHurt()) then
-    statesToRemove |= charStates.AIRBORNE
-  end
-
   -- There's currently only one possible transition tileset,
   -- so we don't need to distinguish between back/forward movement.
   if (self:IsTransitioning()) then
@@ -830,7 +818,7 @@ function Character:HandleFloorCollision(collision)
         })
 
         if (self:IsHurt()) then
-          self:SetState(charStates.HURT | charStates.JUMP | charStates.END)
+          self:SetState(charStates.HURT | charStates.AIRBORNE | charStates.END)
         else
           self:SetState(charStates.JUMP | charStates.END)
         end
@@ -1138,8 +1126,11 @@ function Character:LoadTilesets()
   local transitionTileset <const> = self:HydrateTileset(self:LoadTSJ('Transition'))
 
   self.tilesets = {
+    -- Airborne
+    [charStates.AIRBORNE] = self:HydrateTileset(self:LoadTSJ('Airborne')),
+
     -- Blocking
-    [charStates.BLOCK | charStates.AIRBORNE | charStates.JUMP] = self:HydrateTileset(self:LoadTSJ('BlockAirborne')),
+    [charStates.BLOCK | charStates.AIRBORNE] = self:HydrateTileset(self:LoadTSJ('BlockAirborne')),
     [charStates.BLOCK | charStates.CROUCH] = self:HydrateTileset(self:LoadTSJ('BlockCrouch')),
     [charStates.BLOCK | charStates.STAND] = self:HydrateTileset(self:LoadTSJ('Block')),
 
@@ -1155,20 +1146,17 @@ function Character:LoadTilesets()
     -- Entrance
     [charStates.ENTRANCE] = self:HydrateTileset(self:LoadTSJ('Entrance')),
 
-    -- Fall
-    [charStates.FALL] = self:HydrateTileset(self:LoadTSJ('Fall')),
-
     -- Hurting
     [charStates.HURT | charStates.AIRBORNE] = hurtAirborneTileset,
+    [charStates.HURT | charStates.AIRBORNE | charStates.END] = self:HydrateTileset(self:LoadTSJ('TransitionHurtJump')),
     [charStates.HURT | charStates.CROUCH] = hurtCrouchTileset,
-    [charStates.HURT | charStates.JUMP | charStates.END] = self:HydrateTileset(self:LoadTSJ('TransitionHurtJump')),
     [charStates.HURT | charStates.STAND] = hurtTileset,
 
     -- Kicking
+    [charStates.KICK | charStates.AIRBORNE] = kickJumpNeutralTileset,
+    [charStates.KICK | charStates.AIRBORNE | charStates.BACK] = kickJumpForwardTileset,
+    [charStates.KICK | charStates.AIRBORNE | charStates.FORWARD] = kickJumpForwardTileset,
     [charStates.KICK | charStates.CROUCH] = self:HydrateTileset(self:LoadTSJ('KickCrouch')),
-    [charStates.KICK | charStates.JUMP] = kickJumpNeutralTileset,
-    [charStates.KICK | charStates.JUMP | charStates.BACK] = kickJumpForwardTileset,
-    [charStates.KICK | charStates.JUMP | charStates.FORWARD] = kickJumpForwardTileset,
     [charStates.KICK | charStates.STAND] = kickNeutralTileset,
     [charStates.KICK | charStates.STAND | charStates.BACK] = kickBackTileset,
     [charStates.KICK | charStates.STAND | charStates.FORWARD] = kickForwardTileset,
@@ -1177,21 +1165,21 @@ function Character:LoadTilesets()
     [charStates.KNOCKDOWN] = self:HydrateTileset(self:LoadTSJ('Knockdown')),
 
     -- Jumping
-    [charStates.JUMP] = jumpNeutralTileset,
-    [charStates.JUMP | charStates.BACK] = jumpBackTileset,
+    [charStates.JUMP | charStates.AIRBORNE] = jumpNeutralTileset,
+    [charStates.JUMP | charStates.AIRBORNE | charStates.BACK] = jumpBackTileset,
+    [charStates.JUMP | charStates.AIRBORNE | charStates.FORWARD] = jumpForwardTileset,
     [charStates.JUMP | charStates.BEGIN] = transitionTileset,
     [charStates.JUMP | charStates.END] = transitionTileset,
-    [charStates.JUMP | charStates.FORWARD] = jumpForwardTileset,
 
     -- Moving
     [charStates.MOVE | charStates.BACK] = moveBackTileset,
     [charStates.MOVE | charStates.FORWARD] = moveForwardTileset,
 
     -- Punching
+    [charStates.PUNCH | charStates.AIRBORNE | charStates.BACK] = punchJumpForwardTileset,
+    [charStates.PUNCH | charStates.AIRBORNE | charStates.FORWARD] = punchJumpForwardTileset,
+    [charStates.PUNCH | charStates.AIRBORNE] = punchJumpForwardTileset,
     [charStates.PUNCH | charStates.CROUCH] = self:HydrateTileset(self:LoadTSJ('PunchCrouch')),
-    [charStates.PUNCH | charStates.JUMP | charStates.BACK] = punchJumpForwardTileset,
-    [charStates.PUNCH | charStates.JUMP | charStates.FORWARD] = punchJumpForwardTileset,
-    [charStates.PUNCH | charStates.JUMP] = punchJumpForwardTileset,
     [charStates.PUNCH | charStates.STAND] = punchForwardTileset,
 
     -- Rising
@@ -1478,6 +1466,15 @@ function Character:TransitionState()
       return
     end
 
+    if (self:IsJumping()) then
+      local newState = frame.state &~ statesToRemove
+            newState |= charStates.AIRBORNE
+
+      self:SetState(newState)
+
+      return
+    end
+
     local newState = frame.state &~ statesToRemove
 
     self:SetState(newState)
@@ -1523,26 +1520,6 @@ function Character:TransitionState()
     end
   end
 
-  if (self:IsDashing()) then
-    local newState = frame.state | charStates.END
-
-    self:SetState(newState)
-
-    return
-  end
-
-  if (self:IsKnockedDown()) then
-    self:SetState(charStates.RISE)
-
-    return
-  end
-
-  if (self:IsRising()) then
-    self:SetState(charStates.STAND)
-
-    return
-  end
-
   if (not loops) then
     self:SetState(charStates.STAND)
 
@@ -1569,7 +1546,7 @@ function Character:UpdateDirection()
 
   if (
     self:IsAttacking() or
-    self:IsJumping() or
+    self:IsAirborne() or
     self:IsRunning()
   ) then
     return

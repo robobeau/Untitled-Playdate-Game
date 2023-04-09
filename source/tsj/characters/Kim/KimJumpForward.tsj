@@ -10,14 +10,14 @@
  "name":"KimJumpForward",
  "objectalignment":"bottom",
  "spacing":0,
- "tilecount":7,
+ "tilecount":6,
  "tiledversion":"1.9.1",
  "tileheight":128,
  "tiles":[
         {
          "class":"Frame",
          "id":1,
-         "image":"..\/..\/images\/characters\/Kim\/KimJumpForward1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimJumpForward1.png",
          "imageheight":128,
          "imagewidth":80,
          "objectgroup":
@@ -84,7 +84,7 @@
         {
          "class":"Frame",
          "id":2,
-         "image":"..\/..\/images\/characters\/Kim\/KimJumpForward2.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimJumpForward2.png",
          "imageheight":128,
          "imagewidth":80,
          "objectgroup":
@@ -151,7 +151,7 @@
         {
          "class":"Frame",
          "id":3,
-         "image":"..\/..\/images\/characters\/Kim\/KimJumpForward3.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimJumpForward3.png",
          "imageheight":128,
          "imagewidth":80,
          "objectgroup":
@@ -169,7 +169,7 @@
                      "visible":true,
                      "width":40,
                      "x":20,
-                     "y":44
+                     "y":22
                     }, 
                     {
                      "class":"Pushbox",
@@ -218,7 +218,7 @@
         {
          "class":"Frame",
          "id":4,
-         "image":"..\/..\/images\/characters\/Kim\/KimJumpForward4.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimJumpForward4.png",
          "imageheight":128,
          "imagewidth":80,
          "objectgroup":
@@ -236,7 +236,7 @@
                      "visible":true,
                      "width":74,
                      "x":6,
-                     "y":70
+                     "y":48
                     }, 
                     {
                      "class":"Pushbox",
@@ -285,7 +285,7 @@
         {
          "class":"Frame",
          "id":5,
-         "image":"..\/..\/images\/characters\/Kim\/KimJumpForward5.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimJumpForward5.png",
          "imageheight":128,
          "imagewidth":80,
          "objectgroup":
@@ -303,7 +303,7 @@
                      "visible":true,
                      "width":40,
                      "x":18,
-                     "y":44
+                     "y":22
                     }, 
                     {
                      "class":"Pushbox",
@@ -352,7 +352,7 @@
         {
          "class":"Frame",
          "id":6,
-         "image":"..\/..\/images\/characters\/Kim\/KimJumpForward6.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimJumpForward6.png",
          "imageheight":128,
          "imagewidth":80,
          "objectgroup":
@@ -370,7 +370,7 @@
                      "visible":true,
                      "width":74,
                      "x":0,
-                     "y":56
+                     "y":34
                     }, 
                     {
                      "class":"Pushbox",
@@ -406,76 +406,10 @@
                  "value":4
                 }, 
                 {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
-                }]
-        }, 
-        {
-         "class":"Frame",
-         "id":7,
-         "image":"..\/..\/images\/characters\/Kim\/KimJumpForward2.png",
-         "imageheight":128,
-         "imagewidth":80,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":90,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":40,
-                     "x":20,
-                     "y":22
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":4,
-                     "y":44
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"attackCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"blockCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"frameDuration",
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
                  "type":"int",
                  "value":1
-                }, 
-                {
-                 "name":"loops",
-                 "type":"bool",
-                 "value":true
                 }, 
                 {
                  "name":"specialCancellable",

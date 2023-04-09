@@ -31,25 +31,17 @@ function Kim:CheckSpecialInputs()
   end
 
   if (
-    not self:IsCrouching() and
-    not self:IsStanding() and
-    Inputs:CheckSpecialDownInput(self)
+    self:IsAirborne()
+    and Inputs:CheckSpecialDownInput(self)
   ) then
-    self:SetState(charStates.SPECIAL | charStates.DOWN)
+    self:SetState(charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN)
 
     return true
   end
 
   if (
-    (
-      self:IsCrouching() or
-      self:IsStanding() or
-      (
-        self:IsBeginning() and
-        self:IsJumping()
-      )
-    ) and
-    Inputs:CheckSpecialUpInput(self)
+    not self:IsAirborne()
+    and Inputs:CheckSpecialUpInput(self)
   ) then
     self:SetState(charStates.SPECIAL | charStates.AIRBORNE | charStates.UP)
 
@@ -67,6 +59,6 @@ function Kim:LoadTilesets()
   Kim.super.LoadTilesets(self)
 
   -- Special Moves
-  self.tilesets[charStates.SPECIAL | charStates.UP] = self:HydrateTileset(self:LoadTSJ('FlashKick'));
-  self.tilesets[charStates.SPECIAL | charStates.DOWN] = self:HydrateTileset(self:LoadTSJ('DiveKick'));
+  self.tilesets[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self:HydrateTileset(self:LoadTSJ('FlashKick'));
+  self.tilesets[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self:HydrateTileset(self:LoadTSJ('DiveKick'));
 end
