@@ -3,6 +3,11 @@ class('Inputs').extends()
 -- Convenience variables
 local pd <const> = playdate
 
+local directions <const> = {
+  BACK = 1,
+  FORWARD = 2,
+}
+
 function Inputs:CheckDashBackInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
@@ -85,6 +90,64 @@ function Inputs:CheckMoveForwardInput(character)
   end
 end
 
+function Inputs:CheckFireballInput(character)
+  local buttonState <const> = self:GetButtonState(character)
+
+  if (buttonState.hasPressedA or buttonState.hasReleasedA) then
+    return self:CheckQuarterCircleInput(character, directions.FORWARD)
+  end
+end
+
+function Inputs:CheckQuarterCircleInput(character, finalDirection)
+  local checks = {
+    hasInputtedDown = false,
+    hasInputtedDiagonal = false,
+    hasInputtedFinalDirection = false,
+  }
+  local start <const> = #character.history.frames
+  local stop <const> = math.max(start - 10, 1)
+
+  for i = start, stop, -1 do
+    local buttonState <const> = self:GetButtonState(character, i)
+    local hasPressed <const> = {
+      [directions.BACK] = buttonState.hasPressedBack,
+      [directions.FORWARD] = buttonState.hasPressedForward,
+    }
+    local hasPressedFinalDirection <const> = hasPressed[finalDirection]
+    local isPressing <const> = {
+      [directions.BACK] = buttonState.isPressingBack,
+      [directions.FORWARD] = buttonState.isPressingForward,
+    }
+    local isPressingFinalDirection <const> = isPressing[finalDirection]
+
+    if (checks.hasInputtedFinalDirection) then
+      if (checks.hasInputtedDiagonal) then
+        if (checks.hasInputtedDown) then
+          return true
+        else
+          if (
+            (buttonState.hasPressedDown or buttonState.isPressingDown) and
+            not isPressingFinalDirection
+          ) then
+            checks.hasInputtedDown = true
+          end
+        end
+      else
+        if (isPressingFinalDirection and buttonState.isPressingDown) then
+          checks.hasInputtedDiagonal = true
+        end
+      end
+    else
+      if (
+        (hasPressedFinalDirection or isPressingFinalDirection) and
+        not buttonState.isPressingDown
+      ) then
+        checks.hasInputtedFinalDirection = true
+      end
+    end
+  end
+end
+
 -- Typically used to check if the character is going from crouching to standing
 function Inputs:CheckRiseInput(character)
   local buttonState <const> = self:GetButtonState(character)
@@ -163,6 +226,14 @@ function Inputs:CheckSpecialUpInput(character)
         end
       end
     end
+  end
+end
+
+function Inputs:CheckTatsuInput(character)
+  local buttonState <const> = self:GetButtonState(character)
+
+  if (buttonState.hasPressedB or buttonState.hasReleasedB) then
+    return self:CheckQuarterCircleInput(character, directions.BACK)
   end
 end
 

@@ -7,6 +7,7 @@ import "CoreLibs/timer"
 
 import 'ball'
 import 'characters/kim'
+import 'characterMenu'
 import 'collisionTypes'
 import 'math'
 import 'stage'
@@ -15,12 +16,10 @@ import 'stage'
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
--- local theBall = nil
-
 function init()
   -- pd.display.setRefreshRate(5)
-  -- pd.display.setScale(2)
-  -- pd.display.setOffset(0, -0)
+
+  -- characterMenu = CharacterMenu()
 
   theBall = Ball({
     startingPosition = {
@@ -77,6 +76,8 @@ function pd.update()
   pd.timer.updateTimers()
   gfx.sprite.update()
   stage:update()
+
+  -- characterMenu:Update()
 
   -- print('===== UPDATE BITCH =====')
 

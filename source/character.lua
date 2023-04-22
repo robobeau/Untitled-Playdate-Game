@@ -84,8 +84,10 @@ local defaults <const> = {
 
 class('Character', defaults).extends(gfx.sprite)
 
-function Character:init(config)
+function Character:init(options)
   Character.super.init(self)
+
+  local config <const> = options or {}
 
   self.canDoubleJump = config.canDoubleJump or self.canDoubleJump
   self.charAnimationFrameDelay = (1 / pd.display.getRefreshRate()) * 1000
@@ -1103,6 +1105,12 @@ function Character:LoadImageTables()
   for key, tileset in pairs(self.tilesets) do
     self.imageTables[key] = self:HydrateImageTable(tileset)
   end
+
+  local menuImageFilePath <const> = 'images/characters/' .. self.name .. '/' .. self.name .. 'PortraitMenu'
+  local portraitImageFilePath <const> = 'images/characters/' .. self.name .. '/' .. self.name .. 'Portrait'
+
+  self.menuImage = gfx.image.new(menuImageFilePath)
+  self.portraitImage = gfx.image.new(portraitImageFilePath)
 end
 
 function Character:LoadTilesets()
@@ -1196,7 +1204,7 @@ function Character:LoadTilesets()
 end
 
 function Character:LoadTSJ(state)
-  local filePath = 'tsj/characters/' .. self.name .. '/' .. self.name .. state .. '.tsj'
+  local filePath <const> = 'tsj/characters/' .. self.name .. '/' .. self.name .. state .. '.tsj'
 
   return json.decodeFile(filePath)
 end

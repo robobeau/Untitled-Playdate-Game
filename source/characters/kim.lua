@@ -39,13 +39,18 @@ function Kim:CheckSpecialInputs()
     return true
   end
 
-  if (
-    not self:IsAirborne()
-    and Inputs:CheckSpecialUpInput(self)
-  ) then
-    self:SetState(charStates.SPECIAL | charStates.AIRBORNE | charStates.UP)
+  if (not self:IsAirborne()) then
+    if (Inputs:CheckSpecialUpInput(self)) then
+      self:SetState(charStates.SPECIAL | charStates.AIRBORNE | charStates.UP)
 
-    return true
+      return true
+    end
+
+    if (Inputs:CheckTatsuInput(self)) then
+      self:SetState(charStates.SPECIAL | charStates.BACK)
+
+      return true
+    end
   end
 
   Kim.super.CheckSpecialInputs(self)
@@ -61,4 +66,5 @@ function Kim:LoadTilesets()
   -- Special Moves
   self.tilesets[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self:HydrateTileset(self:LoadTSJ('FlashKick'));
   self.tilesets[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self:HydrateTileset(self:LoadTSJ('DiveKick'));
+  self.tilesets[charStates.SPECIAL | charStates.BACK] = self:HydrateTileset(self:LoadTSJ('CrescentMoonSlash'));
 end
