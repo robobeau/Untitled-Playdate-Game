@@ -22,7 +22,7 @@
         {
          "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimBlockCrouch1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimBlockCrouch1.png",
          "imageheight":80,
          "imagewidth":64,
          "objectgroup":
@@ -31,17 +31,6 @@
              "id":2,
              "name":"",
              "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":40,
-                     "x":6,
-                     "y":2
-                    }, 
                     {
                      "class":"Pushbox",
                      "height":84,
@@ -63,12 +52,18 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":1
+                 "value":3
                 }, 
                 {
                  "name":"moveCancellable",
                  "type":"bool",
-                 "value":true
+                 "value":false
+                }, 
+                {
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
+                 "type":"int",
+                 "value":16
                 }]
         }],
  "tilewidth":64,

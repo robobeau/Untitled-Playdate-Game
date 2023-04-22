@@ -34,7 +34,7 @@
  <tile id="3" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="4"/>
-   <property name="nextState" type="int" propertytype="CharacterStates" value="2097152"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="1048576"/>
   </properties>
   <image width="112" height="96" source="../../../source/images/characters/Kim/KimRise4.png"/>
   <objectgroup draworder="index" id="2">

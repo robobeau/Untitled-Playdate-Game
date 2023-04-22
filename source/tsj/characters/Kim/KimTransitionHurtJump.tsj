@@ -9,14 +9,14 @@
  "margin":0,
  "name":"KimTransitionHurtJump",
  "spacing":0,
- "tilecount":5,
+ "tilecount":4,
  "tiledversion":"1.9.1",
  "tileheight":80,
  "tiles":[
         {
          "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimTransitionHurtJump1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimTransitionHurtJump1.png",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -57,7 +57,7 @@
         {
          "class":"Frame",
          "id":1,
-         "image":"..\/..\/images\/characters\/Kim\/KimTransitionHurtJump2.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimTransitionHurtJump2.png",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -93,7 +93,7 @@
         {
          "class":"Frame",
          "id":2,
-         "image":"..\/..\/images\/characters\/Kim\/KimTransitionHurtJump3.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimTransitionHurtJump3.png",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -134,7 +134,7 @@
         {
          "class":"Frame",
          "id":3,
-         "image":"..\/..\/images\/characters\/Kim\/KimTransitionHurtJump3.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimTransitionHurtJump3.png",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -165,47 +165,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":5
-                }]
-        }, 
-        {
-         "class":"Frame",
-         "id":4,
-         "image":"..\/..\/images\/characters\/Kim\/KimTransitionHurtJump2.png",
-         "imageheight":80,
-         "imagewidth":128,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-8
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":2
                 }, 
                 {
-                 "name":"velocityX",
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
                  "type":"int",
-                 "value":0
+                 "value":16384
                 }]
         }],
  "tilewidth":128,

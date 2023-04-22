@@ -52,7 +52,12 @@
                  "name":"nextState",
                  "propertytype":"CharacterStates",
                  "type":"int",
-                 "value":262144
+                 "value":131072
+                }, 
+                {
+                 "name":"velocityX",
+                 "type":"int",
+                 "value":0
                 }]
         }],
  "tilewidth":112,

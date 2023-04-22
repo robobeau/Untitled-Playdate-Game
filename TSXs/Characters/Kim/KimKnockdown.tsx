@@ -7,7 +7,8 @@
  <tile id="0" class="Frame">
   <properties>
    <property name="frameDuration" type="int" value="10"/>
-   <property name="nextState" type="int" propertytype="CharacterStates" value="262144"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="131072"/>
+   <property name="velocityX" type="int" value="0"/>
   </properties>
   <image width="112" height="48" source="../../../source/images/characters/Kim/KimKnockdown1.png"/>
   <objectgroup draworder="index" id="2">

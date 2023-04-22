@@ -22,7 +22,7 @@
         {
          "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimBlock1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimBlock1.png",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":
@@ -31,17 +31,6 @@
              "id":2,
              "name":"",
              "objects":[
-                    {
-                     "class":"Hurtbox",
-                     "height":80,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":40,
-                     "x":10,
-                     "y":16
-                    }, 
                     {
                      "class":"Pushbox",
                      "height":84,
@@ -63,32 +52,38 @@
                 {
                  "name":"attackCancellable",
                  "type":"bool",
-                 "value":true
+                 "value":false
                 }, 
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":1
+                 "value":3
                 }, 
                 {
                  "name":"jumpCancellable",
                  "type":"bool",
-                 "value":true
+                 "value":false
                 }, 
                 {
                  "name":"moveCancellable",
                  "type":"bool",
-                 "value":true
+                 "value":false
+                }, 
+                {
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
+                 "type":"int",
+                 "value":1048576
                 }, 
                 {
                  "name":"specialCancellable",
                  "type":"bool",
-                 "value":true
+                 "value":false
                 }, 
                 {
                  "name":"superCancellable",
                  "type":"bool",
-                 "value":true
+                 "value":false
                 }]
         }],
  "tilewidth":80,

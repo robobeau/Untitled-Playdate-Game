@@ -17,6 +17,24 @@ charDirections = {
   LEFT = 1,
   RIGHT = 2,
 }
+charJumpHeights = {
+  SHORTEST = 8,
+  SHORTER = 10,
+  SHORT = 12,
+  NORMAL = 14,
+  HIGH = 16,
+  HIGHER = 18,
+  HIGHEST = 20,
+}
+charSpeeds = {
+  SLOWEST = 1,
+  SLOWER = 2,
+  SLOW = 4,
+  NORMAL = 5,
+  FAST = 6,
+  FASTER = 8,
+  FASTEST = 10,
+}
 charStates = {
   AIRBORNE = 1,
   BACK = 2,
@@ -33,53 +51,66 @@ charStates = {
   JUMP = 4096,
   KICK = 8192,
   KNOCKDOWN = 16384,
-  MOVE = 32768,
-  PARRY = 65536,
-  PUNCH = 131072,
-  RISE = 262144,
-  RUN = 524288,
-  SPECIAL = 1048576,
-  STAND = 2097152,
-  TAUNT = 4194304,
-  UP = 8388608,
+  PARRY = 32768,
+  PUNCH = 65536,
+  RISE = 131072,
+  RUN = 262144,
+  SPECIAL = 524288,
+  STAND = 1048576,
+  TAUNT = 2097152,
+  UP = 4194304,
+  WALK = 8388608,
+  -- 16777216
+  -- 33554432
 }
 
--- 16777216
--- 33554432
 
+local defaults <const> = {
+  canDoubleJump = false,
+  canRun = false,
+  counter = 1,
+  emptyCollisionSprites = {},
+  hitPoints = 1000,
+  gravity = 1,
+  imageTables = {},
+  jumpHeight = charJumpHeights.NORMAL,
+  name = 'Character',
+  speeds = {
+    dash = {
+      back = charSpeeds.FASTER,
+      forward = charSpeeds.FASTEST,
+    },
+    run = charSpeeds.FASTEST,
+    walk = {
+      back = charSpeeds.SLOW,
+      forward = charSpeeds.NORMAL,
+    },
+  },
+  startingPosition = {
+    x = 0,
+    y = 0,
+  },
+  stun = 1000,
+  tilesets = {},
+}
 local firstFrame <const> = {
   buttonState = {},
   direction = charDirections.RIGHT,
   frameCounter = 1,
   frameIndex = 1,
+  life = 0, -- Set on Reset()
   position = {
     x = 0,
     y = 0,
   },
   pushboxRect = nil,
   state = charStates.STAND,
+  stun = 0, -- Set on Reset()
+  super = 0,
   velocity = {
     x = 0,
     y = 0,
   },
-}
-local defaults <const> = {
-  canDoubleJump = false,
-  counter = 1,
-  dashSpeed = 10,
-  drag = 1,
-  emptyCollisionSprites = {},
-  gravity = 1,
-  imageTables = {},
-  jumpHeight = 14,
-  name = 'Character',
-  runSpeed = 10,
-  speed = 5,
-  startingPosition = {
-    x = 0,
-    y = 0,
-  },
-  tilesets = {},
 }
 
 class('Character', defaults).extends(gfx.sprite)
@@ -90,15 +121,15 @@ function Character:init(options)
   local config <const> = options or {}
 
   self.canDoubleJump = config.canDoubleJump or self.canDoubleJump
+  self.canRun = config.canRun or self.canRun
   self.charAnimationFrameDelay = (1 / pd.display.getRefreshRate()) * 1000
   self.collisionResponse = pd.graphics.sprite.kCollisionTypeFreeze
-  self.dashSpeed = config.dashSpeed or self.dashSpeed
   self.gravity = config.gravity or self.gravity
   self.history = History(firstFrame)
   self.jumpHeight = config.jumpHeight or self.jumpHeight
   self.name = config.name or self.name
   self.opponent = config.opponent or self.opponent
-  self.speed = config.speed or self.speed
+  self.speeds = config.speeds or self.speeds
   self.startingPosition = config.startingPosition or self.startingPosition
 
   self:Load()
@@ -206,9 +237,9 @@ function Character:CheckInputs()
     return
   end
 
-  if (self:CheckBlockInputs()) then
-    return
-  end
+  -- if (self:CheckBlockTransitionInputs()) then
+  --   return
+  -- end
 end
 
 function Character:CheckAttackInputs()
@@ -255,9 +286,9 @@ function Character:CheckAttackInputs()
     if (self:IsAirborne()) then
       newState |= charStates.AIRBORNE
 
-      if (isPressingBack) then
+      if (self:IsBack()) then
         newState |= charStates.BACK
-      elseif (isPressingForward) then
+      elseif (self:IsForward()) then
         newState |= charStates.FORWARD
       end
 
@@ -271,9 +302,9 @@ function Character:CheckAttackInputs()
     else
       newState |= charStates.STAND
 
-      if (isPressingBack) then
+      if (self:IsBack()) then
         newState |= charStates.BACK
-      elseif (isPressingForward) then
+      elseif (self:IsForward()) then
         newState |= charStates.FORWARD
       end
     end
@@ -316,52 +347,50 @@ function Character:CheckBlockInputs()
   local frame <const> = self.history:GetFrame()
   local tileProperties <const> = self:GetTileProperties(frame.frameIndex)
 
-  if (self:IsBlocking()) then
-    if (self:IsAirborne()) then
-      return false
-    end
-
-    if (self:IsCrouching()) then
-      -- Standing block check
-      if (Inputs:CheckRiseInput(self)) then
-        self:SetState(charStates.BLOCK | charStates.STAND)
-
-        return true
-      end
-    else
-      -- Crouching block check
-      if (Inputs:CheckCrouchInput(self)) then
-        self:SetState(charStates.BLOCK | charStates.CROUCH)
-
-        return true
-      end
-    end
-
-    return false
-  end
-
   if (not tileProperties.blockCancellable) then
     return false
   end
 
-  if (not self:IsAttacking()) then
-    if (Inputs:CheckMoveBackInput(self) and self:HasCollisionInProximity()) then
-      local newState = charStates.BLOCK
+  if (Inputs:CheckBackInput(self)) then
+    local newState = charStates.BLOCK
 
-      if (self:IsAirborne()) then
-        newState |= charStates.AIRBORNE
-      elseif (self:IsCrouching()) then
-        newState |= charStates.CROUCH
-      else
-        newState |= charStates.STAND
-      end
-
-      self:SetState(newState)
-
-      return true
+    if (self:IsAirborne()) then
+      newState |= charStates.AIRBORNE
+    elseif (self:IsCrouching()) then
+      newState |= charStates.CROUCH
+    else
+      newState |= charStates.STAND
     end
+
+    self:SetState(newState)
+
+    return true
   end
 end
+
+-- function Character:CheckBlockTransitionInputs()
+--   if (self:IsBlocking()) then
+--     if (self:IsAirborne()) then
+--       return false
+--     end
+
+--     if (self:IsCrouching()) then
+--       -- Standing block check
+--       if (Inputs:CheckRiseInput(self)) then
+--         self:SetState(charStates.BLOCK | charStates.STAND)
+
+--         return true
+--       end
+--     else
+--       -- Crouching block check
+--       if (Inputs:CheckCrouchInput(self)) then
+--         self:SetState(charStates.BLOCK | charStates.CROUCH)
+
+--         return true
+--       end
+--     end
+--   end
+-- end
 
 function Character:CheckJumpInputs()
   local frame <const> = self.history:GetFrame()
@@ -375,21 +404,17 @@ function Character:CheckJumpInputs()
     if (Inputs:CheckJumpInput(self)) then
       local newState = charStates.JUMP | charStates.BEGIN
 
-      if (Inputs:CheckMoveBackInput(self)) then
+      if (Inputs:CheckBackInput(self)) then
         newState |= charStates.BACK
 
         if (self:IsRunning()) then
           newState |= charStates.RUN
-        else
-          newState |= charStates.MOVE
         end
-      elseif (Inputs:CheckMoveForwardInput(self)) then
+      elseif (Inputs:CheckForwardInput(self)) then
         newState |= charStates.FORWARD
 
         if (self:IsRunning()) then
           newState |= charStates.RUN
-        else
-          newState |= charStates.MOVE
         end
       end
 
@@ -425,17 +450,14 @@ function Character:CheckMovementInputs()
       end
     end
 
-    -- Move check
-    if (not self:IsDashing() and not self:IsMoving() and not self:IsRunning()) then
-      if (
-        not self:IsBlocking() and
-        Inputs:CheckMoveBackInput(self)
-      ) then
-        self:SetState(charStates.MOVE | charStates.BACK)
+    -- Walk check
+    if (not self:IsDashing() and not self:IsWalking() and not self:IsRunning()) then
+      if (Inputs:CheckBackInput(self)) then
+        self:SetState(charStates.WALK | charStates.BACK)
 
         return true
-      elseif (Inputs:CheckMoveForwardInput(self)) then
-        self:SetState(charStates.MOVE | charStates.FORWARD)
+      elseif (Inputs:CheckForwardInput(self)) then
+        self:SetState(charStates.WALK | charStates.FORWARD)
 
         return true
       end
@@ -451,7 +473,7 @@ function Character:CheckMovementInputs()
     end
 
     -- Stand checks
-    if (self:IsMoving() or self:IsRunning()) then
+    if (self:IsWalking() or self:IsRunning()) then
       if (buttonState.hasReleasedBack) then
         self:SetState(charStates.STAND)
 
@@ -517,12 +539,30 @@ function Character:DerivePhysicsFromState()
   local newVelocity <const> = table.deepcopy(frame.velocity)
 
   -- X Velocity
+  if (not self:IsTransitioning()) then
+      if (self:IsJumping()) then
+        if (self:IsRunning()) then
+          newVelocity.x = self:GetRunVelocity()
+        else
+          newVelocity.x = self:GetWalkVelocity()
+        end
+      elseif (self:IsRunning()) then
+        newVelocity.x = self:GetRunVelocity()
+      elseif (self:IsDashing()) then
+        newVelocity.x = self:GetDashVelocity()
+      elseif (self:IsWalking()) then
+        newVelocity.x = self:GetWalkVelocity()
+      elseif (self:IsCrouching() or self:IsStanding() or self:IsTransitioning()) then
+        newVelocity.x = 0
+      end
+  end
+
   if (self:IsRunning() and not self:IsTransitioning()) then
-    newVelocity.x = self:GetRunVelocityX()
+    newVelocity.x = self:GetRunVelocity()
   elseif (self:IsDashing() and not self:IsTransitioning()) then
-    newVelocity.x = self:GetDashVelocityX()
-  elseif (self:IsMoving() and not self:IsTransitioning()) then
-    newVelocity.x = self:GetMoveVelocityX()
+    newVelocity.x = self:GetDashVelocity()
+  elseif (self:IsWalking() and not self:IsTransitioning()) then
+    newVelocity.x = self:GetWalkVelocity()
   elseif (self:IsCrouching() or self:IsStanding() or self:IsTransitioning()) then
     newVelocity.x = 0
   end
@@ -591,18 +631,27 @@ function Character:GetCollideRectRelativeToBounds()
   return collideRect
 end
 
-function Character:GetCurrentSpeed()
+-- Used by Stage
+function Character:GetSpeed()
   if (self:IsRunning()) then
-    return self.runSpeed
+    return self:GetRunSpeed()
   elseif (self:IsDashing()) then
-    return self.dashSpeed
+    return self:GetDashSpeed()
   end
 
-  return self.speed
+  return self:GetWalkSpeed()
 end
 
-function Character:GetDashVelocityX()
-  return self:NormalizeMovementVelocityX(self.dashSpeed)
+function Character:GetDashSpeed()
+  if (self:IsBack()) then
+    return self.speeds.dash.back
+  end
+
+  return self.speeds.dash.forward
+end
+
+function Character:GetDashVelocity()
+  return self:NormalizeHorizontalVelocity(self:GetDashSpeed())
 end
 
 -- To reduce the complexity of tileset keys, we want to remove certain states
@@ -614,7 +663,7 @@ function Character:GetFilteredStateForTilesets()
   -- Attacking is not visually affected by dashing... yet.
   -- Jumping is not visually affected by dashing.
   if (self:IsAttacking() or self:IsJumping()) then
-    statesToRemove |= charStates.DASH | charStates.MOVE | charStates.RUN
+    statesToRemove |= charStates.DASH | charStates.RUN | charStates.WALK
   end
 
   -- There's currently only one possible transition tileset,
@@ -640,7 +689,7 @@ function Character:GetHitByBall(hurtbox, ball)
   if (self:IsAirborne()) then
     newState |= charStates.AIRBORNE
   elseif (
-    self:IsMoving() or
+    self:IsWalking() or
     self:IsStanding() or
     self:IsTransitioning()
   ) then
@@ -656,10 +705,6 @@ function Character:GetHitByBall(hurtbox, ball)
   gfx.sprite.removeSprites({ hurtbox })
 end
 
-function Character:GetMoveVelocityX()
-  return self:NormalizeMovementVelocityX(self.speed)
-end
-
 function Character:GetPushboxRectForFrameIndex(frameIndex)
   local boundsRect <const> = self:getBoundsRect()
   local tile <const> = self:GetTile(frameIndex)
@@ -669,8 +714,13 @@ function Character:GetPushboxRectForFrameIndex(frameIndex)
   return geo.rect.new(x, y, tile.collisions.Pushbox.width, tile.collisions.Pushbox.height)
 end
 
-function Character:GetRunVelocityX()
-  return self:NormalizeMovementVelocityX(self.runSpeed)
+function Character:GetRunSpeed()
+  return self.speeds.run
+end
+
+
+function Character:GetRunVelocity()
+  return self:NormalizeHorizontalVelocity(self:GetRunSpeed())
 end
 
 function Character:GetTile(index)
@@ -695,6 +745,18 @@ function Character:GetTilesetForCurrentState()
   local state <const> = self:GetFilteredStateForTilesets()
 
   return self.tilesets[state]
+end
+
+function Character:GetWalkSpeed()
+  if (self:IsBack()) then
+    return self.speeds.walk.back
+  end
+
+  return self.speeds.walk.forward
+end
+
+function Character:GetWalkVelocity()
+  return self:NormalizeHorizontalVelocity(self:GetWalkSpeed())
 end
 
 function Character:HitBall(collision, hitbox, ball)
@@ -730,7 +792,7 @@ function Character:HandleBallCollision(collision, sprite, ball)
   if (spriteIsHitbox) then
     self:HitBall(collision, sprite, ball)
   elseif (spriteIsHurtbox) then
-    if (self:IsBlocking()) then
+    if (self:CheckBlockInputs()) then
       return
     end
 
@@ -1028,12 +1090,6 @@ function Character:IsKnockedDown()
   return frame.state & charStates.KNOCKDOWN ~= 0
 end
 
-function Character:IsMoving()
-  local frame <const> = self.history:GetFrame()
-
-  return frame.state & charStates.MOVE ~= 0
-end
-
 function Character:IsPunching()
   local frame <const> = self.history:GetFrame()
 
@@ -1080,6 +1136,12 @@ function Character:IsUp()
   return frame.state & charStates.UP ~= 0
 end
 
+function Character:IsWalking()
+  local frame <const> = self.history:GetFrame()
+
+  return frame.state & charStates.WALK ~= 0
+end
+
 function Character:Load()
   self:LoadTilesets()
   self:LoadImageTables()
@@ -1119,8 +1181,6 @@ function Character:LoadTilesets()
   local hurtAirborneTileset <const> = self:HydrateTileset(self:LoadTSJ('HurtAirborne'))
   local hurtCrouchTileset <const> = self:HydrateTileset(self:LoadTSJ('HurtCrouch'))
   local hurtTileset <const> = self:HydrateTileset(self:LoadTSJ('Hurt'))
-  local moveBackTileset <const> = self:HydrateTileset(self:LoadTSJ('MoveBack'))
-  local moveForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('MoveForward'))
   local jumpBackTileset <const> = self:HydrateTileset(self:LoadTSJ('JumpBack'))
   local jumpForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('JumpForward'))
   local jumpNeutralTileset <const> = self:HydrateTileset(self:LoadTSJ('JumpNeutral'))
@@ -1132,6 +1192,8 @@ function Character:LoadTilesets()
   local punchForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('PunchForward'))
   local punchJumpForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('PunchJumpForward'))
   local transitionTileset <const> = self:HydrateTileset(self:LoadTSJ('Transition'))
+  local walkBackTileset <const> = self:HydrateTileset(self:LoadTSJ('MoveBack'))
+  local walkForwardTileset <const> = self:HydrateTileset(self:LoadTSJ('MoveForward'))
 
   self.tilesets = {
     -- Airborne
@@ -1180,8 +1242,8 @@ function Character:LoadTilesets()
     [charStates.JUMP | charStates.END] = transitionTileset,
 
     -- Moving
-    [charStates.MOVE | charStates.BACK] = moveBackTileset,
-    [charStates.MOVE | charStates.FORWARD] = moveForwardTileset,
+    [charStates.WALK | charStates.BACK] = walkBackTileset,
+    [charStates.WALK | charStates.FORWARD] = walkForwardTileset,
 
     -- Punching
     [charStates.PUNCH | charStates.AIRBORNE | charStates.BACK] = punchJumpForwardTileset,
@@ -1246,12 +1308,12 @@ function Character:MoveSelf()
   })
 end
 
-function Character:NormalizeMovementVelocityX(velocityX)
+function Character:NormalizeHorizontalVelocity(speed)
   local flipSign <const> = self:GetFlipSign()
   local moveSign <const> = self:IsBack() and -1 or
     self:IsForward() and 1 or 0
 
-  return velocityX * flipSign * moveSign
+  return speed * flipSign * moveSign
 end
 
 function Character:PrepareForNextLoop()
@@ -1260,6 +1322,12 @@ function Character:PrepareForNextLoop()
 end
 
 function Character:Reset()
+  self.history:MutateFrame({
+    life = self.hitPoints,
+    stun = self.stun,
+    super = 0,
+  })
+
   self:ResetPosition()
   self:ResetState()
 end
@@ -1417,13 +1485,13 @@ function Character:PreventClipping()
 end
 
 function Character:SetState(state)
-  -- local keyset = {}
+  local keyset = {}
 
-  -- for k, v in pairs(charStates) do
-  --   keyset[v] = k
-  -- end
+  for k, v in pairs(charStates) do
+    keyset[v] = k
+  end
 
-  -- print('SetState()', state, keyset[state])
+  print('SetState()', state, keyset[state])
 
   self.history:MutateFrame({
     state = state,
@@ -1437,11 +1505,11 @@ end
 
 function Character:TransitionState()
   if (self:HasDirectionChanged()) then
-    if (self:IsMoving()) then
+    if (self:IsWalking()) then
       if (self:IsForward()) then
-        self:SetState(charStates.MOVE | charStates.BACK)
+        self:SetState(charStates.WALK | charStates.BACK)
       else
-        self:SetState(charStates.MOVE | charStates.FORWARD)
+        self:SetState(charStates.WALK | charStates.FORWARD)
       end
     end
   end
@@ -1516,16 +1584,6 @@ function Character:TransitionState()
     self:SetState(newState)
 
     return
-  end
-
-  if (self:IsBlocking()) then
-    if (not self.opponent:IsDangerous()) then
-      local newState = frame.state &~ charStates.BLOCK
-
-      self:SetState(newState)
-
-      return
-    end
   end
 
   if (not loops) then

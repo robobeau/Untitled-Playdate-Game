@@ -8,6 +8,15 @@ local directions <const> = {
   FORWARD = 2,
 }
 
+
+function Inputs:CheckBackInput(character)
+  local buttonState <const> = self:GetButtonState(character)
+
+  if (buttonState.isPressingBack) then
+    return true
+  end
+end
+
 function Inputs:CheckDashBackInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
@@ -74,27 +83,19 @@ function Inputs:CheckJumpInput(character)
   end
 end
 
-function Inputs:CheckMoveBackInput(character)
-  local buttonState <const> = self:GetButtonState(character)
-
-  if (buttonState.isPressingBack) then
-    return true
-  end
-end
-
-function Inputs:CheckMoveForwardInput(character)
-  local buttonState <const> = self:GetButtonState(character)
-
-  if (buttonState.isPressingForward) then
-    return true
-  end
-end
-
 function Inputs:CheckFireballInput(character)
   local buttonState <const> = self:GetButtonState(character)
 
   if (buttonState.hasPressedA or buttonState.hasReleasedA) then
     return self:CheckQuarterCircleInput(character, directions.FORWARD)
+  end
+end
+
+function Inputs:CheckForwardInput(character)
+  local buttonState <const> = self:GetButtonState(character)
+
+  if (buttonState.isPressingForward) then
+    return true
   end
 end
 
