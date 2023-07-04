@@ -14,7 +14,7 @@
   </properties>
   <image width="64" height="80" source="../../../source/images/characters/Kim/KimBlockAirborne1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Pushbox" type="Pushbox" x="6" y="24" width="40" height="42"/>
+   <object id="2" name="Pushbox" type="Pushbox" x="6" y="4" width="40" height="76"/>
    <object id="3" name="Center" type="Center" x="26" y="80">
     <point/>
    </object>

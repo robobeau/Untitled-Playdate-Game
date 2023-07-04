@@ -31,7 +31,7 @@
              "name":"",
              "objects":[
                     {
-                     "height":42,
+                     "height":76,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
@@ -39,7 +39,7 @@
                      "visible":true,
                      "width":40,
                      "x":6,
-                     "y":24
+                     "y":4
                     }, 
                     {
                      "height":0,

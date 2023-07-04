@@ -11,7 +11,7 @@
   </properties>
   <image width="80" height="128" source="../../../source/images/characters/Kim/KimJumpNeutral1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="6" name="Pushbox" type="Pushbox" x="20" y="50" width="40" height="42"/>
+   <object id="6" name="Pushbox" type="Pushbox" x="20" y="28" width="40" height="76"/>
    <object id="7" name="Hurtbox (Body)" type="Hurtbox" x="8" y="58" width="62" height="56"/>
    <object id="8" name="Hurtbox (Head)" type="Hurtbox" x="24" y="28" width="44" height="40"/>
    <object id="9" name="Center" type="Center" x="40" y="128">
@@ -26,7 +26,7 @@
   </properties>
   <image width="80" height="128" source="../../../source/images/characters/Kim/KimJumpNeutral2.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="6" name="Pushbox" type="Pushbox" x="20" y="44" width="40" height="42"/>
+   <object id="6" name="Pushbox" type="Pushbox" x="20" y="22" width="40" height="76"/>
    <object id="7" name="Hurtbox (Body)" type="Hurtbox" x="14" y="56" width="50" height="56"/>
    <object id="8" name="Hurtbox (Head)" type="Hurtbox" x="20" y="22" width="40" height="38"/>
    <object id="9" name="Center" type="Center" x="40" y="128">
@@ -42,7 +42,7 @@
   </properties>
   <image width="80" height="128" source="../../../source/images/characters/Kim/KimJumpNeutral3.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="6" name="Pushbox" type="Pushbox" x="20" y="44" width="40" height="42"/>
+   <object id="6" name="Pushbox" type="Pushbox" x="20" y="22" width="40" height="76"/>
    <object id="7" name="Hurtbox (Body)" type="Hurtbox" x="8" y="44" width="62" height="54"/>
    <object id="8" name="Hurtbox (Head)" type="Hurtbox" x="20" y="22" width="40" height="38"/>
    <object id="9" name="Center" type="Center" x="40" y="128">

@@ -16,7 +16,7 @@
   </properties>
   <image width="64" height="128" source="../../../source/images/characters/Kim/KimAirborne1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Pushbox" type="Pushbox" x="14" y="44" width="40" height="84"/>
+   <object id="2" name="Pushbox" type="Pushbox" x="14" y="22" width="40" height="76"/>
    <object id="3" name="Hurtbox (Body)" type="Hurtbox" x="2" y="44" width="62" height="54"/>
    <object id="1" name="Hurtbox (Head)" type="Hurtbox" x="14" y="22" width="40" height="38"/>
    <object id="4" name="Center" type="Center" x="34" y="128">

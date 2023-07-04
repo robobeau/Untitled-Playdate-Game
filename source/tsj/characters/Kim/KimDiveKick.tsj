@@ -31,7 +31,7 @@
              "name":"",
              "objects":[
                     {
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
@@ -39,7 +39,7 @@
                      "visible":true,
                      "width":40,
                      "x":20,
-                     "y":32
+                     "y":28
                     }, 
                     {
                      "height":62,
@@ -133,7 +133,7 @@
              "name":"",
              "objects":[
                     {
-                     "height":42,
+                     "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
@@ -141,7 +141,7 @@
                      "visible":true,
                      "width":40,
                      "x":20,
-                     "y":32
+                     "y":28
                     }, 
                     {
                      "height":62,
