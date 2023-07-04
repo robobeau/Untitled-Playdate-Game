@@ -10,13 +10,12 @@
  "name":"KimPunchCrouch",
  "spacing":0,
  "tilecount":5,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":80,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimPunchCrouch1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimPunchCrouch1.png",
          "imageheight":80,
          "imagewidth":144,
          "objectgroup":
@@ -26,26 +25,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":70,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":1,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":-4
+                    }, 
+                    {
+                     "height":40,
+                     "id":2,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":60,
+                     "x":34,
+                     "y":40
+                    }, 
+                    {
+                     "height":38,
+                     "id":4,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":38,
                      "x":44,
                      "y":10
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-4
+                     "width":0,
+                     "x":64,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -58,12 +80,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":1,
-         "image":"..\/..\/images\/characters\/Kim\/KimPunchCrouch2.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimPunchCrouch2.png",
          "imageheight":80,
          "imagewidth":144,
          "objectgroup":
@@ -73,26 +95,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":70,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":1,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":-4
+                    }, 
+                    {
+                     "height":44,
+                     "id":2,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":70,
+                     "x":30,
+                     "y":36
+                    }, 
+                    {
+                     "height":40,
+                     "id":4,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":42,
                      "x":42,
                      "y":10
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-4
+                     "width":0,
+                     "x":64,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -105,12 +150,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":2,
-         "image":"..\/..\/images\/characters\/Kim\/KimPunchCrouch3.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimPunchCrouch3.png",
          "imageheight":80,
          "imagewidth":144,
          "objectgroup":
@@ -120,7 +165,39 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
+                     "height":84,
+                     "id":1,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":-4
+                    }, 
+                    {
+                     "height":38,
+                     "id":2,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":72,
+                     "x":30,
+                     "y":42
+                    }, 
+                    {
+                     "height":34,
+                     "id":5,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":40,
+                     "x":54,
+                     "y":14
+                    }, 
+                    {
                      "height":28,
                      "id":3,
                      "name":"Hitbox",
@@ -136,32 +213,23 @@
                              "value":-6
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
-                     "width":54,
-                     "x":94,
+                     "width":48,
+                     "x":100,
                      "y":52
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":66,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":40,
-                     "x":54,
-                     "y":14
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-4
+                     "width":0,
+                     "x":64,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -174,12 +242,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":9
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":3,
-         "image":"..\/..\/images\/characters\/Kim\/KimPunchCrouch4.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimPunchCrouch4.png",
          "imageheight":80,
          "imagewidth":144,
          "objectgroup":
@@ -189,26 +257,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":70,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":4,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":-4
+                    }, 
+                    {
+                     "height":44,
+                     "id":5,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":70,
+                     "x":30,
+                     "y":36
+                    }, 
+                    {
+                     "height":40,
+                     "id":6,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":42,
                      "x":42,
                      "y":10
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":7,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-4
+                     "width":0,
+                     "x":64,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -221,12 +312,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":4,
-         "image":"..\/..\/images\/characters\/Kim\/KimPunchCrouch5.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimPunchCrouch5.png",
          "imageheight":80,
          "imagewidth":144,
          "objectgroup":
@@ -236,26 +327,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":70,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":3,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":-4
+                    }, 
+                    {
+                     "height":40,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":60,
+                     "x":34,
+                     "y":40
+                    }, 
+                    {
+                     "height":38,
+                     "id":5,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":38,
                      "x":44,
                      "y":10
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":6,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-4
+                     "width":0,
+                     "x":64,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -268,9 +382,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":148,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

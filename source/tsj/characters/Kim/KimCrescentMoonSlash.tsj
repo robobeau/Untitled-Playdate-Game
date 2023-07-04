@@ -10,11 +10,10 @@
  "name":"KimCrescentMoonSlash",
  "spacing":0,
  "tilecount":12,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":124,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash1.png",
          "imageheight":124,
@@ -26,26 +25,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":42,
+                     "width":40,
+                     "x":58,
                      "y":40
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":78,
+                     "height":52,
                      "id":2,
-                     "name":"Hurtbox",
+                     "name":"Hurtbox (Body)",
                      "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":58,
+                     "x":42,
+                     "y":72
+                    }, 
+                    {
+                     "height":36,
+                     "id":4,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":34,
                      "x":66,
                      "y":46
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":78,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -58,10 +80,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":1,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash2.png",
          "imageheight":124,
@@ -73,15 +95,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":42,
+                     "width":40,
+                     "x":58,
                      "y":40
+                    }, 
+                    {
+                     "height":0,
+                     "id":2,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":78,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -91,11 +125,6 @@
             },
          "properties":[
                 {
-                 "name":"airborne",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
@@ -104,10 +133,10 @@
                  "name":"velocityX",
                  "type":"int",
                  "value":6
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":2,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash3.png",
          "imageheight":124,
@@ -119,15 +148,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
+                     "height":42,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":42,
-                     "y":40
+                     "width":40,
+                     "x":58,
+                     "y":26
+                    }, 
+                    {
+                     "height":0,
+                     "id":2,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":78,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -137,18 +178,13 @@
             },
          "properties":[
                 {
-                 "name":"airborne",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":1
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":3,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash4.png",
          "imageheight":124,
@@ -160,15 +196,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
+                     "height":42,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":26,
-                     "y":40
+                     "width":40,
+                     "x":42,
+                     "y":28
+                    }, 
+                    {
+                     "height":0,
+                     "id":2,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":62,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -178,18 +226,13 @@
             },
          "properties":[
                 {
-                 "name":"airborne",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":1
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":4,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash5.png",
          "imageheight":124,
@@ -201,15 +244,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
+                     "height":42,
+                     "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":26,
-                     "y":40
+                     "width":40,
+                     "x":42,
+                     "y":28
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":62,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -219,18 +274,13 @@
             },
          "properties":[
                 {
-                 "name":"airborne",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":1
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":5,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash6.png",
          "imageheight":124,
@@ -242,15 +292,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
+                     "height":42,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":10,
-                     "y":30
+                     "width":40,
+                     "x":26,
+                     "y":32
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":46,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -260,18 +322,13 @@
             },
          "properties":[
                 {
-                 "name":"airborne",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":6,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash7.png",
          "imageheight":124,
@@ -283,18 +340,17 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":26,
+                     "width":40,
+                     "x":42,
                      "y":40
                     }, 
                     {
-                     "class":"Hitbox",
                      "height":44,
                      "id":2,
                      "name":"Hitbox",
@@ -310,10 +366,23 @@
                              "value":-12
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
                      "width":36,
                      "x":60,
                      "y":-4
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":62,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -323,18 +392,13 @@
             },
          "properties":[
                 {
-                 "name":"airborne",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":7,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash8.png",
          "imageheight":124,
@@ -346,18 +410,17 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":26,
+                     "width":40,
+                     "x":42,
                      "y":40
                     }, 
                     {
-                     "class":"Hitbox",
                      "height":52,
                      "id":3,
                      "name":"Hitbox",
@@ -373,10 +436,23 @@
                              "value":20
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
                      "width":52,
                      "x":72,
                      "y":8
+                    }, 
+                    {
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":62,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -386,18 +462,13 @@
             },
          "properties":[
                 {
-                 "name":"airborne",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":1
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":8,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash9.png",
          "imageheight":124,
@@ -409,18 +480,17 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":36
+                     "width":40,
+                     "x":44,
+                     "y":40
                     }, 
                     {
-                     "class":"Hitbox",
                      "height":84,
                      "id":2,
                      "name":"Hitbox",
@@ -436,21 +506,23 @@
                              "value":20
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
                      "width":38,
                      "x":90,
                      "y":36
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":68,
-                     "id":3,
-                     "name":"Hurtbox",
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":42,
-                     "x":48,
-                     "y":52
+                     "width":0,
+                     "x":64,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -468,10 +540,10 @@
                  "name":"velocityX",
                  "type":"int",
                  "value":0
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":9,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash10.png",
          "imageheight":124,
@@ -483,26 +555,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":36
+                     "width":40,
+                     "x":44,
+                     "y":40
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":68,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":42,
-                     "x":48,
-                     "y":52
+                     "width":0,
+                     "x":64,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -515,10 +588,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":10,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash11.png",
          "imageheight":124,
@@ -530,26 +603,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
-                     "id":2,
+                     "id":3,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
+                     "width":40,
+                     "x":44,
                      "y":40
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":68,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":48,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
                      "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":62,
+                     "x":28,
+                     "y":76
+                    }, 
+                    {
+                     "height":40,
+                     "id":5,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":42,
                      "x":48,
                      "y":56
+                    }, 
+                    {
+                     "height":0,
+                     "id":6,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":64,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -562,10 +658,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":11,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimCrescentMoonSlash12.png",
          "imageheight":124,
@@ -577,26 +673,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
-                     "id":2,
+                     "id":3,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":26,
+                     "width":40,
+                     "x":42,
                      "y":40
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":58,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
                      "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":64,
+                     "x":30,
+                     "y":66
+                    }, 
+                    {
+                     "height":40,
+                     "id":5,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":42,
                      "x":48,
                      "y":46
+                    }, 
+                    {
+                     "height":0,
+                     "id":6,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":62,
+                     "y":124
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -609,9 +728,16 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }, 
+                {
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
+                 "type":"int",
+                 "value":2097152
+                }],
+         "type":"Frame"
         }],
  "tilewidth":124,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

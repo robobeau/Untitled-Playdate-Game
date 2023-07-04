@@ -96,7 +96,7 @@ function Ball:init(config)
   self:moveTo(self.startingPosition.x, self.startingPosition.y)
   self:setCenter(0.5, 0.5)
   self:setCollideRect(0, 0, ballSizes[self.type].x, ballSizes[self.type].y)
-  self:setCollidesWithGroupsMask(collisionTypes.FLOOR | collisionTypes.HITBOX | collisionTypes.HURTBOX | collisionTypes.WALL)
+  self:setCollidesWithGroupsMask(collisionTypes.HITBOX | collisionTypes.HURTBOX | collisionTypes.WALL)
   self:setGroupMask(collisionTypes.BALL)
   self:setImage(image)
   self:setZIndex(2)
@@ -137,15 +137,12 @@ end
 function Ball:HandleCollisions(actualX, actualY, collisions, length)
   for i, collision in ipairs(collisions) do
     local groupMask <const> = collision.other:getGroupMask()
-    local collidedWithFloor = groupMask & collisionTypes.FLOOR ~= 0
     local collidedWithHitbox = groupMask & collisionTypes.HITBOX ~= 0
     local collidedWithHurtbox = groupMask & collisionTypes.HURTBOX ~= 0
     local collidedWithWall = groupMask & collisionTypes.WALL ~= 0
 
     if (collidedWithHurtbox) then
       self:HandleCharacterCollision(collision)
-    elseif (collidedWithFloor) then
-      self:HandleFloorCollision(collision)
     elseif (collidedWithWall) then
       self:HandleWallCollision(collision)
     end
@@ -186,18 +183,6 @@ function Ball:HandleCharacterCollision(collision)
   self:HandleWallCollision(collision)
 end
 
-function Ball:HandleFloorCollision(collision)
-  if (collision.normal.x ~= 0 or collision.normal.y ~= 0) then
-    -- TODO: Find a better way to reduce horizontal velocity
-    self.velocity.x -= self.gravity * Sign(self.velocity.x)
-    self.velocity.y -= self.gravity * Sign(self.velocity.y)
-
-    if (collision.normal.y ~= 0) then
-      self.velocity.y *= -1
-    end
-  end
-end
-
 function Ball:HandleWallCollision(collision)
   if (collision.normal.x ~= 0 or collision.normal.y ~= 0) then
     -- TODO: Find a better way to reduce horizontal velocity
@@ -206,6 +191,10 @@ function Ball:HandleWallCollision(collision)
 
     if (collision.normal.x ~= 0) then
       self.velocity.x *= -1
+    end
+
+    if (collision.normal.y ~= 0) then
+      self.velocity.y *= -1
     end
   end
 end

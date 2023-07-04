@@ -1,38 +1,69 @@
-function ConvertCollisionsArrayToTable(collisions)
-  local collisionsTable <const> = {
+-- Convenience variables
+local pd <const> = playdate
+local geo <const> = pd.geometry
+-- local gfx <const> = pd.graphics
+
+-- Tiled's custom properties need to be converted into a table.
+function ConvertCustomPropertiesToTable(customProperties)
+  local properties <const> = {}
+
+  for _, customProperty in ipairs(customProperties) do
+    properties[customProperty.name] = customProperty.value
+  end
+
+  return properties;
+end
+
+function ExtractCharacterObjects(objects)
+  local center = nil
+  local collisions <const> = {
     Hitboxes = {},
     Hurtboxes = {},
     Pushbox = nil,
   }
 
-  for i, collision in ipairs(collisions) do
-    collision.properties = ConvertCustomPropertiesToTable(collision.properties or {})
+  for i, object in ipairs(objects) do
+    local properties <const> = ConvertCustomPropertiesToTable(object.properties or {})
 
-    if (collision.class == 'Pushbox') then
-      collisionsTable['Pushbox'] = collision
+    if (object.type == 'Center') then
+      center = geo.point.new(object.x, object.y)
     end
 
-    if (collision.class == 'Hitbox') then
-      table.insert(collisionsTable['Hitboxes'], collision)
+    if (object.type == 'Pushbox') then
+      local rect <const> = geo.rect.new(object.x, object.y, object.width, object.height)
+
+      collisions['Pushbox'] = {
+        name = object.name, -- For debugging ;)
+        properties = properties,
+        rect = rect,
+        type = object.type,
+      }
     end
 
-    if (collision.class == 'Hurtbox') then
-      table.insert(collisionsTable['Hurtboxes'], collision)
+    if (object.type == 'Hitbox') then
+      local rect <const> = geo.rect.new(object.x, object.y, object.width, object.height)
+
+      table.insert(collisions['Hitboxes'], {
+        name = object.name, -- For debugging ;)
+        properties = properties,
+        rect = rect,
+        type = object.type,
+      })
+    end
+
+    if (object.type == 'Hurtbox') then
+      local rect <const> = geo.rect.new(object.x, object.y, object.width, object.height)
+
+      table.insert(collisions['Hurtboxes'], {
+        name = object.name, -- For debugging ;)
+        properties = properties,
+        rect = rect,
+        type = object.type,
+      })
     end
   end
 
-  return collisionsTable;
-end
-
--- Tiled's custom properties need to be normalized into a table.
-function ConvertCustomPropertiesToTable(customProperties)
-  local propertiesTable <const> = {}
-
-  for _, customProperty in ipairs(customProperties) do
-    propertiesTable[customProperty.name] = customProperty.value
-  end
-
-  return propertiesTable;
+  return center, collisions;
 end
 
 function Sign(number)

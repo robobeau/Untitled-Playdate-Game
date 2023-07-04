@@ -10,13 +10,12 @@
  "name":"KimTransition",
  "spacing":0,
  "tilecount":1,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":80,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimTransition1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimTransition1.png",
          "imageheight":80,
          "imagewidth":80,
          "objectgroup":
@@ -26,26 +25,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":2,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":20,
+                     "y":-4
+                    }, 
+                    {
+                     "height":58,
+                     "id":3,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":64,
+                     "x":8,
+                     "y":22
+                    }, 
+                    {
+                     "height":40,
+                     "id":1,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":42,
                      "x":26,
                      "y":2
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":4,
-                     "y":-4
+                     "width":0,
+                     "x":40,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -54,6 +76,12 @@
              "y":0
             },
          "properties":[
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":96
+                }, 
                 {
                  "name":"frameDuration",
                  "type":"int",
@@ -68,9 +96,15 @@
                  "name":"superCancellable",
                  "type":"bool",
                  "value":true
-                }]
+                }, 
+                {
+                 "name":"velocityX",
+                 "type":"int",
+                 "value":0
+                }],
+         "type":"Frame"
         }],
  "tilewidth":80,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

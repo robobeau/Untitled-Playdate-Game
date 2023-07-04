@@ -9,10 +9,22 @@ import 'inputs'
 local pd <const> = playdate
 
 local defaults <const> = {
-  -- dashSpeed = 8,
-  -- jumpHeight = 12,
+  canRun = true,
+  -- dashSpeed = 10,
+  -- health = 950,
+  jumpHeight = charJumpHeights.SHORT,
   name = 'Kim',
-  -- speed = 4,
+  speeds = {
+    dash = {
+      back = charSpeeds.FASTEST,
+      forward = charSpeeds.FASTEST,
+    },
+    run = charSpeeds.FASTEST,
+    walk = {
+      back = charSpeeds.SLOW,
+      forward = charSpeeds.NORMAL,
+    },
+  },
 }
 
 class('Kim', defaults).extends(Character)
@@ -21,12 +33,35 @@ function Kim:init(config)
   Kim.super.init(self, config)
 end
 
+function Kim:CheckChainInputs()
+  local frame <const> = self:GetHistoryFrame()
+  local frameData <const> = self:GetFrameData(frame.frameIndex)
+
+  -- If we can't perform a chain, exit early.
+  if (not frameData.cancellable or (frameData.cancellable & cancellableStates.CHAIN) == 0) then
+    return
+  end
+
+  local current <const>, pressed <const>, released <const> = table.unpack(frame.buttonState)
+  local hasPressedB <const> = pressed & pd.kButtonB ~= 0
+
+  if (hasPressedB) then
+    local newState = charStates.CHAIN | charStates.KICK | charStates.STAND
+
+    self:SetState(newState)
+
+    return true
+  end
+
+  Kim.super.CheckChainInputs(self)
+end
+
 function Kim:CheckSpecialInputs()
-  local frame <const> = self.history:GetFrame()
-  local tileProperties <const> = self:GetTileProperties(frame.frameIndex)
+  local frame <const> = self:GetHistoryFrame()
+  local frameData <const> = self:GetFrameData(frame.frameIndex)
 
   -- If we can't perform a special move, exit early.
-  if (not tileProperties.specialCancellable) then
+  if (not frameData.cancellable or frameData.cancellable & cancellableStates.SPECIAL == 0) then
     return
   end
 
@@ -60,11 +95,14 @@ function Kim:DerivePhysicsFromState()
   Kim.super.DerivePhysicsFromState(self)
 end
 
-function Kim:LoadTilesets()
-  Kim.super.LoadTilesets(self)
+function Kim:LoadAnimations()
+  Kim.super.LoadAnimations(self)
+
+  -- Chain Moves
+  self.animations[charStates.KICK | charStates.CHAIN | charStates.STAND] = self:HydrateAnimation(self:LoadTSJ('KickNeutralChain'));
 
   -- Special Moves
-  self.tilesets[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self:HydrateTileset(self:LoadTSJ('FlashKick'));
-  self.tilesets[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self:HydrateTileset(self:LoadTSJ('DiveKick'));
-  self.tilesets[charStates.SPECIAL | charStates.BACK] = self:HydrateTileset(self:LoadTSJ('CrescentMoonSlash'));
+  self.animations[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self:HydrateAnimation(self:LoadTSJ('FlashKick'));
+  self.animations[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self:HydrateAnimation(self:LoadTSJ('DiveKick'));
+  self.animations[charStates.SPECIAL | charStates.BACK] = self:HydrateAnimation(self:LoadTSJ('CrescentMoonSlash'));
 end

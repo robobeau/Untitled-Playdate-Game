@@ -16,13 +16,12 @@
         }],
  "spacing":0,
  "tilecount":2,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":112,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimDiveKick1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimDiveKick1.png",
          "imageheight":112,
          "imagewidth":80,
          "objectgroup":
@@ -32,7 +31,39 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
+                     "height":42,
+                     "id":1,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":20,
+                     "y":32
+                    }, 
+                    {
+                     "height":62,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":78,
+                     "x":2,
+                     "y":24
+                    }, 
+                    {
+                     "height":38,
+                     "id":2,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":40,
+                     "x":20,
+                     "y":10
+                    }, 
+                    {
                      "height":26,
                      "id":3,
                      "name":"Hitbox",
@@ -48,32 +79,23 @@
                              "value":12
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
-                     "width":54,
+                     "width":60,
                      "x":20,
                      "y":86
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":76,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":0,
+                     "id":5,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":40,
-                     "x":20,
-                     "y":10
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":4,
-                     "y":28
+                     "width":0,
+                     "x":40,
+                     "y":112
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -86,11 +108,6 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
-                }, 
-                {
-                 "name":"ignoreGravity",
-                 "type":"bool",
-                 "value":true
                 }, 
                 {
                  "name":"velocityX",
@@ -101,12 +118,12 @@
                  "name":"velocityY",
                  "type":"int",
                  "value":8
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":1,
-         "image":"..\/..\/images\/characters\/Kim\/KimDiveKick2.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimDiveKick2.png",
          "imageheight":112,
          "imagewidth":80,
          "objectgroup":
@@ -116,7 +133,39 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
+                     "height":42,
+                     "id":1,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":20,
+                     "y":32
+                    }, 
+                    {
+                     "height":62,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":78,
+                     "x":2,
+                     "y":24
+                    }, 
+                    {
+                     "height":38,
+                     "id":5,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":40,
+                     "x":20,
+                     "y":10
+                    }, 
+                    {
                      "height":26,
                      "id":3,
                      "name":"Hitbox",
@@ -132,32 +181,23 @@
                              "value":12
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
-                     "width":54,
+                     "width":60,
                      "x":20,
                      "y":86
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":76,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":0,
+                     "id":7,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":40,
-                     "x":20,
-                     "y":10
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":4,
-                     "y":28
+                     "width":0,
+                     "x":40,
+                     "y":112
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -170,14 +210,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
-                }, 
-                {
-                 "name":"ignoreGravity",
-                 "type":"bool",
-                 "value":true
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":80,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

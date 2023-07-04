@@ -16,11 +16,10 @@
         }],
  "spacing":0,
  "tilecount":1,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":96,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimBlock1.png",
          "imageheight":96,
@@ -32,15 +31,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
+                     "height":80,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":-6,
-                     "y":12
+                     "width":40,
+                     "x":10,
+                     "y":16
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":30,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -50,43 +61,19 @@
             },
          "properties":[
                 {
-                 "name":"attackCancellable",
-                 "type":"bool",
-                 "value":false
-                }, 
-                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":3
                 }, 
                 {
-                 "name":"jumpCancellable",
-                 "type":"bool",
-                 "value":false
-                }, 
-                {
-                 "name":"moveCancellable",
-                 "type":"bool",
-                 "value":false
-                }, 
-                {
                  "name":"nextState",
                  "propertytype":"CharacterStates",
                  "type":"int",
-                 "value":1048576
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":false
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":false
-                }]
+                 "value":2097152
+                }],
+         "type":"Frame"
         }],
  "tilewidth":80,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

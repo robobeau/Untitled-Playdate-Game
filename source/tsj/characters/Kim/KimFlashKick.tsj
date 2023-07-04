@@ -10,11 +10,10 @@
  "name":"KimFlashKick",
  "spacing":0,
  "tilecount":6,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":128,
  "tiles":[
         {
-         "class":"Frame",
          "id":2,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick1.png",
          "imageheight":128,
@@ -26,26 +25,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":82,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":1,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":36,
+                     "y":44
+                    }, 
+                    {
+                     "height":64,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":54,
+                     "x":30,
+                     "y":64
+                    }, 
+                    {
+                     "height":28,
+                     "id":2,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":38,
                      "x":30,
                      "y":46
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":20,
-                     "y":44
+                     "width":0,
+                     "x":56,
+                     "y":128
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -68,10 +90,10 @@
                  "name":"velocityY",
                  "type":"int",
                  "value":-12
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":3,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick1.png",
          "imageheight":128,
@@ -83,26 +105,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":82,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":3,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":36,
+                     "y":44
+                    }, 
+                    {
+                     "height":64,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":54,
+                     "x":30,
+                     "y":64
+                    }, 
+                    {
+                     "height":28,
+                     "id":5,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":38,
                      "x":30,
                      "y":46
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":6,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":20,
-                     "y":44
+                     "width":0,
+                     "x":56,
+                     "y":128
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -115,10 +160,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":1
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":4,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick2.png",
          "imageheight":128,
@@ -130,7 +175,6 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
                      "height":38,
                      "id":2,
                      "name":"Hitbox",
@@ -146,32 +190,56 @@
                              "value":-6
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
                      "width":30,
                      "x":82,
                      "y":74
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":40,
-                     "id":3,
-                     "name":"Hurtbox",
+                     "height":42,
+                     "id":4,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":92,
+                     "width":40,
+                     "x":36,
+                     "y":44
+                    }, 
+                    {
+                     "height":40,
+                     "id":5,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":60,
+                     "x":36,
+                     "y":56
+                    }, 
+                    {
+                     "height":40,
+                     "id":6,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":32,
                      "x":4,
                      "y":64
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":7,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":20,
-                     "y":44
+                     "width":0,
+                     "x":56,
+                     "y":128
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -184,10 +252,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":5,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick3.png",
          "imageheight":128,
@@ -199,7 +267,39 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
+                     "height":42,
+                     "id":1,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":36,
+                     "y":44
+                    }, 
+                    {
+                     "height":54,
+                     "id":5,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":56,
+                     "x":26,
+                     "y":42
+                    }, 
+                    {
+                     "height":38,
+                     "id":3,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":36,
+                     "x":26,
+                     "y":70
+                    }, 
+                    {
                      "height":94,
                      "id":2,
                      "name":"Hitbox",
@@ -215,32 +315,23 @@
                              "value":-16
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
                      "width":100,
                      "x":6,
                      "y":6
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":38,
-                     "id":3,
-                     "name":"Hurtbox",
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":36,
-                     "x":26,
-                     "y":70
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":20,
-                     "y":44
+                     "width":0,
+                     "x":56,
+                     "y":128
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -253,10 +344,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":6
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":6,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick4.png",
          "imageheight":128,
@@ -268,48 +359,71 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
+                     "height":42,
+                     "id":10,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":36,
+                     "y":44
+                    }, 
+                    {
+                     "height":54,
+                     "id":11,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":56,
+                     "x":26,
+                     "y":42
+                    }, 
+                    {
+                     "height":38,
+                     "id":12,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":36,
+                     "x":26,
+                     "y":70
+                    }, 
+                    {
                      "height":94,
-                     "id":5,
+                     "id":13,
                      "name":"Hitbox",
                      "properties":[
                             {
                              "name":"velocityX",
                              "type":"int",
-                             "value":12
+                             "value":16
                             }, 
                             {
                              "name":"velocityY",
                              "type":"int",
-                             "value":-12
+                             "value":-16
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
                      "width":100,
                      "x":6,
                      "y":6
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":56,
-                     "id":3,
-                     "name":"Hurtbox",
+                     "height":0,
+                     "id":14,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":46,
-                     "x":26,
-                     "y":52
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":20,
-                     "y":44
+                     "width":0,
+                     "x":56,
+                     "y":128
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -322,10 +436,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":7,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimFlashKick5.png",
          "imageheight":128,
@@ -337,26 +451,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":36,
-                     "id":2,
-                     "name":"Hurtbox",
+                     "height":42,
+                     "id":3,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":74,
-                     "x":20,
+                     "width":40,
+                     "x":34,
+                     "y":62
+                    }, 
+                    {
+                     "height":62,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":64,
+                     "x":16,
+                     "y":46
+                    }, 
+                    {
+                     "height":36,
+                     "id":5,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":38,
+                     "x":56,
                      "y":66
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":6,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":20,
-                     "y":44
+                     "width":0,
+                     "x":54,
+                     "y":128
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -375,9 +512,10 @@
                  "propertytype":"CharacterStates",
                  "type":"int",
                  "value":1
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":112,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

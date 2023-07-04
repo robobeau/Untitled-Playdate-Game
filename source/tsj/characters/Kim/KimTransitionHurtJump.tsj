@@ -10,11 +10,10 @@
  "name":"KimTransitionHurtJump",
  "spacing":0,
  "tilecount":4,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":80,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimTransitionHurtJump1.png",
          "imageheight":80,
@@ -26,15 +25,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
+                     "height":0,
+                     "id":2,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":64,
+                     "y":80
+                    }, 
+                    {
+                     "height":42,
+                     "id":3,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-8
+                     "width":40,
+                     "x":44,
+                     "y":18
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -52,10 +63,10 @@
                  "name":"velocityX",
                  "type":"int",
                  "value":0
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":1,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimTransitionHurtJump2.png",
          "imageheight":80,
@@ -67,15 +78,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
+                     "height":0,
+                     "id":2,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":64,
+                     "y":80
+                    }, 
+                    {
+                     "height":42,
+                     "id":3,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-8
+                     "width":40,
+                     "x":44,
+                     "y":18
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -88,10 +111,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":1
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":2,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimTransitionHurtJump3.png",
          "imageheight":80,
@@ -103,15 +126,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":64,
+                     "y":80
+                    }, 
+                    {
+                     "height":42,
+                     "id":5,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-4
+                     "width":40,
+                     "x":44,
+                     "y":18
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -129,10 +164,10 @@
                  "name":"velocityX",
                  "type":"int",
                  "value":-1
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":3,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimTransitionHurtJump3.png",
          "imageheight":80,
@@ -144,15 +179,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
+                     "height":42,
+                     "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":-4
+                     "width":40,
+                     "x":44,
+                     "y":18
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":64,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -171,9 +218,10 @@
                  "propertytype":"CharacterStates",
                  "type":"int",
                  "value":16384
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":128,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

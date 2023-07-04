@@ -10,13 +10,12 @@
  "name":"KimHurtAirborne",
  "spacing":0,
  "tilecount":3,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":96,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimHurtAirborne1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimHurtAirborne1.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -26,15 +25,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
+                     "height":42,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":12
+                     "width":40,
+                     "x":44,
+                     "y":28
+                    }, 
+                    {
+                     "height":0,
+                     "id":2,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":64,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -52,12 +63,12 @@
                  "name":"velocityX",
                  "type":"int",
                  "value":-2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":1,
-         "image":"..\/..\/images\/characters\/Kim\/KimHurtAirborne1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimHurtAirborne1.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -67,15 +78,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":1,
+                     "height":42,
+                     "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":12
+                     "width":40,
+                     "x":44,
+                     "y":28
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":64,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -88,12 +111,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":5
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":2,
-         "image":"..\/..\/images\/characters\/Kim\/KimHurtAirborne2.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimHurtAirborne2.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -103,15 +126,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
-                     "height":84,
+                     "height":42,
                      "id":1,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":12
+                     "width":40,
+                     "x":44,
+                     "y":28
+                    }, 
+                    {
+                     "height":0,
+                     "id":2,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":64,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -129,9 +164,10 @@
                  "name":"loops",
                  "type":"bool",
                  "value":true
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":128,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

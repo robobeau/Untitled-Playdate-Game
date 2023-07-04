@@ -16,11 +16,10 @@
         }],
  "spacing":0,
  "tilecount":1,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":80,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimBlockCrouch1.png",
          "imageheight":80,
@@ -32,15 +31,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":-6,
-                     "y":-10
+                     "width":40,
+                     "x":6,
+                     "y":-4
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":26,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -55,18 +66,14 @@
                  "value":3
                 }, 
                 {
-                 "name":"moveCancellable",
-                 "type":"bool",
-                 "value":false
-                }, 
-                {
                  "name":"nextState",
                  "propertytype":"CharacterStates",
                  "type":"int",
-                 "value":16
-                }]
+                 "value":32
+                }],
+         "type":"Frame"
         }],
  "tilewidth":64,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

@@ -11,11 +11,10 @@
  "objectalignment":"bottom",
  "spacing":0,
  "tilecount":4,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":80,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimHurt1.png",
          "imageheight":80,
@@ -27,15 +26,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":18,
+                     "width":40,
+                     "x":34,
                      "y":-4
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":54,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -53,10 +64,10 @@
                  "name":"velocityX",
                  "type":"int",
                  "value":0
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":1,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimHurt2.png",
          "imageheight":80,
@@ -68,15 +79,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":40,
+                     "width":40,
+                     "x":56,
                      "y":-4
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":76,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -94,10 +117,10 @@
                  "name":"velocityX",
                  "type":"int",
                  "value":-2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":2,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimHurt2.png",
          "imageheight":80,
@@ -109,15 +132,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":40,
+                     "width":40,
+                     "x":56,
                      "y":-4
+                    }, 
+                    {
+                     "height":0,
+                     "id":3,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":76,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -130,10 +165,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":5
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":3,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimHurt1.png",
          "imageheight":80,
@@ -145,15 +180,27 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Pushbox",
                      "height":84,
-                     "id":2,
+                     "id":3,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":18,
+                     "width":40,
+                     "x":34,
                      "y":-4
+                    }, 
+                    {
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":54,
+                     "y":80
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -168,12 +215,19 @@
                  "value":2
                 }, 
                 {
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
+                 "type":"int",
+                 "value":2097152
+                }, 
+                {
                  "name":"velocityX",
                  "type":"int",
                  "value":0
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":112,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

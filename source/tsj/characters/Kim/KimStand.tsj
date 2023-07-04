@@ -17,13 +17,12 @@
         }],
  "spacing":0,
  "tilecount":4,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":96,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimStand1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimStand1.png",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":
@@ -33,26 +32,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
                      "height":84,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "id":2,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
                      "width":40,
                      "x":20,
                      "y":12
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
+                     "height":54,
+                     "id":3,
+                     "name":"Hurtbox (Body)",
                      "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
-                     "width":72,
-                     "x":4,
+                     "width":64,
+                     "x":8,
+                     "y":42
+                    }, 
+                    {
+                     "height":38,
+                     "id":1,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":40,
+                     "x":20,
                      "y":12
+                    }, 
+                    {
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":40,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -70,6 +92,12 @@
                  "name":"blockCancellable",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":123
                 }, 
                 {
                  "name":"frameDuration",
@@ -95,12 +123,17 @@
                  "name":"superCancellable",
                  "type":"bool",
                  "value":true
-                }]
+                }, 
+                {
+                 "name":"velocityX",
+                 "type":"int",
+                 "value":0
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":1,
-         "image":"..\/..\/images\/characters\/Kim\/KimStand2.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimStand2.png",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":
@@ -110,26 +143,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":86,
-                     "id":1,
-                     "name":"Hurtbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":38,
-                     "x":20,
-                     "y":10
-                    }, 
-                    {
-                     "class":"Pushbox",
                      "height":84,
                      "id":2,
                      "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
-                     "width":72,
-                     "x":4,
+                     "width":40,
+                     "x":20,
                      "y":12
+                    }, 
+                    {
+                     "height":56,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":64,
+                     "x":8,
+                     "y":40
+                    }, 
+                    {
+                     "height":38,
+                     "id":3,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":40,
+                     "x":20,
+                     "y":10
+                    }, 
+                    {
+                     "height":0,
+                     "id":5,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":40,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -147,6 +203,12 @@
                  "name":"blockCancellable",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":123
                 }, 
                 {
                  "name":"frameDuration",
@@ -172,12 +234,12 @@
                  "name":"superCancellable",
                  "type":"bool",
                  "value":true
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":2,
-         "image":"..\/..\/images\/characters\/Kim\/KimStand3.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimStand3.png",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":
@@ -187,26 +249,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":86,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":2,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":20,
+                     "y":12
+                    }, 
+                    {
+                     "height":58,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":64,
+                     "x":8,
+                     "y":38
+                    }, 
+                    {
+                     "height":38,
+                     "id":3,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":40,
                      "x":20,
                      "y":10
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":5,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":4,
-                     "y":12
+                     "width":0,
+                     "x":40,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -224,6 +309,12 @@
                  "name":"blockCancellable",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":123
                 }, 
                 {
                  "name":"frameDuration",
@@ -249,12 +340,12 @@
                  "name":"superCancellable",
                  "type":"bool",
                  "value":true
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":4,
-         "image":"..\/..\/images\/characters\/Kim\/KimStand1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimStand1.png",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":
@@ -264,26 +355,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
                      "height":84,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "id":2,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
                      "visible":true,
                      "width":40,
                      "x":20,
                      "y":12
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
+                     "height":54,
+                     "id":3,
+                     "name":"Hurtbox (Body)",
                      "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
-                     "width":72,
-                     "x":4,
+                     "width":64,
+                     "x":8,
+                     "y":42
+                    }, 
+                    {
+                     "height":38,
+                     "id":4,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":40,
+                     "x":20,
                      "y":12
+                    }, 
+                    {
+                     "height":0,
+                     "id":5,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":40,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -301,6 +415,12 @@
                  "name":"blockCancellable",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":123
                 }, 
                 {
                  "name":"frameDuration",
@@ -326,9 +446,10 @@
                  "name":"superCancellable",
                  "type":"bool",
                  "value":true
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":80,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

@@ -16,13 +16,12 @@
         }],
  "spacing":0,
  "tilecount":1,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":72,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimCrouch1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimCrouch1.png",
          "imageheight":72,
          "imagewidth":72,
          "objectgroup":
@@ -32,26 +31,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":68,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":2,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":16,
+                     "y":-12
+                    }, 
+                    {
+                     "height":48,
+                     "id":3,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":62,
+                     "x":0,
+                     "y":24
+                    }, 
+                    {
+                     "height":40,
+                     "id":1,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":42,
                      "x":20,
                      "y":4
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":0,
-                     "y":-12
+                     "width":0,
+                     "x":36,
+                     "y":72
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -69,6 +91,12 @@
                  "name":"blockCancellable",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":115
                 }, 
                 {
                  "name":"frameDuration",
@@ -89,9 +117,10 @@
                  "name":"superCancellable",
                  "type":"bool",
                  "value":true
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":72,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

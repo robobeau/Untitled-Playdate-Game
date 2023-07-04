@@ -11,11 +11,10 @@
  "objectalignment":"bottom",
  "spacing":0,
  "tilecount":1,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":96,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimPunchJumpForward1.png",
          "imageheight":96,
@@ -27,29 +26,39 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":60,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":4,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":12,
+                     "y":12
+                    }, 
+                    {
+                     "height":62,
+                     "id":6,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":58,
+                     "x":4,
+                     "y":20
+                    }, 
+                    {
+                     "height":40,
+                     "id":1,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":40,
                      "x":12,
                      "y":8
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":4,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":-4,
-                     "y":12
-                    }, 
-                    {
-                     "class":"Hitbox",
                      "height":32,
                      "id":5,
                      "name":"Hitbox",
@@ -65,10 +74,23 @@
                              "value":16
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
                      "width":34,
                      "x":34,
                      "y":68
+                    }, 
+                    {
+                     "height":0,
+                     "id":7,
+                     "name":"Center",
+                     "point":true,
+                     "rotation":0,
+                     "type":"Center",
+                     "visible":true,
+                     "width":0,
+                     "x":32,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -87,9 +109,10 @@
                  "propertytype":"CharacterStates",
                  "type":"int",
                  "value":1
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":64,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

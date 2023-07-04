@@ -11,11 +11,10 @@
  "objectalignment":"bottom",
  "spacing":0,
  "tilecount":2,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":128,
  "tiles":[
         {
-         "class":"Frame",
          "id":1,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimAirborne1.png",
          "imageheight":128,
@@ -27,26 +26,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":76,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":2,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":14,
+                     "y":44
+                    }, 
+                    {
+                     "height":54,
+                     "id":3,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":62,
+                     "x":2,
+                     "y":44
+                    }, 
+                    {
+                     "height":38,
+                     "id":1,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":40,
                      "x":14,
                      "y":22
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":4,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":-4,
-                     "y":44
+                     "width":0,
+                     "x":34,
+                     "y":128
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -64,6 +86,12 @@
                  "name":"blockCancellable",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":99
                 }, 
                 {
                  "name":"frameDuration",
@@ -84,10 +112,10 @@
                  "name":"superCancellable",
                  "type":"bool",
                  "value":true
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":2,
          "image":"..\/..\/..\/images\/characters\/Kim\/KimAirborne2.png",
          "imageheight":128,
@@ -99,26 +127,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":90,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":8,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":14,
+                     "y":44
+                    }, 
+                    {
+                     "height":56,
+                     "id":9,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":50,
+                     "x":8,
+                     "y":56
+                    }, 
+                    {
+                     "height":38,
+                     "id":10,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":40,
                      "x":14,
                      "y":22
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":11,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":-4,
-                     "y":44
+                     "width":0,
+                     "x":34,
+                     "y":128
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -136,6 +187,12 @@
                  "name":"blockCancellable",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":99
                 }, 
                 {
                  "name":"frameDuration",
@@ -156,9 +213,10 @@
                  "name":"superCancellable",
                  "type":"bool",
                  "value":true
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":64,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }

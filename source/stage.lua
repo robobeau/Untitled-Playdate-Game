@@ -35,34 +35,34 @@ function Stage:CreateBounds()
 
   local ceiling <const> = gfx.sprite.new()
         ceiling:setCenter(0, 0)
-        ceiling:setCollideRect(0, 0, stageSprite.width, 10)
-        ceiling:setGroupMask(collisionTypes.FLOOR)
-        ceiling:setSize(stageSprite.width, 10)
+        ceiling:setCollideRect(0, 0, stageSprite.width, 20)
+        ceiling:setGroupMask(collisionTypes.WALL)
+        ceiling:setSize(stageSprite.width, 20)
         ceiling:moveTo(0, 0)
         ceiling:add()
 
   local floor <const> = gfx.sprite.new()
         floor:setCenter(0, 0)
-        floor:setCollideRect(0, 0, stageSprite.width, 10)
-        floor:setGroupMask(collisionTypes.FLOOR)
-        floor:setSize(stageSprite.width, 10)
-        floor:moveTo(0, stageSprite.height - 10)
+        floor:setCollideRect(0, 0, stageSprite.width, 20)
+        floor:setGroupMask(collisionTypes.WALL)
+        floor:setSize(stageSprite.width, 20)
+        floor:moveTo(0, stageSprite.height - 20)
         floor:add()
 
   local leftWall <const> = gfx.sprite.new()
         leftWall:setCenter(0, 0)
-        leftWall:setCollideRect(0, 0, 10, stageSprite.height)
+        leftWall:setCollideRect(0, 0, 20, stageSprite.height)
         leftWall:setGroupMask(collisionTypes.WALL)
-        leftWall:setSize(10, stageSprite.height)
+        leftWall:setSize(20, stageSprite.height)
         leftWall:moveTo(0, 0)
         leftWall:add()
 
   local rightWall <const> = gfx.sprite.new()
         rightWall:setCenter(0, 0)
-        rightWall:setCollideRect(0, 0, 10, stageSprite.height)
+        rightWall:setCollideRect(0, 0, 20, stageSprite.height)
         rightWall:setGroupMask(collisionTypes.WALL)
-        rightWall:setSize(10, stageSprite.height)
-        rightWall:moveTo(stageSprite.width - 10, 0)
+        rightWall:setSize(20, stageSprite.height)
+        rightWall:moveTo(stageSprite.width - 20, 0)
         rightWall:add()
 
     table.insert(self.sprites, ceiling)
@@ -128,7 +128,7 @@ function Stage:UpdateDrawOffset()
     x = x + self.character.x,
     y = y + self.character.y,
   }
-  local characterSpeed <const> = self.character:GetCurrentSpeed()
+  local characterSpeed <const> = self.character:GetSpeed()
   local drawOffsetVelocity <const> = {
     x = offsetPosition.x < 100 and characterSpeed
       or offsetPosition.x > 300 and -characterSpeed

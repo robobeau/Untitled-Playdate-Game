@@ -11,13 +11,12 @@
  "objectalignment":"bottom",
  "spacing":0,
  "tilecount":5,
- "tiledversion":"1.9.1",
+ "tiledversion":"1.10.1",
  "tileheight":96,
  "tiles":[
         {
-         "class":"Frame",
          "id":0,
-         "image":"..\/..\/images\/characters\/Kim\/KimKickForward1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimKickForward1.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -27,26 +26,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":3,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":12
+                    }, 
+                    {
+                     "height":52,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":58,
+                     "x":28,
+                     "y":44
+                    }, 
+                    {
+                     "height":36,
+                     "id":1,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":34,
                      "x":52,
                      "y":18
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":3,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":5,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":12
+                     "width":0,
+                     "x":64,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -59,12 +81,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":1,
-         "image":"..\/..\/images\/characters\/Kim\/KimKickForward2.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimKickForward2.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -74,26 +96,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":82,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":4,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":30,
+                     "y":12
+                    }, 
+                    {
+                     "height":66,
+                     "id":1,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":50,
+                     "x":38,
+                     "y":30
+                    }, 
+                    {
+                     "height":26,
+                     "id":6,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":36,
                      "x":36,
                      "y":14
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":4,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":7,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":14,
-                     "y":12
+                     "width":0,
+                     "x":50,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -106,12 +151,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":3,
-         "image":"..\/..\/images\/characters\/Kim\/KimKickForward3.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimKickForward3.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -121,7 +166,39 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hitbox",
+                     "height":84,
+                     "id":3,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":24,
+                     "y":12
+                    }, 
+                    {
+                     "height":64,
+                     "id":4,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":46,
+                     "x":24,
+                     "y":32
+                    }, 
+                    {
+                     "height":26,
+                     "id":1,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":36,
+                     "x":22,
+                     "y":18
+                    }, 
+                    {
                      "height":34,
                      "id":2,
                      "name":"Hitbox",
@@ -137,32 +214,23 @@
                              "value":-8
                             }],
                      "rotation":0,
+                     "type":"Hitbox",
                      "visible":true,
                      "width":74,
                      "x":58,
                      "y":30
                     }, 
                     {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":0,
+                     "id":5,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":36,
-                     "x":22,
-                     "y":18
-                    }, 
-                    {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":3,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "visible":true,
-                     "width":72,
-                     "x":8,
-                     "y":12
+                     "width":0,
+                     "x":44,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -171,6 +239,12 @@
              "y":0
             },
          "properties":[
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":96
+                }, 
                 {
                  "name":"frameDuration",
                  "type":"int",
@@ -185,12 +259,12 @@
                  "name":"superCancellable",
                  "type":"bool",
                  "value":true
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":4,
-         "image":"..\/..\/images\/characters\/Kim\/KimKickForward2.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimKickForward2.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -200,26 +274,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":82,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":6,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":30,
+                     "y":12
+                    }, 
+                    {
+                     "height":66,
+                     "id":7,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":50,
+                     "x":38,
+                     "y":30
+                    }, 
+                    {
+                     "height":26,
+                     "id":8,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":36,
                      "x":36,
                      "y":14
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":2,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":9,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":14,
-                     "y":12
+                     "width":0,
+                     "x":50,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -232,12 +329,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }, 
         {
-         "class":"Frame",
          "id":5,
-         "image":"..\/..\/images\/characters\/Kim\/KimKickForward1.png",
+         "image":"..\/..\/..\/images\/characters\/Kim\/KimKickForward1.png",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -247,26 +344,49 @@
              "name":"",
              "objects":[
                     {
-                     "class":"Hurtbox",
-                     "height":78,
-                     "id":1,
-                     "name":"Hurtbox",
+                     "height":84,
+                     "id":7,
+                     "name":"Pushbox",
                      "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":12
+                    }, 
+                    {
+                     "height":52,
+                     "id":8,
+                     "name":"Hurtbox (Body)",
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":58,
+                     "x":28,
+                     "y":44
+                    }, 
+                    {
+                     "height":36,
+                     "id":9,
+                     "name":"Hurtbox (Head)",
+                     "rotation":0,
+                     "type":"Hurtbox",
                      "visible":true,
                      "width":34,
                      "x":52,
                      "y":18
                     }, 
                     {
-                     "class":"Pushbox",
-                     "height":84,
-                     "id":3,
-                     "name":"Pushbox",
+                     "height":0,
+                     "id":10,
+                     "name":"Center",
+                     "point":true,
                      "rotation":0,
+                     "type":"Center",
                      "visible":true,
-                     "width":72,
-                     "x":28,
-                     "y":12
+                     "width":0,
+                     "x":64,
+                     "y":96
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -279,9 +399,10 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }]
+                }],
+         "type":"Frame"
         }],
  "tilewidth":128,
  "type":"tileset",
- "version":"1.8"
+ "version":"1.10"
 }
