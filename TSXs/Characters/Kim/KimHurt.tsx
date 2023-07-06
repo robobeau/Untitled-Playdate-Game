@@ -7,7 +7,6 @@
  <tile id="0" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
-   <property name="velocityX" type="int" value="0"/>
   </properties>
   <image width="112" height="80" source="../../../source/images/characters/Kim/KimHurt1.png"/>
   <objectgroup draworder="index" id="2">
@@ -20,7 +19,6 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="1"/>
-   <property name="velocityX" type="int" value="-2"/>
   </properties>
   <image width="112" height="80" source="../../../source/images/characters/Kim/KimHurt2.png"/>
   <objectgroup draworder="index" id="2">

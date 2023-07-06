@@ -136,9 +136,7 @@ function Character:collisionResponse(other)
   local collidedWithPushbox <const> = otherGroupMask & collisionTypes.PUSHBOX ~= 0
 
   if (collidedWithPushbox) then
-    -- return gfx.sprite.kCollisionTypeBounce
     return gfx.sprite.kCollisionTypeOverlap
-    -- return gfx.sprite.kCollisionTypeSlide
   end
 
   return gfx.sprite.kCollisionTypeFreeze
@@ -509,7 +507,7 @@ end
 -- For debugging ;)
 function Character:Debug(...)
   if (self.debug) then
-    print(self.name, ...)
+    print(self.controllable, ...)
   end
 end
 
@@ -545,8 +543,12 @@ function Character:DerivePhysicsFromCurrentFrame()
 end
 
 function Character:DerivePhysicsFromState()
-  local frame <const> = self:GetHistoryFrame()
-  local newVelocity <const> = table.deepcopy(frame.velocity)
+  -- A hitbox's properties determine the physics for the Hurt state.
+  if (self:IsHurt()) then
+    return
+  end
+
+  local newVelocity <const> = table.deepcopy(self:GetVelocity())
 
   -- X Velocity
   if (not self:IsTransitioning()) then
@@ -762,34 +764,40 @@ function Character:GetFrameData(animationFrameIndex, historyFrameIndex)
   return frame.data
 end
 
-function Character:GetHit(hurtbox)
+function Character:GetHit(hitbox)
   local newState = charStates.HURT
 
   if (self:IsAirborne()) then
     newState |= charStates.AIRBORNE
-  elseif (
-    self:IsWalking() or
-    self:IsStanding() or
-    self:IsTransitioning()
-  ) then
-    newState |= charStates.STAND
+  -- elseif (self:IsWalking() or self:IsStanding() or self:IsTransitioning()) then
+  --   newState |= charStates.STAND
   elseif (self:IsCrouching()) then
     newState |= charStates.CROUCH
   else
     newState |= charStates.STAND
   end
 
-  local health <const> = self:GetHealth() - 100
+  local health = self:GetHealth()
+  local newVelocity <const> = table.deepcopy(self:GetVelocity())
 
-  -- self:Debug(health)
+  if (hitbox.properties.damage) then
+    health -= hitbox.properties.damage
+  end
+
+  if (hitbox.properties.pushback) then
+    newVelocity.x = hitbox.properties.pushback * self:GetFlipSign() * -1
+  end
+
+  self:Debug('GetHit', health, newVelocity.x)
 
   self:UpdateHistoryFrame({
-    health = health
+    health = health,
+    velocity = newVelocity,
   })
   self.OnHealthChange(health)
   self:SetState(newState)
 
-  gfx.sprite.removeSprites({ hurtbox })
+  -- gfx.sprite.removeSprites({ hurtbox })
 end
 
 function Character:GetHitByBall(hurtbox, ball)
@@ -811,7 +819,7 @@ function Character:GetHitByBall(hurtbox, ball)
 
   local health <const> = self:GetHealth() - 100
 
-  -- self:Debug(health)
+  self:Debug(health)
 
   self:UpdateHistoryFrame({
     health = health
@@ -842,8 +850,13 @@ function Character:GetWalkVelocity()
   return self:NormalizeHorizontalVelocity(self:GetWalkSpeed())
 end
 
-function Character:HitBall(collision, hitbox, ball)
-  local properties <const> = hitbox.properties
+function Character:HitBall(collision)
+  self.Debug('HitBall', collision.other.name, collision.sprite.name)
+
+  local ball <const> = collision.other
+  local box <const> = collision.sprite
+  local properties <const> = box.properties
+
 
   if (
     properties.velocityX ~= nil
@@ -867,28 +880,27 @@ function Character:HitBall(collision, hitbox, ball)
   gfx.sprite.removeSprites({ hitbox })
 end
 
-function Character:HandleBallCollision(collision, sprite, ball)
-  local spriteGroupMask <const> = sprite:getGroupMask()
-  local spriteIsHitbox <const> = spriteGroupMask & collisionTypes.HITBOX ~= 0
-  local spriteIsHurtbox <const> = spriteGroupMask & collisionTypes.HURTBOX ~= 0
+function Character:HandleBallCollision(collision)
+  self:Debug('HandleBallCollision', collision.name)
 
-  if (spriteIsHitbox) then
-    self:HitBall(collision, sprite, ball)
-  elseif (spriteIsHurtbox) then
-    if (self:CheckBlockInputs()) then
+  local ball <const> = collision.other
+  local box <const> = collision.sprite
+  local boxGroupMask <const> = box:getGroupMask()
+  local boxIsHitbox <const> = boxGroupMask & collisionTypes.HITBOX ~= 0
+  local boxIsHurtbox <const> = boxGroupMask & collisionTypes.HURTBOX ~= 0
+
+  if (boxIsHitbox) then
+    self:HitBall(collision)
+  elseif (boxIsHurtbox) then
+    if (self.controllable and self:CheckBlockInputs()) then
       return
     end
 
     if (
-      (
-        collision.normal.x ~= 0 and
-        ball:IsDeadlyX()
-      ) or (
-        collision.normal.y ~= 0 and
-        ball:IsDeadlyY()
-      )
+      (collision.normal.x ~= 0 and ball:IsDeadlyX()) or
+      (collision.normal.y ~= 0 and ball:IsDeadlyY())
     ) then
-      self:GetHitByBall(sprite, ball)
+      self:GetHitByBall(box, ball)
     end
   end
 end
@@ -904,54 +916,58 @@ function Character:HandleCollisions(collisions)
 end
 
 function Character:HandleFreezeCollision(collision)
-  local other <const> = collision.other
-  local otherGroupMask <const> = other:getGroupMask()
+  local otherGroupMask <const> = collision.other:getGroupMask()
   local collidedWithBall <const> = otherGroupMask & collisionTypes.BALL ~= 0
-  local collidedWithHitbox <const> = otherGroupMask & collisionTypes.HITBOX ~= 0
-  -- local collidedWithHurtbox <const> = otherGroupMask & collisionTypes.HURTBOX ~= 0
-  local collidedWithPushbox <const> = otherGroupMask & collisionTypes.PUSHBOX ~= 0
   local collidedWithWall <const> = otherGroupMask & collisionTypes.WALL ~= 0
 
-  if (collidedWithBall) then
-    self:HandleBallCollision(collision, collision.sprite, other)
-  elseif (collidedWithHitbox) then
-    self:HandleHitboxCollision(collision)
-  -- elseif (collidedWithPushbox) then
-  --   self:HandlePushboxCollision(collision)
-  elseif (collidedWithWall) then
+  if (collidedWithWall) then
     self:HandleWallCollision(collision)
   end
 end
 
 function Character:HandleHitboxCollision(collision)
-  local sprite <const> = collision.sprite
-  local spriteGroupMask <const> = sprite:getGroupMask()
-  local spriteIsHurtbox <const> = spriteGroupMask & collisionTypes.HURTBOX ~= 0
+  local hitbox <const> = collision.other
+  local hurtbox <const> = collision.sprite
 
-  if (sprite.parent == self) then
+  -- It's technically possible for a sprite's hurtboxes to collide with their own hitboxes
+  if (hitbox.parent == self) then
     return
   end
 
-  if (spriteIsHurtbox) then
-    if (self.controllable and self:CheckBlockInputs()) then
-      return
-    end
-
-    self:GetHit(sprite)
+  if (self.controllable and self:CheckBlockInputs()) then
+    -- TODO: Handle pushback here?
+    return
   end
+
+  self:GetHit(hitbox)
+end
+
+
+function Character:HandleHurtboxCollision(collision)
+  local hitbox <const> = collision.sprite
+  local hurtbox <const> = collision.other
+
+  -- It's technically possible for a sprite's hitboxes to collide with their own hurtboxes
+  if (hurtbox.parent == self) then
+    return
+  end
+
+  -- self:Debug('HandleHurtboxCollision', hitbox.name)
 end
 
 function Character:HandleOverlapCollision(collision)
-  local other <const> = collision.other
-  local otherGroupMask <const> = other:getGroupMask()
-  -- local collidedWithBall <const> = otherGroupMask & collisionTypes.BALL ~= 0
+  local otherGroupMask <const> = collision.other:getGroupMask()
+  local collidedWithBall <const> = otherGroupMask & collisionTypes.BALL ~= 0
   local collidedWithHitbox <const> = otherGroupMask & collisionTypes.HITBOX ~= 0
-  -- local collidedWithHurtbox <const> = otherGroupMask & collisionTypes.HURTBOX ~= 0
+  local collidedWithHurtbox <const> = otherGroupMask & collisionTypes.HURTBOX ~= 0
   local collidedWithPushbox <const> = otherGroupMask & collisionTypes.PUSHBOX ~= 0
-  -- local collidedWithWall <const> = otherGroupMask & collisionTypes.WALL ~= 0
 
-  if (collidedWithHitbox) then
+  if (collidedWithBall) then
+    self:HandleBallCollision(collision)
+  elseif (collidedWithHitbox) then
     self:HandleHitboxCollision(collision)
+  elseif (collidedWithHurtbox) then
+    self:HandleHurtboxCollision(collision)
   elseif (collidedWithPushbox) then
     self:HandlePushboxCollision(collision)
   end
@@ -1523,7 +1539,7 @@ function Character:SetCollisionBox(box)
   local collideRect <const> = box.rect:offsetBy(boundsRect.x, boundsRect.y)
         collideRect:flipRelativeToRect(boundsRect, self:GetFlip())
   local collidesWithGroupMasks <const> = {
-    Hitbox = collisionTypes.BALL,
+    Hitbox = collisionTypes.BALL | collisionTypes.HURTBOX,
     Hurtbox = collisionTypes.BALL | collisionTypes.HITBOX,
     Pushbox = collisionTypes.PUSHBOX
   }

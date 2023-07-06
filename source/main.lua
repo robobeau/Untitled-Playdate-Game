@@ -23,14 +23,13 @@ function init()
 
   -- characterMenu = CharacterMenu()
 
-  -- theBall = Ball({
-  --   startingPosition = {
-  --     x = 200,
-  --     y = 20,
-  --   },
-  --   type = ballTypes.TENNISBALL,
-  -- })
-  -- theBall:add()
+  theBall = Ball({
+    startingPosition = {
+      x = 200,
+      y = 30,
+    },
+    type = ballTypes.TENNISBALL,
+  })
 
   local opponent <const> = gfx.sprite.new()
         opponent:moveTo(300, 220)
@@ -38,8 +37,7 @@ function init()
 
   kim = Kim({
     controllable = true,
-    debuggable = true,
-    name = 'Kim',
+    debug = true,
     -- opponent = opponent,
     startingDirection = charDirections.RIGHT,
     startingPosition = {
@@ -49,8 +47,7 @@ function init()
   })
   kim2 = Kim({
     controllable = false,
-    debuggable = false,
-    name = 'Kim2',
+    debug = true,
     startingDirection = charDirections.LEFT,
     startingPosition = {
       x = 300,
@@ -69,57 +66,51 @@ function init()
   })
 
   -- LIFEBARS
-  -- lifebar = Meter({
-  --   amount = kim.health,
-  --   direction = meterDirections.LEFT,
-  --   meterRect = geo.rect.new(10, 10, 120, 16),
-  --   total = kim.health,
-  -- })
-  -- lifebar:setZIndex(100)
+  lifebar = Meter({
+    amount = kim.health,
+    direction = meterDirections.LEFT,
+    meterRect = geo.rect.new(10, 10, 120, 16),
+    total = kim.health,
+  })
+  lifebar:setZIndex(100)
 
-  -- kim.OnHealthChange = (
-  --   function (health)
-  --     print(health)
-  --     lifebar:SetAmount(health)
-  --   end
-  -- )
+  kim.OnHealthChange = (function (health)
+    lifebar:SetAmount(health)
+  end)
 
-  -- lifebar2 = Meter({
-  --   amount = kim2.health,
-  --   direction = meterDirections.RIGHT,
-  --   meterRect = geo.rect.new(390, 10, 120, 16),
-  --   total = kim2.health,
-  -- })
-  -- lifebar2:setZIndex(100)
+  lifebar2 = Meter({
+    amount = kim2.health,
+    direction = meterDirections.RIGHT,
+    meterRect = geo.rect.new(390, 10, 120, 16),
+    total = kim2.health,
+  })
+  lifebar2:setZIndex(100)
 
-  -- kim2.OnHealthChange = (
-  --   function (health)
-  --     print(health)
-  --     lifebar2:SetAmount(health)
-  --   end
-  -- )
+  kim2.OnHealthChange = (function (health)
+    lifebar2:SetAmount(health)
+  end)
 
   -- ADD SPRITES
   kim:add()
   kim2:add()
-  -- lifebar:add()
-  -- lifebar2:add()
+  lifebar:add()
+  lifebar2:add()
+  -- theBall:add()
 
   local menu <const> = pd.getSystemMenu()
 
-  menu:addMenuItem(
-    "Reset",
-    function ()
-      kim:Reset()
-      theBall:Reset()
-    end
-  )
+  menu:addMenuItem("Reset", function ()
+    kim:Reset()
+    kim2:Reset()
+    -- theBall:Reset()
+  end)
 
   pd.setMenuImage(gfx.image.new('images/Controls'))
 end
 
 function pd.cranked(change, acceleratedChange)
   kim.frozen = true
+  kim2.frozen = true
 
   if (timer) then
     timer:remove()
@@ -129,6 +120,7 @@ function pd.cranked(change, acceleratedChange)
     500,
     function()
       kim.frozen = false
+      kim2.frozen = false
     end
   )
 end

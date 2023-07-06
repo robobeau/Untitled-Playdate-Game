@@ -177,7 +177,7 @@ function Ball:HandleCharacterCollision(collision)
   --   self:moveTo(self.x, newPositionY)
   -- end
 
-  other.parent:HandleBallCollision(other, ball)
+  -- other.parent:HandleBallCollision(collision)
 
   -- A character is technically a wall!
   self:HandleWallCollision(collision)
