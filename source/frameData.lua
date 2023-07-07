@@ -10,7 +10,7 @@ local cancellableStates <const> = {
 
 local defaults <const> = {
   cancellable = 0,
-  -- duration = 0, -- Nil?
+  duration = 0, -- Nil?
   loops = false,
   nextState = nil,
   -- velocityX = 0, -- Nil?
@@ -22,6 +22,7 @@ class('FrameData', defaults).extends()
 function FrameData:init(config)
   self.cancellable = config.cancellable or self.cancellable
   self.duration = config.frameDuration or self.duration
+  self.hitstunnable = config.hitstunnable or self.hitstunnable
   self.loops = config.loops or self.loops
   self.nextState = config.nextState or self.nextState
   self.velocityX = config.velocityX or self.velocityX

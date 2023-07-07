@@ -6,7 +6,7 @@ import "CoreLibs/sprites"
 import "CoreLibs/timer"
 
 import 'ball'
-import 'characters/kim'
+import 'characters/Kim/kim'
 import 'characterMenu'
 import 'collisionTypes'
 import 'meter'
@@ -37,7 +37,7 @@ function init()
 
   kim = Kim({
     controllable = true,
-    debug = true,
+    debug = false,
     -- opponent = opponent,
     startingDirection = charDirections.RIGHT,
     startingPosition = {

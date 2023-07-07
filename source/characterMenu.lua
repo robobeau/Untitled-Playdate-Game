@@ -2,7 +2,7 @@ import 'CoreLibs/graphics'
 import 'CoreLibs/sprites'
 import 'CoreLibs/ui'
 
-import 'characters/kim'
+import 'characters/Kim/kim'
 
 -- Convenience variables
 local pd <const> = playdate

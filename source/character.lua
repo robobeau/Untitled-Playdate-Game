@@ -116,6 +116,7 @@ local firstFrame <const> = {
   frameCounter = 1,
   frameIndex = 1,
   health = 0, -- Set on Reset()
+  hitstun = 0,
   position = {
     x = 0,
     y = 0,
@@ -706,6 +707,12 @@ function Character:GetHealth(frameIndex)
   return frame.health
 end
 
+function Character:GetHitstun(frameIndex)
+  local frame <const> = self:GetHistoryFrame(frameIndex)
+
+  return frame.hitstun
+end
+
 -- Used by Stage
 function Character:GetSpeed()
   if (self:IsRunning()) then
@@ -778,26 +785,38 @@ function Character:GetHit(hitbox)
   end
 
   local health = self:GetHealth()
+  local hitstun = self:GetHitstun()
   local newVelocity <const> = table.deepcopy(self:GetVelocity())
 
   if (hitbox.properties.damage) then
     health -= hitbox.properties.damage
   end
 
+  if (hitbox.properties.hitstun) then
+    hitstun = hitbox.properties.hitstun
+  end
+
+  if (hitbox.properties.launch) then
+    -- Note the negation of "hitbox.properties.launch"
+    newVelocity.y = -hitbox.properties.launch
+  end
+
   if (hitbox.properties.pushback) then
-    newVelocity.x = hitbox.properties.pushback * self:GetFlipSign() * -1
+    -- Note the negation of "GetFlipSign()"
+    newVelocity.x = hitbox.properties.pushback * -self:GetFlipSign()
   end
 
   self:Debug('GetHit', health, newVelocity.x)
 
   self:UpdateHistoryFrame({
     health = health,
+    hitstun = hitstun,
     velocity = newVelocity,
   })
   self.OnHealthChange(health)
   self:SetState(newState)
 
-  -- gfx.sprite.removeSprites({ hurtbox })
+  gfx.sprite.removeSprites({ hitbox })
 end
 
 function Character:GetHitByBall(hurtbox, ball)
@@ -927,7 +946,7 @@ end
 
 function Character:HandleHitboxCollision(collision)
   local hitbox <const> = collision.other
-  local hurtbox <const> = collision.sprite
+  -- local hurtbox <const> = collision.sprite
 
   -- It's technically possible for a sprite's hurtboxes to collide with their own hitboxes
   if (hitbox.parent == self) then
@@ -1147,7 +1166,7 @@ function Character:HydrateImageTable(animation)
     local image
     local imagePath = frame.image
           -- Chop off the "../" and ".png"
-          imagePath = string.gsub(imagePath, '%.%./', '')
+          imagePath = string.gsub(imagePath, '%.%./', 'characters/' .. self.name .. '/')
           imagePath = string.gsub(imagePath, '%.png', '')
 
     if (images[imagePath] ~= nil) then
@@ -1238,6 +1257,19 @@ function Character:IsForward(frameIndex)
   local frame <const> = self:GetHistoryFrame(frameIndex)
 
   return frame.state & charStates.FORWARD ~= 0
+end
+
+function Character:IsHitstunnable(frameIndex)
+  local frame <const> = self:GetHistoryFrame(frameIndex)
+  local frameData <const> = self:GetFrameData(frame.frameIndex)
+
+  return frameData.hitstunnable and true or false
+end
+
+function Character:IsHitstunned(frameIndex)
+  local frame <const> = self:GetHistoryFrame(frameIndex)
+
+  return self:IsHitstunnable(frameIndex) and frame.hitstun > 0
 end
 
 function Character:IsHurt(frameIndex)
@@ -1419,7 +1451,7 @@ function Character:LoadAnimations()
 end
 
 function Character:LoadTSJ(state)
-  local filePath <const> = 'tsj/characters/' .. self.name .. '/' .. self.name .. state .. '.tsj'
+  local filePath <const> = 'characters/' .. self.name .. '/tsjs/' .. self.name .. state .. '.tsj'
 
   return json.decodeFile(filePath)
 end
@@ -1498,6 +1530,7 @@ end
 
 function Character:PrepareForNextLoop()
   self.history:Tick()
+  self:UpdateCounters()
   self:UpdateFrameIndex()
 end
 
@@ -1769,20 +1802,33 @@ function Character:UpdateDirection()
   end
 end
 
-function Character:UpdateFrameIndex()
-  local nextFrame <const> = self:GetHistoryFrame()
+function Character:UpdateCounters()
+  local frame <const> = self:GetHistoryFrame()
 
   self:UpdateHistoryFrame({
-    frameCounter = nextFrame.frameCounter + 1
+    frameCounter = frame.frameCounter + 1
   })
 
-  local frameData <const> = self:GetFrameData(nextFrame.frameIndex)
-  local shouldUpdateFrameIndex <const> = nextFrame.frameCounter > frameData.duration
+  if (self:IsHitstunned()) then
+    self:UpdateHistoryFrame({
+      hitstun = frame.hitstun - 1
+    })
+  end
+end
 
-  if (not shouldUpdateFrameIndex) then
+function Character:ShouldUpdateFrameIndex()
+  local frame <const> = self:GetHistoryFrame()
+  local frameData <const> = self:GetFrameData(frame.frameIndex)
+
+  return frame.frameCounter > frameData.duration
+end
+
+function Character:UpdateFrameIndex()
+  if (self:IsHitstunned() or not self:ShouldUpdateFrameIndex()) then
     return
   end
 
+  local nextFrame <const> = self:GetHistoryFrame()
   local animationData <const> = self:GetAnimationData()
   local nextFrameIndex = nextFrame.frameIndex
 
