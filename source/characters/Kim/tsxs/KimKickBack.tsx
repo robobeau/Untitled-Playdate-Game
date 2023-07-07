@@ -21,8 +21,6 @@
  <tile id="2" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="10"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="128" height="128" source="../images/KimKickBack3.png"/>
   <objectgroup draworder="index" id="2">
@@ -41,6 +39,7 @@
  </tile>
  <tile id="3" type="Frame">
   <properties>
+   <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
   <image width="128" height="128" source="../images/KimKickBack4.png"/>

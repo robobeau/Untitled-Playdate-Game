@@ -63,7 +63,7 @@
                  "name":"nextState",
                  "propertytype":"CharacterStates",
                  "type":"int",
-                 "value":131072
+                 "value":2097152
                 }, 
                 {
                  "name":"velocityX",

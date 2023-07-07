@@ -147,7 +147,7 @@
                             {
                              "name":"hitstun",
                              "type":"int",
-                             "value":10
+                             "value":5
                             }, 
                             {
                              "name":"meter",
@@ -157,7 +157,7 @@
                             {
                              "name":"pushback",
                              "type":"int",
-                             "value":1
+                             "value":2
                             }, 
                             {
                              "name":"super",
@@ -204,22 +204,12 @@
                  "name":"cancellable",
                  "propertytype":"Cancellable",
                  "type":"int",
-                 "value":96
+                 "value":0
                 }, 
                 {
                  "name":"frameDuration",
                  "type":"int",
                  "value":9
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
                 }],
          "type":"Frame"
         }, 

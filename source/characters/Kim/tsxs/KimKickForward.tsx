@@ -36,8 +36,6 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
    <property name="frameDuration" type="int" value="8"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="128" height="96" source="../images/KimKickForward3.png"/>
   <objectgroup draworder="index" id="2">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.1" name="KimKickNeutral" class="Animation" tilewidth="96" tileheight="96" tilecount="4" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../../../source/tsj/characters/Kim/KimKickNeutral.tsj" format="json"/>
+  <export target="../tsjs/KimKickNeutral.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
@@ -34,10 +34,8 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="cancellable" type="int" propertytype="Cancellable" value="4"/>
+   <property name="cancellable" type="int" propertytype="Cancellable" value="100"/>
    <property name="frameDuration" type="int" value="8"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="96" height="96" source="../images/KimKickNeutral3.png"/>
   <objectgroup draworder="index" id="2">

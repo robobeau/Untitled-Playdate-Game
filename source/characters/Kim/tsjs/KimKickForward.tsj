@@ -275,16 +275,6 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":8
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
                 }],
          "type":"Frame"
         }, 

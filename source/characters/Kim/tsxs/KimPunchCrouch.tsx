@@ -34,6 +34,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
+   <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
    <property name="frameDuration" type="int" value="9"/>
   </properties>
   <image width="144" height="80" source="../images/KimPunchCrouch3.png"/>

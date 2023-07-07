@@ -88,16 +88,6 @@
                  "value":3
                 }, 
                 {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"velocityX",
                  "type":"int",
                  "value":0

@@ -20,7 +20,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
+   <property name="cancellable" type="int" propertytype="Cancellable" value="0"/>
    <property name="frameDuration" type="int" value="8"/>
   </properties>
   <image width="128" height="96" source="../images/KimKickNeutralChain2.png"/>
@@ -41,9 +41,8 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
+   <property name="cancellable" type="int" propertytype="Cancellable" value="0"/>
    <property name="frameDuration" type="int" value="6"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="128" height="96" source="../images/KimKickNeutralChain1.png"/>
   <objectgroup draworder="index" id="2">

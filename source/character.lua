@@ -1259,17 +1259,11 @@ function Character:IsForward(frameIndex)
   return frame.state & charStates.FORWARD ~= 0
 end
 
-function Character:IsHitstunnable(frameIndex)
+function Character:IsHitstunned(frameIndex)
   local frame <const> = self:GetHistoryFrame(frameIndex)
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
-  return frameData.hitstunnable and true or false
-end
-
-function Character:IsHitstunned(frameIndex)
-  local frame <const> = self:GetHistoryFrame(frameIndex)
-
-  return self:IsHitstunnable(frameIndex) and frame.hitstun > 0
+  return frameData:IsHitstunnable() and frame.hitstun > 0
 end
 
 function Character:IsHurt(frameIndex)

@@ -239,6 +239,12 @@
             },
          "properties":[
                 {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":96
+                }, 
+                {
                  "name":"frameDuration",
                  "type":"int",
                  "value":9

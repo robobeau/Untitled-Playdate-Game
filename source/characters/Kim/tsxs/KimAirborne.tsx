@@ -6,13 +6,9 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1" type="Frame">
   <properties>
-   <property name="attackCancellable" type="bool" value="true"/>
-   <property name="blockCancellable" type="bool" value="true"/>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="2"/>
    <property name="loops" type="bool" value="false"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="64" height="128" source="../images/KimAirborne1.png"/>
   <objectgroup draworder="index" id="2">
@@ -26,13 +22,9 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="attackCancellable" type="bool" value="true"/>
-   <property name="blockCancellable" type="bool" value="true"/>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="1"/>
    <property name="loops" type="bool" value="true"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="64" height="128" source="../images/KimAirborne2.png"/>
   <objectgroup draworder="index" id="2">

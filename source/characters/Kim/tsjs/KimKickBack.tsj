@@ -161,16 +161,6 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":10
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
                 }],
          "type":"Frame"
         }, 
@@ -259,6 +249,12 @@
              "y":0
             },
          "properties":[
+                {
+                 "name":"cancellable",
+                 "propertytype":"Cancellable",
+                 "type":"int",
+                 "value":96
+                }, 
                 {
                  "name":"frameDuration",
                  "type":"int",

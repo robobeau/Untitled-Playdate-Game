@@ -9,13 +9,8 @@
  </properties>
  <tile id="0" type="Frame">
   <properties>
-   <property name="attackCancellable" type="bool" value="true"/>
-   <property name="blockCancellable" type="bool" value="true"/>
    <property name="cancellable" type="int" propertytype="Cancellable" value="115"/>
    <property name="frameDuration" type="int" value="1"/>
-   <property name="moveCancellable" type="bool" value="true"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="72" height="72" source="../images/KimCrouch1.png"/>
   <objectgroup draworder="index" id="2">

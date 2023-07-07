@@ -6,12 +6,8 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1" type="Frame">
   <properties>
-   <property name="attackCancellable" type="bool" value="true"/>
-   <property name="blockCancellable" type="bool" value="true"/>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="2"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="112" height="128" source="../images/KimJumpBack2.png"/>
   <objectgroup draworder="index" id="2">
@@ -25,12 +21,8 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="attackCancellable" type="bool" value="true"/>
-   <property name="blockCancellable" type="bool" value="true"/>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="2"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="112" height="128" source="../images/KimJumpBack3.png"/>
   <objectgroup draworder="index" id="2">
@@ -44,12 +36,8 @@
  </tile>
  <tile id="3" type="Frame">
   <properties>
-   <property name="attackCancellable" type="bool" value="true"/>
-   <property name="blockCancellable" type="bool" value="true"/>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="4"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="112" height="128" source="../images/KimJumpBack4.png"/>
   <objectgroup draworder="index" id="2">
@@ -63,12 +51,8 @@
  </tile>
  <tile id="4" type="Frame">
   <properties>
-   <property name="attackCancellable" type="bool" value="true"/>
-   <property name="blockCancellable" type="bool" value="true"/>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="4"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="112" height="128" source="../images/KimJumpBack5.png"/>
   <objectgroup draworder="index" id="2">
@@ -82,13 +66,9 @@
  </tile>
  <tile id="5" type="Frame">
   <properties>
-   <property name="attackCancellable" type="bool" value="true"/>
-   <property name="blockCancellable" type="bool" value="true"/>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="4"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
-   <property name="specialCancellable" type="bool" value="true"/>
-   <property name="superCancellable" type="bool" value="true"/>
   </properties>
   <image width="112" height="128" source="../images/KimJumpBack6.png"/>
   <objectgroup draworder="index" id="2">

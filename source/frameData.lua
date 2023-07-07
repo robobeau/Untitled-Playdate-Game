@@ -11,6 +11,7 @@ local cancellableStates <const> = {
 local defaults <const> = {
   cancellable = 0,
   duration = 0, -- Nil?
+  hitstunnable = false,
   loops = false,
   nextState = nil,
   -- velocityX = 0, -- Nil?
@@ -39,6 +40,10 @@ end
 
 function FrameData:IsChainCancellable()
   return self.cancellable & cancellableStates.CHAIN ~= 0
+end
+
+function FrameData:IsHitstunnable()
+  return self.hitstunnable
 end
 
 function FrameData:IsJumpCancellable()

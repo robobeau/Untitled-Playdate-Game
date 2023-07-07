@@ -78,16 +78,6 @@
             },
          "properties":[
                 {
-                 "name":"attackCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"blockCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"cancellable",
                  "propertytype":"Cancellable",
                  "type":"int",
@@ -97,16 +87,6 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
                 }],
          "type":"Frame"
         }, 
@@ -174,16 +154,6 @@
             },
          "properties":[
                 {
-                 "name":"attackCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"blockCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"cancellable",
                  "propertytype":"Cancellable",
                  "type":"int",
@@ -193,16 +163,6 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
                 }],
          "type":"Frame"
         }, 
@@ -270,16 +230,6 @@
             },
          "properties":[
                 {
-                 "name":"attackCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"blockCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"cancellable",
                  "propertytype":"Cancellable",
                  "type":"int",
@@ -289,16 +239,6 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
                 }],
          "type":"Frame"
         }, 
@@ -366,16 +306,6 @@
             },
          "properties":[
                 {
-                 "name":"attackCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"blockCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"cancellable",
                  "propertytype":"Cancellable",
                  "type":"int",
@@ -385,16 +315,6 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
                 }],
          "type":"Frame"
         }, 
@@ -462,16 +382,6 @@
             },
          "properties":[
                 {
-                 "name":"attackCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"blockCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
                  "name":"cancellable",
                  "propertytype":"Cancellable",
                  "type":"int",
@@ -487,16 +397,6 @@
                  "propertytype":"CharacterStates",
                  "type":"int",
                  "value":1
-                }, 
-                {
-                 "name":"specialCancellable",
-                 "type":"bool",
-                 "value":true
-                }, 
-                {
-                 "name":"superCancellable",
-                 "type":"bool",
-                 "value":true
                 }],
          "type":"Frame"
         }],
