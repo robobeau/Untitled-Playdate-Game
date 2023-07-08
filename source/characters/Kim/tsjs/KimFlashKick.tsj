@@ -89,7 +89,7 @@
                 {
                  "name":"velocityY",
                  "type":"int",
-                 "value":-12
+                 "value":-8
                 }],
          "type":"Frame"
         }, 
