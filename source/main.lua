@@ -12,6 +12,7 @@ import 'collisionTypes'
 import 'meter'
 import 'math'
 import 'stage'
+import 'timer'
 
 -- Convenience variables
 local pd <const> = playdate
@@ -69,7 +70,8 @@ function init()
   lifebar = Meter({
     amount = kim.health,
     direction = meterDirections.LEFT,
-    meterRect = geo.rect.new(10, 10, 120, 16),
+    label = "KIM",
+    meterRect = geo.rect.new(20, 10, 150, 16),
     total = kim.health,
   })
   lifebar:setZIndex(100)
@@ -81,7 +83,8 @@ function init()
   lifebar2 = Meter({
     amount = kim2.health,
     direction = meterDirections.RIGHT,
-    meterRect = geo.rect.new(390, 10, 120, 16),
+    label = "KIM",
+    meterRect = geo.rect.new(380, 10, 150, 16),
     total = kim2.health,
   })
   lifebar2:setZIndex(100)
@@ -90,12 +93,23 @@ function init()
     lifebar2:SetAmount(health)
   end)
 
+  timer = Timer({
+    limit = 99,
+    position = {
+      x = 200,
+      y = 25,
+    }
+  })
+  timer:setZIndex(100)
+
   -- ADD SPRITES
   kim:add()
   kim2:add()
   lifebar:add()
   lifebar2:add()
   -- theBall:add()
+  timer:add()
+  timer:Start()
 
   local menu <const> = pd.getSystemMenu()
 
