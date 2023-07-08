@@ -87,7 +87,7 @@ function Timer:init(config)
   self.font:setTracking(config.fontTracking or self.fontTracking)
   self.limit = config.limit or self.limit
   self.position = config.position or self.position
-  self.seconds = config.seconds ~= nil and math.min(config.second, self.limit) or self.limit
+  self.seconds = config.seconds ~= nil and math.min(config.seconds, self.limit) or self.limit
 
   self:setIgnoresDrawOffset(true)
   self:setSize(50, 50)
@@ -107,6 +107,14 @@ function Timer:Start()
 end
 
 function Timer:Reset()
+  self.seconds = self.limit
+
+  self:SetTimerSpriteImage()
+
+  if (self.timer and self.timer.timeLeft > 0) then
+    self.timer:remove()
+  end
+
   self.timer = pd.timer.new(1000)
 end
 
@@ -114,7 +122,7 @@ function Timer:Tick()
   self.seconds -= 1
 
   if (self.seconds > 0) then
-    self:Reset()
+    self.timer = pd.timer.new(1000)
   else
     -- Do something...?
   end

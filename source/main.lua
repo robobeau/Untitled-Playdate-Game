@@ -117,6 +117,7 @@ function init()
     kim:Reset()
     kim2:Reset()
     -- theBall:Reset()
+    timer:Reset()
   end)
 
   pd.setMenuImage(gfx.image.new('images/Controls'))
