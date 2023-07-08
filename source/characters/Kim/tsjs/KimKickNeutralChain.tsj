@@ -134,6 +134,37 @@
                      "name":"Hitbox",
                      "properties":[
                             {
+                             "name":"damage",
+                             "type":"int",
+                             "value":50
+                            }, 
+                            {
+                             "name":"dizzy",
+                             "type":"int",
+                             "value":50
+                            }, 
+                            {
+                             "name":"hits",
+                             "propertytype":"Attack",
+                             "type":"string",
+                             "value":"MID"
+                            }, 
+                            {
+                             "name":"hitstun",
+                             "type":"int",
+                             "value":5
+                            }, 
+                            {
+                             "name":"pushback",
+                             "type":"int",
+                             "value":5
+                            }, 
+                            {
+                             "name":"super",
+                             "type":"int",
+                             "value":50
+                            }, 
+                            {
                              "name":"velocityX",
                              "type":"int",
                              "value":16

@@ -29,6 +29,12 @@
    <object id="5" name="Hurtbox (Head)" type="Hurtbox" x="18" y="38" width="38" height="36"/>
    <object id="1" name="Hitbox" type="Hitbox" x="58" y="70" width="58" height="30">
     <properties>
+     <property name="damage" type="int" value="75"/>
+     <property name="dizzy" type="int" value="75"/>
+     <property name="hits" propertytype="Attack" value="HIGH"/>
+     <property name="hitstun" type="int" value="5"/>
+     <property name="pushback" type="int" value="5"/>
+     <property name="super" type="int" value="75"/>
      <property name="velocityX" type="int" value="16"/>
     </properties>
    </object>

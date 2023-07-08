@@ -150,11 +150,6 @@
                              "value":5
                             }, 
                             {
-                             "name":"meter",
-                             "type":"int",
-                             "value":100
-                            }, 
-                            {
                              "name":"pushback",
                              "type":"int",
                              "value":2

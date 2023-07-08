@@ -33,7 +33,6 @@
      <property name="damage" type="int" value="100"/>
      <property name="hits" propertytype="Attack" value="MID"/>
      <property name="hitstun" type="int" value="5"/>
-     <property name="meter" type="int" value="100"/>
      <property name="pushback" type="int" value="2"/>
      <property name="super" type="int" value="100"/>
      <property name="velocityX" type="int" value="16"/>
