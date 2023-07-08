@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.1" name="KimKickJumpForward" class="Animation" tilewidth="96" tileheight="128" tilecount="3" columns="0">
  <editorsettings>
-  <export target="../../../source/tsj/characters/Kim/KimKickJumpForward.tsj" format="json"/>
+  <export target="../tsjs/KimKickJumpForward.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
@@ -29,6 +29,12 @@
    <object id="5" name="Hurtbox (Head)" type="Hurtbox" x="16" y="44" width="40" height="38"/>
    <object id="1" name="Hitbox" type="Hitbox" x="56" y="92" width="44" height="36">
     <properties>
+     <property name="damage" type="int" value="100"/>
+     <property name="dizzy" type="int" value="100"/>
+     <property name="hits" propertytype="Attack" value="HIGH"/>
+     <property name="hitstun" type="int" value="5"/>
+     <property name="pushback" type="int" value="5"/>
+     <property name="super" type="int" value="100"/>
      <property name="velocityX" type="int" value="16"/>
      <property name="velocityY" type="int" value="10"/>
     </properties>

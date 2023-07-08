@@ -206,7 +206,7 @@
                             {
                              "name":"damage",
                              "type":"int",
-                             "value":200
+                             "value":100
                             }, 
                             {
                              "name":"dizzy",
@@ -222,12 +222,12 @@
                             {
                              "name":"hitstun",
                              "type":"int",
-                             "value":10
+                             "value":5
                             }, 
                             {
                              "name":"pushback",
                              "type":"int",
-                             "value":30
+                             "value":5
                             }, 
                             {
                              "name":"velocityX",
