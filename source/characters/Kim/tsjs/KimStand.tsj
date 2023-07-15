@@ -23,8 +23,8 @@
         {
          "id":0,
          "image":"..\/images\/KimStand1.png",
-         "imageheight":96,
-         "imagewidth":80,
+         "imageheight":84,
+         "imagewidth":72,
          "objectgroup":
             {
              "draworder":"index",
@@ -39,8 +39,8 @@
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":20,
-                     "y":12
+                     "x":16,
+                     "y":0
                     }, 
                     {
                      "height":54,
@@ -50,8 +50,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
-                     "x":8,
-                     "y":42
+                     "x":4,
+                     "y":30
                     }, 
                     {
                      "height":38,
@@ -61,8 +61,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":40,
-                     "x":20,
-                     "y":12
+                     "x":16,
+                     "y":0
                     }, 
                     {
                      "height":0,
@@ -73,8 +73,8 @@
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":40,
-                     "y":96
+                     "x":36,
+                     "y":84
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -104,8 +104,8 @@
         {
          "id":1,
          "image":"..\/images\/KimStand2.png",
-         "imageheight":96,
-         "imagewidth":80,
+         "imageheight":86,
+         "imagewidth":72,
          "objectgroup":
             {
              "draworder":"index",
@@ -120,8 +120,8 @@
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":20,
-                     "y":12
+                     "x":16,
+                     "y":2
                     }, 
                     {
                      "height":56,
@@ -131,8 +131,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
-                     "x":8,
-                     "y":40
+                     "x":4,
+                     "y":30
                     }, 
                     {
                      "height":38,
@@ -142,8 +142,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":40,
-                     "x":20,
-                     "y":10
+                     "x":16,
+                     "y":0
                     }, 
                     {
                      "height":0,
@@ -154,8 +154,8 @@
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":40,
-                     "y":96
+                     "x":36,
+                     "y":86
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -180,8 +180,8 @@
         {
          "id":2,
          "image":"..\/images\/KimStand3.png",
-         "imageheight":96,
-         "imagewidth":80,
+         "imageheight":86,
+         "imagewidth":72,
          "objectgroup":
             {
              "draworder":"index",
@@ -196,8 +196,8 @@
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":20,
-                     "y":12
+                     "x":16,
+                     "y":2
                     }, 
                     {
                      "height":58,
@@ -207,8 +207,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
-                     "x":8,
-                     "y":38
+                     "x":4,
+                     "y":28
                     }, 
                     {
                      "height":38,
@@ -218,8 +218,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":40,
-                     "x":20,
-                     "y":10
+                     "x":16,
+                     "y":0
                     }, 
                     {
                      "height":0,
@@ -230,8 +230,8 @@
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":40,
-                     "y":96
+                     "x":36,
+                     "y":86
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -256,8 +256,8 @@
         {
          "id":4,
          "image":"..\/images\/KimStand1.png",
-         "imageheight":96,
-         "imagewidth":80,
+         "imageheight":84,
+         "imagewidth":72,
          "objectgroup":
             {
              "draworder":"index",
@@ -272,8 +272,8 @@
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":20,
-                     "y":12
+                     "x":16,
+                     "y":0
                     }, 
                     {
                      "height":54,
@@ -283,8 +283,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
-                     "x":8,
-                     "y":42
+                     "x":4,
+                     "y":30
                     }, 
                     {
                      "height":38,
@@ -294,8 +294,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":40,
-                     "x":20,
-                     "y":12
+                     "x":16,
+                     "y":0
                     }, 
                     {
                      "height":0,
@@ -306,8 +306,8 @@
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":40,
-                     "y":96
+                     "x":36,
+                     "y":84
                     }],
              "opacity":1,
              "type":"objectgroup",
