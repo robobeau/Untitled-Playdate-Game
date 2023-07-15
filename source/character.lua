@@ -199,22 +199,6 @@ function Character:update()
   self:PrepareForNextLoop()
 end
 
-function Character:AdjustPositionRelativeToCenter()
-  local nextCenter <const> = self:GetCenterRelativeToBounds()
-  local prevFrame <const> = self:GetHistoryFrame(self.history.counter - 1)
-  local prevCenter <const> = prevFrame.center or nextCenter
-
-  local xDelta <const> = prevCenter.x - nextCenter.x
-  -- local yDelta <const> = prevCenter.y - nextCenter.y
-  local x <const> = self.x + xDelta
-  -- local y <const> = self.y + yDelta
-
-  -- TODO: Why is this better than MoveToXYWithCollisions() ???
-  -- self:MoveToXY(x, y)
-  self:MoveToXY(x, self.y)
-  self:PreventClipping()
-end
-
 -- TODO: Buddy, you gotta decouple your logic so that you draw based on a state simulation
 function Character:CheckCrank()
   if (pd.isCrankDocked()) then
@@ -426,7 +410,7 @@ function Character:CheckJumpInputs()
 end
 
 function Character:CheckMovementInputs()
-  local buttonState = Inputs:GetButtonState(self)
+  local buttonState <const> = Inputs:GetButtonState(self)
   local frame <const> = self:GetHistoryFrame()
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
@@ -628,15 +612,6 @@ function Character:GetPosition(frameIndex)
   return frame.position
 end
 
-function Character:GetProximityRect()
-  return geo.rect.new(
-    self.x - (self.width / 2) - 50,
-    self.y - self.height - 50,
-    self.width + 100,
-    self.height + 100
-  )
-end
-
 function Character:GetStun(frameIndex)
   local frame <const> = self:GetHistoryFrame(frameIndex)
 
@@ -653,25 +628,6 @@ function Character:GetVelocity(frameIndex)
   local frame <const> = self:GetHistoryFrame(frameIndex)
 
   return frame.velocity
-end
-
-function Character:HasCollisionInProximity()
-  local sprites <const> = gfx.sprite.querySpritesInRect(self:GetProximityRect())
-
-  if (sprites == nil) then
-    return false
-  end
-
-  for i, sprite in ipairs(sprites) do
-    local groupMask <const> = sprite:getGroupMask()
-    local isBall <const> = groupMask & collisionTypes.BALL ~= 0
-
-    if (isBall and sprite:IsDangerous()) then
-      return true
-    end
-  end
-
-  return false
 end
 
 function Character:GetBackAndForwardInputs()
@@ -1528,6 +1484,17 @@ function Character:PrepareForNextLoop()
   self:UpdateFrameIndex()
 end
 
+function Character:RecenterSprite()
+  local nextCenter <const> = self:GetCenterRelativeToBounds()
+  local prevFrame <const> = self:GetHistoryFrame(self.history.counter - 1)
+  local prevCenter <const> = prevFrame.center or nextCenter
+
+  local xDelta <const> = prevCenter.x - nextCenter.x
+  local x <const> = self.x + xDelta
+
+  self:MoveToXY(x, self.y)
+end
+
 function Character:Reset()
   self.history:Reset()
   self:UpdateHistoryFrame({
@@ -1595,8 +1562,6 @@ function Character:SetFrameCollisions()
 
   self:SetPushbox(nextFrame.collisions.Pushbox)
 
-  -- self:SetCollisionBox(nextFrame.collisions.Pushbox)
-
   for _, hitbox in ipairs(nextFrame.collisions.Hitboxes) do
     self:SetCollisionBox(hitbox)
   end
@@ -1628,7 +1593,7 @@ function Character:SetPushbox(pushbox)
     center = self:GetCenterRelativeToBounds(),
   })
 
-  self:AdjustPositionRelativeToCenter()
+  self:RecenterSprite()
 end
 
 -- Because we are changing the sprite's collision rect for every animation frame,
