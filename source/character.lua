@@ -1426,7 +1426,7 @@ function Character:LoadAnimations()
 end
 
 function Character:LoadTSJ(state)
-  local filePath <const> = 'characters/' .. self.name .. '/tsjs/' .. self.name .. state .. '.tsj'
+  local filePath <const> = 'characters/' .. self.name .. '/TSJs/' .. self.name .. state .. '.tsj'
 
   return json.decodeFile(filePath)
 end
