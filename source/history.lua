@@ -47,4 +47,8 @@ function History:Tick()
   self.counter += 1
 
   self.frames[self.counter] = next
+
+  -- if (#self.frames > 30) then
+  --   self.frames[#self.frames - 30] = nil
+  -- end
 end
