@@ -8,7 +8,6 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
    <property name="frameDuration" type="int" value="3"/>
-   <property name="velocityX" type="int" value="0"/>
   </properties>
   <image width="80" height="80" source="../images/KimTransition1.png"/>
   <objectgroup draworder="index" id="2">

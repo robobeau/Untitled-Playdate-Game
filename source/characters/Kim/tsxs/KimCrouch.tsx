@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.1" name="KimCrouch" class="Animation" tilewidth="72" tileheight="72" tilecount="1" columns="0">
  <editorsettings>
-  <export target="../source/tsj/Kim/KimCrouch.tsj" format="json"/>
+  <export target="../tsjs/KimCrouch.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>

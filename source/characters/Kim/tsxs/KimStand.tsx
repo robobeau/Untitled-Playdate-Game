@@ -11,7 +11,6 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="123"/>
    <property name="frameDuration" type="int" value="3"/>
-   <property name="velocityX" type="int" value="0"/>
   </properties>
   <image width="72" height="84" source="../images/KimStand1.png"/>
   <objectgroup draworder="index" id="2">

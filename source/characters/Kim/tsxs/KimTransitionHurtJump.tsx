@@ -7,7 +7,6 @@
  <tile id="0" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
-   <property name="velocityX" type="int" value="0"/>
   </properties>
   <image width="128" height="80" source="../images/KimTransitionHurtJump1.png"/>
   <objectgroup draworder="index" id="2">
@@ -45,7 +44,7 @@
  <tile id="3" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="5"/>
-   <property name="nextState" type="int" propertytype="CharacterStates" value="16384"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="32768"/>
   </properties>
   <image width="128" height="80" source="../images/KimTransitionHurtJump3.png"/>
   <objectgroup draworder="index" id="2">

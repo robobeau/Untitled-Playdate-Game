@@ -58,11 +58,6 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":1
-                }, 
-                {
-                 "name":"velocityX",
-                 "type":"int",
-                 "value":-2
                 }],
          "type":"Frame"
         }, 

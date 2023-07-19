@@ -8,7 +8,6 @@
   <properties>
    <property name="frameDuration" type="int" value="10"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="2097152"/>
-   <property name="velocityX" type="int" value="0"/>
   </properties>
   <image width="112" height="48" source="../images/KimKnockdown1.png"/>
   <objectgroup draworder="index" id="2">
