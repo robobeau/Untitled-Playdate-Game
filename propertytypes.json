@@ -1,0 +1,264 @@
+[
+    {
+        "color": "#ffa0a0a4",
+        "id": 3,
+        "members": [
+            {
+                "name": "loops",
+                "type": "bool",
+                "value": false
+            }
+        ],
+        "name": "Animation",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Attack",
+        "storageType": "string",
+        "type": "enum",
+        "values": [
+            "LOW",
+            "HIGH",
+            "THROW"
+        ],
+        "valuesAsFlags": false
+    },
+    {
+        "id": 8,
+        "name": "Cancellable",
+        "storageType": "int",
+        "type": "enum",
+        "values": [
+            "ATTACK",
+            "BLOCK",
+            "CHAIN",
+            "JUMP",
+            "MOVE",
+            "SPECIAL",
+            "SUPER"
+        ],
+        "valuesAsFlags": true
+    },
+    {
+        "id": 7,
+        "name": "CharacterStates",
+        "storageType": "int",
+        "type": "enum",
+        "values": [
+            "AIRBORNE",
+            "BACK",
+            "BEGIN",
+            "BLOCK",
+            "CHAIN",
+            "CROUCH",
+            "DASH",
+            "DOWN",
+            "END",
+            "ENTRANCE",
+            "FALL",
+            "FORWARD",
+            "HURT",
+            "JUMP",
+            "KICK",
+            "KNOCKDOWN",
+            "PARRY",
+            "PUNCH",
+            "RISE",
+            "RUN",
+            "SPECIAL",
+            "STAND",
+            "TAUNT",
+            "UP",
+            "WALK"
+        ],
+        "valuesAsFlags": true
+    },
+    {
+        "color": "#ffa0a0a4",
+        "id": 2,
+        "members": [
+            {
+                "name": "attackCancellable",
+                "type": "bool",
+                "value": false
+            },
+            {
+                "name": "blockCancellable",
+                "type": "bool",
+                "value": false
+            },
+            {
+                "name": "cancellable",
+                "propertyType": "Cancellable",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "frameDuration",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "jumpCancellable",
+                "type": "bool",
+                "value": false
+            },
+            {
+                "name": "loops",
+                "type": "bool",
+                "value": false
+            },
+            {
+                "name": "moveCancellable",
+                "type": "bool",
+                "value": false
+            },
+            {
+                "name": "nextState",
+                "propertyType": "CharacterStates",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "specialCancellable",
+                "type": "bool",
+                "value": false
+            },
+            {
+                "name": "superCancellable",
+                "type": "bool",
+                "value": false
+            },
+            {
+                "name": "velocityX",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "velocityY",
+                "type": "int",
+                "value": 0
+            }
+        ],
+        "name": "Frame",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "FrameType",
+        "storageType": "int",
+        "type": "enum",
+        "values": [
+            "ACTIVE",
+            "RECOVERY",
+            "STARTUP"
+        ],
+        "valuesAsFlags": false
+    },
+    {
+        "color": "#ffaa0000",
+        "id": 4,
+        "members": [
+            {
+                "name": "damage",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "hits",
+                "propertyType": "Attack",
+                "type": "string",
+                "value": "HIGH"
+            },
+            {
+                "name": "meter",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "stun",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "velocityX",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "velocityY",
+                "type": "int",
+                "value": 0
+            }
+        ],
+        "name": "Hitbox",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ffaa00ff",
+        "id": 5,
+        "members": [
+        ],
+        "name": "Hurtbox",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ff00ff00",
+        "id": 6,
+        "members": [
+        ],
+        "name": "Pushbox",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    }
+]
