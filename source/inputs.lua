@@ -2,12 +2,11 @@ class('Inputs').extends()
 
 -- Convenience variables
 local pd <const> = playdate
-
+cache = {}
 local directions <const> = {
   BACK = 1,
   FORWARD = 2,
 }
-
 
 function Inputs:CheckBackInput(character)
   local buttonState <const> = self:GetButtonState(character)
@@ -238,14 +237,23 @@ function Inputs:CheckTatsuInput(character)
   end
 end
 
--- TODO: Consider memoizing the results in each frame
 function Inputs:GetButtonState(character, index)
   local backInput <const>, forwardInput <const> = character:GetBackAndForwardInputs()
   local counter <const> = index or character.history.counter
   local frame <const> = character.history:GetFrame(counter)
   local current <const>, pressed <const>, released <const> = table.unpack(frame.buttonState)
+  -- local cacheKey <const> = "C" .. current .. "P" .. pressed .. "R" .. released .. ""
+  -- local cached <const> = cache[cacheKey]
 
-  return {
+  -- if (cached ~= nil) then
+  --   print("Found '" .. cacheKey .. "'!")
+  --   return cached
+  -- end
+
+  -- print('Not found!')
+
+  local state <const> = {
+    -- Has pressed
     hasPressedA = pressed & pd.kButtonA ~= 0,
     hasPressedB = pressed & pd.kButtonB ~= 0,
     hasPressedBack = pressed & backInput ~= 0,
@@ -254,6 +262,8 @@ function Inputs:GetButtonState(character, index)
     hasPressedLeft = pressed & pd.kButtonLeft ~= 0,
     hasPressedRight = pressed & pd.kButtonRight ~= 0,
     hasPressedUp = pressed & pd.kButtonUp ~= 0,
+
+    -- Has released
     hasReleasedA = released & pd.kButtonA ~= 0,
     hasReleasedB = released & pd.kButtonB ~= 0,
     hasReleasedBack = released & backInput ~= 0,
@@ -262,6 +272,8 @@ function Inputs:GetButtonState(character, index)
     hasReleasedLeft = released & pd.kButtonLeft ~= 0,
     hasReleasedRight = released & pd.kButtonRight ~= 0,
     hasReleasedUp = released & pd.kButtonUp ~= 0,
+
+    -- Is pressing
     isPressingA = current & pd.kButtonA ~= 0,
     isPressingB = current & pd.kButtonB ~= 0,
     isPressingBack = current & backInput ~= 0,
@@ -271,4 +283,8 @@ function Inputs:GetButtonState(character, index)
     isPressingRight = current & pd.kButtonRight ~= 0,
     isPressingUp = current & pd.kButtonUp ~= 0,
   }
+
+  -- cache[cacheKey] = state
+
+  return state
 end
