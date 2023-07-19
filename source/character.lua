@@ -188,9 +188,9 @@ function Character:update()
   self:TransitionState()
   self:UpdateDirection()
 
-  if (self.controllable) then
+  -- if (self.controllable) then
     self:CheckInputs()
-  end
+  -- end
 
   self:UpdateAnimationFrame()
   self:UpdatePhysics()
@@ -535,41 +535,55 @@ function Character:DerivePhysicsFromState()
 
   local newVelocity <const> = table.deepcopy(self:GetVelocity())
 
-  -- X Velocity
-  if (not self:IsTransitioning()) then
-    if (self:IsJumping()) then
-      if (self:IsRunning()) then
-        newVelocity.x = self:GetRunVelocity()
-      else
-        newVelocity.x = self:GetWalkVelocity()
-      end
-    elseif (self:IsRunning()) then
-      newVelocity.x = self:GetRunVelocity()
-    elseif (self:IsDashing()) then
-      newVelocity.x = self:GetDashVelocity()
-    elseif (self:IsWalking()) then
-      newVelocity.x = self:GetWalkVelocity()
-    elseif (self:IsCrouching() or self:IsStanding() or self:IsTransitioning()) then
-      newVelocity.x = 0
-    end
-  end
+  self:Debug(newVelocity.x, newVelocity.y)
 
-  if (self:IsRunning() and not self:IsTransitioning()) then
-    newVelocity.x = self:GetRunVelocity()
-  elseif (self:IsDashing() and not self:IsTransitioning()) then
+  -- X Velocity
+
+  if (self:IsTransitioning()) then
+    self:Debug('Transitioning')
+    newVelocity.x = 0
+  elseif (self:IsDashing()) then
+    self:Debug('Dashing')
     newVelocity.x = self:GetDashVelocity()
-  elseif (self:IsWalking() and not self:IsTransitioning()) then
+  elseif (self:IsJumping()) then
+    if (self:IsRunning()) then
+      self:Debug('Running Jumping')
+      newVelocity.x = self:GetRunVelocity()
+    elseif (self:IsBack() or self:IsForward()) then
+      self:Debug('Moving Jumping')
+      newVelocity.x = self:GetWalkVelocity()
+    else
+      self:Debug('Neutral Jumping')
+    end
+  elseif (self:IsRunning()) then
+    self:Debug('Running')
+    newVelocity.x = self:GetRunVelocity()
+  elseif (self:IsWalking()) then
+    self:Debug('Walking')
     newVelocity.x = self:GetWalkVelocity()
-  elseif (self:IsCrouching() or self:IsStanding() or self:IsTransitioning()) then
+  -- elseif (self:IsCrouching() or self:IsStanding() or self:IsTransitioning()) then
+  elseif (not self:IsAirborne()) then
+    self:Debug('Standing')
     newVelocity.x = 0
   end
 
   -- Y Velocity
-  if (self:IsJumping() and not self:IsAttacking() and not self:IsTransitioning()) then
-    newVelocity.y = -self.jumpHeight
-  elseif (self:IsCrouching() or self:IsStanding() or self:IsTransitioning()) then
+
+  if (self:IsTransitioning()) then
+    self:Debug('Transitioning')
+    newVelocity.y = 0
+  elseif (self:IsJumping()) then
+    -- if (not self:IsAttacking()) then
+      self:Debug('Y Jumping')
+      newVelocity.y = -self.jumpHeight
+    -- end
+  -- elseif (self:IsCrouching() or self:IsStanding()) then
+  elseif (not self:IsAirborne()) then
+    self:Debug('Y Standing')
     newVelocity.y = 0
   end
+
+  self:Debug('FAAAAAAAAAK', newVelocity.x, newVelocity.y)
 
   self:UpdateHistoryFrame({
     velocity = newVelocity
@@ -626,6 +640,8 @@ end
 
 function Character:GetVelocity(frameIndex)
   local frame <const> = self:GetHistoryFrame(frameIndex)
+
+  -- self:Debug('Velocity', frame.velocity.x, frame.velocity.y)
 
   return frame.velocity
 end
@@ -901,33 +917,42 @@ function Character:HandleFreezeCollision(collision)
 end
 
 function Character:HandleHitboxCollision(collision)
-  local hitbox <const> = collision.other
-  -- local hurtbox <const> = collision.sprite
+  -- local hitbox <const> = collision.other
+  -- -- local hurtbox <const> = collision.sprite
 
-  -- It's technically possible for a sprite's hurtboxes to collide with their own hitboxes
-  if (hitbox.parent == self) then
-    return
-  end
+  -- -- It's technically possible for a sprite's hurtboxes to collide with their own hitboxes
+  -- if (hitbox.parent == self) then
+  --   return
+  -- end
 
-  if (self.controllable and self:CheckBlockInputs()) then
-    -- TODO: Handle pushback here?
-    return
-  end
+  -- if (self.controllable and self:CheckBlockInputs()) then
+  --   -- TODO: Handle pushback here?
+  --   return
+  -- end
 
-  self:GetHit(hitbox)
+  -- self:GetHit(hitbox)
 end
 
 
 function Character:HandleHurtboxCollision(collision)
   local hitbox <const> = collision.sprite
   local hurtbox <const> = collision.other
+  local opponent <const> = hurtbox.parent
 
   -- It's technically possible for a sprite's hitboxes to collide with their own hurtboxes
-  if (hurtbox.parent == self) then
+  if (opponent == self) then
+    local frame <const> = self:GetHistoryFrame()
+    -- self:Debug('What the fuck?', frame.velocity.x, self.controllable)
     return
   end
 
-  -- self:Debug('HandleHurtboxCollision', hitbox.name)
+  local opponentBlocked <const> = opponent:CheckBlockInputs()
+
+  if (not opponentBlocked) then
+    opponent:GetHit(hitbox)
+
+    return
+  end
 end
 
 function Character:HandleOverlapCollision(collision)
@@ -1381,9 +1406,9 @@ function Character:LoadAnimations()
     [charStates.WALK | charStates.FORWARD] = walkForwardAnimation,
 
     -- Punching
+    [charStates.PUNCH | charStates.AIRBORNE] = punchJumpForwardAnimation,
     [charStates.PUNCH | charStates.AIRBORNE | charStates.BACK] = punchJumpForwardAnimation,
     [charStates.PUNCH | charStates.AIRBORNE | charStates.FORWARD] = punchJumpForwardAnimation,
-    [charStates.PUNCH | charStates.AIRBORNE] = punchJumpForwardAnimation,
     [charStates.PUNCH | charStates.CROUCH] = self:HydrateAnimation(self:LoadTSJ('PunchCrouch')),
     [charStates.PUNCH | charStates.STAND] = punchForwardAnimation,
 
@@ -1472,8 +1497,7 @@ end
 
 function Character:NormalizeHorizontalVelocity(speed)
   local flipSign <const> = self:GetFlipSign()
-  local moveSign <const> = self:IsBack() and -1 or
-    self:IsForward() and 1 or 0
+  local moveSign <const> = self:IsBack() and -1 or 1
 
   return speed * flipSign * moveSign
 end
@@ -1615,7 +1639,9 @@ function Character:SetState(state)
     keyset[v] = k
   end
 
-  self:Debug('SetState()', state, keyset[state])
+  local frame <const> = self:GetHistoryFrame()
+
+  self:Debug('SetState()', state, keyset[state], frame.velocity.x)
 
   self:UpdateHistoryFrame({
     state = state,

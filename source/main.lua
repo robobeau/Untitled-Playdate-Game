@@ -38,7 +38,7 @@ function init()
 
   kim = Kim({
     controllable = true,
-    debug = false,
+    debug = true,
     -- opponent = opponent,
     startingDirection = charDirections.RIGHT,
     startingPosition = {
@@ -48,7 +48,7 @@ function init()
   })
   kim2 = Kim({
     controllable = false,
-    debug = true,
+    debug = false,
     startingDirection = charDirections.LEFT,
     startingPosition = {
       x = 300,
