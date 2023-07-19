@@ -8,6 +8,7 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 
 local defaults <const> = {
+  -- fontPath = "fonts/A.B. Cop",
   fontPath = "fonts/Super Monaco GP",
   -- fontPath = "fonts/Battle Garegga - Type 2"
   -- fontPath = "fonts/ST-DIN"
@@ -18,6 +19,38 @@ local defaults <const> = {
 }
 
 class('Timer', defaults).extends(gfx.sprite)
+
+function Timer:init(config)
+  self.font = gfx.font.new(config.fontPath or self.fontPath)
+  self.font:setTracking(config.fontTracking or self.fontTracking)
+  self.limit = config.limit or self.limit
+  self.position = config.position or self.position
+  self.seconds = config.seconds ~= nil and math.min(config.seconds, self.limit) or self.limit
+
+  self:setIgnoresDrawOffset(true)
+  self:setSize(50, 50)
+  self:moveTo(self.position.x, self.position.y)
+
+  local timerSprite <const> = gfx.sprite.new()
+        timerSprite:moveTo(self.x, self.y)
+        timerSprite:setIgnoresDrawOffset(true)
+        timerSprite:add()
+
+  self.timerSprite = timerSprite
+  self:SetTimerSpriteImage()
+end
+
+function Timer:Reset()
+  self.seconds = self.limit
+
+  self:SetTimerSpriteImage()
+
+  if (self.timer and self.timer.timeLeft > 0) then
+    self.timer:remove()
+  end
+
+  self.timer = pd.timer.new(1000)
+end
 
 function Timer:SetTimerSpriteImage()
   local timeImage <const> = gfx.image.new(self.width, self.height)
@@ -82,40 +115,8 @@ function Timer:SetTimerSpriteImage()
   self.timerSprite:setImage(backgroundImage)
 end
 
-function Timer:init(config)
-  self.font = gfx.font.new(config.fontPath or self.fontPath)
-  self.font:setTracking(config.fontTracking or self.fontTracking)
-  self.limit = config.limit or self.limit
-  self.position = config.position or self.position
-  self.seconds = config.seconds ~= nil and math.min(config.seconds, self.limit) or self.limit
-
-  self:setIgnoresDrawOffset(true)
-  self:setSize(50, 50)
-  self:moveTo(self.position.x, self.position.y)
-
-  local timerSprite <const> = gfx.sprite.new()
-        timerSprite:moveTo(self.x, self.y)
-        timerSprite:setIgnoresDrawOffset(true)
-        timerSprite:add()
-
-  self.timerSprite = timerSprite
-  self:SetTimerSpriteImage()
-end
-
 function Timer:Start()
   self:Reset()
-end
-
-function Timer:Reset()
-  self.seconds = self.limit
-
-  self:SetTimerSpriteImage()
-
-  if (self.timer and self.timer.timeLeft > 0) then
-    self.timer:remove()
-  end
-
-  self.timer = pd.timer.new(1000)
 end
 
 function Timer:Tick()
