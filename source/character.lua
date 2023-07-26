@@ -188,9 +188,11 @@ function Character:update()
   self:TransitionState()
   self:UpdateDirection()
 
-  -- if (self.controllable) then
+  self:UpdateButtonStates()
+
+  if (self.controllable) then
     self:CheckInputs()
-  -- end
+  end
 
   self:UpdateAnimationFrame()
   self:UpdatePhysics()
@@ -219,8 +221,6 @@ function Character:CheckCrank()
 end
 
 function Character:CheckInputs()
-  self:UpdateButtonStates()
-
   if (self:CheckSpecialInputs()) then
     return
   end
@@ -535,55 +535,43 @@ function Character:DerivePhysicsFromState()
 
   local newVelocity <const> = table.deepcopy(self:GetVelocity())
 
-  self:Debug(newVelocity.x, newVelocity.y)
+  -- self:Debug(newVelocity.x, newVelocity.y)
 
   -- X Velocity
 
   if (self:IsTransitioning()) then
-    self:Debug('Transitioning')
     newVelocity.x = 0
   elseif (self:IsDashing()) then
-    self:Debug('Dashing')
     newVelocity.x = self:GetDashVelocity()
   elseif (self:IsJumping()) then
     if (self:IsRunning()) then
-      self:Debug('Running Jumping')
       newVelocity.x = self:GetRunVelocity()
     elseif (self:IsBack() or self:IsForward()) then
-      self:Debug('Moving Jumping')
       newVelocity.x = self:GetWalkVelocity()
     else
-      self:Debug('Neutral Jumping')
+      -- Do nothing!
     end
   elseif (self:IsRunning()) then
-    self:Debug('Running')
     newVelocity.x = self:GetRunVelocity()
   elseif (self:IsWalking()) then
-    self:Debug('Walking')
     newVelocity.x = self:GetWalkVelocity()
   -- elseif (self:IsCrouching() or self:IsStanding() or self:IsTransitioning()) then
   elseif (not self:IsAirborne()) then
-    self:Debug('Standing')
     newVelocity.x = 0
   end
 
   -- Y Velocity
 
   if (self:IsTransitioning()) then
-    self:Debug('Transitioning')
     newVelocity.y = 0
   elseif (self:IsJumping()) then
     -- if (not self:IsAttacking()) then
-      self:Debug('Y Jumping')
       newVelocity.y = -self.jumpHeight
     -- end
   -- elseif (self:IsCrouching() or self:IsStanding()) then
   elseif (not self:IsAirborne()) then
-    self:Debug('Y Standing')
     newVelocity.y = 0
   end
-
-  self:Debug('FAAAAAAAAAK', newVelocity.x, newVelocity.y)
 
   self:UpdateHistoryFrame({
     velocity = newVelocity
@@ -630,6 +618,12 @@ function Character:GetStun(frameIndex)
   local frame <const> = self:GetHistoryFrame(frameIndex)
 
   return frame.stun
+end
+
+function Character:GetState(frameIndex)
+  local frame <const> = self:GetHistoryFrame(frameIndex)
+
+  return frame.state
 end
 
 function Character:GetSuper(frameIndex)
@@ -974,10 +968,13 @@ function Character:HandleOverlapCollision(collision)
 end
 
 function Character:HandlePushboxCollision(collision)
+  local character <const> = collision.sprite
+  local opponent <const> = collision.other
+
   -- self:Debug('--------------- Pushbox Collision ---------------')
   -- self:Debug('Current Position', self.x, self.y)
 
-  local newVelocity <const> = table.deepcopy(self:GetVelocity())
+  -- local newVelocity <const> = table.deepcopy(self:GetVelocity())
 
   -- self:Debug('Move', collision.move)
   -- self:Debug('Normal', collision.normal)
@@ -992,31 +989,101 @@ function Character:HandlePushboxCollision(collision)
   -- self:Debug('Other Position', collision.other.x, collision.other.y)
   -- self:Debug('Other Touch Rect', collision.otherRect)
 
+  -- if (collision.normal.x ~= 0) then
+  --   if (self:WouldHitAWall(self.x + collision.move.x, self.y)) then
+  --     local newPosition <const> = {
+  --       x = collision.other.x - collision.move.x,
+  --       y = collision.other.y,
+  --     }
+
+  --     self:Debug('Would hit a wall!', collision.move.x, newPosition.x)
+
+  --     collision.other:MoveToXY(newPosition.x, newPosition.y)
+  --   else
+  --     local newPosition <const> = {
+  --       x = self.x + collision.move.x,
+  --       y = self.y,
+  --     }
+
+  --     self:Debug('Will not hit a wall!', collision.move.x, newPosition.x)
+
+  --     self:MoveToXY(newPosition.x, newPosition.y)
+  --   end
+  -- end
+
   if (collision.normal.x ~= 0) then
-    if (self:WouldHitAWall(self.x + collision.move.x, self.y)) then
-      local newPosition <const> = {
-        x = collision.other.x - collision.move.x,
-        y = collision.other.y,
-      }
+    local characterBoundsX <const>, characterBoundsY <const> = character:getBounds()
+    local characterPushbox <const> = character:getCollideRect()
+    local characterOffsetPushbox <const> = characterPushbox:offsetBy(characterBoundsX, characterBoundsY)
+    local characterCenter <const> = characterOffsetPushbox:centerPoint()
+    local opponentBoundsX <const>, opponentBoundsY <const> = opponent:getBounds()
+    local opponentPushbox <const> = opponent:getCollideRect()
+    local opponentOffsetPushbox <const> = opponentPushbox:offsetBy(opponentBoundsX, opponentBoundsY)
+    local opponentCenter <const> = opponentOffsetPushbox:centerPoint()
 
-      collision.other:MoveToXY(newPosition.x, newPosition.y)
-    else
-      local newPosition <const> = {
-        x = self.x + collision.move.x,
-        y = self.y,
-      }
+    if (collision.normal.x < 0) then -- Collided with the opponent's left side
+      if (math.abs(collision.move.x) > 0) then
+        local hasCrossedOver <const> = characterCenter.x > opponentCenter.x
+        -- self:Debug('hasCrossedOver', hasCrossedOver)
 
-      self:MoveToXY(newPosition.x, newPosition.y)
+        if (hasCrossedOver) then -- Crossed over to the opponent's right side
+          local opponentRightEdge <const> = opponentOffsetPushbox.right + (characterPushbox.width / 2)
+
+          if (character:WouldHitAWall(opponentRightEdge, character.y)) then
+            local characterLeftEdge <const> = characterOffsetPushbox.left - (opponentPushbox.width / 2)
+
+            opponent:MoveToXY(characterLeftEdge, opponent.y)
+          else
+            character:MoveToXY(opponentRightEdge, character.y)
+          end
+        else
+          local opponentLeftEdge <const> = opponentOffsetPushbox.left - (characterPushbox.width / 2)
+
+          if (character:WouldHitAWall(opponentLeftEdge, character.y)) then
+            local characterRightEdge <const> = characterOffsetPushbox.right + (opponentPushbox.width / 2)
+
+            opponent:MoveToXY(characterRightEdge, opponent.y)
+          else
+            character:MoveToXY(opponentLeftEdge, character.y)
+          end
+        end
+      end
+    else -- Collided with the opponent's right side
+      if (math.abs(collision.move.x) > 0) then
+        local hasCrossedOver <const> = characterCenter.x <= opponentCenter.x
+
+        if (hasCrossedOver) then -- Crossed over to the opponent's left side
+          local opponentLeftEdge <const> = opponentOffsetPushbox.left - (characterPushbox.width / 2)
+
+          if (character:WouldHitAWall(opponentLeftEdge, character.y)) then
+            local characterRightEdge <const> = characterOffsetPushbox.right + (opponentPushbox.width / 2)
+
+            opponent:MoveToXY(characterRightEdge, opponent.y)
+          else
+            character:MoveToXY(opponentLeftEdge, character.y)
+          end
+        else
+          local opponentRightEdge <const> = opponentOffsetPushbox.right + (characterPushbox.width / 2)
+
+          if (character:WouldHitAWall(opponentRightEdge, character.y)) then
+            local characterLeftEdge <const> = characterOffsetPushbox.left - (opponentPushbox.width / 2)
+
+            opponent:MoveToXY(characterLeftEdge, opponent.y)
+          else
+            character:MoveToXY(opponentRightEdge, character.y)
+          end
+        end
+      end
     end
   end
 
   -- if (collision.normal.y ~= 0) then
-    
+    -- Do nothing!
   -- end
 
-  self:UpdateHistoryFrame({
-    velocity = newVelocity
-  })
+  -- self:UpdateHistoryFrame({
+  --   velocity = newVelocity
+  -- })
 
   -- self:Debug('---------------------------------------------')
 end
@@ -1432,18 +1499,27 @@ function Character:LoadTSJ(state)
 end
 
 function Character:MoveToXY(x, y)
+  -- self:Debug('MoveToXY', x, y)
+  -- self:Debug('originalPosition', self.x, self.y)
+
   local positionDelta <const> = {
     x = x - self.x,
     y = y - self.y,
   }
 
+  -- self:Debug('positionDelta', positionDelta.x, positionDelta.y)
+
   self:moveTo(x, y)
 
   for i, sprite in ipairs(self.emptyCollisionSprites) do
+    -- self:Debug('position for ' .. i, sprite.x, sprite.y)
+
     local newPosition <const> = {
       x = sprite.x + positionDelta.x,
       y = sprite.y + positionDelta.y,
     }
+
+    -- self:Debug('newPosition for ' .. i, newPosition.x, newPosition.y)
 
     sprite:moveTo(newPosition.x, newPosition.y)
   end
@@ -1455,13 +1531,34 @@ function Character:MoveToXY(x, y)
       y = self.y,
     },
   })
+
+  -- self:Debug('----------------------------------------')
 end
 
 function Character:MoveToXYWithCollisions(x, y)
+  -- self:Debug('MoveToXYWithCollisions', x, y)
+
+  local originalEmptyCollisionSpritePositions <const> = {}
   local originalPosition <const> = {
     x = self.x,
     y = self.y,
   }
+  local originalPositionDelta <const> = {
+    x = x - self.x,
+    y = y - self.y,
+  }
+  local originalState <const> = self:GetState()
+
+  for i, sprite in ipairs(self.emptyCollisionSprites) do
+    originalEmptyCollisionSpritePositions[i] = {
+      x = sprite.x,
+      y = sprite.y
+    }
+  end
+
+  -- self:Debug('originalPosition', originalPosition.x, originalPosition.y)
+  -- self:Debug('originalPositionDelta', originalPositionDelta.x, originalPositionDelta.y)
+
   local _selfActualX <const>,
         _selfActualY <const>,
         collisions <const> = self:moveWithCollisions(x, y)
@@ -1469,19 +1566,44 @@ function Character:MoveToXYWithCollisions(x, y)
   self:HandleCollisions(collisions)
 
   -- Set the delta after we handle collisions, in case the position changed.
-  local positionDelta <const> = {
+  local positionDelta = {
     x = self.x - originalPosition.x,
     y = self.y - originalPosition.y,
   }
 
+  -- self:Debug('positionDelta', positionDelta.x, positionDelta.y)
+
   for i, sprite in ipairs(self.emptyCollisionSprites) do
+    -- self:Debug('originalPosition for ' .. i, sprite.x, sprite.y)
+
+    -- TODO: Explain this ;)
+    if (originalState ~= self:GetState()) then
+      originalEmptyCollisionSpritePositions[i] = {
+        x = sprite.x,
+        y = sprite.y,
+      }
+      positionDelta = {
+        x = 0,
+        y = 0,
+      }
+    end
+
+    local spritePositionDelta <const> = {
+      x = sprite.x - originalEmptyCollisionSpritePositions[i].x,
+      y = sprite.y - originalEmptyCollisionSpritePositions[i].y
+    }
+
+    -- self:Debug('positionDelta for ' .. i, spritePositionDelta.x, spritePositionDelta.y)
+
     local newPosition <const> = {
-      x = sprite.x + positionDelta.x,
-      y = sprite.y + positionDelta.y,
+      x = originalEmptyCollisionSpritePositions[i].x + positionDelta.x,
+      y = originalEmptyCollisionSpritePositions[i].y + positionDelta.y
     }
     local _spriteActualX <const>,
           _spriteActualY <const>,
           spriteCollisions <const> = sprite:moveWithCollisions(newPosition.x, newPosition.y)
+
+    -- self:Debug('newPosition for ' .. i, newPosition.x, newPosition.y)
 
     self:HandleCollisions(spriteCollisions)
   end
@@ -1493,6 +1615,8 @@ function Character:MoveToXYWithCollisions(x, y)
       y = self.y,
     },
   })
+
+  -- self:Debug('========================================')
 end
 
 function Character:NormalizeHorizontalVelocity(speed)
