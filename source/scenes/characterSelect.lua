@@ -1,22 +1,14 @@
-import 'CoreLibs/graphics'
-import 'CoreLibs/sprites'
-import 'CoreLibs/ui'
-
 import 'characters/Kim/kim'
-import 'main'
-import 'scenes/fight'
 
 -- Convenience variables
 local pd <const> = playdate
-local gfx <const> = pd.graphics
 local geo <const> = pd.geometry
+local gfx <const> = pd.graphics
 local ui <const> = pd.ui
 
-local defaults <const> = {}
+class('CharacterSelectScene').extends(Room)
 
-class('CharacterMenu', defaults).extends()
-
-function CharacterMenu:CheckInputs()
+function CharacterSelectScene:CheckInputs()
   local current <const>, pressed <const>, released <const> = table.unpack({ pd.getButtonState() })
   local buttonState = {
     hasPressedA = pressed & pd.kButtonA ~= 0,
@@ -52,12 +44,14 @@ function CharacterMenu:CheckInputs()
 
   -- 
   if (buttonState.hasPressedA) then
-    sceneManager:enter(FightScene)
+    sceneLoader:Start(function ()
+      sceneManager:enter(FightScene)
+    end)
   end
 end
 
-function CharacterMenu:Draw()
-  print('CharacterMenu', 'Draw()')
+function CharacterSelectScene:draw()
+  print('CharacterSelectScene', 'Draw')
 
   local section <const>,
         row <const>,
@@ -65,26 +59,87 @@ function CharacterMenu:Draw()
   local character <const> = self.characterList[row][column]
   local gridviewImage <const> = gfx.image.new(400, 240)
 
+  -- Draw the background
   gfx.pushContext(gridviewImage)
-    if (character ~= nil) then
-      local scaledImage <const> = character.portraitImage:scaledImage(1)
-            scaledImage:draw(0, 240 - scaledImage.height)
-    end
+    gfx.setColor(gfx.kColorBlack)
+    gfx.fillRect(0, 0, 400, 240)
 
+    self.background:draw(0, 0)
+  gfx.popContext()
+
+  -- Draw the selected character
+  if (character) then
+    print('Text width', character.name, self.font:getTextWidth(character.name))
+    print('Text height', self.font:getHeight())
+
+    local characterNameImage <const> = gfx.image.new(
+      self.font:getTextWidth(character.name),
+      self.font:getHeight(),
+      gfx.kColorClear
+    )
+    local characterPortraitImage <const> = character.portraitImage:scaledImage(1)
+
+    gfx.pushContext(characterNameImage)
+      gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
+      self.font:drawTextAligned(string.upper(character.name), 0, 0, kTextAlignment.left)
+    gfx.popContext()
+
+    gfx.pushContext(gridviewImage)
+      local characterNameImageScaled <const> = characterNameImage:scaledImage(3)
+      local characterNamePosition <const> = {
+        x = 20,
+        y = 200,
+      }
+      local characterPortraitPosition <const> = {
+        x = 0,
+        y = 240 - characterPortraitImage.height
+      }
+
+      -- Draw character portrait
+      gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
+      characterPortraitImage:draw(characterPortraitPosition.x - 1, characterPortraitPosition.y - 1)
+      characterPortraitImage:draw(characterPortraitPosition.x - 1, characterPortraitPosition.y + 1)
+      characterPortraitImage:draw(characterPortraitPosition.x + 1, characterPortraitPosition.y - 1)
+      characterPortraitImage:draw(characterPortraitPosition.x + 1, characterPortraitPosition.y + 1)
+
+      gfx.setImageDrawMode(gfx.kDrawModeCopy)
+      characterPortraitImage:draw(0, 240 - characterPortraitImage.height)
+
+      -- Draw character name
+      gfx.setImageDrawMode(gfx.kDrawModeFillBlack)
+      characterNameImageScaled:draw(characterNamePosition.x - 1, characterNamePosition.y - 1)
+      characterNameImageScaled:draw(characterNamePosition.x - 1, characterNamePosition.y + 1)
+      characterNameImageScaled:draw(characterNamePosition.x + 1, characterNamePosition.y - 1)
+      characterNameImageScaled:draw(characterNamePosition.x + 1, characterNamePosition.y + 1)
+
+      gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
+      characterNameImageScaled:draw(characterNamePosition.x, characterNamePosition.y)
+    gfx.popContext()
+  end
+
+  gfx.pushContext(gridviewImage)
+    -- if (self.gridview.needsDisplay) then
     self.gridview:drawInRect(200, 100, 400, 240)
+    -- end
   gfx.popContext()
 
   self.gridviewSprite:setImage(gridviewImage)
 end
 
-function CharacterMenu:init(scene)
-  self.scene = scene
+function CharacterSelectScene:enter(previous, ...)
+  -- print('CharacterSelectScene', 'Enter')
+
+  local fireBGImageTable <const> = gfx.imagetable.new('images/characterSelect/FireBG')
+
+  self.background = gfx.animation.loop.new(100, fireBGImageTable)
+  self.font = gfx.font.new('fonts/Super Monaco GP')
+  self.font:setTracking(0)
 
   self:InitCharacterList()
   self:InitGrid()
 end
 
-function CharacterMenu:InitCharacterList()
+function CharacterSelectScene:InitCharacterList()
   self.characterList = {
     {
       Kim(),
@@ -148,7 +203,7 @@ function CharacterMenu:InitCharacterList()
   }
 end
 
-function CharacterMenu:InitGrid()
+function CharacterSelectScene:InitGrid()
   self.gridview = ui.gridview.new(32, 32)
   -- For background image
   -- self.gridview:setContentInset(5, 5, 5, 5)
@@ -168,7 +223,7 @@ function CharacterMenu:InitGrid()
     end
 
     gfx.setColor(gfx.kColorWhite)
-    gfx.fillRect(x, y, width, height)
+    gfx.fillRect(x + 2 , y + 2, width - 4, height - 4)
 
     if (character ~= nil) then
       local centeredPosition <const> = {
@@ -190,14 +245,14 @@ function CharacterMenu:InitGrid()
       )
     end
 
-    -- gfx.drawRect(x, y, width, height)
-    -- gfx.drawRect(x + 1, y + 1, width - 2, height - 2)
-
     gfx.setColor(gfx.kColorBlack)
     gfx.drawRect(x + 2, y + 2, width - 4, height - 4)
 
     if (selected) then
       gfx.drawRect(x, y, width, height)
+
+      gfx.setColor(gfx.kColorWhite)
+      gfx.drawRect(x + 1, y + 1, width - 2, height - 2)
     end
   end
 
@@ -206,10 +261,24 @@ function CharacterMenu:InitGrid()
   self.gridviewSprite:add()
 end
 
-function CharacterMenu:Update()
-  self:CheckInputs()
+function CharacterSelectScene:leave(next, ...)
+  -- print('CharacterSelectScene', 'Leave', next)
 
-  if (self.gridview.needsDisplay) then
-    self:Draw()
-  end
+  self.background = nil
+  self.gridviewSprite:remove()
+end
+
+function CharacterSelectScene:pause()
+  -- print('CharacterSelectScene', 'Pause')
+end
+
+function CharacterSelectScene:resume()
+  -- print('CharacterSelectScene', 'Resume')
+end
+
+function CharacterSelectScene:update(dt)
+  -- print('CharacterSelectScene', 'Update', dt)
+
+  self:CheckInputs()
+  self:draw()
 end
