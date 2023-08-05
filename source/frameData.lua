@@ -14,6 +14,7 @@ local defaults <const> = {
   hitstunnable = false,
   loops = false,
   nextState = nil,
+  soundFX = nil,
   -- velocityX = 0, -- Nil?
   -- velocityY = 0, -- Nil?
 }
@@ -26,6 +27,7 @@ function FrameData:init(config)
   self.hitstunnable = config.hitstunnable or self.hitstunnable
   self.loops = config.loops or self.loops
   self.nextState = config.nextState or self.nextState
+  self.soundFX = config.soundFX or self.soundFX
   self.velocityX = config.velocityX or self.velocityX
   self.velocityY = config.velocityY or self.velocityY
 end
