@@ -1,50 +1,89 @@
+import 'CoreLibs/animator'
+import "CoreLibs/graphics"
+import "CoreLibs/sprites"
+
 -- Convenience variables
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
+loaderStates = {
+  ACTIVE = 1,
+  IDLE = 2,
+  STARTING = 4,
+  STOPPING = 8,
+}
+
 local defaults = {
-  -- ended = false,
-  -- started = false,
+  state = loaderStates.IDLE
 }
 
 class('Loader', defaults).extends(gfx.sprite)
 
 function Loader:init(config)
+  local displayRect <const> = pd.display.getRect()
+
+  self:moveTo(displayRect.width / 2, displayRect.height / 2)
+  self:setIgnoresDrawOffset(true)
+  self:setZIndex(1000)
+
+  local timerSprite <const> = gfx.sprite.new()
+        timerSprite:moveTo(displayRect.width / 2, displayRect.height / 2)
+        timerSprite:setIgnoresDrawOffset(true)
+        timerSprite:setZIndex(1000)
+        timerSprite:add()
+
+  self.timerSprite = timerSprite
 end
 
--- function Loader:Start()
+function Loader:SetTimerSpriteImage()
+  local displayRect <const> = pd.display.getRect()
+  local loaderImage <const> = gfx.image.new(displayRect.width, displayRect.height, gfx.kColorClear)
 
--- end
+  gfx.pushContext(loaderImage)
+    gfx.setColor(gfx.kColorClear)
+    gfx.fillRect(0, 0, displayRect.width, displayRect.height)
 
--- function Loader:Stop()
-  
--- end
+    local fadeImage <const> = gfx.image.new(displayRect.width, displayRect.height, gfx.kColorBlack)
+          fadeImage:drawFaded(0, 0, self.alphaAnimator:currentValue(), gfx.image.kDitherTypeBayer8x8)
+  gfx.popContext()
 
-function Loader.update()
-  coroutine.yield()
+  self.timerSprite:setImage(loaderImage)
 end
 
--- local allImagesProcessed = false
+function Loader:Start(startCallback)
+  self.startCallback = startCallback
+  self.state = loaderStates.STARTING
+  self.alphaAnimator = gfx.animator.new(500, 0, 1)
+end
 
--- -- our main update function, called every 0.033 seconds by Playdate OS.
--- function playdate.update()
---   if allImagesProcessed == false then
---     -- process images
---     for i = 1, #images do
---       -- some time-consuming process…
---       processImage( images[i] )
+function Loader:Stop(stopCallback)
+  self.stopCallback = stopCallback
+  self.state = loaderStates.STOPPING
+  self.alphaAnimator = gfx.animator.new(500, 1, 0)
+end
 
---       -- draw a progress bar
---       local progressPercentage = i / #images
---       playdate.graphics.fillRect( 100, 20, 200*progressPercentage, 40 )
+function Loader:update()
+  if (self.state == loaderStates.ACTIVE or self.state == loaderStates.IDLE) then
+    return
+  end
 
---       -- yield to the OS, giving it a chance to update the screen
---       coroutine.yield()
---       -- execution will resume here when the OS calls coroutine.resume()
---     end
+  if (self.alphaAnimator) then
+    if (self.alphaAnimator:ended()) then
+      if (self.state == loaderStates.STARTING) then
+        self.state = loaderStates.ACTIVE
 
---     allImagesProcessed = true
---   else
---     -- main game update and drawing code
---   end
--- end
+        if (self.startCallback) then
+          self.startCallback()
+        end
+      elseif (self.state == loaderStates.STOPPING) then
+        self.state = loaderStates.IDLE
+
+        if (self.stopCallback) then
+          self.stopCallback()
+        end
+      end
+    else
+      self:SetTimerSpriteImage()
+    end
+  end
+end
