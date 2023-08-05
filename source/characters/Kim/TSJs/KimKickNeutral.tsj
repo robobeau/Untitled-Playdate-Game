@@ -280,6 +280,11 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":8
+                }, 
+                {
+                 "name":"soundFX",
+                 "type":"file",
+                 "value":"..\/..\/..\/sounds\/kick_short_whoosh_12.wav"
                 }],
          "type":"Frame"
         }, 

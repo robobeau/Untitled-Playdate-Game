@@ -1395,8 +1395,8 @@ function Character:LoadImageTables()
     self.imageTables[key] = self:HydrateImageTable(animation)
   end
 
-  local menuImageFilePath <const> = 'images/characters/' .. self.name .. '/' .. self.name .. 'PortraitMenu'
-  local portraitImageFilePath <const> = 'images/characters/' .. self.name .. '/' .. self.name .. 'Portrait'
+  local menuImageFilePath <const> = 'characters/' .. self.name .. '/images/' .. self.name .. 'PortraitMenu'
+  local portraitImageFilePath <const> = 'characters/' .. self.name .. '/images/' .. self.name .. 'Portrait'
 
   self.menuImage = gfx.image.new(menuImageFilePath)
   self.portraitImage = gfx.image.new(portraitImageFilePath)
@@ -1497,6 +1497,12 @@ function Character:LoadTSJ(state)
 
   return json.decodeFile(filePath)
 end
+
+-- function Character:LoadSoundFX(state)
+--   local filePath <const> = 'characters/' .. self.name .. '/TSJs/' .. self.name .. state .. '.tsj'
+
+--   return json.decodeFile(filePath)
+-- end
 
 function Character:MoveToXY(x, y)
   -- self:Debug('MoveToXY', x, y)
@@ -1673,6 +1679,24 @@ end
 function Character:SetAnimationFrame()
   self:SetFrameImage()
   self:SetFrameCollisions()
+  self:PlaySoundFX()
+end
+
+function Character:PlaySoundFX()
+  local frame <const> = self:GetHistoryFrame()
+  local frameData <const> = self:GetFrameData(frame.frameIndex)
+
+  self:Debug('Sound FX', frame.soundFX, frameData.soundFX)
+
+  if (frameData.soundFX) then
+    local soundFXPath = frameData.soundFX
+          -- Chop off the "../" and ".wav"
+          soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
+          soundFXPath = string.gsub(soundFXPath, '%.wav', '')
+
+    local soundFX <const> = pd.sound.sampleplayer.new(soundFXPath)
+    soundFX:play()
+  end
 end
 
 function Character:SetCollisionBox(box)
