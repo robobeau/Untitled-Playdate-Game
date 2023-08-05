@@ -9,12 +9,12 @@
 			"command": "pdc",
 			"args": [
 				"-sdkpath",
-				"C:\\Dev\\PlaydateSDK",
+				"C:\\Users\\rene\\Dev\\PlaydateSDK",
 				"'${workspaceFolder}\\source'",
 				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'"
 			],
 			"options": {
-				"cwd": "C:\\Dev\\PlaydateSDK"
+				"cwd": "C:\\Users\\rene\\Dev\\PlaydateSDK"
 			},
 			"presentation": {
 				"panel": "shared",
@@ -103,7 +103,7 @@
 		{
 			"label": "Run (Simulator)",
 			"type": "shell",
-			"command": "C:\\Dev\\PlaydateSDK/bin/PlaydateSimulator.exe",
+			"command": "C:\\Users\\rene\\Dev\\PlaydateSDK/bin/PlaydateSimulator.exe",
 			"args": [
 				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'"
 			],
