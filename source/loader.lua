@@ -19,23 +19,7 @@ local defaults = {
 
 class('Loader', defaults).extends(gfx.sprite)
 
-function Loader:init(config)
-  local displayRect <const> = pd.display.getRect()
-
-  self:moveTo(displayRect.width / 2, displayRect.height / 2)
-  self:setIgnoresDrawOffset(true)
-  self:setZIndex(1000)
-
-  local timerSprite <const> = gfx.sprite.new()
-        timerSprite:moveTo(displayRect.width / 2, displayRect.height / 2)
-        timerSprite:setIgnoresDrawOffset(true)
-        timerSprite:setZIndex(1000)
-        timerSprite:add()
-
-  self.timerSprite = timerSprite
-end
-
-function Loader:SetTimerSpriteImage()
+function Loader:Draw()
   local displayRect <const> = pd.display.getRect()
   local loaderImage <const> = gfx.image.new(displayRect.width, displayRect.height, gfx.kColorClear)
 
@@ -47,7 +31,16 @@ function Loader:SetTimerSpriteImage()
           fadeImage:drawFaded(0, 0, self.alphaAnimator:currentValue(), gfx.image.kDitherTypeBayer8x8)
   gfx.popContext()
 
-  self.timerSprite:setImage(loaderImage)
+  self:setImage(loaderImage)
+end
+
+function Loader:init(config)
+  local displayRect <const> = pd.display.getRect()
+
+  self:setCollisionsEnabled(false)
+  self:setIgnoresDrawOffset(true)
+  self:setZIndex(1000)
+  self:moveTo(displayRect.width / 2, displayRect.height / 2)
 end
 
 function Loader:Start(startCallback)
@@ -83,7 +76,7 @@ function Loader:update()
         end
       end
     else
-      self:SetTimerSpriteImage()
+      self:Draw()
     end
   end
 end
