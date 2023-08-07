@@ -257,6 +257,7 @@ function CharacterSelectScene:InitGrid()
   end
 
   self.gridviewSprite = gfx.sprite.new()
+  self.gridviewSprite:setCollisionsEnabled(false)
   self.gridviewSprite:setCenter(0, 0)
   self.gridviewSprite:add()
 end
