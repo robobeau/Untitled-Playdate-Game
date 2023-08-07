@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.1" orientation="orthogonal" renderorder="left-up" width="420" height="240" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="left-up" width="420" height="240" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="1">
+ <editorsettings>
+  <export target="../../source/tsj/Stages/Clifton.tmj" format="json"/>
+ </editorsettings>
  <imagelayer id="4" name="BG">
   <image source="../../source/images/stages/Clifton/BG.png" width="420" height="240"/>
  </imagelayer>
- <imagelayer id="7" name="CloudB" offsetx="630" offsety="0">
+ <imagelayer id="7" name="CloudB" visible="0" offsetx="630" offsety="0">
   <image source="../../source/images/stages/Clifton/CloudB1.png" width="268" height="144"/>
   <properties>
    <property name="animation" value="slide"/>
    <property name="velocityX" type="int" value="-2"/>
   </properties>
  </imagelayer>
- <imagelayer id="5" name="CloudA" offsetx="420" offsety="0">
+ <imagelayer id="5" name="CloudA" visible="0" offsetx="420" offsety="0">
   <image source="../../source/images/stages/Clifton/CloudA1.png" width="245" height="144"/>
   <properties>
    <property name="animation" value="slide"/>
    <property name="velocityX" type="int" value="-4"/>
   </properties>
  </imagelayer>
- <imagelayer id="6" name="Tree" offsetx="199" offsety="0">
+ <imagelayer id="6" name="Tree" visible="0" offsetx="199" offsety="0">
   <image source="../../source/images/stages/Clifton/Tree1.png" width="221" height="233"/>
   <properties>
    <property name="animation" value="twitch"/>

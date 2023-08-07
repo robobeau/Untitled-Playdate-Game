@@ -93,18 +93,21 @@ function Stage:Load()
   local lua <const> = self:LoadTMJ()
 
   for i, layer in ipairs(lua.layers) do
-    local imagePath = layer.image
-          -- Chop off the "../" and ".png"
-          imagePath = string.gsub(imagePath, '%.%./', '')
-          imagePath = string.gsub(imagePath, '%.png', '')
-    local image <const> = gfx.image.new(imagePath)
-    local sprite <const> = gfx.sprite.new(image)
-          sprite:setCenter(0, 0)
-          sprite:moveTo(layer.offsetx or 0, layer.offsety or 0)
-          sprite:setZIndex(i - 100)
-          sprite:add()
+    if (layer.visible) then
+      local imagePath = layer.image
+            -- Chop off the "../" and ".png"
+            imagePath = string.gsub(imagePath, '%.%./', '')
+            imagePath = string.gsub(imagePath, '%.png', '')
+      local image <const> = gfx.image.new(imagePath)
+      local sprite <const> = gfx.sprite.new(image)
+            sprite:setCenter(0, 0)
+            sprite:setCollisionsEnabled(false)
+            sprite:moveTo(layer.offsetx or 0, layer.offsety or 0)
+            sprite:setZIndex(i - 100)
+            sprite:add()
 
-    table.insert(self.sprites, sprite)
+      table.insert(self.sprites, sprite)
+    end
   end
 
   local stageSprite <const> = self:GetStageSprite()
