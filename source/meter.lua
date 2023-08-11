@@ -25,7 +25,7 @@ local defaults <const> = {
 
 class('Meter', defaults).extends(gfx.sprite)
 
-function Meter:SetMeterSpriteImage()
+function Meter:Draw()
   local meterImage <const> = gfx.image.new(self.meterRect.width, self.meterRect.height)
 
   gfx.pushContext(meterImage)
@@ -38,7 +38,7 @@ function Meter:SetMeterSpriteImage()
     end
   gfx.popContext()
 
-  self.meterSprite:setImage(meterImage)
+  self:setImage(meterImage)
 end
 
 function Meter:DrawBackground(x, y, width, height)
@@ -96,20 +96,14 @@ function Meter:init(config)
     y = 0,
   }
 
+  self:setCollisionsEnabled(false)
   self:setCenter(meterCenter.x, meterCenter.y)
-  self:setSize(self.meterRect.width, self.meterRect.height)
-  self:moveTo(self.meterRect.x, self.meterRect.y)
   self:setIgnoresDrawOffset(true)
+  self:setSize(self.meterRect.width, self.meterRect.height)
+  self:setZIndex(100)
+  self:moveTo(self.meterRect.x, self.meterRect.y)
 
-  local meterSprite <const> = gfx.sprite.new()
-        meterSprite:setCenter(meterCenter.x, meterCenter.y)
-        meterSprite:moveTo(self.meterRect.x, self.meterRect.y)
-        meterSprite:setIgnoresDrawOffset(true)
-        meterSprite:add()
-
-  self.meterSprite = meterSprite
-
-  self:SetMeterSpriteImage()
+  self:Draw()
 end
 
 function Meter:SetAmount(amount)
@@ -120,6 +114,6 @@ end
 
 function Meter:update()
   if (self.amountAnimator and not self.amountAnimator:ended()) then
-    self:SetMeterSpriteImage()
+    self:Draw()
   end
 end

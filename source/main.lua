@@ -6,10 +6,15 @@ import 'CoreLibs/object'
 import 'CoreLibs/sprites'
 import "CoreLibs/timer"
 import 'CoreLibs/ui'
+import 'CoreLibs/utilities/sampler'
 
+import 'collisions/collision'
+import 'collisions/hitbox'
+import 'collisions/hurtbox'
 import 'loader'
 import 'scenes/characterSelect'
 import 'scenes/fight'
+import 'utils'
 
 -- Convenience variables
 local pd <const> = playdate
@@ -20,7 +25,7 @@ sceneManager = Manager()
 
 function init()
   sceneLoader:add()
-  sceneManager:push(CharacterSelectScene)
+  sceneManager:push(FightScene)
 end
 
 -- function pd.cranked(change, acceleratedChange)
