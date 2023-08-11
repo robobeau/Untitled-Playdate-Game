@@ -3,7 +3,6 @@ import 'CoreLibs/animator'
 import 'CoreLibs/graphics'
 import 'CoreLibs/sprites'
 
-import 'collisionTypes'
 import 'frameData'
 import 'history'
 import 'inputs'
@@ -13,6 +12,8 @@ import 'utils'
 local pd <const> = playdate
 local geo <const> = pd.geometry
 local gfx <const> = pd.graphics
+local poi <const> = geo.point
+local spr <const> = gfx.sprite
 
 cancellableStates = {
   ATTACK = 1,
@@ -111,7 +112,7 @@ local defaults <const> = {
 }
 local firstFrame <const> = {
   buttonState = {},
-  center = geo.point.new(0, 0),
+  center = poi.new(0, 0),
   direction = charDirections.RIGHT,
   frameCounter = 1,
   frameIndex = 1,
@@ -130,17 +131,17 @@ local firstFrame <const> = {
   },
 }
 
-class('Character', defaults).extends(gfx.sprite)
+class('Character', defaults).extends(spr)
 
 function Character:collisionResponse(other)
   local otherGroupMask <const> = other:getGroupMask()
   local collidedWithPushbox <const> = otherGroupMask & collisionTypes.PUSHBOX ~= 0
 
   if (collidedWithPushbox) then
-    return gfx.sprite.kCollisionTypeOverlap
+    return spr.kCollisionTypeOverlap
   end
 
-  return gfx.sprite.kCollisionTypeFreeze
+  return spr.kCollisionTypeFreeze
 end
 
 function Character:init(options)
@@ -170,7 +171,7 @@ function Character:init(options)
 end
 
 function Character:update()
-  local frame <const> = self:GetHistoryFrame(frameIndex)
+  -- local frame <const> = self:GetHistoryFrame(frameIndex)
 
   -- self:Debug('==================================================')
   -- self:Debug('Update!', self.x, self.y, frame.velocity.x, frame.velocity.y)
@@ -185,20 +186,20 @@ function Character:update()
 
   -- self:markDirty()
 
-  self:TransitionState()
-  self:UpdateDirection()
+    self:TransitionState()
+    self:UpdateDirection()
 
-  self:UpdateButtonStates()
+    self:UpdateButtonStates()
 
   if (self.controllable) then
-    self:CheckInputs()
+      self:CheckInputs()
   end
 
-  self:UpdateAnimationFrame()
-  self:UpdatePhysics()
-  self:UpdatePosition()
+    self:UpdateAnimationFrame()
+    self:UpdatePhysics()
+    self:UpdatePosition()
 
-  self:PrepareForNextLoop()
+    self:PrepareForNextLoop()
 end
 
 -- TODO: Buddy, you gotta decouple your logic so that you draw based on a state simulation
@@ -486,7 +487,7 @@ end
 
 function Character:CleanUp()
   -- TODO: Clear every single image in "self.imageTables"
-  gfx.sprite.removeSprites(self.emptyCollisionSprites)
+  spr.removeSprites(self.emptyCollisionSprites)
 end
 
 -- For debugging ;)
@@ -772,7 +773,7 @@ function Character:GetHit(hitbox)
     newVelocity.x = hitbox.properties.pushback * -self:GetFlipSign()
   end
 
-  self:Debug('GetHit', health, newVelocity.x)
+  -- self:Debug('GetHit', health, newVelocity.x)
 
   self:UpdateHistoryFrame({
     health = health,
@@ -782,7 +783,7 @@ function Character:GetHit(hitbox)
   self.OnHealthChange(health)
   self:SetState(newState)
 
-  gfx.sprite.removeSprites({ hitbox })
+  spr.removeSprites({ hitbox })
 end
 
 function Character:GetHitByBall(hurtbox, ball)
@@ -804,7 +805,7 @@ function Character:GetHitByBall(hurtbox, ball)
 
   local health <const> = self:GetHealth() - 100
 
-  self:Debug(health)
+  -- self:Debug(health)
 
   self:UpdateHistoryFrame({
     health = health
@@ -812,7 +813,7 @@ function Character:GetHitByBall(hurtbox, ball)
   self.OnHealthChange(health)
   self:SetState(newState)
 
-  gfx.sprite.removeSprites({ hurtbox })
+  spr.removeSprites({ hurtbox })
 end
 
 function Character:GetRunSpeed()
@@ -862,11 +863,11 @@ function Character:HitBall(collision)
     ball:SetVelocityY(velocityY)
   end
 
-  gfx.sprite.removeSprites({ hitbox })
+  spr.removeSprites({ hitbox })
 end
 
 function Character:HandleBallCollision(collision)
-  self:Debug('HandleBallCollision', collision.name)
+  -- self:Debug('HandleBallCollision', collision.name)
 
   local ball <const> = collision.other
   local box <const> = collision.sprite
@@ -892,9 +893,9 @@ end
 
 function Character:HandleCollisions(collisions)
   for i, collision in ipairs(collisions) do
-    if (collision.type == gfx.sprite.kCollisionTypeFreeze) then
+    if (collision.type == spr.kCollisionTypeFreeze) then
       self:HandleFreezeCollision(collision)
-    elseif (collision.type == gfx.sprite.kCollisionTypeOverlap) then
+    elseif (collision.type == spr.kCollisionTypeOverlap) then
       self:HandleOverlapCollision(collision)
     end
   end
@@ -902,7 +903,6 @@ end
 
 function Character:HandleFreezeCollision(collision)
   local otherGroupMask <const> = collision.other:getGroupMask()
-  local collidedWithBall <const> = otherGroupMask & collisionTypes.BALL ~= 0
   local collidedWithWall <const> = otherGroupMask & collisionTypes.WALL ~= 0
 
   if (collidedWithWall) then
@@ -910,58 +910,13 @@ function Character:HandleFreezeCollision(collision)
   end
 end
 
-function Character:HandleHitboxCollision(collision)
-  -- local hitbox <const> = collision.other
-  -- -- local hurtbox <const> = collision.sprite
-
-  -- -- It's technically possible for a sprite's hurtboxes to collide with their own hitboxes
-  -- if (hitbox.parent == self) then
-  --   return
-  -- end
-
-  -- if (self.controllable and self:CheckBlockInputs()) then
-  --   -- TODO: Handle pushback here?
-  --   return
-  -- end
-
-  -- self:GetHit(hitbox)
-end
-
-
-function Character:HandleHurtboxCollision(collision)
-  local hitbox <const> = collision.sprite
-  local hurtbox <const> = collision.other
-  local opponent <const> = hurtbox.parent
-
-  -- It's technically possible for a sprite's hitboxes to collide with their own hurtboxes
-  if (opponent == self) then
-    local frame <const> = self:GetHistoryFrame()
-    -- self:Debug('What the fuck?', frame.velocity.x, self.controllable)
-    return
-  end
-
-  local opponentBlocked <const> = opponent:CheckBlockInputs()
-
-  if (not opponentBlocked) then
-    opponent:GetHit(hitbox)
-
-    return
-  end
-end
-
 function Character:HandleOverlapCollision(collision)
   local otherGroupMask <const> = collision.other:getGroupMask()
   local collidedWithBall <const> = otherGroupMask & collisionTypes.BALL ~= 0
-  local collidedWithHitbox <const> = otherGroupMask & collisionTypes.HITBOX ~= 0
-  local collidedWithHurtbox <const> = otherGroupMask & collisionTypes.HURTBOX ~= 0
   local collidedWithPushbox <const> = otherGroupMask & collisionTypes.PUSHBOX ~= 0
 
   if (collidedWithBall) then
     self:HandleBallCollision(collision)
-  elseif (collidedWithHitbox) then
-    self:HandleHitboxCollision(collision)
-  elseif (collidedWithHurtbox) then
-    self:HandleHurtboxCollision(collision)
   elseif (collidedWithPushbox) then
     self:HandlePushboxCollision(collision)
   end
@@ -1209,7 +1164,7 @@ end
 function Character:HydrateImageTable(animation)
   local imageTable <const> = gfx.imagetable.new(#animation.frames)
   local images <const> = {}
-
+  
   for i, frame in ipairs(animation.frames) do
     local image
     local imagePath = frame.image
@@ -1508,27 +1463,8 @@ function Character:MoveToXY(x, y)
   -- self:Debug('MoveToXY', x, y)
   -- self:Debug('originalPosition', self.x, self.y)
 
-  local positionDelta <const> = {
-    x = x - self.x,
-    y = y - self.y,
-  }
-
-  -- self:Debug('positionDelta', positionDelta.x, positionDelta.y)
-
   self:moveTo(x, y)
 
-  for i, sprite in ipairs(self.emptyCollisionSprites) do
-    -- self:Debug('position for ' .. i, sprite.x, sprite.y)
-
-    local newPosition <const> = {
-      x = sprite.x + positionDelta.x,
-      y = sprite.y + positionDelta.y,
-    }
-
-    -- self:Debug('newPosition for ' .. i, newPosition.x, newPosition.y)
-
-    sprite:moveTo(newPosition.x, newPosition.y)
-  end
 
   self:UpdateHistoryFrame({
     center = self:GetCenterRelativeToBounds(),
@@ -1544,75 +1480,11 @@ end
 function Character:MoveToXYWithCollisions(x, y)
   -- self:Debug('MoveToXYWithCollisions', x, y)
 
-  local originalEmptyCollisionSpritePositions <const> = {}
-  local originalPosition <const> = {
-    x = self.x,
-    y = self.y,
-  }
-  local originalPositionDelta <const> = {
-    x = x - self.x,
-    y = y - self.y,
-  }
-  local originalState <const> = self:GetState()
-
-  for i, sprite in ipairs(self.emptyCollisionSprites) do
-    originalEmptyCollisionSpritePositions[i] = {
-      x = sprite.x,
-      y = sprite.y
-    }
-  end
-
-  -- self:Debug('originalPosition', originalPosition.x, originalPosition.y)
-  -- self:Debug('originalPositionDelta', originalPositionDelta.x, originalPositionDelta.y)
-
-  local _selfActualX <const>,
-        _selfActualY <const>,
+  local actualX <const>,
+        actualY <const>,
         collisions <const> = self:moveWithCollisions(x, y)
 
   self:HandleCollisions(collisions)
-
-  -- Set the delta after we handle collisions, in case the position changed.
-  local positionDelta = {
-    x = self.x - originalPosition.x,
-    y = self.y - originalPosition.y,
-  }
-
-  -- self:Debug('positionDelta', positionDelta.x, positionDelta.y)
-
-  for i, sprite in ipairs(self.emptyCollisionSprites) do
-    -- self:Debug('originalPosition for ' .. i, sprite.x, sprite.y)
-
-    -- TODO: Explain this ;)
-    if (originalState ~= self:GetState()) then
-      originalEmptyCollisionSpritePositions[i] = {
-        x = sprite.x,
-        y = sprite.y,
-      }
-      positionDelta = {
-        x = 0,
-        y = 0,
-      }
-    end
-
-    local spritePositionDelta <const> = {
-      x = sprite.x - originalEmptyCollisionSpritePositions[i].x,
-      y = sprite.y - originalEmptyCollisionSpritePositions[i].y
-    }
-
-    -- self:Debug('positionDelta for ' .. i, spritePositionDelta.x, spritePositionDelta.y)
-
-    local newPosition <const> = {
-      x = originalEmptyCollisionSpritePositions[i].x + positionDelta.x,
-      y = originalEmptyCollisionSpritePositions[i].y + positionDelta.y
-    }
-    local _spriteActualX <const>,
-          _spriteActualY <const>,
-          spriteCollisions <const> = sprite:moveWithCollisions(newPosition.x, newPosition.y)
-
-    -- self:Debug('newPosition for ' .. i, newPosition.x, newPosition.y)
-
-    self:HandleCollisions(spriteCollisions)
-  end
 
   self:UpdateHistoryFrame({
     center = self:GetCenterRelativeToBounds(),
@@ -1638,17 +1510,6 @@ function Character:PrepareForNextLoop()
   self:UpdateFrameIndex()
 end
 
-function Character:RecenterSprite()
-  local nextCenter <const> = self:GetCenterRelativeToBounds()
-  local prevFrame <const> = self:GetHistoryFrame(self.history.counter - 1)
-  local prevCenter <const> = prevFrame.center or nextCenter
-
-  local xDelta <const> = prevCenter.x - nextCenter.x
-  local x <const> = self.x + xDelta
-
-  self:MoveToXY(x, self.y)
-end
-
 function Character:Reset()
   self.history:Reset()
   self:UpdateHistoryFrame({
@@ -1664,7 +1525,7 @@ function Character:Reset()
 end
 
 function Character:ResetEmptyCollisionSprites()
-  gfx.sprite.removeSprites(self.emptyCollisionSprites)
+  spr.removeSprites(self.emptyCollisionSprites)
   self.emptyCollisionSprites = {}
 end
 
@@ -1677,16 +1538,16 @@ function Character:ResetState()
 end
 
 function Character:SetAnimationFrame()
-  self:SetFrameImage()
-  self:SetFrameCollisions()
-  self:PlaySoundFX()
+    self:SetFrameImage()
+    self:SetFrameCollisions()
+    self:PlaySoundFX()
 end
 
 function Character:PlaySoundFX()
   local frame <const> = self:GetHistoryFrame()
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
-  self:Debug('Sound FX', frame.soundFX, frameData.soundFX)
+  -- self:Debug('Sound FX', frame.soundFX, frameData.soundFX)
 
   if (frameData.soundFX) then
     local soundFXPath = frameData.soundFX
@@ -1715,30 +1576,30 @@ function Character:SetCollisionBox(box)
     Pushbox = collisionTypes.PUSHBOX,
   }
 
-  local sprite <const> = self.addEmptyCollisionSprite(collideRect)
-        sprite.collisionResponse = gfx.sprite.kCollisionTypeOverlap
-        sprite.name = box.name -- For debugging ;)
-        sprite.parent = self
-        sprite.properties = box.properties
-        sprite:setCollidesWithGroupsMask(collidesWithGroupMasks[box.type])
-        sprite:setGroupMask(groupMasks[box.type])
+  local emptyCollisionSprite <const> = self.addEmptyCollisionSprite(collideRect)
+        emptyCollisionSprite.collisionResponse = spr.kCollisionTypeOverlap
+        emptyCollisionSprite.name = box.name -- For debugging ;)
+        emptyCollisionSprite.parent = self
+        emptyCollisionSprite.properties = box.properties
+        emptyCollisionSprite:setCollidesWithGroupsMask(collidesWithGroupMasks[box.type])
+        emptyCollisionSprite:setGroupMask(groupMasks[box.type])
 
-  table.insert(self.emptyCollisionSprites, sprite)
+  table.insert(self.emptyCollisionSprites, emptyCollisionSprite)
 end
 
 function Character:SetFrameCollisions()
   local frame <const> = self:GetHistoryFrame()
-  local nextFrame <const> = self:GetAnimationFrame(frame.frameIndex)
+  local nextAnimationFrame <const> = self:GetAnimationFrame(frame.frameIndex)
 
   self:ResetEmptyCollisionSprites()
 
-  self:SetPushbox(nextFrame.collisions.Pushbox)
+  self:SetPushbox(nextAnimationFrame.collisions.Pushbox)
 
-  for _, hitbox in ipairs(nextFrame.collisions.Hitboxes) do
+  for _, hitbox in ipairs(nextAnimationFrame.collisions.Hitboxes) do
     self:SetCollisionBox(hitbox)
   end
 
-  for _, hurtbox in ipairs(nextFrame.collisions.Hurtboxes) do
+  for _, hurtbox in ipairs(nextAnimationFrame.collisions.Hurtboxes) do
     self:SetCollisionBox(hurtbox)
   end
 end
@@ -1747,8 +1608,20 @@ function Character:SetFrameImage()
   local frame <const> = self:GetHistoryFrame()
   local nextImage <const> = self.imageTable:getImage(frame.frameIndex)
 
-  self:setImage(nextImage)
-  self:setImageFlip(self:GetFlip(), true)
+  self:setImage(nextImage, self:GetFlip())
+
+  local boundsRect <const> = self:getBoundsRect()
+  local nextCenter <const> = self:GetCenterRelativeToBounds()
+  local prevFrame <const> = self:GetHistoryFrame(self.history.counter - 1)
+  local prevCenter <const> = prevFrame.center or nextCenter
+  local xDelta <const> = prevCenter.x - nextCenter.x
+  local yDelta <const> = prevCenter.y - nextCenter.y
+  local position <const> = {
+    x = boundsRect.x + xDelta,
+    y = boundsRect.y + yDelta
+  }
+
+  self:setBounds(position.x, position.y, nextImage:getSize())
 end
 
 function Character:SetPushbox(pushbox)
@@ -1764,8 +1637,6 @@ function Character:SetPushbox(pushbox)
   self:UpdateHistoryFrame({
     center = self:GetCenterRelativeToBounds(),
   })
-
-  self:RecenterSprite()
 end
 
 -- Because we are changing the sprite's collision rect for every animation frame,
@@ -1781,23 +1652,23 @@ function Character:PreventClipping()
 end
 
 function Character:SetState(state)
-  local keyset = {}
+    -- local keyset = {}
 
-  for k, v in pairs(charStates) do
-    keyset[v] = k
-  end
+    -- for k, v in pairs(charStates) do
+    --   keyset[v] = k
+    -- end
 
-  local frame <const> = self:GetHistoryFrame()
+    -- local frame <const> = self:GetHistoryFrame()
 
-  self:Debug('SetState()', state, keyset[state], frame.velocity.x)
+    -- self:Debug('SetState()', state, keyset[state], frame.velocity.x)
 
-  self:UpdateHistoryFrame({
-    state = state,
-  })
+    self:UpdateHistoryFrame({
+      state = state,
+    })
 
-  self:DeriveImageTableFromState()
-  self:SetAnimationFrame()
-  self:DerivePhysicsFromState()
+    self:DeriveImageTableFromState()
+    self:SetAnimationFrame()
+    self:DerivePhysicsFromState()
   -- self:markDirty()
 end
 
@@ -2017,7 +1888,7 @@ function Character:UpdatePosition()
   --   return
   -- end
 
-  self:MoveToXYWithCollisions(newPosition.x, newPosition.y)
+    self:MoveToXYWithCollisions(newPosition.x, newPosition.y)
 end
 
 function Character:WouldHitAWall(x, y)
