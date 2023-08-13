@@ -1,11 +1,9 @@
-import 'CoreLibs/animator'
-import "CoreLibs/graphics"
-import "CoreLibs/sprites"
-
 -- Convenience variables
 local pd <const> = playdate
 local gfx <const> = pd.graphics
+local ani <const> = gfx.animator
 local img <const> = gfx.image
+local spr <const> = gfx.sprite
 
 loaderStates = {
   ACTIVE = 1,
@@ -18,7 +16,7 @@ local defaults = {
   state = loaderStates.IDLE
 }
 
-class('Loader', defaults).extends(gfx.sprite)
+class('Loader', defaults).extends(spr)
 
 function Loader:Draw()
   self.loaderImage:clear(gfx.kColorClear)
@@ -44,13 +42,13 @@ end
 function Loader:Start(startCallback)
   self.startCallback = startCallback
   self.state = loaderStates.STARTING
-  self.alphaAnimator = gfx.animator.new(500, 0, 1)
+  self.alphaAnimator = ani.new(500, 0, 1)
 end
 
 function Loader:Stop(stopCallback)
   self.stopCallback = stopCallback
   self.state = loaderStates.STOPPING
-  self.alphaAnimator = gfx.animator.new(500, 1, 0)
+  self.alphaAnimator = ani.new(500, 1, 0)
 end
 
 function Loader:update()
