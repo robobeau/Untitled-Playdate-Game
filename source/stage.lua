@@ -3,6 +3,8 @@ import 'utils'
 -- Convenience variables
 local pd <const> = playdate
 local gfx <const> = pd.graphics
+local img <const> = gfx.image
+local spr <const> = gfx.sprite
 
 local defaults = {
   sprites = {},
@@ -33,40 +35,44 @@ function Stage:CreateBounds()
     y = height - stageSprite.height,
   }
 
-  local ceiling <const> = gfx.sprite.new()
+  local ceiling <const> = spr.new()
         ceiling:setCenter(0, 0)
+        ceiling:moveTo(0, 0)
         ceiling:setCollideRect(0, 0, stageSprite.width, 20)
         ceiling:setCollidesWithGroupsMask(collisionTypes.PUSHBOX)
         ceiling:setGroupMask(collisionTypes.WALL)
         ceiling:setSize(stageSprite.width, 20)
-        ceiling:moveTo(0, 0)
+        ceiling:setUpdatesEnabled(false)
         ceiling:add()
 
-  local floor <const> = gfx.sprite.new()
+  local floor <const> = spr.new()
         floor:setCenter(0, 0)
+        floor:moveTo(0, stageSprite.height - 20)
         floor:setCollideRect(0, 0, stageSprite.width, 20)
         floor:setCollidesWithGroupsMask(collisionTypes.PUSHBOX)
         floor:setGroupMask(collisionTypes.WALL)
         floor:setSize(stageSprite.width, 20)
-        floor:moveTo(0, stageSprite.height - 20)
+        floor:setUpdatesEnabled(false)
         floor:add()
 
-  local leftWall <const> = gfx.sprite.new()
+  local leftWall <const> = spr.new()
         leftWall:setCenter(0, 0)
+        leftWall:moveTo(0, 0)
         leftWall:setCollideRect(0, 0, 20, stageSprite.height)
         leftWall:setCollidesWithGroupsMask(collisionTypes.PUSHBOX)
         leftWall:setGroupMask(collisionTypes.WALL)
         leftWall:setSize(20, stageSprite.height)
-        leftWall:moveTo(0, 0)
+        leftWall:setUpdatesEnabled(false)
         leftWall:add()
 
-  local rightWall <const> = gfx.sprite.new()
+  local rightWall <const> = spr.new()
         rightWall:setCenter(0, 0)
+        rightWall:moveTo(stageSprite.width - 20, 0)
         rightWall:setCollideRect(0, 0, 20, stageSprite.height)
         rightWall:setCollidesWithGroupsMask(collisionTypes.PUSHBOX)
         rightWall:setGroupMask(collisionTypes.WALL)
         rightWall:setSize(20, stageSprite.height)
-        rightWall:moveTo(stageSprite.width - 20, 0)
+        rightWall:setUpdatesEnabled(false)
         rightWall:add()
 
     table.insert(self.sprites, ceiling)
@@ -94,19 +100,20 @@ function Stage:GetMinMaxBounds()
 end
 
 function Stage:Load()
-  local lua <const> = self:LoadTMJ()
+  local tmj <const> = self:LoadTMJ()
 
-  for i, layer in ipairs(lua.layers) do
+  for i, layer in ipairs(tmj.layers) do
     if (layer.visible) then
       local imagePath = layer.image
             -- Chop off the "../" and ".png"
             imagePath = string.gsub(imagePath, '%.%./', '')
             imagePath = string.gsub(imagePath, '%.png', '')
-      local image <const> = gfx.image.new(imagePath)
-      local sprite <const> = gfx.sprite.new(image)
+      local image <const> = img.new(imagePath)
+      local sprite <const> = spr.new(image)
             sprite:setCenter(0, 0)
-            sprite:setCollisionsEnabled(false)
             sprite:moveTo(layer.offsetx or 0, layer.offsety or 0)
+            sprite:setCollisionsEnabled(false)
+            sprite:setUpdatesEnabled(false)
             sprite:setZIndex(i - 100)
             sprite:add()
 
@@ -122,7 +129,6 @@ function Stage:Load()
   }
 
   gfx.setDrawOffset(drawOffset.x, drawOffset.y)
-  -- gfx.setDrawOffset(0, 0)
 end
 
 function Stage:LoadTMJ()
