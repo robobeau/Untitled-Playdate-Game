@@ -4,13 +4,16 @@ import 'characters/Kim/kim'
 local pd <const> = playdate
 local geo <const> = pd.geometry
 local gfx <const> = pd.graphics
+local img <const> = gfx.image
+local rec <const> = geo.rect
+local spr <const> = gfx.sprite
 local ui <const> = pd.ui
 
 class('CharacterSelectScene').extends(Room)
 
 function CharacterSelectScene:CheckInputs()
   local current <const>, pressed <const>, released <const> = table.unpack({ pd.getButtonState() })
-  local buttonState = {
+  local buttonState <const> = {
     hasPressedA = pressed & pd.kButtonA ~= 0,
     hasPressedB = pressed & pd.kButtonB ~= 0,
     hasPressedDown = pressed & pd.kButtonDown ~= 0,
@@ -51,79 +54,87 @@ function CharacterSelectScene:CheckInputs()
 end
 
 function CharacterSelectScene:draw()
-  print('CharacterSelectScene', 'Draw')
+  -- print('CharacterSelectScene', 'Draw')
 
+  self.gridviewImage:clear(gfx.kColorClear)
+
+  self:DrawBackground()
+  self:DrawCharacter()
+  self:DrawGrid()
+
+  self.gridviewSprite:setImage(self.gridviewImage)
+end
+
+function CharacterSelectScene:DrawBackground()
+  gfx.pushContext(self.gridviewImage)
+    gfx.setColor(gfx.kColorBlack)
+    gfx.fillRect(0, 0, 400, 240)
+
+    self.backgroundAnimationLoop:draw(0, 0)
+  gfx.popContext()
+end
+
+function CharacterSelectScene:DrawCharacter()
   local section <const>,
         row <const>,
         column <const> = self.gridview:getSelection()
   local character <const> = self.characterList[row][column]
-  local gridviewImage <const> = gfx.image.new(400, 240)
 
-  -- Draw the background
-  gfx.pushContext(gridviewImage)
-    gfx.setColor(gfx.kColorBlack)
-    gfx.fillRect(0, 0, 400, 240)
-
-    self.background:draw(0, 0)
-  gfx.popContext()
-
-  -- Draw the selected character
   if (character) then
-    print('Text width', character.name, self.font:getTextWidth(character.name))
-    print('Text height', self.font:getHeight())
+    -- print('Text width', character.name, self.font:getTextWidth(character.name))
+    -- print('Text height', self.font:getHeight())
 
-    local characterNameImage <const> = gfx.image.new(
-      self.font:getTextWidth(character.name),
-      self.font:getHeight(),
-      gfx.kColorClear
-    )
-    local characterPortraitImage <const> = character.portraitImage:scaledImage(1)
+    character.nameImage:clear(gfx.kColorClear)
 
-    gfx.pushContext(characterNameImage)
+    -- Draw name
+    gfx.pushContext(character.nameImage)
       gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
       self.font:drawTextAligned(string.upper(character.name), 0, 0, kTextAlignment.left)
     gfx.popContext()
 
-    gfx.pushContext(gridviewImage)
-      local characterNameImageScaled <const> = characterNameImage:scaledImage(3)
-      local characterNamePosition <const> = {
+    gfx.pushContext(self.gridviewImage)
+      local nameImageScaled <const> = character.nameImage:scaledImage(3)
+      local namePosition <const> = {
         x = 20,
         y = 200,
       }
-      local characterPortraitPosition <const> = {
+      local portraitImageScaled <const> = character.portraitImage:scaledImage(1)
+      local portraitPosition <const> = {
         x = 0,
-        y = 240 - characterPortraitImage.height
+        y = 240 - portraitImageScaled.height
       }
 
-      -- Draw character portrait
+      -- Draw portrait's stroke
       gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
-      characterPortraitImage:draw(characterPortraitPosition.x - 1, characterPortraitPosition.y - 1)
-      characterPortraitImage:draw(characterPortraitPosition.x - 1, characterPortraitPosition.y + 1)
-      characterPortraitImage:draw(characterPortraitPosition.x + 1, characterPortraitPosition.y - 1)
-      characterPortraitImage:draw(characterPortraitPosition.x + 1, characterPortraitPosition.y + 1)
+      portraitImageScaled:draw(portraitPosition.x - 1, portraitPosition.y - 1)
+      portraitImageScaled:draw(portraitPosition.x - 1, portraitPosition.y + 1)
+      portraitImageScaled:draw(portraitPosition.x + 1, portraitPosition.y - 1)
+      portraitImageScaled:draw(portraitPosition.x + 1, portraitPosition.y + 1)
 
+      -- Draw portrait
       gfx.setImageDrawMode(gfx.kDrawModeCopy)
-      characterPortraitImage:draw(0, 240 - characterPortraitImage.height)
+      portraitImageScaled:draw(0, 240 - portraitImageScaled.height)
 
-      -- Draw character name
+      -- Draw name's stroke
       gfx.setImageDrawMode(gfx.kDrawModeFillBlack)
-      characterNameImageScaled:draw(characterNamePosition.x - 1, characterNamePosition.y - 1)
-      characterNameImageScaled:draw(characterNamePosition.x - 1, characterNamePosition.y + 1)
-      characterNameImageScaled:draw(characterNamePosition.x + 1, characterNamePosition.y - 1)
-      characterNameImageScaled:draw(characterNamePosition.x + 1, characterNamePosition.y + 1)
+      nameImageScaled:draw(namePosition.x - 1, namePosition.y - 1)
+      nameImageScaled:draw(namePosition.x - 1, namePosition.y + 1)
+      nameImageScaled:draw(namePosition.x + 1, namePosition.y - 1)
+      nameImageScaled:draw(namePosition.x + 1, namePosition.y + 1)
 
+      -- Draw name
       gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
-      characterNameImageScaled:draw(characterNamePosition.x, characterNamePosition.y)
+      nameImageScaled:draw(namePosition.x, namePosition.y)
     gfx.popContext()
   end
+end
 
-  gfx.pushContext(gridviewImage)
+function CharacterSelectScene:DrawGrid()
+  gfx.pushContext(self.gridviewImage)
     -- if (self.gridview.needsDisplay) then
     self.gridview:drawInRect(200, 100, 400, 240)
     -- end
   gfx.popContext()
-
-  self.gridviewSprite:setImage(gridviewImage)
 end
 
 function CharacterSelectScene:enter(previous, ...)
@@ -131,7 +142,7 @@ function CharacterSelectScene:enter(previous, ...)
 
   local fireBGImageTable <const> = gfx.imagetable.new('images/characterSelect/FireBG')
 
-  self.background = gfx.animation.loop.new(100, fireBGImageTable)
+  self.backgroundAnimationLoop = gfx.animation.loop.new(100, fireBGImageTable)
   self.font = gfx.font.new('fonts/Super Monaco GP')
   self.font:setTracking(0)
 
@@ -140,64 +151,117 @@ function CharacterSelectScene:enter(previous, ...)
 end
 
 function CharacterSelectScene:InitCharacterList()
+  local fontHeight <const> = self.font:getHeight()
+  local kim <const> = Kim()
+        kim.nameImage = img.new(
+          self.font:getTextWidth(kim.name),
+          fontHeight,
+          gfx.kColorClear
+        )
+
   self.characterList = {
     {
-      Kim(),
+      kim,
       {
         hidden = false,
         name = 'Terry',
-        menuImage = gfx.image.new('images/characters/TerryMenu'),
-        portraitImage = gfx.image.new('images/characters/TerryPortrait'),
+        nameImage = img.new(
+          self.font:getTextWidth('Terry'),
+          fontHeight,
+          gfx.kColorClear
+        ),
+        menuImage = img.new('images/characters/TerryMenu'),
+        portraitImage = img.new('images/characters/TerryPortrait'),
       },
       {
         hidden = false,
         name = 'Andy',
-        menuImage = gfx.image.new('images/characters/AndyMenu'),
-        portraitImage = gfx.image.new('images/characters/AndyPortrait'),
+        nameImage = img.new(
+          self.font:getTextWidth('Andy'),
+          fontHeight,
+          gfx.kColorClear
+        ),
+        menuImage = img.new('images/characters/AndyMenu'),
+        portraitImage = img.new('images/characters/AndyPortrait'),
       },
       {
         hidden = false,
         name = 'Joe',
-        menuImage = gfx.image.new('images/characters/JoeMenu'),
-        portraitImage = gfx.image.new('images/characters/JoePortrait'),
+        nameImage = img.new(
+          self.font:getTextWidth('Joe'),
+          fontHeight,
+          gfx.kColorClear
+        ),
+        menuImage = img.new('images/characters/JoeMenu'),
+        portraitImage = img.new('images/characters/JoePortrait'),
       },
       {
         hidden = true,
         name = 'Jet Axel',
-        menuImage = gfx.image.new('images/characters/JetAxelMenu'),
-        portraitImage = gfx.image.new('images/characters/JetAxelPortrait'),
+        nameImage = img.new(
+          self.font:getTextWidth('Jet Axel'),
+          fontHeight,
+          gfx.kColorClear
+        ),
+        menuImage = img.new('images/characters/JetAxelMenu'),
+        portraitImage = img.new('images/characters/JetAxelPortrait'),
       },
     },
     {
       {
         hidden = false,
         name = 'Li',
-        menuImage = gfx.image.new('images/characters/LiMenu'),
-        portraitImage = gfx.image.new('images/characters/LiPortrait'),
+        nameImage = img.new(
+          self.font:getTextWidth('Li'),
+          fontHeight,
+          gfx.kColorClear
+        ),
+        menuImage = img.new('images/characters/LiMenu'),
+        portraitImage = img.new('images/characters/LiPortrait'),
       },
       {
         hidden = false,
         name = 'Geese',
-        menuImage = gfx.image.new('images/characters/GeeseMenu'),
-        portraitImage = gfx.image.new('images/characters/GeesePortrait'),
+        nameImage = img.new(
+          self.font:getTextWidth('Geese'),
+          fontHeight,
+          gfx.kColorClear
+        ),
+        menuImage = img.new('images/characters/GeeseMenu'),
+        portraitImage = img.new('images/characters/GeesePortrait'),
       },
       {
         hidden = false,
         name = 'Rick',
-        menuImage = gfx.image.new('images/characters/RickMenu'),
-        portraitImage = gfx.image.new('images/characters/RickPortrait'),
+        nameImage = img.new(
+          self.font:getTextWidth('Rick'),
+          fontHeight,
+          gfx.kColorClear
+        ),
+        menuImage = img.new('images/characters/RickMenu'),
+        portraitImage = img.new('images/characters/RickPortrait'),
       },
       {
         hidden = false,
         name = 'Mai',
-        menuImage = gfx.image.new('images/characters/MaiMenu'),
-        portraitImage = gfx.image.new('images/characters/MaiPortrait'),
+        nameImage = img.new(
+          self.font:getTextWidth('Mai'),
+          fontHeight,
+          gfx.kColorClear
+        ),
+        menuImage = img.new('images/characters/MaiMenu'),
+        portraitImage = img.new('images/characters/MaiPortrait'),
       },
       {
         hidden = true,
         name = 'Rich',
-        menuImage = gfx.image.new('images/characters/RichMenu'),
-        portraitImage = gfx.image.new('images/characters/RichPortrait'),
+        nameImage = img.new(
+          self.font:getTextWidth('Rich'),
+          fontHeight,
+          gfx.kColorClear
+        ),
+        menuImage = img.new('images/characters/RichMenu'),
+        portraitImage = img.new('images/characters/RichPortrait'),
       },
     }
   }
@@ -210,8 +274,9 @@ function CharacterSelectScene:InitGrid()
   -- self.gridview:setCellPadding(1, 1, 1, 1)
   self.gridview:setNumberOfColumns(5)
   self.gridview:setNumberOfRows(2)
+  self.gridviewImage = img.new(400, 240)
 
-  local characterList = self.characterList
+  local characterList <const> = self.characterList
 
   function self.gridview:drawCell(section, row, column, selected, x, y, width, height)
     local character <const> = characterList[row][column]
@@ -230,7 +295,7 @@ function CharacterSelectScene:InitGrid()
         x = (character.menuImage.width - width) / 2,
         y = (character.menuImage.height - height) / 2
       }
-      local sourceRect <const> = geo.rect.new(
+      local sourceRect <const> = rec.new(
         centeredPosition.x + 4,
         centeredPosition.y + 4,
         width - 4,
@@ -240,7 +305,7 @@ function CharacterSelectScene:InitGrid()
       character.menuImage:draw(
         x + 2,
         y + 2,
-        playdate.graphics.kImageUnflipped,
+        gfx.kImageUnflipped,
         sourceRect
       )
     end
@@ -256,16 +321,19 @@ function CharacterSelectScene:InitGrid()
     end
   end
 
-  self.gridviewSprite = gfx.sprite.new()
+  self.gridviewSprite = spr.new()
   self.gridviewSprite:setCollisionsEnabled(false)
   self.gridviewSprite:setCenter(0, 0)
+  self.gridviewSprite:setUpdatesEnabled(false)
   self.gridviewSprite:add()
 end
 
 function CharacterSelectScene:leave(next, ...)
   -- print('CharacterSelectScene', 'Leave', next)
 
-  self.background = nil
+  self.backgroundAnimationLoop = nil
+  self.font = nil
+  self.gridview = nil
   self.gridviewSprite:remove()
 end
 
