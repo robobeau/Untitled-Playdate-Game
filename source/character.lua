@@ -12,6 +12,7 @@ import 'utils'
 local pd <const> = playdate
 local geo <const> = pd.geometry
 local gfx <const> = pd.graphics
+local img <const> = gfx.image
 local poi <const> = geo.point
 local spr <const> = gfx.sprite
 
@@ -780,7 +781,11 @@ function Character:GetHit(hitbox)
     hitstun = hitstun,
     velocity = newVelocity,
   })
-  self.OnHealthChange(health)
+
+  if (self.OnHealthChange) then
+    self.OnHealthChange(health)
+  end
+
   self:SetState(newState)
 
   spr.removeSprites({ hitbox })
@@ -1175,7 +1180,7 @@ function Character:HydrateImageTable(animation)
     if (images[imagePath] ~= nil) then
       image = images[imagePath]
     else
-      image = gfx.image.new(imagePath)
+      image = img.new(imagePath)
       images[imagePath] = image
     end
 
@@ -1353,8 +1358,8 @@ function Character:LoadImageTables()
   local menuImageFilePath <const> = 'characters/' .. self.name .. '/images/' .. self.name .. 'PortraitMenu'
   local portraitImageFilePath <const> = 'characters/' .. self.name .. '/images/' .. self.name .. 'Portrait'
 
-  self.menuImage = gfx.image.new(menuImageFilePath)
-  self.portraitImage = gfx.image.new(portraitImageFilePath)
+  self.menuImage = img.new(menuImageFilePath)
+  self.portraitImage = img.new(portraitImageFilePath)
 end
 
 function Character:LoadAnimations()
@@ -1549,15 +1554,15 @@ function Character:PlaySoundFX()
 
   -- self:Debug('Sound FX', frame.soundFX, frameData.soundFX)
 
-  if (frameData.soundFX) then
-    local soundFXPath = frameData.soundFX
-          -- Chop off the "../" and ".wav"
-          soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
-          soundFXPath = string.gsub(soundFXPath, '%.wav', '')
+  -- if (frameData.soundFX) then
+  --   local soundFXPath = frameData.soundFX
+  --         -- Chop off the "../" and ".wav"
+  --         soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
+  --         soundFXPath = string.gsub(soundFXPath, '%.wav', '')
 
-    local soundFX <const> = pd.sound.sampleplayer.new(soundFXPath)
-    soundFX:play()
-  end
+  --   local soundFX <const> = pd.sound.sampleplayer.new(soundFXPath)
+  --   soundFX:play()
+  -- end
 end
 
 function Character:SetCollisionBox(box)
@@ -1596,11 +1601,31 @@ function Character:SetFrameCollisions()
   self:SetPushbox(nextAnimationFrame.collisions.Pushbox)
 
   for _, hitbox in ipairs(nextAnimationFrame.collisions.Hitboxes) do
-    self:SetCollisionBox(hitbox)
+    -- self:SetCollisionBox(hitbox)
+
+    local hitboxSprite = Hitbox({
+      character = self,
+      collideRect = hitbox.rect,
+      name = hitbox.name,
+      properties = hitbox.properties,
+    })
+    hitboxSprite:add()
+
+    table.insert(self.emptyCollisionSprites, hitboxSprite)
   end
 
   for _, hurtbox in ipairs(nextAnimationFrame.collisions.Hurtboxes) do
-    self:SetCollisionBox(hurtbox)
+    -- self:SetCollisionBox(hurtbox)
+
+    local hurtboxSprite = Hurtbox({
+      character = self,
+      collideRect = hurtbox.rect,
+      name = hurtbox.name,
+      properties = hurtbox.properties,
+    })
+    hurtboxSprite:add()
+
+    table.insert(self.emptyCollisionSprites, hurtboxSprite)
   end
 end
 
