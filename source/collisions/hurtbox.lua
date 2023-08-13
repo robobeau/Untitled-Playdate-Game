@@ -15,8 +15,6 @@ function Hurtbox:HandleCollision(collision)
     return
   end
 
-  -- print('Handle Hurtbox Collision', collision.sprite.name, collision.other.name)
-
   -- Do something...?
 end
 

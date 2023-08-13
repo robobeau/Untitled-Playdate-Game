@@ -15,8 +15,6 @@ function Hitbox:HandleCollision(collision)
     return
   end
 
-  -- print('Handle Hitbox Collision', collision.sprite.name, collision.other.name)
-
   local didCharacterBlock <const> = character:CheckBlockInputs()
 
   if (not didCharacterBlock) then

@@ -4,17 +4,19 @@ import '../collisionTypes'
 local pd <const> = playdate
 local geo <const> = pd.geometry
 local gfx <const> = pd.graphics
+local rec <const> = geo.rect
+local spr <const> = gfx.sprite
 
 local defaults <const> = {
   character = nil,
-  collideRect =  geo.rect.new(0, 0, 0, 0),
+  collideRect =  rec.new(0, 0, 0, 0),
   collidesWithGroupsMask = 0,
   groupMask = 0,
   name = 'Collision',
   properties = {}
 }
 
-class('Collision', defaults).extends(gfx.sprite)
+class('Collision', defaults).extends(spr)
 
 function Collision:HandleCollision(collision)
   -- Do something...?
@@ -31,7 +33,7 @@ function Collision:init(config)
 
   self.character = config.character or self.character
   self.collideRect = config.collideRect or self.collideRect
-  self.collisionResponse = gfx.sprite.kCollisionTypeOverlap
+  self.collisionResponse = spr.kCollisionTypeOverlap
   self.name = config.name or self.name
   self.properties = config.properties or self.properties
 
@@ -47,14 +49,12 @@ function Collision:init(config)
 end
 
 function Collision:update()
-  -- sample('Collision update', function()
-    local boundsRect <const> = self.character:getBoundsRect()
-    local collideRect <const> = self.collideRect:offsetBy(boundsRect.x, boundsRect.y)
-          collideRect:flipRelativeToRect(boundsRect, self.character:GetFlip())
-    local actualX <const>,
-          actualY <const>,
-          collisions <const> = self:moveWithCollisions(collideRect.x, collideRect.y)
-  
-    self:HandleCollisions(collisions)
-  -- end)
+  local boundsRect <const> = self.character:getBoundsRect()
+  local collideRect <const> = self.collideRect:offsetBy(boundsRect.x, boundsRect.y)
+        collideRect:flipRelativeToRect(boundsRect, self.character:GetFlip())
+  local actualX <const>,
+        actualY <const>,
+        collisions <const> = self:moveWithCollisions(collideRect.x, collideRect.y)
+
+  self:HandleCollisions(collisions)
 end
