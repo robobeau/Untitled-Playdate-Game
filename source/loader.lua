@@ -5,6 +5,7 @@ import "CoreLibs/sprites"
 -- Convenience variables
 local pd <const> = playdate
 local gfx <const> = pd.graphics
+local img <const> = gfx.image
 
 loaderStates = {
   ACTIVE = 1,
@@ -20,27 +21,24 @@ local defaults = {
 class('Loader', defaults).extends(gfx.sprite)
 
 function Loader:Draw()
-  local displayRect <const> = pd.display.getRect()
-  local loaderImage <const> = gfx.image.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.loaderImage:clear(gfx.kColorClear)
 
-  gfx.pushContext(loaderImage)
-    gfx.setColor(gfx.kColorClear)
-    gfx.fillRect(0, 0, displayRect.width, displayRect.height)
-
-    local fadeImage <const> = gfx.image.new(displayRect.width, displayRect.height, gfx.kColorBlack)
-          fadeImage:drawFaded(0, 0, self.alphaAnimator:currentValue(), gfx.image.kDitherTypeBayer8x8)
+  gfx.pushContext(self.loaderImage)
+    self.fadeImage:drawFaded(0, 0, self.alphaAnimator:currentValue(), img.kDitherTypeBayer8x8)
   gfx.popContext()
 
-  self:setImage(loaderImage)
+  self:setImage(self.loaderImage)
 end
 
 function Loader:init(config)
-  local displayRect <const> = pd.display.getRect()
+  self.displayRect = pd.display.getRect()
+  self.fadeImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorBlack)
+  self.loaderImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
 
   self:setCollisionsEnabled(false)
   self:setIgnoresDrawOffset(true)
   self:setZIndex(1000)
-  self:moveTo(displayRect.width / 2, displayRect.height / 2)
+  self:moveTo(self.displayRect.width / 2, self.displayRect.height / 2)
 end
 
 function Loader:Start(startCallback)
