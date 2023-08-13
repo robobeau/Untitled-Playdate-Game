@@ -186,8 +186,8 @@ end
 function Ball:HandleWallCollision(collision)
   if (collision.normal.x ~= 0 or collision.normal.y ~= 0) then
     -- TODO: Find a better way to reduce horizontal velocity
-    self.velocity.x -= self.gravity * Sign(self.velocity.x)
-    self.velocity.y -= self.gravity * Sign(self.velocity.y)
+    self.velocity.x -= self.gravity * math.sign(self.velocity.x)
+    self.velocity.y -= self.gravity * math.sign(self.velocity.y)
 
     if (collision.normal.x ~= 0) then
       self.velocity.x *= -1
@@ -250,7 +250,7 @@ end
 
 function Ball:SetVelocityX(x)
   local newVelocityX = x
-  local signX <const> = Sign(self.velocity.x)
+  local signX <const> = math.sign(self.velocity.x)
 
   if (signX ~= 0) then
     newVelocityX *= signX
@@ -261,7 +261,7 @@ end
 
 function Ball:SetVelocityY(y)
   local newVelocityY = y
-  local signY <const> = Sign(self.velocity.y)
+  local signY <const> = math.sign(self.velocity.y)
 
   if (signY ~= 0) then
     newVelocityY *= signY
@@ -286,7 +286,7 @@ function Ball:UpdatePosition()
 
   -- if (math.abs(self.velocity.x) > 0) then
   --   local refreshRate <const> = pd.display.getRefreshRate()
-  --   self.velocity.x -= (self.gravity / refreshRate) * Sign(self.velocity.x)
+  --   self.velocity.x -= (self.gravity / refreshRate) * math.sign(self.velocity.x)
 
   --   -- if math.abs(self.velocity.x) < 0.1 then
   --   --   self.velocity.x = 0

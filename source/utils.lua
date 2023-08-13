@@ -1,7 +1,8 @@
 -- Convenience variables
 local pd <const> = playdate
 local geo <const> = pd.geometry
--- local gfx <const> = pd.graphics
+local poi <const> = geo.point
+local rec <const> = geo.rect
 
 -- Tiled's custom properties need to be converted into a table.
 function ConvertCustomPropertiesToTable(customProperties)
@@ -11,7 +12,7 @@ function ConvertCustomPropertiesToTable(customProperties)
     properties[customProperty.name] = customProperty.value
   end
 
-  return properties;
+  return properties
 end
 
 function ExtractCharacterObjects(objects)
@@ -26,52 +27,30 @@ function ExtractCharacterObjects(objects)
     local properties <const> = ConvertCustomPropertiesToTable(object.properties or {})
 
     if (object.type == 'Center') then
-      center = geo.point.new(object.x, object.y)
-    end
-
-    if (object.type == 'Pushbox') then
-      local rect <const> = geo.rect.new(object.x, object.y, object.width, object.height)
-
-      collisions['Pushbox'] = {
-        name = object.name, -- For debugging ;)
-        properties = properties,
-        rect = rect,
-        type = object.type,
-      }
-    end
-
-    if (object.type == 'Hitbox') then
-      local rect <const> = geo.rect.new(object.x, object.y, object.width, object.height)
-
+      center = poi.new(object.x, object.y)
+    elseif (object.type == 'Hitbox') then
       table.insert(collisions['Hitboxes'], {
         name = object.name, -- For debugging ;)
         properties = properties,
-        rect = rect,
+        rect = rec.new(object.x, object.y, object.width, object.height),
         type = object.type,
       })
-    end
-
-    if (object.type == 'Hurtbox') then
-      local rect <const> = geo.rect.new(object.x, object.y, object.width, object.height)
-
+    elseif (object.type == 'Hurtbox') then
       table.insert(collisions['Hurtboxes'], {
         name = object.name, -- For debugging ;)
         properties = properties,
-        rect = rect,
+        rect = rec.new(object.x, object.y, object.width, object.height),
         type = object.type,
       })
+    elseif (object.type == 'Pushbox') then
+      collisions['Pushbox'] = {
+        name = object.name, -- For debugging ;)
+        properties = properties,
+        rect = rec.new(object.x, object.y, object.width, object.height),
+        type = object.type,
+      }
     end
   end
 
-  return center, collisions;
-end
-
-function Sign(number)
-  if number > 0 then
-    return 1
-  elseif number < 0 then
-    return -1
-  else
-    return 0
-  end
+  return center, collisions
 end
