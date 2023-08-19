@@ -12,7 +12,7 @@ loaderStates = {
   STOPPING = 8,
 }
 
-local defaults = {
+local defaults <const> = {
   state = loaderStates.IDLE
 }
 
@@ -33,10 +33,10 @@ function Loader:init(config)
   self.fadeImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorBlack)
   self.loaderImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
 
+  self:moveTo(self.displayRect.width / 2, self.displayRect.height / 2)
   self:setCollisionsEnabled(false)
   self:setIgnoresDrawOffset(true)
   self:setZIndex(1000)
-  self:moveTo(self.displayRect.width / 2, self.displayRect.height / 2)
 end
 
 function Loader:Start(startCallback)

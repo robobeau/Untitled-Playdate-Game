@@ -27,33 +27,30 @@ local defaults <const> = {
   total = 0,
 }
 
-class('Meter', defaults).extends(spr)
+class('Meter', defaults).extends()
 
 function Meter:Draw()
-  self.meterImage:clear(gfx.kColorClear)
+  local position <const> = {
+    x = self.direction == meterDirections.LEFT
+      and self.meterRect.x
+      or self.meterRect.x - self.meterRect.width,
+    y = self.meterRect.y
+  }
 
-  self:DrawBackground()
-  self:DrawPercentage()
-  self:DrawBorders()
-
-  if (self.label) then
-    self:DrawLabel()
-  end
-
-  self:setImage(self.meterImage)
+  self.meterImage:drawIgnoringOffset(position.x, position.y)
 end
 
 function Meter:DrawBackground()
   gfx.pushContext(self.meterImage)
     gfx.setColor(gfx.kColorBlack)
-    gfx.fillRect(0, 0, self.width, self.height)
+    gfx.fillRect(0, 0, self.meterRect.width, self.meterRect.height)
   gfx.popContext()
 end
 
 function Meter:DrawBorders()
   gfx.pushContext(self.meterImage)
     gfx.setColor(gfx.kColorBlack)
-    gfx.drawRect(0, 0, self.width, self.height)
+    gfx.drawRect(0, 0, self.meterRect.width, self.meterRect.height)
   gfx.popContext()
 end
 
@@ -62,10 +59,10 @@ function Meter:DrawLabel()
     and kTextAlignment.left
     or kTextAlignment.right
   local position <const> = {
-    x = alignment == kTextAlignment.left
+    x = self.direction == meterDirections.LEFT
       and 5
-      or self.width - 5,
-    y = self.height / 4
+      or self.meterRect.width - 5,
+    y = self.meterRect.height / 4
   }
 
   gfx.pushContext(self.meterImage)
@@ -81,17 +78,15 @@ function Meter:DrawPercentage()
   local amountPercentage <const> = amount / self.total
   local amountWidth <const> = math.floor(amountPercentage * self.meterRect.width)
   local position <const> = {
-    x = 0,
+    x = self.direction == meterDirections.LEFT
+      and self.meterRect.width - amountWidth
+      or 0,
     y = 0,
   }
 
-  if (self.direction == meterDirections.LEFT) then
-    position.x = self.width - amountWidth
-  end
-
   gfx.pushContext(self.meterImage)
     gfx.setColor(gfx.kColorWhite)
-    gfx.fillRect(position.x, 0, amountWidth, self.height)
+    gfx.fillRect(position.x, position.y, amountWidth, self.meterRect.height)
   gfx.popContext()
 end
 
@@ -100,22 +95,11 @@ function Meter:init(config)
   self.direction = config.direction or self.direction
   self.font = fon.new(config.fontPath or self.fontPath)
   self.label = config.label or self.label
-  self.meterImage = img.new(self.meterRect.width, self.meterRect.height)
   self.meterRect = config.meterRect or self.meterRect
+  self.meterImage = img.new(self.meterRect.width, self.meterRect.height)
   self.total = config.total or self.total
 
-  local meterCenter <const> = {
-    x = self.direction == meterDirections.LEFT and 0 or 1,
-    y = 0,
-  }
-
-  self:setCenter(meterCenter.x, meterCenter.y)
-  self:moveTo(self.meterRect.x, self.meterRect.y)
-  self:setCollisionsEnabled(false)
-  self:setIgnoresDrawOffset(true)
-  self:setSize(self.meterRect.width, self.meterRect.height)
-  self:setZIndex(100)
-
+  self:UpdateMeterImage()
   self:Draw()
 end
 
@@ -124,16 +108,26 @@ function Meter:SetAmount(amount)
 
   self.amount = amount
   self.amountAnimator = ani.new(200, prevAmount, self.amount)
-
-  self:setUpdatesEnabled(true)
 end
 
-function Meter:update()
+function Meter:Update()
   if (self.amountAnimator) then
-    if (self.amountAnimator:ended()) then
-      self:setUpdatesEnabled(false)
-    else
-      self:Draw()
+    if (not self.amountAnimator:ended()) then
+      self:UpdateMeterImage()
     end
+  end
+
+  self:Draw()
+end
+
+function Meter:UpdateMeterImage()
+  self.meterImage:clear(gfx.kColorClear)
+
+  self:DrawBackground()
+  self:DrawPercentage()
+  self:DrawBorders()
+
+  if (self.label) then
+    self:DrawLabel()
   end
 end
