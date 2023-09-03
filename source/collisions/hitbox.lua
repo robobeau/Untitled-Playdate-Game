@@ -19,8 +19,7 @@ function Hitbox:HandleCollision(collision)
 
   if (not didCharacterBlock) then
     character:GetHit(self)
-
-    self.hasHit = true
+    self:remove()
 
     return
   end
@@ -28,11 +27,6 @@ end
 
 function Hitbox:HandleCollisions(collisions)
   for i, collision in ipairs(collisions) do
-    -- A hitbox should only even register 1 hit, so if we've already hit, exit the loop early.
-    if (self.hasHit) then
-      return
-    end
-
     self:HandleCollision(collision)
   end
 end

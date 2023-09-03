@@ -49,12 +49,19 @@ function Collision:init(config)
 end
 
 function Collision:update()
+  self:UpdatePosition()
+
+  local actualX <const>,
+        actualY <const>,
+        collisions <const> = self:checkCollisions(self.x, self.y)
+
+  self:HandleCollisions(collisions)
+end
+
+function Collision:UpdatePosition()
   local boundsRect <const> = self.character:getBoundsRect()
   local collideRect <const> = self.collideRect:offsetBy(boundsRect.x, boundsRect.y)
         collideRect:flipRelativeToRect(boundsRect, self.character:GetFlip())
-  local actualX <const>,
-        actualY <const>,
-        collisions <const> = self:moveWithCollisions(collideRect.x, collideRect.y)
 
-  self:HandleCollisions(collisions)
+  self:moveTo(collideRect.x, collideRect.y)
 end
