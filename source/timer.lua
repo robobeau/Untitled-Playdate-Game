@@ -7,16 +7,20 @@ local img <const> = gfx.image
 local tmr <const> = pd.timer
 
 local defaults <const> = {
-  -- fontPath = "fonts/A.B. Cop",
-  fontPath = "fonts/Super Monaco GP",
-  -- fontPath = "fonts/Battle Garegga - Type 2"
-  -- fontPath = "fonts/ST-DIN"
-  fontTracking = 0,
-  limit = 99,
+  fontConfig = {
+    -- path = "fonts/A.B. Cop",
+    -- path = "fonts/Battle Garegga - Type 2"
+    -- path = "fonts/ST-DIN"
+    path = "fonts/Super Monaco GP",
+    tracking = 0,
+  },
   label = "TIME",
-  onEnd = nil,
-  onStart = nil,
-  seconds = 99,
+  OnStop = nil,
+  OnStart = nil,
+  time = {
+    limit = 99,
+    seconds = 99,
+  },
 }
 
 class('Timer', defaults).extends()
@@ -32,57 +36,70 @@ end
 
 function Timer:init(config)
   self.displayRect = dis.getRect()
-  self.font = fon.new(config.fontPath or self.fontPath)
-  self.font:setTracking(config.fontTracking or self.fontTracking)
-  self.limit = config.limit or self.limit
-  self.seconds = config.seconds ~= nil and math.min(config.seconds, self.limit) or self.limit
+  self.font = fon.new((config.fontConfig and config.fontConfig.path) or self.fontConfig.path)
+  self.font:setTracking((config.fontConfig and config.fontConfig.tracking) or self.fontConfig.tracking)
+  self.OnStart = config.OnStart or self.OnStart
+  self.OnStop = config.OnStop or self.OnStop
+  self.time.limit = (config.time and config.time.limit) or self.time.limit
+  self.time.seconds = (config.time and config.time.seconds) or self.time.seconds
 
   self:InitImages()
-  self:UpdateTimerImage()
-  self:Draw()
+  self:Reset()
 end
 
 function Timer:InitImages()
-  local secondsImageWidth <const> = self.font:getTextWidth(self.limit)
-  local secondsImageHeight <const> = self.font:getHeight()
-
-  self.secondsImage = img.new(secondsImageWidth, secondsImageHeight)
-
+  local fontHeight <const> = self.font:getHeight()
   local labelImageWidth <const> = self.font:getTextWidth(self.label)
-  local labelImageHeight <const> = self.font:getHeight()
+  local secondsImageWidth <const> = self.font:getTextWidth(self.time.limit)
 
-  self.labelImage = img.new(labelImageWidth, labelImageHeight)
-
+  self.labelImage = img.new(labelImageWidth, fontHeight)
+  self.secondsImage = img.new(secondsImageWidth, fontHeight)
   self.timerImage = img.new(40, 40)
 end
 
 function Timer:Reset()
-  self.seconds = self.limit
+  self.time.seconds = self.time.limit
 
   self:UpdateTimerImage()
   self:Draw()
+end
 
-  if (self.timer and self.timer.timeLeft > 0) then
+function Timer:Start()
+  self:Reset()
+
+  if (self.timer) then
     self.timer:remove()
   end
 
   self.timer = tmr.new(1000)
 end
 
-function Timer:Start()
-  self:Reset()
+function Timer:Teardown()
+  if (self.timer) then
+    self.timer:remove()
+  end
+
+  self.labelImage:clear(gfx.kColorClear)
+  self.labelImage = nil
+
+  self.secondsImage:clear(gfx.kColorClear)
+  self.secondsImage = nil
+
+  self.timerImage:clear(gfx.kColorClear)
+  self.timerImage = nil
 end
 
 function Timer:Tick()
-  self.seconds -= 1
+  self.time.seconds -= 1
 
-  if (self.seconds >= 0) then
+  if (self.time.seconds >= 0) then
     self.timer = tmr.new(1000)
 
     self:UpdateTimerImage()
   else
-    if (self.onEnd) then
-      self.onEnd()
+    if (self.OnStop) then
+      self.timer = nil
+      self.OnStop()
     end
   end
 end
@@ -135,7 +152,7 @@ function Timer:UpdateSecondsImage()
       y = 0
     }
 
-    self.font:drawTextAligned(self.seconds, position.x, position.y, kTextAlignment.center)
+    self.font:drawTextAligned(self.time.seconds, position.x, position.y, kTextAlignment.center)
   gfx.popContext()
 
   gfx.pushContext(self.timerImage)

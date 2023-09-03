@@ -6,8 +6,54 @@ local geo <const> = pd.geometry
 local gfx <const> = pd.graphics
 local img <const> = gfx.image
 local rec <const> = geo.rect
-local spr <const> = gfx.sprite
 local ui <const> = pd.ui
+
+-- Temp. character objects
+local Andy <const> = {
+  menuImagePath = 'images/characters/AndyMenu',
+  name = 'Andy',
+  portraitImagePath = 'images/characters/AndyPortrait',
+}
+local Geese <const> = {
+  menuImagePath = 'images/characters/GeeseMenu',
+  name = 'Geese',
+  portraitImagePath = 'images/characters/GeesePortrait',
+}
+local JetAxel <const> = {
+  menuImagePath = 'images/characters/JetAxelMenu',
+  name = 'Jet Axel',
+  portraitImagePath = 'images/characters/JetAxelPortrait',
+}
+local Joe <const> = {
+  menuImagePath = 'images/characters/JoeMenu',
+  name = 'Joe',
+  portraitImagePath = 'images/characters/JoePortrait',
+}
+local Li <const> = {
+  menuImagePath = 'images/characters/LiMenu',
+  name = 'Li',
+  portraitImagePath = 'images/characters/LiPortrait',
+}
+local Mai <const> = {
+  menuImagePath = 'images/characters/MaiMenu',
+  name = 'Mai',
+  portraitImagePath = 'images/characters/MaiPortrait',
+}
+local Rick <const> = {
+  menuImagePath = 'images/characters/RickMenu',
+  name = 'Rick',
+  portraitImagePath = 'images/characters/RickPortrait',
+}
+local Sandwichard <const> = {
+  menuImagePath = 'images/characters/RichMenu',
+  name = 'Sandwichard',
+  portraitImagePath = 'images/characters/RichPortrait',
+}
+local Terry <const> = {
+  menuImagePath = 'images/characters/TerryMenu',
+  name = 'Terry',
+  portraitImagePath = 'images/characters/TerryPortrait',
+}
 
 class('CharacterSelectScene').extends(Room)
 
@@ -47,22 +93,32 @@ function CharacterSelectScene:CheckInputs()
 
   -- 
   if (buttonState.hasPressedA) then
-    sceneLoader:Start(function ()
-      sceneManager:enter(FightScene)
-    end)
+    local section <const>,
+          row <const>,
+          column <const> = self.gridview:getSelection()
+    local listItem <const> = self.characterList[row][column]
+
+    if (listItem.selectable) then
+      local config <const> = {
+        character1Class = listItem.character
+      }
+
+      sceneLoader:Start(function ()
+        sceneManager:resetAndEnter(FightScene, config)
+      end)
+    end
   end
 end
 
 function CharacterSelectScene:draw()
-  -- print('CharacterSelectScene', 'Draw')
-
   self.gridviewImage:clear(gfx.kColorClear)
 
   self:DrawBackground()
   self:DrawCharacter()
   self:DrawGrid()
+  self:DrawDisclaimers()
 
-  self.gridviewSprite:setImage(self.gridviewImage)
+  self.gridviewImage:drawCentered(self.displayRect.width / 2, self.displayRect.height / 2)
 end
 
 function CharacterSelectScene:DrawBackground()
@@ -78,27 +134,24 @@ function CharacterSelectScene:DrawCharacter()
   local section <const>,
         row <const>,
         column <const> = self.gridview:getSelection()
-  local character <const> = self.characterList[row][column]
+  local listItem <const> = self.characterList[row][column]
 
-  if (character) then
-    -- print('Text width', character.name, self.font:getTextWidth(character.name))
-    -- print('Text height', self.font:getHeight())
-
-    character.nameImage:clear(gfx.kColorClear)
+  if (listItem) then
+    listItem.images.name:clear(gfx.kColorClear)
 
     -- Draw name
-    gfx.pushContext(character.nameImage)
+    gfx.pushContext(listItem.images.name)
       gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
-      self.font:drawTextAligned(string.upper(character.name), 0, 0, kTextAlignment.left)
+      self.font:drawTextAligned(listItem.character.name:upper(), 0, 0, kTextAlignment.left)
     gfx.popContext()
 
     gfx.pushContext(self.gridviewImage)
-      local nameImageScaled <const> = character.nameImage:scaledImage(3)
+      local nameImageScaled <const> = listItem.images.name:scaledImage(3)
       local namePosition <const> = {
         x = 20,
         y = 200,
       }
-      local portraitImageScaled <const> = character.portraitImage:scaledImage(1)
+      local portraitImageScaled <const> = listItem.images.portrait:scaledImage(1)
       local portraitPosition <const> = {
         x = 0,
         y = 240 - portraitImageScaled.height
@@ -129,22 +182,45 @@ function CharacterSelectScene:DrawCharacter()
   end
 end
 
+function CharacterSelectScene:DrawDisclaimers()
+  gfx.pushContext(self.gridviewImage)
+    gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
+    gfx.drawTextAligned(
+      '*None* of these characters will be in the final game',
+      390,
+      0,
+      kTextAlignment.right
+    )
+    gfx.drawTextAligned(
+      'Also, this screen is mocked _LOL_',
+      390,
+      gfx.getSystemFont():getHeight(),
+      kTextAlignment.right
+    )
+  gfx.popContext()
+end
+
 function CharacterSelectScene:DrawGrid()
   gfx.pushContext(self.gridviewImage)
-    -- if (self.gridview.needsDisplay) then
     self.gridview:drawInRect(200, 100, 400, 240)
-    -- end
   gfx.popContext()
 end
 
 function CharacterSelectScene:enter(previous, ...)
-  -- print('CharacterSelectScene', 'Enter')
+  self:Init()
 
+  if (sceneLoader.state == loaderStates.ACTIVE) then
+    sceneLoader:Stop()
+  end
+end
+
+function CharacterSelectScene:Init()
   local fireBGImageTable <const> = gfx.imagetable.new('images/characterSelect/FireBG')
 
   self.backgroundAnimationLoop = gfx.animation.loop.new(100, fireBGImageTable)
+  self.displayRect = pd.display.getRect()
   self.font = gfx.font.new('fonts/Super Monaco GP')
-  self.font:setTracking(0)
+  self.font:setTracking(-1)
 
   self:InitCharacterList()
   self:InitGrid()
@@ -152,116 +228,110 @@ end
 
 function CharacterSelectScene:InitCharacterList()
   local fontHeight <const> = self.font:getHeight()
-  local kim <const> = Kim()
-        kim.nameImage = img.new(
-          self.font:getTextWidth(kim.name),
-          fontHeight,
-          gfx.kColorClear
-        )
 
   self.characterList = {
     {
-      kim,
       {
+        character = Kim,
         hidden = false,
-        name = 'Terry',
-        nameImage = img.new(
-          self.font:getTextWidth('Terry'),
-          fontHeight,
-          gfx.kColorClear
-        ),
-        menuImage = img.new('images/characters/TerryMenu'),
-        portraitImage = img.new('images/characters/TerryPortrait'),
+        images = {
+          menu = img.new(Kim.menuImagePath),
+          name = img.new(self.font:getTextWidth(Kim.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(Kim.portraitImagePath),
+        },
+        selectable = true,
       },
       {
+        character = Terry,
         hidden = false,
-        name = 'Andy',
-        nameImage = img.new(
-          self.font:getTextWidth('Andy'),
-          fontHeight,
-          gfx.kColorClear
-        ),
-        menuImage = img.new('images/characters/AndyMenu'),
-        portraitImage = img.new('images/characters/AndyPortrait'),
+        images = {
+          menu = img.new(Terry.menuImagePath),
+          name = img.new(self.font:getTextWidth(Terry.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(Terry.portraitImagePath),
+        },
+        selectable = false,
       },
       {
+        character = Andy,
         hidden = false,
-        name = 'Joe',
-        nameImage = img.new(
-          self.font:getTextWidth('Joe'),
-          fontHeight,
-          gfx.kColorClear
-        ),
-        menuImage = img.new('images/characters/JoeMenu'),
-        portraitImage = img.new('images/characters/JoePortrait'),
+        images = {
+          menu = img.new(Andy.menuImagePath),
+          name = img.new(self.font:getTextWidth(Andy.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(Andy.portraitImagePath),
+        },
+        selectable = false,
       },
       {
+        character = Joe,
+        hidden = false,
+        images = {
+          menu = img.new(Joe.menuImagePath),
+          name = img.new(self.font:getTextWidth(Joe.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(Joe.portraitImagePath),
+        },
+        selectable = false,
+      },
+      {
+        character = JetAxel,
         hidden = true,
-        name = 'Jet Axel',
-        nameImage = img.new(
-          self.font:getTextWidth('Jet Axel'),
-          fontHeight,
-          gfx.kColorClear
-        ),
-        menuImage = img.new('images/characters/JetAxelMenu'),
-        portraitImage = img.new('images/characters/JetAxelPortrait'),
+        images = {
+          menu = img.new(JetAxel.menuImagePath),
+          name = img.new(self.font:getTextWidth(JetAxel.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(JetAxel.portraitImagePath),
+        },
+        selectable = false,
       },
     },
     {
       {
+        character = Li,
         hidden = false,
-        name = 'Li',
-        nameImage = img.new(
-          self.font:getTextWidth('Li'),
-          fontHeight,
-          gfx.kColorClear
-        ),
-        menuImage = img.new('images/characters/LiMenu'),
-        portraitImage = img.new('images/characters/LiPortrait'),
+        images = {
+          menu = img.new(Li.menuImagePath),
+          name = img.new(self.font:getTextWidth(Li.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(Li.portraitImagePath),
+        },
+        selectable = false,
       },
       {
+        character = Geese,
         hidden = false,
-        name = 'Geese',
-        nameImage = img.new(
-          self.font:getTextWidth('Geese'),
-          fontHeight,
-          gfx.kColorClear
-        ),
-        menuImage = img.new('images/characters/GeeseMenu'),
-        portraitImage = img.new('images/characters/GeesePortrait'),
+        images = {
+          menu = img.new(Geese.menuImagePath),
+          name = img.new(self.font:getTextWidth(Geese.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(Geese.portraitImagePath),
+        },
+        selectable = false,
       },
       {
+        character = Rick,
         hidden = false,
-        name = 'Rick',
-        nameImage = img.new(
-          self.font:getTextWidth('Rick'),
-          fontHeight,
-          gfx.kColorClear
-        ),
-        menuImage = img.new('images/characters/RickMenu'),
-        portraitImage = img.new('images/characters/RickPortrait'),
+        images = {
+          menu = img.new(Rick.menuImagePath),
+          name = img.new(self.font:getTextWidth(Rick.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(Rick.portraitImagePath),
+        },
+        selectable = false,
       },
       {
+        character = Mai,
         hidden = false,
-        name = 'Mai',
-        nameImage = img.new(
-          self.font:getTextWidth('Mai'),
-          fontHeight,
-          gfx.kColorClear
-        ),
-        menuImage = img.new('images/characters/MaiMenu'),
-        portraitImage = img.new('images/characters/MaiPortrait'),
+        images = {
+          menu = img.new(Mai.menuImagePath),
+          name = img.new(self.font:getTextWidth(Mai.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(Mai.portraitImagePath),
+        },
+        selectable = false,
       },
       {
+        character = Sandwichard,
         hidden = true,
-        name = 'Rich',
-        nameImage = img.new(
-          self.font:getTextWidth('Rich'),
-          fontHeight,
-          gfx.kColorClear
-        ),
-        menuImage = img.new('images/characters/RichMenu'),
-        portraitImage = img.new('images/characters/RichPortrait'),
+        images = {
+          menu = img.new(Sandwichard.menuImagePath),
+          name = img.new(self.font:getTextWidth(Sandwichard.name:upper()), fontHeight, gfx.kColorClear),
+          portrait = img.new(Sandwichard.portraitImagePath),
+        },
+        selectable = false,
       },
     }
   }
@@ -269,85 +339,79 @@ end
 
 function CharacterSelectScene:InitGrid()
   self.gridview = ui.gridview.new(32, 32)
-  -- For background image
-  -- self.gridview:setContentInset(5, 5, 5, 5)
-  -- self.gridview:setCellPadding(1, 1, 1, 1)
   self.gridview:setNumberOfColumns(5)
   self.gridview:setNumberOfRows(2)
   self.gridviewImage = img.new(400, 240)
 
   local characterList <const> = self.characterList
 
-  function self.gridview:drawCell(section, row, column, selected, x, y, width, height)
-    local character <const> = characterList[row][column]
+  function self.gridview:drawCell(section, row, column, highlighted, x, y, width, height)
+    local listItem <const> = characterList[row][column]
 
-    -- print(character.name)
-
-    if (character.hidden and not selected) then
+    if (listItem.hidden and not highlighted) then
       return
     end
 
     gfx.setColor(gfx.kColorWhite)
     gfx.fillRect(x + 2 , y + 2, width - 4, height - 4)
 
-    if (character ~= nil) then
-      local centeredPosition <const> = {
-        x = (character.menuImage.width - width) / 2,
-        y = (character.menuImage.height - height) / 2
-      }
-      local sourceRect <const> = rec.new(
-        centeredPosition.x + 4,
-        centeredPosition.y + 4,
-        width - 4,
-        height - 4
-      )
+    local centeredPosition <const> = {
+      x = (listItem.images.menu.width - width) / 2,
+      y = (listItem.images.menu.height - height) / 2
+    }
+    local sourceRect <const> = rec.new(
+      centeredPosition.x + 4,
+      centeredPosition.y + 4,
+      width - 4,
+      height - 4
+    )
 
-      character.menuImage:draw(
-        x + 2,
-        y + 2,
-        gfx.kImageUnflipped,
-        sourceRect
-      )
-    end
+    listItem.images.menu:draw(
+      x + 2,
+      y + 2,
+      gfx.kImageUnflipped,
+      sourceRect
+    )
 
     gfx.setColor(gfx.kColorBlack)
     gfx.drawRect(x + 2, y + 2, width - 4, height - 4)
 
-    if (selected) then
+    if (highlighted) then
+      gfx.setColor(gfx.kColorBlack)
       gfx.drawRect(x, y, width, height)
 
       gfx.setColor(gfx.kColorWhite)
       gfx.drawRect(x + 1, y + 1, width - 2, height - 2)
+
+      if (not listItem.selectable) then
+        gfx.setColor(gfx.kColorBlack)
+        gfx.drawLine(x + 2, y + 2, x + width - 4, y + height - 4)
+        gfx.drawLine(x + 2, y + height - 4, x + width - 4, y + 2)
+      end
     end
   end
-
-  self.gridviewSprite = spr.new()
-  self.gridviewSprite:setCollisionsEnabled(false)
-  self.gridviewSprite:setCenter(0, 0)
-  self.gridviewSprite:setUpdatesEnabled(false)
-  self.gridviewSprite:add()
 end
 
 function CharacterSelectScene:leave(next, ...)
-  -- print('CharacterSelectScene', 'Leave', next)
-
-  self.backgroundAnimationLoop = nil
-  self.font = nil
-  self.gridview = nil
-  self.gridviewSprite:remove()
+  self:Teardown()
 end
 
 function CharacterSelectScene:pause()
-  -- print('CharacterSelectScene', 'Pause')
+  self.backgroundAnimationLoop.paused = true
 end
 
 function CharacterSelectScene:resume()
-  -- print('CharacterSelectScene', 'Resume')
+  self.backgroundAnimationLoop.paused = false
+end
+
+function CharacterSelectScene:Teardown()
+  self.backgroundAnimationLoop = nil
+  self.displayRect = nil
+  self.font = nil
+  self.gridview = nil
+  self.gridviewImage:clear(gfx.kColorClear)
 end
 
 function CharacterSelectScene:update(dt)
-  -- print('CharacterSelectScene', 'Update', dt)
-
   self:CheckInputs()
-  self:draw()
 end

@@ -103,6 +103,10 @@ function Meter:init(config)
   self:Draw()
 end
 
+function Meter:Reset()
+  self:SetAmount(self.total)
+end
+
 function Meter:SetAmount(amount)
   local prevAmount <const> = self.amount
 
