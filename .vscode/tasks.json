@@ -92,7 +92,7 @@
 				"'${workspaceFolder}/builds'",
 				"robobeau/untitled-playdate-game:playdate",
 				"--userversion",
-				"0.5.0"
+				"0.5.2"
 			],
 			"presentation": {
 				"panel": "shared",
