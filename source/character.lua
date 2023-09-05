@@ -265,12 +265,6 @@ end
 function Character:CheckAttackInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
-  local isBack <const> = frame.state & charStates.BACK ~= 0
-  local isCrouching <const> = frame.state & charStates.CROUCH ~= 0
-  local isDashing <const> = frame.state & charStates.DASH ~= 0
-  local isForward <const> = frame.state & charStates.FORWARD ~= 0
-  local isRunning <const> = frame.state & charStates.RUN ~= 0
 
   -- If we can't perform an attack, exit early.
   if (not frameData.cancellable or (frameData.cancellable & cancellableStates.ATTACK) == 0) then
@@ -280,28 +274,32 @@ function Character:CheckAttackInputs()
   if (frame.buttonState.hasPressedB) then
     local newState = charStates.KICK
 
-    if (isAirborne) then
+    if (frame.checks.isAirborne) then
       newState |= charStates.AIRBORNE
 
-      if (isBack) then
-        newState |= charStates.BACK
-      elseif (isForward) then
+      -- if (frame.checks.isBack) then
+      --   newState |= charStates.BACK
+      -- elseif (frame.checks.isForward) then
+      --   newState |= charStates.FORWARD
+      -- end
+
+      if (math.abs(frame.velocity.x) > 0) then
         newState |= charStates.FORWARD
       end
 
-      if (isRunning) then
+      if (frame.checks.isRunning) then
         newState |= charStates.RUN
-      elseif (isDashing) then
+      elseif (frame.checks.isDashing) then
         newState |= charStates.DASH
       end
-    elseif (isCrouching) then
+    elseif (frame.checks.isCrouching) then
       newState |= charStates.CROUCH
     else
       newState |= charStates.STAND
 
-      if (isBack) then
+      if (frame.checks.isBack) then
         newState |= charStates.BACK
-      elseif (isForward) then
+      elseif (frame.checks.isForward) then
         newState |= charStates.FORWARD
       end
     end
@@ -314,7 +312,7 @@ function Character:CheckAttackInputs()
   if (frame.buttonState.hasPressedA) then
     local newState = charStates.PUNCH
 
-    if (isAirborne) then
+    if (frame.checks.isAirborne) then
       newState |= charStates.AIRBORNE
 
       if (frame.buttonState.isPressingBack) then
@@ -323,12 +321,12 @@ function Character:CheckAttackInputs()
         newState |= charStates.FORWARD
       end
 
-      if (isRunning) then
+      if (frame.checks.isRunning) then
         newState |= charStates.RUN
-      elseif (isDashing) then
+      elseif (frame.checks.isDashing) then
         newState |= charStates.DASH
       end
-    elseif (isCrouching) then
+    elseif (frame.checks.isCrouching) then
       newState |= charStates.CROUCH
     else
       newState |= charStates.STAND
@@ -343,8 +341,6 @@ end
 function Character:CheckBlockInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
-  local isCrouching <const> = frame.state & charStates.CROUCH ~= 0
 
   if (not frameData.cancellable or (frameData.cancellable & cancellableStates.BLOCK) == 0) then
     return false
@@ -353,9 +349,9 @@ function Character:CheckBlockInputs()
   if (frame.buttonState.isPressingBack) then
     local newState = charStates.BLOCK
 
-    if (isAirborne) then
+    if (frame.checks.isAirborne) then
       newState |= charStates.AIRBORNE
-    elseif (isCrouching) then
+    elseif (frame.checks.isCrouching) then
       newState |= charStates.CROUCH
     else
       newState |= charStates.STAND
@@ -408,27 +404,25 @@ end
 function Character:CheckJumpInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
-  local isJumping <const> = frame.state & charStates.JUMP ~= 0
-  local isRunning <const> = frame.state & charStates.RUN ~= 0
 
   if (not frameData.cancellable or (frameData.cancellable & cancellableStates.JUMP) == 0) then
     return false
   end
 
-  if (not isJumping) then
+  if (not frame.checks.isJumping) then
     if (frame.buttonState.isPressingUp) then
       local newState = charStates.JUMP | charStates.BEGIN
 
       if (frame.buttonState.isPressingBack) then
         newState |= charStates.BACK
 
-        if (isRunning) then
+        if (frame.checks.isRunning) then
           newState |= charStates.RUN
         end
       elseif (frame.buttonState.isPressingForward) then
         newState |= charStates.FORWARD
 
-        if (isRunning) then
+        if (frame.checks.isRunning) then
           newState |= charStates.RUN
         end
       end
@@ -443,18 +437,14 @@ end
 function Character:CheckMovementInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
-  local isCrouching <const> = frame.state & charStates.CROUCH ~= 0
-  local isDashing <const> = frame.state & charStates.DASH ~= 0
-  local isRunning <const> = frame.state & charStates.RUN ~= 0
-  local isWalking <const> = frame.state & charStates.WALK ~= 0
 
   if (not frameData.cancellable or (frameData.cancellable & cancellableStates.MOVE) == 0) then
     return false
   end
 
-  if (not isCrouching) then
+  if (not frame.checks.isCrouching) then
     -- Dash/Run check
-    if (not isDashing and not isRunning) then
+    if (not frame.checks.isDashing and not frame.checks.isRunning) then
       if (self:CheckDashBackInput()) then
         self:SetState(charStates.DASH | charStates.BEGIN | charStates.BACK)
 
@@ -471,7 +461,7 @@ function Character:CheckMovementInputs()
     end
 
     -- Walk check
-    if (not isDashing and not isWalking and not isRunning) then
+    if (not frame.checks.isDashing and not frame.checks.isWalking and not frame.checks.isRunning) then
       if (frame.buttonState.isPressingBack) then
         self:SetState(charStates.WALK | charStates.BACK)
 
@@ -484,7 +474,7 @@ function Character:CheckMovementInputs()
     end
 
     -- Crouch check
-    if (not isDashing) then
+    if (not frame.checks.isDashing) then
       if (frame.buttonState.isPressingDown) then
         self:SetState(charStates.CROUCH)
 
@@ -493,7 +483,7 @@ function Character:CheckMovementInputs()
     end
 
     -- Stand checks
-    if (isWalking or isRunning) then
+    if (frame.checks.isWalking or frame.checks.isRunning) then
       if (frame.buttonState.hasReleasedBack) then
         self:SetState(charStates.STAND)
 
@@ -562,11 +552,11 @@ function Character:CreateCollisionSprites(objects)
   return center, collisions
 end
 
-function Character:draw(x, y, width, height)
-  local frame <const> = self.history.frames[self.history.counter]
+-- function Character:draw(x, y, width, height)
+--   local frame <const> = self.history.frames[self.history.counter]
 
-  self.imageTable[frame.frameIndex]:draw(0, 0, self:GetFlip())
-end
+--   self.imageTable[frame.frameIndex]:draw(0, 0, self:GetFlip())
+-- end
 
 -- For debugging ;)
 function Character:Debug(...)
@@ -618,23 +608,12 @@ end
 
 function Character:DerivePhysicsFromState()
   local frame <const> = self.history.frames[self.history.counter]
-  local isHurt <const> = frame.state & charStates.HURT ~= 0
 
   -- A hitbox's properties determine the physics for the Hurt state.
-  if (isHurt) then
+  if (frame.checks.isHurt) then
     return
   end
 
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
-  local isBack <const> = frame.state & charStates.BACK ~= 0
-  local isBeginning <const> = frame.state & charStates.BEGIN ~= 0
-  local isDashing <const> = frame.state & charStates.DASH ~= 0
-  local isEnding <const> = frame.state & charStates.END ~= 0
-  local isForward <const> = frame.state & charStates.FORWARD ~= 0
-  local isJumping <const> = frame.state & charStates.JUMP ~= 0
-  local isRunning <const> = frame.state & charStates.RUN ~= 0
-  local isTransitioning <const> = isBeginning or isEnding
-  local isWalking <const> = frame.state & charStates.WALK ~= 0
   local newVelocity <const> = {
     x = frame.velocity.x,
     y = frame.velocity.y,
@@ -644,33 +623,33 @@ function Character:DerivePhysicsFromState()
 
   -- X Velocity
 
-  if (isTransitioning) then
+  if (frame.checks.isTransitioning) then
     newVelocity.x = 0
-  elseif (isDashing) then
+  elseif (frame.checks.isDashing) then
     newVelocity.x = self:GetDashVelocity()
-  elseif (isJumping) then
-    if (isRunning) then
+  elseif (frame.checks.isJumping) then
+    if (frame.checks.isRunning) then
       newVelocity.x = self:GetRunVelocity()
-    elseif (isBack or isForward) then
+    elseif (frame.checks.isBack or frame.checks.isForward) then
       newVelocity.x = self:GetWalkVelocity()
     else
       -- Do nothing!
     end
-  elseif (isRunning) then
+  elseif (frame.checks.isRunning) then
     newVelocity.x = self:GetRunVelocity()
-  elseif (isWalking) then
+  elseif (frame.checks.isWalking) then
     newVelocity.x = self:GetWalkVelocity()
-  elseif (not isAirborne) then
+  elseif (not frame.checks.isAirborne) then
     newVelocity.x = 0
   end
 
   -- Y Velocity
 
-  if (isTransitioning) then
+  if (frame.checks.isTransitioning) then
     newVelocity.y = 0
-  elseif (isJumping) then
+  elseif (frame.checks.isJumping) then
     newVelocity.y = -self.jumpHeight
-  elseif (not isAirborne) then
+  elseif (not frame.checks.isAirborne) then
     newVelocity.y = 0
   end
 
@@ -736,12 +715,10 @@ end
 -- Used by Stage
 function Character:GetSpeed()
   local frame <const> = self.history.frames[self.history.counter]
-  local isDashing <const> = frame.state & charStates.DASH ~= 0
-  local isRunning <const> = frame.state & charStates.RUN ~= 0
 
-  if (isRunning) then
+  if (frame.checks.isRunning) then
     return self:GetRunSpeed()
-  elseif (isDashing) then
+  elseif (frame.checks.isDashing) then
     return self:GetDashSpeed()
   end
 
@@ -750,9 +727,8 @@ end
 
 function Character:GetDashSpeed()
   local frame <const> = self.history.frames[self.history.counter]
-  local isBack <const> = frame.state & charStates.BACK ~= 0
 
-  if (isBack) then
+  if (frame.checks.isBack) then
     return self.speeds.dash.back
   end
 
@@ -767,24 +743,17 @@ end
 -- we want to remove certain states under certain conditions.
 function Character:GetFilteredStateForAnimation(frameIndex)
   local frame <const> = self.history.frames[frameIndex or self.history.counter]
-  local isKicking <const> = frame.state & charStates.KICK ~= 0
-  local isJumping <const> = frame.state & charStates.JUMP ~= 0
-  local isPunching <const> = frame.state & charStates.PUNCH ~= 0
-  local IsSpecialing <const> = frame.state & charStates.SPECIAL ~= 0
-  local isAttacking <const> = isKicking or isPunching or IsSpecialing
-  local isBeginning <const> = frame.state & charStates.BEGIN ~= 0
-  local isEnding <const> = frame.state & charStates.END ~= 0
   local statesToRemove = 0
 
   -- Attacking is not visually affected by dashing... yet.
   -- Jumping is not visually affected by dashing.
-  if (isAttacking or isJumping) then
+  if (frame.checks.isAttacking or frame.checks.isJumping) then
     statesToRemove |= charStates.DASH | charStates.RUN | charStates.WALK
   end
 
   -- There's currently only one possible transition animation,
   -- so we don't need to distinguish between back/forward movement.
-  if (isBeginning or isEnding) then
+  if (frame.checks.isBeginning or frame.checks.isEnding) then
     statesToRemove |= charStates.BACK | charStates.FORWARD
   end
 
@@ -813,19 +782,16 @@ end
 
 function Character:GetHit(hitbox)
   local frame <const> = self.history.frames[self.history.counter]
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
-  local isCrouching <const> = frame.state & charStates.CROUCH ~= 0
   local newState = charStates.HURT
 
-  if (isAirborne) then
+  if (frame.checks.isAirborne) then
     newState |= charStates.AIRBORNE
-  elseif (isCrouching) then
+  elseif (frame.checks.isCrouching) then
     newState |= charStates.CROUCH
   else
     newState |= charStates.STAND
   end
 
-  local frame <const> = self.history.frames[self.history.counter]
   local health = frame.health
   local hitstun = frame.hitstun
   local newVelocity <const> = {
@@ -873,20 +839,13 @@ end
 
 function Character:GetHitByBall(hurtbox, ball)
   local frame <const> = self.history.frames[self.history.counter]
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
-  local isBeginning <const> = frame.state & charStates.BEGIN ~= 0
-  local isCrouching <const> = frame.state & charStates.CROUCH ~= 0
-  local isEnding <const> = frame.state & charStates.END ~= 0
-  local isStanding <const> = frame.state & charStates.STAND ~= 0
-  local isTransitioning <const> = isBeginning or isEnding
-  local isWalking <const> = frame.state & charStates.WALK ~= 0
   local newState = charStates.HURT
 
-  if (isAirborne) then
+  if (frame.checks.isAirborne) then
     newState |= charStates.AIRBORNE
-  elseif (isWalking or isStanding or isTransitioning) then
+  elseif (frame.checks.isWalking or frame.checks.isStanding or frame.checks.isTransitioning) then
     newState |= charStates.STAND
-  elseif (isCrouching) then
+  elseif (frame.checks.isCrouching) then
     newState |= charStates.CROUCH
   else
     newState |= charStates.STAND
@@ -919,9 +878,8 @@ end
 
 function Character:GetWalkSpeed()
   local frame <const> = self.history.frames[self.history.counter]
-  local isBack <const> = frame.state & charStates.BACK ~= 0
 
-  if (isBack) then
+  if (frame.checks.isBack) then
     return self.speeds.walk.back
   end
 
@@ -1191,17 +1149,13 @@ end
 
 function Character:HandleJumpEnd()
   local frame <const> = self.history.frames[self.history.counter]
-  local isBeginning <const> = frame.state & charStates.BEGIN ~= 0
-  local isEnding <const> = frame.state & charStates.END ~= 0
-  local isHurt <const> = frame.state & charStates.HURT ~= 0
-  local IsTransitioning <const> = isBeginning or isEnding
 
   -- TODO: We may not need this anymore?
-  if (IsTransitioning) then
+  if (frame.checks.isTransitioning) then
     return
   end
 
-  if (isHurt) then
+  if (frame.checks.isHurt) then
     self:SetState(charStates.HURT | charStates.AIRBORNE | charStates.END)
   else
     self:SetState(charStates.JUMP | charStates.END)
@@ -1303,10 +1257,9 @@ end
 
 function Character:IsFalling(frameIndex)
   local frame <const> = self.history.frames[frameIndex or self.history.counter]
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
 
   -- Since gravity is always being applied, we need to check above it.
-  return isAirborne and frame.velocity.y > self.gravity
+  return frame.checks.isAirborne and frame.velocity.y > self.gravity
 end
 
 function Character:Load()
@@ -1472,8 +1425,7 @@ end
 function Character:NormalizeHorizontalVelocity(speed)
   local frame <const> = self.history.frames[self.history.counter]
   local flipSign <const> = self:GetFlipSign()
-  local isBack <const> = frame.state & charStates.BACK ~= 0
-  local moveSign <const> = isBack and -1 or 1
+  local moveSign <const> = frame.checks.isBack and -1 or 1
 
   return speed * flipSign * moveSign
 end
@@ -1575,17 +1527,20 @@ end
 function Character:SetFrameImage()
   local frame <const> = self.history.frames[self.history.counter]
   local nextImage <const> = self.imageTable[frame.frameIndex]
-  local boundsRect <const> = self:getBoundsRect():copy()
-        boundsRect.x = boundsRect.width == 0
-          and self.x - (nextImage.width / 2)
-          or boundsRect.x
-        boundsRect.y = boundsRect.width == 0
-          and self.y - nextImage.height
-          or boundsRect.y
-        boundsRect.height = nextImage.height
-        boundsRect.width = nextImage.width
 
-  self:setBounds(boundsRect)
+  self:setImage(nextImage, self:GetFlip())
+
+  -- local boundsRect <const> = self:getBoundsRect():copy()
+        -- boundsRect.x = boundsRect.width == 0
+        --   and self.x - (nextImage.width / 2)
+        --   or boundsRect.x
+        -- boundsRect.y = boundsRect.width == 0
+        --   and self.y - nextImage.height
+        --   or boundsRect.y
+        -- boundsRect.height = nextImage.height
+        -- boundsRect.width = nextImage.width
+
+  -- self:setBounds(boundsRect)
 
   local nextCenter <const> = self:GetCenterRelativeToBounds()
   local prevFrame <const> = self.history.frames[self.history.counter - 1] or {}
@@ -1595,7 +1550,7 @@ function Character:SetFrameImage()
   local yDelta <const> = prevCenter.y - nextCenter.y
 
   -- self:setBounds(boundsRect:offsetBy(xDelta * self:GetFlipSign(), yDelta))
-  self:setBounds(boundsRect:offsetBy(xDelta, yDelta))
+  self:setBounds(self:getBoundsRect():offsetBy(xDelta, yDelta))
   self:markDirty()
 
   table.assign(
@@ -1638,13 +1593,13 @@ function Character:PreventClipping()
   self:HandleCollisions(collisions)
 end
 
+  local keyset = {}
+
+  for k, v in pairs(charStates) do
+    keyset[v] = k
+  end
+
 function Character:SetState(state)
-  -- local keyset = {}
-
-  -- for k, v in pairs(charStates) do
-  --   keyset[v] = k
-  -- end
-
   -- local frame <const> = self.history.frames[self.history.counter]
 
   -- self:Debug('SetState()', state, keyset[state], frame.velocity.x)
@@ -1652,6 +1607,25 @@ function Character:SetState(state)
   table.assign(
     self.history.frames[self.history.counter],
     {
+      checks = {
+        isAttacking = state & charStates.KICK ~= 0 or state & charStates.PUNCH ~= 0 or state & charStates.SPECIAL ~= 0,
+        isAirborne = state & charStates.AIRBORNE ~= 0,
+        isBack = state & charStates.BACK ~= 0,
+        isBeginning = state & charStates.BEGIN ~= 0,
+        isCrouching = state & charStates.CROUCH ~= 0,
+        isDashing = state & charStates.DASH ~= 0,
+        isEnding = state & charStates.END ~= 0,
+        isForward = state & charStates.FORWARD ~= 0,
+        isHurt = state & charStates.HURT ~= 0,
+        isJumping = state & charStates.JUMP ~= 0,
+        isKicking = state & charStates.KICK ~= 0,
+        isPunching = state & charStates.PUNCH ~= 0,
+        isRunning = state & charStates.RUN ~= 0,
+        IsSpecialing = state & charStates.SPECIAL ~= 0,
+        isStanding = state & charStates.STAND ~= 0,
+        isTransitioning = state & charStates.BEGIN ~= 0 or state & charStates.END ~= 0,
+        isWalking = state & charStates.WALK ~= 0,
+      },
       state = state,
     }
   )
@@ -1664,12 +1638,10 @@ end
 
 function Character:TransitionState()
   local frame <const> = self.history.frames[self.history.counter]
-  local isForward <const> = frame.state & charStates.FORWARD ~= 0
-  local isWalking <const> = frame.state & charStates.WALK ~= 0
 
   if (self:HasDirectionChanged()) then
-    if (isWalking) then
-      if (isForward) then
+    if (frame.checks.isWalking) then
+      if (frame.checks.isForward) then
         self:SetState(charStates.WALK | charStates.BACK)
       else
         self:SetState(charStates.WALK | charStates.FORWARD)
@@ -1684,11 +1656,6 @@ function Character:TransitionState()
   local loops <const> = self:GetLoops()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
-  local isBeginning <const> = frame.state & charStates.BEGIN ~= 0
-  local isDashing <const> = frame.state & charStates.DASH ~= 0
-  local isEnding <const> = frame.state & charStates.END ~= 0
-  local isHurt <const> = frame.state & charStates.HURT ~= 0
-  local isJumping <const> = frame.state & charStates.JUMP ~= 0
 
   if (frameData.nextState ~= nil) then
     self:SetState(frameData.nextState)
@@ -1698,10 +1665,10 @@ function Character:TransitionState()
 
   -- Beginning and ending checks should come first
 
-  if (isBeginning) then
+  if (frame.checks.isBeginning) then
     local statesToRemove <const> = charStates.BEGIN
 
-    if (isJumping) then
+    if (frame.checks.isJumping) then
       local newState = frame.state &~ statesToRemove
             newState |= charStates.AIRBORNE
 
@@ -1717,22 +1684,22 @@ function Character:TransitionState()
     return
   end
 
-  if (isEnding) then
+  if (frame.checks.isEnding) then
     local statesToRemove <const> = charStates.END
 
-    if (isDashing) then
+    if (frame.checks.isDashing) then
       self:SetState(charStates.STAND)
 
       return
     end
 
-    if (isHurt) then
+    if (frame.checks.isHurt) then
       self:SetState(charStates.KNOCKDOWN)
 
       return
     end
 
-    if (isJumping) then
+    if (frame.checks.isJumping) then
       self:SetState(charStates.STAND)
 
       return
@@ -1812,15 +1779,10 @@ end
 
 function Character:UpdateDirection()
   local frame <const> = self.history.frames[self.history.counter]
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
-  local isPunching <const> = frame.state & charStates.PUNCH ~= 0
-  local IsSpecialing <const> = frame.state & charStates.SPECIAL ~= 0
-  local isAttacking <const> = isKicking or isPunching or IsSpecialing
-  local isRunning <const> = frame.state & charStates.RUN ~= 0
   local opponentCenter <const> = self.opponent:getBoundsRect():centerPoint()
   local selfCenter <const> = self:getBoundsRect():centerPoint()
 
-  if (isAttacking or isAirborne or isRunning) then
+  if (frame.checks.isAttacking or frame.checks.isAirborne or frame.checks.isRunning) then
     return
   end
 
@@ -1918,13 +1880,12 @@ end
 
 function Character:UpdatePhysics()
   local frame <const> = self.history.frames[self.history.counter]
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
   local newVelocity <const> = {
     x = frame.velocity.x,
     y = frame.velocity.y,
   }
 
-  if (isAirborne) then
+  if (frame.checks.isAirborne) then
     -- Apply gravity
     newVelocity.y += self.gravity
   end

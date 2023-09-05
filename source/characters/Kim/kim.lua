@@ -83,7 +83,7 @@ function Kim:CheckFlyingSliceInput()
     )
   ) then
     local buttonStates <const> = {}
-    local milliseconds <const> = 45
+    local milliseconds <const> = 30
     local frameCount <const> = milliseconds + 1
     local start <const> = #self.history.frames - frameCount - 1
     local stop <const> = #self.history.frames - 1
@@ -98,7 +98,6 @@ end
 
 function Kim:CheckSpecialInputs()
   local frame <const> = self.history.frames[self.history.counter]
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
   -- If we can't perform a special move, exit early.
@@ -106,7 +105,7 @@ function Kim:CheckSpecialInputs()
     return
   end
 
-  if (isAirborne) then
+  if (frame.checks.isAirborne) then
     if (frame.buttonState.hasPressedB and frame.buttonState.isPressingDown) then
       self:SetState(charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN)
 

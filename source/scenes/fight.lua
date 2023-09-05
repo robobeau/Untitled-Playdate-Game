@@ -139,7 +139,7 @@ function FightScene:Init(config)
       self.character2:setUpdatesEnabled(false)
     end,
     time = {
-      limit = 10,
+      limit = 90,
     },
   })
 
