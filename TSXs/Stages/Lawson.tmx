@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="left-up" width="420" height="240" tilewidth="1" tileheight="1" infinite="0" nextlayerid="9" nextobjectid="1">
+ <editorsettings>
+  <export target="../../source/tsj/Stages/Lawson.tmx" format="tmx"/>
+ </editorsettings>
+ <imagelayer id="8" name="BG">
+  <image source="../../source/images/stages/Lawson/BG.gif" width="500" height="300"/>
+ </imagelayer>
+</map>

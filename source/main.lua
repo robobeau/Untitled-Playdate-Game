@@ -46,16 +46,16 @@ function pd.update()
   sceneLoader:Update()
 
   -- Debug
-  gfx.pushContext(debugImage)
-    gfx.setColor(gfx.kColorWhite)
-    gfx.fillRect(0, 0, 15, 15)
+  -- gfx.pushContext(debugImage)
+  --   gfx.setColor(gfx.kColorWhite)
+  --   gfx.fillRect(0, 0, 15, 15)
 
-    gfx.setColor(gfx.kColorBlack)
-    gfx.drawText('*' .. spr.spriteCount() .. '*', 0, 0)
-  gfx.popContext()
+  --   gfx.setColor(gfx.kColorBlack)
+  --   gfx.drawText('*' .. spr.spriteCount() .. '*', 0, 0)
+  -- gfx.popContext()
 
-  debugImage:drawIgnoringOffset(0, 13)
-  pd.drawFPS(0, 0)
+  -- debugImage:drawIgnoringOffset(0, 13)
+  -- pd.drawFPS(0, 0)
 end
 
 init()

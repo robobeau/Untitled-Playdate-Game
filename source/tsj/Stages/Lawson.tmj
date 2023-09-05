@@ -1,0 +1,26 @@
+{ "compressionlevel":-1,
+ "height":240,
+ "infinite":false,
+ "layers":[
+        {
+         "id":8,
+         "image":"..\/..\/images\/stages\/Lawson\/BG.gif",
+         "name":"BG",
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":9,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"left-up",
+ "tiledversion":"1.10.1",
+ "tileheight":1,
+ "tilesets":[],
+ "tilewidth":1,
+ "type":"map",
+ "version":"1.10",
+ "width":420
+}

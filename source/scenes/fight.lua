@@ -71,10 +71,6 @@ function FightScene:Init(config)
     controllable = true,
     debug = true,
     startingDirection = charDirections.RIGHT,
-    startingPosition = {
-      x = 100,
-      y = 220,
-    }
   })
 
   local character2Class <const> = config.character2Class or self.character2Class
@@ -83,10 +79,6 @@ function FightScene:Init(config)
     controllable = false,
     debug = false,
     startingDirection = charDirections.LEFT,
-    startingPosition = {
-      x = 300,
-      y = 220,
-    }
   })
 
   -- OPPONENTS
@@ -105,8 +97,20 @@ function FightScene:Init(config)
   -- STAGE
   self.stage = Stage({
     character = self.character1,
-    id = stages.CLIFTON,
+    id = stages.LAWSON,
   })
+  local stageSprite <const> = self.stage:GetStageSprite()
+
+  self.character1.startingPosition = {
+    x = 150,
+    y = stageSprite.height - 20,
+  }
+  self.character1:ResetPosition()
+  self.character2.startingPosition = {
+    x = 350,
+    y = stageSprite.height - 20,
+  }
+  self.character2:ResetPosition()
 
   -- LIFEBARS
   self.lifebar = Meter({
