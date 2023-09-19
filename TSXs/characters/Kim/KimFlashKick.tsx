@@ -13,8 +13,8 @@
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick1.png"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="36" y="44" width="40" height="84"/>
-   <object id="4" name="Hurtbox (Body)" type="Hurtbox" x="30" y="64" width="54" height="64"/>
-   <object id="2" name="Hurtbox (Head)" type="Hurtbox" x="30" y="46" width="38" height="28"/>
+   <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="30" y="64" width="54" height="64"/>
+   <object id="2" name="Hurtbox (High)" type="Hurtbox" x="30" y="46" width="38" height="28"/>
    <object id="3" name="Center" type="Center" x="56" y="128">
     <point/>
    </object>
@@ -27,8 +27,8 @@
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick1.png"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="36" y="44" width="40" height="84"/>
-   <object id="4" name="Hurtbox (Body)" type="Hurtbox" x="30" y="64" width="54" height="64"/>
-   <object id="5" name="Hurtbox (Head)" type="Hurtbox" x="30" y="46" width="38" height="28"/>
+   <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="30" y="64" width="54" height="64"/>
+   <object id="5" name="Hurtbox (High)" type="Hurtbox" x="30" y="46" width="38" height="28"/>
    <object id="6" name="Center" type="Center" x="56" y="128">
     <point/>
    </object>
@@ -41,8 +41,8 @@
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick2.png"/>
   <objectgroup draworder="index" id="2">
    <object id="4" name="Pushbox" type="Pushbox" x="36" y="44" width="40" height="42"/>
-   <object id="5" name="Hurtbox (Body)" type="Hurtbox" x="36" y="56" width="60" height="40"/>
-   <object id="6" name="Hurtbox (Head)" type="Hurtbox" x="4" y="64" width="32" height="40"/>
+   <object id="5" name="Hurtbox (Mid)" type="Hurtbox" x="36" y="56" width="60" height="40"/>
+   <object id="6" name="Hurtbox (High)" type="Hurtbox" x="4" y="64" width="32" height="40"/>
    <object id="7" name="Center" type="Center" x="56" y="128">
     <point/>
    </object>
@@ -55,8 +55,8 @@
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick3.png"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="36" y="44" width="40" height="42"/>
-   <object id="5" name="Hurtbox (Body)" type="Hurtbox" x="26" y="42" width="56" height="54"/>
-   <object id="3" name="Hurtbox (Head)" type="Hurtbox" x="26" y="70" width="36" height="38"/>
+   <object id="5" name="Hurtbox (Mid)" type="Hurtbox" x="26" y="42" width="56" height="54"/>
+   <object id="3" name="Hurtbox (High)" type="Hurtbox" x="26" y="70" width="36" height="38"/>
    <object id="2" name="Hitbox" type="Hitbox" x="6" y="6" width="100" height="94">
     <properties>
      <property name="damage" type="int" value="100"/>
@@ -79,8 +79,8 @@
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick4.png"/>
   <objectgroup draworder="index" id="2">
    <object id="10" name="Pushbox" type="Pushbox" x="36" y="44" width="40" height="42"/>
-   <object id="11" name="Hurtbox (Body)" type="Hurtbox" x="26" y="42" width="56" height="54"/>
-   <object id="12" name="Hurtbox (Head)" type="Hurtbox" x="26" y="70" width="36" height="38"/>
+   <object id="11" name="Hurtbox (Mid)" type="Hurtbox" x="26" y="42" width="56" height="54"/>
+   <object id="12" name="Hurtbox (High)" type="Hurtbox" x="26" y="70" width="36" height="38"/>
    <object id="14" name="Center" type="Center" x="56" y="128">
     <point/>
    </object>
@@ -94,8 +94,8 @@
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick5.png"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="34" y="62" width="40" height="42"/>
-   <object id="4" name="Hurtbox (Body)" type="Hurtbox" x="16" y="46" width="64" height="62"/>
-   <object id="5" name="Hurtbox (Head)" type="Hurtbox" x="56" y="66" width="38" height="36"/>
+   <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="16" y="46" width="64" height="62"/>
+   <object id="5" name="Hurtbox (High)" type="Hurtbox" x="56" y="66" width="38" height="36"/>
    <object id="6" name="Center" type="Center" x="54" y="128">
     <point/>
    </object>

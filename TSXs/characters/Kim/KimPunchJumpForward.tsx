@@ -12,8 +12,8 @@
   <image width="64" height="96" source="../../../source/characters/Kim/images/KimPunchJumpForward1.png"/>
   <objectgroup draworder="index" id="2">
    <object id="4" name="Pushbox" type="Pushbox" x="12" y="12" width="40" height="84"/>
-   <object id="6" name="Hurtbox (Body)" type="Hurtbox" x="4" y="20" width="58" height="62"/>
-   <object id="1" name="Hurtbox (Head)" type="Hurtbox" x="12" y="8" width="40" height="40"/>
+   <object id="6" name="Hurtbox (Mid)" type="Hurtbox" x="4" y="20" width="58" height="62"/>
+   <object id="1" name="Hurtbox (High)" type="Hurtbox" x="12" y="8" width="40" height="40"/>
    <object id="5" name="Hitbox" type="Hitbox" x="34" y="68" width="34" height="32">
     <properties>
      <property name="damage" type="int" value="50"/>

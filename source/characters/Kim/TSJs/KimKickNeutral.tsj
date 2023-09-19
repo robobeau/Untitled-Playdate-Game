@@ -39,7 +39,7 @@
                     {
                      "height":52,
                      "id":5,
-                     "name":"Hurtbox (Body)",
+                     "name":"Hurtbox (Mid)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -50,7 +50,7 @@
                     {
                      "height":36,
                      "id":6,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -109,7 +109,7 @@
                     {
                      "height":60,
                      "id":6,
-                     "name":"Hurtbox (Body)",
+                     "name":"Hurtbox (Mid)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -120,7 +120,7 @@
                     {
                      "height":30,
                      "id":1,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -150,7 +150,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":2
+                 "value":4
                 }],
          "type":"Frame"
         }, 
@@ -179,7 +179,7 @@
                     {
                      "height":58,
                      "id":6,
-                     "name":"Hurtbox (Body)",
+                     "name":"Hurtbox (Mid)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -190,7 +190,7 @@
                     {
                      "height":36,
                      "id":1,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -215,7 +215,6 @@
                             }, 
                             {
                              "name":"hits",
-                             "propertytype":"Attack",
                              "type":"string",
                              "value":"HIGH"
                             }, 
@@ -283,8 +282,13 @@
                 }, 
                 {
                  "name":"soundFX",
-                 "type":"file",
-                 "value":"..\/..\/..\/sounds\/kick_short_whoosh_12.wav"
+                 "propertytype":"SoundFX",
+                 "type":"class",
+                 "value":
+                    {
+                     "onHit":"..\/..\/..\/sounds\/face_hit_small_43.wav",
+                     "onWhiff":"..\/..\/..\/sounds\/kick_short_whoosh_01.wav"
+                    }
                 }],
          "type":"Frame"
         }, 
@@ -313,7 +317,7 @@
                     {
                      "height":52,
                      "id":7,
-                     "name":"Hurtbox (Body)",
+                     "name":"Hurtbox (Mid)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -324,7 +328,7 @@
                     {
                      "height":36,
                      "id":8,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,

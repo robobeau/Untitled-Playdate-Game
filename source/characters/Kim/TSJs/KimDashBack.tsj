@@ -45,7 +45,7 @@
                     {
                      "height":56,
                      "id":3,
-                     "name":"Hurtbox (Body)",
+                     "name":"Hurtbox (Mid)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -56,7 +56,7 @@
                     {
                      "height":36,
                      "id":1,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,

@@ -39,7 +39,7 @@
                     {
                      "height":58,
                      "id":1,
-                     "name":"Hurtbox (Body)",
+                     "name":"Hurtbox (Mid)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -50,7 +50,7 @@
                     {
                      "height":38,
                      "id":5,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -109,7 +109,7 @@
                     {
                      "height":56,
                      "id":8,
-                     "name":"Hurtbox (Body)",
+                     "name":"Hurtbox (Mid)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -120,7 +120,7 @@
                     {
                      "height":38,
                      "id":7,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -238,7 +238,7 @@
                     {
                      "height":58,
                      "id":7,
-                     "name":"Hurtbox (Body)",
+                     "name":"Hurtbox (Mid)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -249,7 +249,7 @@
                     {
                      "height":38,
                      "id":8,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,

@@ -15,8 +15,8 @@
   <image width="64" height="96" source="../../../source/characters/Kim/images/KimMove1.png"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="12" y="12" width="40" height="84"/>
-   <object id="3" name="Hurtbox (Body)" type="Hurtbox" x="2" y="44" width="52" height="52"/>
-   <object id="1" name="Hurtbox (Head)" type="Hurtbox" x="12" y="12" width="40" height="38"/>
+   <object id="3" name="Hurtbox (Mid)" type="Hurtbox" x="2" y="44" width="52" height="52"/>
+   <object id="1" name="Hurtbox (High)" type="Hurtbox" x="12" y="12" width="40" height="38"/>
    <object id="4" name="Center" type="Center" x="32" y="96">
     <point/>
    </object>
@@ -30,8 +30,8 @@
   <image width="64" height="96" source="../../../source/characters/Kim/images/KimMove3.png"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="12" y="12" width="40" height="84"/>
-   <object id="3" name="Hurtbox (Body)" type="Hurtbox" x="10" y="44" width="52" height="52"/>
-   <object id="1" name="Hurtbox (Head)" type="Hurtbox" x="10" y="12" width="42" height="38"/>
+   <object id="3" name="Hurtbox (Mid)" type="Hurtbox" x="10" y="44" width="52" height="52"/>
+   <object id="1" name="Hurtbox (High)" type="Hurtbox" x="10" y="12" width="42" height="38"/>
    <object id="4" name="Center" type="Center" x="32" y="96">
     <point/>
    </object>
@@ -45,8 +45,8 @@
   <image width="64" height="96" source="../../../source/characters/Kim/images/KimMove2.png"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="12" y="12" width="40" height="84"/>
-   <object id="3" name="Hurtbox (Body)" type="Hurtbox" x="4" y="42" width="42" height="54"/>
-   <object id="1" name="Hurtbox (Head)" type="Hurtbox" x="12" y="10" width="38" height="38"/>
+   <object id="3" name="Hurtbox (Mid)" type="Hurtbox" x="4" y="42" width="42" height="54"/>
+   <object id="1" name="Hurtbox (High)" type="Hurtbox" x="12" y="10" width="38" height="38"/>
    <object id="4" name="Center" type="Center" x="32" y="96">
     <point/>
    </object>

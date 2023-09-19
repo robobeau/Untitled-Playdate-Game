@@ -16,8 +16,8 @@
   <image width="80" height="112" source="../../../source/characters/Kim/images/KimDiveKick1.png"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="20" y="28" width="40" height="84"/>
-   <object id="4" name="Hurtbox (Body)" type="Hurtbox" x="2" y="24" width="78" height="62"/>
-   <object id="2" name="Hurtbox (Head)" type="Hurtbox" x="20" y="10" width="40" height="38"/>
+   <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="2" y="24" width="78" height="62"/>
+   <object id="2" name="Hurtbox (High)" type="Hurtbox" x="20" y="10" width="40" height="38"/>
    <object id="6" name="Hitbox" type="Hitbox" x="20" y="86" width="60" height="26">
     <properties>
      <property name="damage" type="int" value="25"/>
@@ -41,8 +41,8 @@
   <image width="80" height="112" source="../../../source/characters/Kim/images/KimDiveKick2.png"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="20" y="28" width="40" height="84"/>
-   <object id="4" name="Hurtbox (Body)" type="Hurtbox" x="2" y="24" width="78" height="62"/>
-   <object id="5" name="Hurtbox (Head)" type="Hurtbox" x="20" y="10" width="40" height="38"/>
+   <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="2" y="24" width="78" height="62"/>
+   <object id="5" name="Hurtbox (High)" type="Hurtbox" x="20" y="10" width="40" height="38"/>
    <object id="3" name="Hitbox" type="Hitbox" x="20" y="86" width="60" height="26">
     <properties>
      <property name="damage" type="int" value="25"/>

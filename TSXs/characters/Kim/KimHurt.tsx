@@ -23,7 +23,7 @@
   <image width="112" height="80" source="../../../source/characters/Kim/images/KimHurt2.png"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="56" y="-4" width="40" height="84"/>
-   <object id="4" name="Hurtbox (Body)" type="Hurtbox" x="34" y="6" width="64" height="74"/>
+   <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="34" y="6" width="64" height="74"/>
    <object id="3" name="Center" type="Center" x="76" y="80">
     <point/>
    </object>
@@ -38,7 +38,7 @@
   <image width="112" height="80" source="../../../source/characters/Kim/images/KimHurt1.png"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="34" y="-4" width="40" height="84"/>
-   <object id="5" name="Hurtbox (Body)" type="Hurtbox" x="24" y="26" width="58" height="54"/>
+   <object id="5" name="Hurtbox (Mid)" type="Hurtbox" x="24" y="26" width="58" height="54"/>
    <object id="4" name="Center" type="Center" x="54" y="80">
     <point/>
    </object>

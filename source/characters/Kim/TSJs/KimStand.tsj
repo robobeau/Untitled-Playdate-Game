@@ -43,20 +43,52 @@
                      "y":0
                     }, 
                     {
-                     "height":54,
-                     "id":3,
-                     "name":"Hurtbox (Body)",
+                     "height":16,
+                     "id":6,
+                     "name":"Hurtbox (Low)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":1
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
                      "x":4,
+                     "y":68
+                    }, 
+                    {
+                     "height":38,
+                     "id":3,
+                     "name":"Hurtbox (Mid)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":2
+                            }],
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":46,
+                     "x":10,
                      "y":30
                     }, 
                     {
                      "height":38,
                      "id":1,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":0
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -119,20 +151,52 @@
                      "y":2
                     }, 
                     {
-                     "height":56,
-                     "id":4,
-                     "name":"Hurtbox (Body)",
+                     "height":18,
+                     "id":7,
+                     "name":"Hurtbox (Low)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":1
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
                      "x":4,
+                     "y":68
+                    }, 
+                    {
+                     "height":38,
+                     "id":4,
+                     "name":"Hurtbox (Mid)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":2
+                            }],
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":46,
+                     "x":10,
                      "y":30
                     }, 
                     {
                      "height":38,
                      "id":3,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":0
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -195,20 +259,52 @@
                      "y":2
                     }, 
                     {
-                     "height":58,
-                     "id":4,
-                     "name":"Hurtbox (Body)",
+                     "height":18,
+                     "id":6,
+                     "name":"Hurtbox (Low)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":1
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
                      "x":4,
+                     "y":68
+                    }, 
+                    {
+                     "height":40,
+                     "id":4,
+                     "name":"Hurtbox (Mid)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":2
+                            }],
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":46,
+                     "x":10,
                      "y":28
                     }, 
                     {
                      "height":38,
                      "id":3,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":0
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
@@ -271,20 +367,52 @@
                      "y":0
                     }, 
                     {
-                     "height":54,
-                     "id":3,
-                     "name":"Hurtbox (Body)",
+                     "height":16,
+                     "id":6,
+                     "name":"Hurtbox (Low)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":1
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
                      "x":4,
+                     "y":68
+                    }, 
+                    {
+                     "height":38,
+                     "id":3,
+                     "name":"Hurtbox (Mid)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":2
+                            }],
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":46,
+                     "x":10,
                      "y":30
                     }, 
                     {
                      "height":38,
                      "id":4,
-                     "name":"Hurtbox (Head)",
+                     "name":"Hurtbox (High)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":0
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,

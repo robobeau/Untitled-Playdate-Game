@@ -15,8 +15,8 @@
   <image width="64" height="112" source="../../../source/characters/Kim/images/KimDashForward1.png"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="16" y="28" width="40" height="84"/>
-   <object id="3" name="Hurtbox (Body)" type="Hurtbox" x="0" y="42" width="62" height="70"/>
-   <object id="1" name="Hurtbox (Head)" type="Hurtbox" x="16" y="12" width="44" height="40"/>
+   <object id="3" name="Hurtbox (Mid)" type="Hurtbox" x="0" y="42" width="62" height="70"/>
+   <object id="1" name="Hurtbox (High)" type="Hurtbox" x="16" y="12" width="44" height="40"/>
    <object id="4" name="Center" type="Center" x="36" y="112">
     <point/>
    </object>

@@ -11,8 +11,8 @@
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash1.png"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="58" y="40" width="40" height="84"/>
-   <object id="2" name="Hurtbox (Body)" type="Hurtbox" x="42" y="72" width="58" height="52"/>
-   <object id="4" name="Hurtbox (Head)" type="Hurtbox" x="66" y="46" width="34" height="36"/>
+   <object id="2" name="Hurtbox (Mid)" type="Hurtbox" x="42" y="72" width="58" height="52"/>
+   <object id="4" name="Hurtbox (High)" type="Hurtbox" x="66" y="46" width="34" height="36"/>
    <object id="3" name="Center" type="Center" x="78" y="124">
     <point/>
    </object>
@@ -171,8 +171,8 @@
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash11.png"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="44" y="40" width="40" height="84"/>
-   <object id="4" name="Hurtbox (Body)" type="Hurtbox" x="28" y="76" width="62" height="48"/>
-   <object id="5" name="Hurtbox (Head)" type="Hurtbox" x="48" y="56" width="42" height="40"/>
+   <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="28" y="76" width="62" height="48"/>
+   <object id="5" name="Hurtbox (High)" type="Hurtbox" x="48" y="56" width="42" height="40"/>
    <object id="6" name="Center" type="Center" x="64" y="124">
     <point/>
    </object>
@@ -186,8 +186,8 @@
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash12.png"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="42" y="40" width="40" height="84"/>
-   <object id="4" name="Hurtbox (Body)" type="Hurtbox" x="30" y="66" width="64" height="58"/>
-   <object id="5" name="Hurtbox (Head)" type="Hurtbox" x="48" y="46" width="42" height="40"/>
+   <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="30" y="66" width="64" height="58"/>
+   <object id="5" name="Hurtbox (High)" type="Hurtbox" x="48" y="46" width="42" height="40"/>
    <object id="6" name="Center" type="Center" x="62" y="124">
     <point/>
    </object>
