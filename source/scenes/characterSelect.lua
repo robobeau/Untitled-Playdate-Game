@@ -6,7 +6,9 @@ local geo <const> = pd.geometry
 local gfx <const> = pd.graphics
 local img <const> = gfx.image
 local rec <const> = geo.rect
+local snd <const> = pd.sound
 local ui <const> = pd.ui
+local vid <const> = gfx.video
 
 -- Temp. character objects
 local Andy <const> = {
@@ -118,16 +120,11 @@ function CharacterSelectScene:draw()
   self:DrawGrid()
   self:DrawDisclaimers()
 
-  self.gridviewImage:drawCentered(self.displayRect.width / 2, self.displayRect.height / 2)
+  self.gridviewImage:drawIgnoringOffset(0, 0)
 end
 
 function CharacterSelectScene:DrawBackground()
-  gfx.pushContext(self.gridviewImage)
-    gfx.setColor(gfx.kColorBlack)
-    gfx.fillRect(0, 0, 400, 240)
-
-    self.backgroundAnimationLoop:draw(0, 0)
-  gfx.popContext()
+  self.backgroundVideo.file:renderFrame(self.backgroundVideo.frame)
 end
 
 function CharacterSelectScene:DrawCharacter()
@@ -215,9 +212,16 @@ function CharacterSelectScene:enter(previous, ...)
 end
 
 function CharacterSelectScene:Init()
-  local fireBGImageTable <const> = gfx.imagetable.new('images/characterSelect/FireBG')
+  local video <const> = vid.new('videos/FireBackground.pdv')
 
-  self.backgroundAnimationLoop = gfx.animation.loop.new(100, fireBGImageTable)
+  self.backgroundMusic = snd.sampleplayer.new('music/Hip Menus - Loop 1.wav')
+  self.backgroundMusic:play(0)
+  self.backgroundVideo = {
+    file = video,
+    frame = 1,
+    frames = video:getFrameCount()
+  }
+  self.backgroundVideo.file:useScreenContext()
   self.displayRect = pd.display.getRect()
   self.font = gfx.font.new('fonts/Super Monaco GP')
   self.font:setTracking(-1)
@@ -397,15 +401,17 @@ function CharacterSelectScene:leave(next, ...)
 end
 
 function CharacterSelectScene:pause()
-  self.backgroundAnimationLoop.paused = true
+  self.backgroundMusic:stop()
 end
 
 function CharacterSelectScene:resume()
-  self.backgroundAnimationLoop.paused = false
+  self.backgroundMusic:play(0)
 end
 
 function CharacterSelectScene:Teardown()
-  self.backgroundAnimationLoop = nil
+  self.backgroundMusic:stop()
+  self.backgroundMusic = nil
+  self.backgroundVideo = nil
   self.displayRect = nil
   self.font = nil
   self.gridview = nil
@@ -413,5 +419,11 @@ function CharacterSelectScene:Teardown()
 end
 
 function CharacterSelectScene:update(dt)
+  self.backgroundVideo.frame += 1
+
+  if (self.backgroundVideo.frame > self.backgroundVideo.frames) then
+    self.backgroundVideo.frame = 1
+  end
+
   self:CheckInputs()
 end
