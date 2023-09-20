@@ -15,9 +15,20 @@ function Hurtbox:HandleCollision(collision)
     return
   end
 
-  -- Do something...?
-end
+  local didCharacterBlock <const> = character:CheckBlockInputs()
 
-function Hurtbox:init(config)
-  Hurtbox.super.init(self, config)
+  if (not didCharacterBlock) then
+    if (hitbox.soundFX.onHit) then
+      hitbox.soundFX.onHit:play()
+    end
+
+    self.character:GetHit(hitbox)
+    hitbox:remove()
+
+    return
+  else
+    if (hitbox.soundFX.onBlock) then
+      hitbox.soundFX.onBlock:play()
+    end
+  end
 end
