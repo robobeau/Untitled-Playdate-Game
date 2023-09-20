@@ -74,6 +74,12 @@ function Timer:Start()
   self.timer = tmr.new(1000)
 end
 
+function Timer:Stop()
+  if (self.timer) then
+    self.timer:remove()
+  end
+end
+
 function Timer:Teardown()
   if (self.timer) then
     self.timer:remove()
