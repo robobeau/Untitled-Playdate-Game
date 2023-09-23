@@ -13,7 +13,14 @@ local defaults <const> = {
   collidesWithGroupsMask = 0,
   groupMask = 0,
   name = 'Collision',
-  properties = {}
+  properties = {},
+  soundFX = {},
+}
+local collisionTypes <const> = {
+  HIGH = 1,
+  LOW = 2,
+  MID = 4,
+  THROW = 8
 }
 
 class('Collision', defaults).extends(spr)
@@ -36,6 +43,7 @@ function Collision:init(config)
   self.collisionResponse = spr.kCollisionTypeOverlap
   self.name = config.name or self.name
   self.properties = config.properties or self.properties
+  self.soundFX = {}
 
   local boundsRect <const> = self.character:getBoundsRect()
   local collideRect <const> = self.collideRect:offsetBy(boundsRect.x, boundsRect.y)
@@ -46,6 +54,10 @@ function Collision:init(config)
   self:setCollideRect(0, 0, self:getSize())
   self:setCollidesWithGroupsMask(config.collidesWithGroupsMask or self.collidesWithGroupsMask)
   self:setGroupMask(config.groupMask or self.groupMask)
+end
+
+function Collision:OnAdd()
+  self:UpdatePosition()
 end
 
 function Collision:update()

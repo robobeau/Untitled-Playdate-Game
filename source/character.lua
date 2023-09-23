@@ -58,12 +58,12 @@ charStates = {
   DOWN = 128,
   END = 256,
   ENTRANCE = 512,
-  FALL = 1024,
-  FORWARD = 2048,
-  HURT = 4096,
-  JUMP = 8192,
-  KICK = 16384,
-  KNOCKDOWN = 32768,
+  FORWARD = 1024,
+  HURT = 2048,
+  JUMP = 4096,
+  KICK = 8192,
+  KNOCKDOWN = 16384,
+  MOVE = 32768,
   PARRY = 65536,
   PUNCH = 131072,
   RISE = 262144,
@@ -72,7 +72,7 @@ charStates = {
   STAND = 2097152,
   TAUNT = 4194304,
   UP = 8388608,
-  WALK = 16777216,
+  -- 16777216
   -- 33554432
   -- 67108864
   -- 134217728
@@ -80,7 +80,46 @@ charStates = {
   -- 536870912
   -- 1073741824
 }
+charStatesList = {
+  'Airborne',
+  'BlockAirborne',
+  'BlockCrouch',
+  'Block',
+  'Crouch',
+  'DashBack',
+  'DashForward',
+  'Entrance',
+  'Hurt',
+  'HurtAirborne',
+  'HurtAirborneEnd',
+  'HurtCrouch',
+  'JumpBack',
+  'JumpForward',
+  'JumpNeutral',
+  'KickCrouch',
+  'KickJumpForward',
+  'KickJumpNeutral',
+  'KickForward',
+  'KickNeutral',
+  'KickBack',
+  'Knockdown',
+  'MoveBack',
+  'MoveForward',
+  'PunchCrouch',
+  'PunchForward',
+  'PunchJumpForward',
+  'Rise',
+  'Run',
+  'Stand',
+  'Transition',
+}
 
+local loadingStates <const> = {
+  ACTIVE = 1,
+  IDLE = 2,
+  LOADED = 4,
+  LOADING = 8,
+}
 local defaults <const> = {
   animations = {},
   canDoubleJump = false,
@@ -91,36 +130,70 @@ local defaults <const> = {
   emptyCollisionSprites = {},
   gravity = 1,
   health = 1000,
-  imageTables = {},
+  history = {
+    counter = 1,
+    frames = {
+      firstFrame,
+    }
+  },
+  hydratedAnimations = {},
+  hydratedImagetables = {},
+  imagetables = {},
   jumpHeight = charJumpHeights.NORMAL,
+  loadedStates = 1,
+  loadingState = loadingStates.IDLE,
   menuImagePath = 'characters/Character/images/CharacterPortraitMenu',
   name = 'Character',
+  opponent = nil,
   portraitImagePath = 'characters/Character/images/CharacterPortrait',
+  soundFX = {},
   speeds = {
     dash = {
       back = charSpeeds.FASTER,
       forward = charSpeeds.FASTEST,
     },
-    run = charSpeeds.FASTEST,
-    walk = {
+    move = {
       back = charSpeeds.SLOW,
       forward = charSpeeds.NORMAL,
     },
+    run = charSpeeds.FASTEST,
   },
+  startingDirection = charDirections.RIGHT,
   startingPosition = {
     x = 0,
     y = 0,
   },
+  statesList = charStatesList,
   stun = 1000,
 }
 local firstFrame <const> = {
   buttonState = {},
   center = poi.new(0, 0),
+  checks = {
+    isAttacking = false,
+    isAirborne = false,
+    isBack = false,
+    isBeginning = false,
+    isCrouching = false,
+    isDashing = false,
+    isEnding = false,
+    isForward = false,
+    isHurt = false,
+    isJumping = false,
+    isKicking = false,
+    isMoving = false,
+    isPunching = false,
+    isRunning = false,
+    IsSpecialing = false,
+    isStanding = true,
+    isTransitioning = false,
+  },
   direction = charDirections.RIGHT,
   frameCounter = 1,
   frameIndex = 1,
   health = 0, -- Set on Reset()
   hitstun = 0,
+  nextState = nil,
   position = {
     x = 0,
     y = 0,
@@ -152,10 +225,12 @@ function Character:init(options)
 
   local config <const> = options or {}
 
+  self.animations = {}
   self.canDoubleJump = config.canDoubleJump or self.canDoubleJump
   self.canRun = config.canRun or self.canRun
-  self.controllable = config.controllable or self.controllable -- For debugging ;)
+  self.controllable = config.controllable or self.controllable
   self.debug = config.debug or self.debug -- For debugging ;)
+  self.emptyCollisionSprites = {}
   self.gravity = config.gravity or self.gravity
   self.health = config.health or self.health
   self.history = {
@@ -164,9 +239,19 @@ function Character:init(options)
       firstFrame,
     }
   }
+  self.hydratedAnimations = {}
+  self.hydratedImagetables = {}
+  self.imagetables = {}
   self.jumpHeight = config.jumpHeight or self.jumpHeight
+  self.loadedStates = 1
+  self.loadingState = loadingStates.IDLE
   self.name = config.name or self.name
   self.opponent = config.opponent or self.opponent
+  self.soundFX = {
+    ['genericOnBlock'] = self:SetSoundFX('/sounds/block_medium_01.wav'),
+    ['genericOnHit'] = self:SetSoundFX('/sounds/face_hit_small_43.wav'),
+    ['genericOnWhiff'] = self:SetSoundFX('/sounds/kick_short_whoosh_01.wav'),
+  }
   self.speeds = config.speeds or self.speeds
   self.startingDirection = config.startingDirection or self.startingDirection
   self.startingPosition = config.startingPosition or self.startingPosition
@@ -176,12 +261,31 @@ function Character:init(options)
   self:setCollidesWithGroupsMask(collisionTypes.PUSHBOX | collisionTypes.WALL)
   self:setGroupMask(collisionTypes.PUSHBOX)
   self:setZIndex(1)
-
-  self:Load()
-  self:Reset()
 end
 
 function Character:update()
+  local frame <const> = self.history.frames[self.history.counter]
+
+  self:Debug('Next State', frame.nextState)
+
+  if (
+    self.loadingState == loadingStates.IDLE or
+    self.loadingState == loadingStates.LOADING
+  ) then
+    self:Load()
+
+    return
+  end
+
+
+  if (self.loadingState == loadingStates.LOADED) then
+    self.loadingState = loadingStates.ACTIVE
+
+    self:Reset()
+
+    return
+  end
+
   -- local frame <const> = self.history.frames[frameIndex or self.history.counter]
 
   -- self:Debug('==================================================')
@@ -460,14 +564,14 @@ function Character:CheckMovementInputs()
       end
     end
 
-    -- Walk check
-    if (not frame.checks.isDashing and not frame.checks.isWalking and not frame.checks.isRunning) then
+    -- Move check
+    if (not frame.checks.isDashing and not frame.checks.isMoving and not frame.checks.isRunning) then
       if (frame.buttonState.isPressingBack) then
-        self:SetState(charStates.WALK | charStates.BACK)
+        self:SetState(charStates.MOVE | charStates.BACK)
 
         return true
       elseif (frame.buttonState.isPressingForward) then
-        self:SetState(charStates.WALK | charStates.FORWARD)
+        self:SetState(charStates.MOVE | charStates.FORWARD)
 
         return true
       end
@@ -483,7 +587,7 @@ function Character:CheckMovementInputs()
     end
 
     -- Stand checks
-    if (frame.checks.isWalking or frame.checks.isRunning) then
+    if (frame.checks.isMoving or frame.checks.isRunning) then
       if (frame.buttonState.hasReleasedBack) then
         self:SetState(charStates.STAND)
 
@@ -506,11 +610,6 @@ end
 
 function Character:CheckSpecialInputs()
   -- Overload this on each character's class!
-end
-
-function Character:CleanUp()
-  -- TODO: Clear every single image in "self.imageTables"
-  spr.removeSprites(self.emptyCollisionSprites)
 end
 
 function Character:CreateCollisionSprites(objects)
@@ -555,13 +654,13 @@ end
 -- function Character:draw(x, y, width, height)
 --   local frame <const> = self.history.frames[self.history.counter]
 
---   self.imageTable[frame.frameIndex]:draw(0, 0, self:GetFlip())
+--   self.imagetable[frame.frameIndex]:draw(0, 0, self:GetFlip())
 -- end
 
 -- For debugging ;)
 function Character:Debug(...)
   if (self.debug) then
-    print(self.controllable, ...)
+    printTable(...)
   end
 end
 
@@ -576,7 +675,8 @@ function Character:DeriveImageTableFromState()
       frameIndex = 1,
     }
   )
-  self.imageTable = self.imageTables[filteredState]
+
+  self.imagetable = self.imagetables[filteredState]
 end
 
 function Character:DerivePhysicsFromCurrentFrame()
@@ -631,14 +731,14 @@ function Character:DerivePhysicsFromState()
     if (frame.checks.isRunning) then
       newVelocity.x = self:GetRunVelocity()
     elseif (frame.checks.isBack or frame.checks.isForward) then
-      newVelocity.x = self:GetWalkVelocity()
+      newVelocity.x = self:GetMoveVelocity()
     else
       -- Do nothing!
     end
   elseif (frame.checks.isRunning) then
     newVelocity.x = self:GetRunVelocity()
-  elseif (frame.checks.isWalking) then
-    newVelocity.x = self:GetWalkVelocity()
+  elseif (frame.checks.isMoving) then
+    newVelocity.x = self:GetMoveVelocity()
   elseif (not frame.checks.isAirborne) then
     newVelocity.x = 0
   end
@@ -722,7 +822,7 @@ function Character:GetSpeed()
     return self:GetDashSpeed()
   end
 
-  return self:GetWalkSpeed()
+  return self:GetMoveSpeed()
 end
 
 function Character:GetDashSpeed()
@@ -748,7 +848,7 @@ function Character:GetFilteredStateForAnimation(frameIndex)
   -- Attacking is not visually affected by dashing... yet.
   -- Jumping is not visually affected by dashing.
   if (frame.checks.isAttacking or frame.checks.isJumping) then
-    statesToRemove |= charStates.DASH | charStates.RUN | charStates.WALK
+    statesToRemove |= charStates.DASH | charStates.RUN | charStates.MOVE
   end
 
   -- There's currently only one possible transition animation,
@@ -781,17 +881,9 @@ function Character:GetFrameData(animationFrameIndex, historyFrameIndex)
 end
 
 function Character:GetHit(hitbox)
+  self:Debug('Character:GetHit()')
+
   local frame <const> = self.history.frames[self.history.counter]
-  local newState = charStates.HURT
-
-  if (frame.checks.isAirborne) then
-    newState |= charStates.AIRBORNE
-  elseif (frame.checks.isCrouching) then
-    newState |= charStates.CROUCH
-  else
-    newState |= charStates.STAND
-  end
-
   local health = frame.health
   local hitstun = frame.hitstun
   local newVelocity <const> = {
@@ -817,8 +909,6 @@ function Character:GetHit(hitbox)
     newVelocity.x = hitbox.properties.pushback * -self:GetFlipSign()
   end
 
-  -- self:Debug('GetHit', health, newVelocity.x)
-
   table.assign(
     self.history.frames[self.history.counter],
     {
@@ -832,7 +922,7 @@ function Character:GetHit(hitbox)
     self.OnHealthChange(health)
   end
 
-  self:SetState(newState)
+  self:GetHurt()
 
   spr.removeSprites({ hitbox })
 end
@@ -843,7 +933,7 @@ function Character:GetHitByBall(hurtbox, ball)
 
   if (frame.checks.isAirborne) then
     newState |= charStates.AIRBORNE
-  elseif (frame.checks.isWalking or frame.checks.isStanding or frame.checks.isTransitioning) then
+  elseif (frame.checks.isMoving or frame.checks.isStanding or frame.checks.isTransitioning) then
     newState |= charStates.STAND
   elseif (frame.checks.isCrouching) then
     newState |= charStates.CROUCH
@@ -868,6 +958,21 @@ function Character:GetHitByBall(hurtbox, ball)
   spr.removeSprites({ hurtbox })
 end
 
+function Character:GetHurt()
+  local frame <const> = self.history.frames[self.history.counter]
+  local newState = charStates.HURT
+
+  if (frame.checks.isAirborne) then
+    newState |= charStates.AIRBORNE
+  elseif (frame.checks.isCrouching) then
+    newState |= charStates.CROUCH
+  else
+    newState |= charStates.STAND
+  end
+
+  self:SetState(newState)
+end
+
 function Character:GetRunSpeed()
   return self.speeds.run
 end
@@ -876,18 +981,18 @@ function Character:GetRunVelocity()
   return self:NormalizeHorizontalVelocity(self:GetRunSpeed())
 end
 
-function Character:GetWalkSpeed()
+function Character:GetMoveSpeed()
   local frame <const> = self.history.frames[self.history.counter]
 
   if (frame.checks.isBack) then
-    return self.speeds.walk.back
+    return self.speeds.move.back
   end
 
-  return self.speeds.walk.forward
+  return self.speeds.move.forward
 end
 
-function Character:GetWalkVelocity()
-  return self:NormalizeHorizontalVelocity(self:GetWalkSpeed())
+function Character:GetMoveVelocity()
+  return self:NormalizeHorizontalVelocity(self:GetMoveSpeed())
 end
 
 function Character:HitBall(collision)
@@ -1165,7 +1270,7 @@ end
 function Character:HasAnimationEnded()
   local frame <const> = self.history.frames[self.history.counter]
 
-  return frame.frameIndex == self.imageTable:getLength()
+  return frame.frameIndex == self.imagetable:getLength()
 end
 
 function Character:HasAnimationFrameEnded()
@@ -1216,6 +1321,48 @@ function Character:HydrateAnimation(animation)
     local frameData <const> = ConvertCustomPropertiesToTable(frame.properties or {})
     local center <const>, collisions <const> = self:CreateCollisionSprites(frame.objectgroup.objects)
 
+    for j, hitbox in ipairs(collisions.Hitboxes) do
+      if (frameData.soundFX) then
+        if (frameData.soundFX.onBlock) then
+          hitbox.soundFX.onBlock = self:SetSoundFX(frameData.soundFX.onBlock)
+        end
+
+        if (frameData.soundFX.onHit) then
+          hitbox.soundFX.onHit = self:SetSoundFX(frameData.soundFX.onHit)
+        end
+
+        if (frameData.soundFX.onWhiff) then
+          hitbox.soundFX.onWhiff = self:SetSoundFX(frameData.soundFX.onWhiff)
+        end
+      else
+        hitbox.soundFX.onBlock = self.soundFX['genericOnBlock']
+        hitbox.soundFX.onHit = self.soundFX['genericOnHit']
+        hitbox.soundFX.onWhiff = self.soundFX['genericOnWhiff']
+      end
+    end
+
+    -- if (frameData.soundFX) then
+      -- if (frameData.soundFX.onBlock) then
+      --   local soundFX <const> = self:SetSoundFX(frameData.soundFX.onBlock)
+
+      --   for j, hitbox in ipairs(collisions.Hitboxes) do
+      --     hitbox.soundFX.onBlock = soundFX
+      --   end
+      -- end
+
+      -- if (frameData.soundFX.onHit) then
+      --   local soundFX <const> = self:SetSoundFX(frameData.soundFX.onHit)
+
+      --   for j, hitbox in ipairs(collisions.Hitboxes) do
+      --     hitbox.soundFX.onHit = soundFX
+      --   end
+      -- end
+
+      -- if (frameData.soundFX.onWhiff) then
+      --   self:SetSoundFX(frameData.soundFX.onWhiff)
+      -- end
+    -- end
+
     frames[i] = {
       center = center,
       collisions = collisions,
@@ -1232,7 +1379,10 @@ function Character:HydrateAnimation(animation)
 end
 
 function Character:HydrateImageTable(animation)
-  local imageTable <const> = gfx.imagetable.new(#animation.frames)
+  local imagetable <const> = gfx.imagetable.new(#animation.frames)
+
+  -- coroutine.yield()
+
   local images <const> = {}
 
   for i, frame in ipairs(animation.frames) do
@@ -1249,10 +1399,14 @@ function Character:HydrateImageTable(animation)
       images[imagePath] = image
     end
 
-    imageTable:setImage(i, image)
+    imagetable:setImage(i, image)
   end
 
-  return imageTable
+  return imagetable
+end
+
+function Character:IsActive()
+  return self.loadingState == loadingStates.ACTIVE
 end
 
 function Character:IsFalling(frameIndex)
@@ -1262,108 +1416,43 @@ function Character:IsFalling(frameIndex)
   return frame.checks.isAirborne and frame.velocity.y > self.gravity
 end
 
-function Character:Load()
-  self:LoadAnimations()
-  self:LoadImageTables()
+function Character:IsLoading()
+  return self.loadingState == loadingStates.LOADING
 end
 
-function Character:LoadImageTables()
-  for key, animation in pairs(self.animations) do
-    self.imageTables[key] = self:HydrateImageTable(animation)
+function Character:IsLoaded()
+  return self.loadingState == loadingStates.LOADED
+end
+
+function Character:Load()
+  if (self.loadingState == loadingStates.IDLE) then
+    self.loadingState = loadingStates.LOADING
   end
 
-  self.menuImage = img.new(self.menuImagePath)
-  self.portraitImage = img.new(self.portraitImagePath)
+  if (self.loadedStates > #self.statesList) then
+    self.loadingState = loadingStates.LOADED
+
+    self:SetAssets()
+  else
+    self:LoadAnimations()
+    self:LoadImagetables()
+
+    self.loadedStates += 1
+  end
 end
 
 function Character:LoadAnimations()
-  local dashBackAnimation <const> = self:HydrateAnimation(self:LoadTSJ('DashBack'))
-  local dashForwardAnimation <const> = self:HydrateAnimation(self:LoadTSJ('DashForward'))
-  local hurtAirborneAnimation <const> = self:HydrateAnimation(self:LoadTSJ('HurtAirborne'))
-  local hurtCrouchAnimation <const> = self:HydrateAnimation(self:LoadTSJ('HurtCrouch'))
-  local hurtAnimation <const> = self:HydrateAnimation(self:LoadTSJ('Hurt'))
-  local jumpBackAnimation <const> = self:HydrateAnimation(self:LoadTSJ('JumpBack'))
-  local jumpForwardAnimation <const> = self:HydrateAnimation(self:LoadTSJ('JumpForward'))
-  local jumpNeutralAnimation <const> = self:HydrateAnimation(self:LoadTSJ('JumpNeutral'))
-  local kickJumpForwardAnimation <const> = self:HydrateAnimation(self:LoadTSJ('KickJumpForward'))
-  local kickJumpNeutralAnimation <const> = self:HydrateAnimation(self:LoadTSJ('KickJumpNeutral'))
-  local kickForwardAnimation <const> = self:HydrateAnimation(self:LoadTSJ('KickForward'))
-  local kickNeutralAnimation <const> = self:HydrateAnimation(self:LoadTSJ('KickNeutral'))
-  local kickBackAnimation <const> = self:HydrateAnimation(self:LoadTSJ('KickBack'))
-  local punchForwardAnimation <const> = self:HydrateAnimation(self:LoadTSJ('PunchForward'))
-  local punchJumpForwardAnimation <const> = self:HydrateAnimation(self:LoadTSJ('PunchJumpForward'))
-  local transitionAnimation <const> = self:HydrateAnimation(self:LoadTSJ('Transition'))
-  local walkBackAnimation <const> = self:HydrateAnimation(self:LoadTSJ('MoveBack'))
-  local walkForwardAnimation <const> = self:HydrateAnimation(self:LoadTSJ('MoveForward'))
+  local animationName <const> = self.statesList[self.loadedStates]
+  local animation <const> = self:LoadTSJ(animationName)
 
-  self.animations = {
-    -- Airborne
-    [charStates.AIRBORNE] = self:HydrateAnimation(self:LoadTSJ('Airborne')),
+  self.hydratedAnimations[animationName] = self:HydrateAnimation(animation)
+end
 
-    -- Blocking
-    [charStates.BLOCK | charStates.AIRBORNE] = self:HydrateAnimation(self:LoadTSJ('BlockAirborne')),
-    [charStates.BLOCK | charStates.CROUCH] = self:HydrateAnimation(self:LoadTSJ('BlockCrouch')),
-    [charStates.BLOCK | charStates.STAND] = self:HydrateAnimation(self:LoadTSJ('Block')),
+function Character:LoadImagetables()
+  local animationName <const> = self.statesList[self.loadedStates]
+  local hydratedAnimation <const> = self.hydratedAnimations[animationName]
 
-    -- Crouching
-    [charStates.CROUCH] = self:HydrateAnimation(self:LoadTSJ('Crouch')),
-
-    -- Dashing
-    [charStates.DASH | charStates.BACK] = dashBackAnimation,
-    [charStates.DASH | charStates.BEGIN] = transitionAnimation,
-    [charStates.DASH | charStates.END] = transitionAnimation,
-    [charStates.DASH | charStates.FORWARD] = dashForwardAnimation,
-
-    -- Entrance
-    [charStates.ENTRANCE] = self:HydrateAnimation(self:LoadTSJ('Entrance')),
-
-    -- Hurting
-    [charStates.HURT | charStates.AIRBORNE] = hurtAirborneAnimation,
-    [charStates.HURT | charStates.AIRBORNE | charStates.END] = self:HydrateAnimation(self:LoadTSJ('TransitionHurtJump')),
-    [charStates.HURT | charStates.CROUCH] = hurtCrouchAnimation,
-    [charStates.HURT | charStates.STAND] = hurtAnimation,
-
-    -- Kicking
-    [charStates.KICK | charStates.AIRBORNE] = kickJumpNeutralAnimation,
-    [charStates.KICK | charStates.AIRBORNE | charStates.BACK] = kickJumpForwardAnimation,
-    [charStates.KICK | charStates.AIRBORNE | charStates.FORWARD] = kickJumpForwardAnimation,
-    [charStates.KICK | charStates.CROUCH] = self:HydrateAnimation(self:LoadTSJ('KickCrouch')),
-    [charStates.KICK | charStates.STAND] = kickNeutralAnimation,
-    [charStates.KICK | charStates.STAND | charStates.BACK] = kickBackAnimation,
-    [charStates.KICK | charStates.STAND | charStates.FORWARD] = kickForwardAnimation,
-
-    -- Knockdown
-    [charStates.KNOCKDOWN] = self:HydrateAnimation(self:LoadTSJ('Knockdown')),
-
-    -- Jumping
-    [charStates.JUMP | charStates.AIRBORNE] = jumpNeutralAnimation,
-    [charStates.JUMP | charStates.AIRBORNE | charStates.BACK] = jumpBackAnimation,
-    [charStates.JUMP | charStates.AIRBORNE | charStates.FORWARD] = jumpForwardAnimation,
-    [charStates.JUMP | charStates.BEGIN] = transitionAnimation,
-    [charStates.JUMP | charStates.END] = transitionAnimation,
-
-    -- Moving
-    [charStates.WALK | charStates.BACK] = walkBackAnimation,
-    [charStates.WALK | charStates.FORWARD] = walkForwardAnimation,
-
-    -- Punching
-    [charStates.PUNCH | charStates.AIRBORNE] = punchJumpForwardAnimation,
-    [charStates.PUNCH | charStates.AIRBORNE | charStates.BACK] = punchJumpForwardAnimation,
-    [charStates.PUNCH | charStates.AIRBORNE | charStates.FORWARD] = punchJumpForwardAnimation,
-    [charStates.PUNCH | charStates.CROUCH] = self:HydrateAnimation(self:LoadTSJ('PunchCrouch')),
-    [charStates.PUNCH | charStates.STAND] = punchForwardAnimation,
-
-    -- Rising
-    [charStates.RISE] = self:HydrateAnimation(self:LoadTSJ('Rise')),
-
-    -- Running
-    [charStates.RUN | charStates.BEGIN] = transitionAnimation,
-    [charStates.RUN | charStates.END] = transitionAnimation,
-    [charStates.RUN | charStates.FORWARD] = self:HydrateAnimation(self:LoadTSJ('Run')),
-
-    -- Standing
-    [charStates.STAND] = self:HydrateAnimation(self:LoadTSJ('Stand')),
-  }
+  self.hydratedImagetables[animationName] = self:HydrateImageTable(hydratedAnimation)
 end
 
 function Character:LoadTSJ(state)
@@ -1372,12 +1461,6 @@ function Character:LoadTSJ(state)
 
   return json.decodeFile(filePath)
 end
-
--- function Character:LoadSoundFX(state)
---   local filePath <const> = 'characters/' .. self.name .. '/TSJs/' .. self.name .. state .. '.tsj'
-
---   return json.decodeFile(filePath)
--- end
 
 function Character:MoveToXY(x, y)
   -- self:Debug('MoveToXY', x, y)
@@ -1431,10 +1514,10 @@ function Character:NormalizeHorizontalVelocity(speed)
 end
 
 function Character:PrepareForNextLoop()
-  local next <const> = table.deepcopy(self.history.frames[self.history.counter])
+  local nextFrame <const> = table.deepcopy(self.history.frames[self.history.counter])
 
   self.history.counter += 1
-  self.history.frames[self.history.counter] = next
+  self.history.frames[self.history.counter] = nextFrame
 
   self:UpdateCounters()
   self:UpdateFrameIndex()
@@ -1484,22 +1567,176 @@ function Character:SetAnimationFrame()
     -- self:PlaySoundFX()
 end
 
-function Character:PlaySoundFX()
-  local frame <const> = self.history.frames[self.history.counter]
-  local frameData <const> = self:GetFrameData(frame.frameIndex)
+function Character:SetAnimations()
+  -- Airborne
+  self.animations[charStates.AIRBORNE] = self.hydratedAnimations['Airborne']
 
-  -- self:Debug('Sound FX', frame.soundFX, frameData.soundFX)
+  -- Blocking
+  self.animations[charStates.BLOCK | charStates.AIRBORNE] = self.hydratedAnimations['BlockAirborne']
+  self.animations[charStates.BLOCK | charStates.CROUCH] = self.hydratedAnimations['BlockCrouch']
+  self.animations[charStates.BLOCK | charStates.STAND] = self.hydratedAnimations['Block']
 
-  if (frameData.soundFX) then
-    local soundFXPath = frameData.soundFX
-          -- Chop off the "../" and ".wav"
-          soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
-          soundFXPath = string.gsub(soundFXPath, '%.wav', '')
+  -- Crouching
+  self.animations[charStates.CROUCH] = self.hydratedAnimations['Crouch']
 
-    local soundFX <const> = pd.sound.sampleplayer.new(soundFXPath)
-    soundFX:play()
-  end
+  -- Dashing
+  self.animations[charStates.DASH | charStates.BACK] = self.hydratedAnimations['DashBack']
+  self.animations[charStates.DASH | charStates.BEGIN] = self.hydratedAnimations['Transition']
+  self.animations[charStates.DASH | charStates.END] = self.hydratedAnimations['Transition']
+  self.animations[charStates.DASH | charStates.FORWARD] = self.hydratedAnimations['DashForward']
+
+  -- Entrance
+  self.animations[charStates.ENTRANCE] = self.hydratedAnimations['Entrance']
+
+  -- Hurting
+  self.animations[charStates.HURT | charStates.AIRBORNE] = self.hydratedAnimations['HurtAirborne']
+  self.animations[charStates.HURT | charStates.AIRBORNE | charStates.END] = self.hydratedAnimations['HurtAirborneEnd']
+  self.animations[charStates.HURT | charStates.CROUCH] = self.hydratedAnimations['HurtCrouch']
+  self.animations[charStates.HURT | charStates.STAND] = self.hydratedAnimations['Hurt']
+
+  -- Kicking
+  self.animations[charStates.KICK | charStates.AIRBORNE] = self.hydratedAnimations['KickJumpNeutral']
+  self.animations[charStates.KICK | charStates.AIRBORNE | charStates.BACK] = self.hydratedAnimations['KickJumpForward']
+  self.animations[charStates.KICK | charStates.AIRBORNE | charStates.FORWARD] = self.hydratedAnimations['KickJumpForward']
+  self.animations[charStates.KICK | charStates.CROUCH] = self.hydratedAnimations['KickCrouch']
+  self.animations[charStates.KICK | charStates.STAND] = self.hydratedAnimations['KickNeutral']
+  self.animations[charStates.KICK | charStates.STAND | charStates.BACK] = self.hydratedAnimations['KickBack']
+  self.animations[charStates.KICK | charStates.STAND | charStates.FORWARD] = self.hydratedAnimations['KickForward']
+
+  -- Knockdown
+  self.animations[charStates.KNOCKDOWN] = self.hydratedAnimations['Knockdown']
+
+  -- Jumping
+  self.animations[charStates.JUMP | charStates.AIRBORNE] = self.hydratedAnimations['JumpNeutral']
+  self.animations[charStates.JUMP | charStates.AIRBORNE | charStates.BACK] = self.hydratedAnimations['JumpBack']
+  self.animations[charStates.JUMP | charStates.AIRBORNE | charStates.FORWARD] = self.hydratedAnimations['JumpForward']
+  self.animations[charStates.JUMP | charStates.BEGIN] = self.hydratedAnimations['Transition']
+  self.animations[charStates.JUMP | charStates.END] = self.hydratedAnimations['Transition']
+
+  -- Moving
+  self.animations[charStates.MOVE | charStates.BACK] = self.hydratedAnimations['MoveBack']
+  self.animations[charStates.MOVE | charStates.FORWARD] = self.hydratedAnimations['MoveForward']
+
+  -- Punching
+  self.animations[charStates.PUNCH | charStates.AIRBORNE] = self.hydratedAnimations['PunchJumpForward']
+  self.animations[charStates.PUNCH | charStates.AIRBORNE | charStates.BACK] = self.hydratedAnimations['PunchJumpForward']
+  self.animations[charStates.PUNCH | charStates.AIRBORNE | charStates.FORWARD] = self.hydratedAnimations['PunchJumpForward']
+  self.animations[charStates.PUNCH | charStates.CROUCH] = self.hydratedAnimations['PunchCrouch']
+  self.animations[charStates.PUNCH | charStates.STAND] = self.hydratedAnimations['PunchForward']
+
+  -- Rising
+  self.animations[charStates.RISE] = self.hydratedAnimations['Rise']
+
+  -- Running
+  self.animations[charStates.RUN | charStates.BEGIN] = self.hydratedAnimations['Transition']
+  self.animations[charStates.RUN | charStates.END] = self.hydratedAnimations['Transition']
+  self.animations[charStates.RUN | charStates.FORWARD] = self.hydratedAnimations['Run']
+
+  -- Standing
+  self.animations[charStates.STAND] = self.hydratedAnimations['Stand']
 end
+
+function Character:SetAssets()
+  self:SetAnimations()
+  self:SetImagetables()
+
+  self.menuImage = img.new(self.menuImagePath)
+  self.portraitImage = img.new(self.portraitImagePath)
+end
+
+function Character:SetImagetables()
+  -- Airborne
+  self.imagetables[charStates.AIRBORNE] = self.hydratedImagetables['Airborne']
+
+  -- Blocking
+  self.imagetables[charStates.BLOCK | charStates.AIRBORNE] = self.hydratedImagetables['BlockAirborne']
+  self.imagetables[charStates.BLOCK | charStates.CROUCH] = self.hydratedImagetables['BlockCrouch']
+  self.imagetables[charStates.BLOCK | charStates.STAND] = self.hydratedImagetables['Block']
+
+  -- Crouching
+  self.imagetables[charStates.CROUCH] = self.hydratedImagetables['Crouch']
+
+  -- Dashing
+  self.imagetables[charStates.DASH | charStates.BACK] = self.hydratedImagetables['DashBack']
+  self.imagetables[charStates.DASH | charStates.BEGIN] = self.hydratedImagetables['Transition']
+  self.imagetables[charStates.DASH | charStates.END] = self.hydratedImagetables['Transition']
+  self.imagetables[charStates.DASH | charStates.FORWARD] = self.hydratedImagetables['DashForward']
+
+  -- Entrance
+  self.imagetables[charStates.ENTRANCE] = self.hydratedImagetables['Entrance']
+
+  -- Hurting
+  self.imagetables[charStates.HURT | charStates.AIRBORNE] = self.hydratedImagetables['HurtAirborne']
+  self.imagetables[charStates.HURT | charStates.AIRBORNE | charStates.END] = self.hydratedImagetables['HurtAirborneEnd']
+  self.imagetables[charStates.HURT | charStates.CROUCH] = self.hydratedImagetables['HurtCrouch']
+  self.imagetables[charStates.HURT | charStates.STAND] = self.hydratedImagetables['Hurt']
+
+  -- Kicking
+  self.imagetables[charStates.KICK | charStates.AIRBORNE] = self.hydratedImagetables['KickJumpNeutral']
+  self.imagetables[charStates.KICK | charStates.AIRBORNE | charStates.BACK] = self.hydratedImagetables['KickJumpForward']
+  self.imagetables[charStates.KICK | charStates.AIRBORNE | charStates.FORWARD] = self.hydratedImagetables['KickJumpForward']
+  self.imagetables[charStates.KICK | charStates.CROUCH] = self.hydratedImagetables['KickCrouch']
+  self.imagetables[charStates.KICK | charStates.STAND] = self.hydratedImagetables['KickNeutral']
+  self.imagetables[charStates.KICK | charStates.STAND | charStates.BACK] = self.hydratedImagetables['KickBack']
+  self.imagetables[charStates.KICK | charStates.STAND | charStates.FORWARD] = self.hydratedImagetables['KickForward']
+
+  -- Knockdown
+  self.imagetables[charStates.KNOCKDOWN] = self.hydratedImagetables['Knockdown']
+
+  -- Jumping
+  self.imagetables[charStates.JUMP | charStates.AIRBORNE] = self.hydratedImagetables['JumpNeutral']
+  self.imagetables[charStates.JUMP | charStates.AIRBORNE | charStates.BACK] = self.hydratedImagetables['JumpBack']
+  self.imagetables[charStates.JUMP | charStates.AIRBORNE | charStates.FORWARD] = self.hydratedImagetables['JumpForward']
+  self.imagetables[charStates.JUMP | charStates.BEGIN] = self.hydratedImagetables['Transition']
+  self.imagetables[charStates.JUMP | charStates.END] = self.hydratedImagetables['Transition']
+
+  -- Moving
+  self.imagetables[charStates.MOVE | charStates.BACK] = self.hydratedImagetables['MoveBack']
+  self.imagetables[charStates.MOVE | charStates.FORWARD] = self.hydratedImagetables['MoveForward']
+
+  -- Punching
+  self.imagetables[charStates.PUNCH | charStates.AIRBORNE] = self.hydratedImagetables['PunchJumpForward']
+  self.imagetables[charStates.PUNCH | charStates.AIRBORNE | charStates.BACK] = self.hydratedImagetables['PunchJumpForward']
+  self.imagetables[charStates.PUNCH | charStates.AIRBORNE | charStates.FORWARD] = self.hydratedImagetables['PunchJumpForward']
+  self.imagetables[charStates.PUNCH | charStates.CROUCH] = self.hydratedImagetables['PunchCrouch']
+  self.imagetables[charStates.PUNCH | charStates.STAND] = self.hydratedImagetables['PunchForward']
+
+  -- Rising
+  self.imagetables[charStates.RISE] = self.hydratedImagetables['Rise']
+
+  -- Running
+  self.imagetables[charStates.RUN | charStates.BEGIN] = self.hydratedImagetables['Transition']
+  self.imagetables[charStates.RUN | charStates.END] = self.hydratedImagetables['Transition']
+  self.imagetables[charStates.RUN | charStates.FORWARD] = self.hydratedImagetables['Run']
+
+  -- Standing
+  self.imagetables[charStates.STAND] = self.hydratedImagetables['Stand']
+end
+
+function Character:SetNextState(state)
+  table.assign(
+    self.history.frames[self.history.counter],
+    {
+      nextState = state
+    }
+  )
+end
+
+-- function Character:PlaySoundFX()
+--   local frame <const> = self.history.frames[self.history.counter]
+--   local frameData <const> = self:GetFrameData(frame.frameIndex)
+
+--   -- self:Debug('Sound FX', frame.soundFX, frameData.soundFX)
+
+--   if (frameData.soundFX) then
+--     local soundFXPath = frameData.soundFX.onWhiff
+--           -- Chop off the "../" and ".wav"
+--           soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
+--           soundFXPath = string.gsub(soundFXPath, '%.wav', '')
+
+--     self.soundFX[soundFXPath]:play()
+--   end
+-- end
 
 function Character:SetFrameCollisions()
   local frame <const> = self.history.frames[self.history.counter]
@@ -1511,14 +1748,14 @@ function Character:SetFrameCollisions()
 
   for _, hitbox in ipairs(nextAnimationFrame.collisions.Hitboxes) do
     hitbox:add()
-    hitbox:UpdatePosition()
+    hitbox:OnAdd()
 
     table.insert(self.emptyCollisionSprites, hitbox)
   end
 
   for _, hurtbox in ipairs(nextAnimationFrame.collisions.Hurtboxes) do
     hurtbox:add()
-    hurtbox:UpdatePosition()
+    hurtbox:OnAdd()
 
     table.insert(self.emptyCollisionSprites, hurtbox)
   end
@@ -1526,7 +1763,7 @@ end
 
 function Character:SetFrameImage()
   local frame <const> = self.history.frames[self.history.counter]
-  local nextImage <const> = self.imageTable[frame.frameIndex]
+  local nextImage <const> = self.imagetable[frame.frameIndex]
 
   self:setImage(nextImage, self:GetFlip())
 
@@ -1599,6 +1836,20 @@ end
     keyset[v] = k
   end
 
+function Character:SetSoundFX(soundFXPath)
+  -- Chop off the "../" and ".wav"
+  soundFXPath = string.gsub(soundFXPath, '%.%./%.%./%.%./', '/')
+  soundFXPath = string.gsub(soundFXPath, '%.wav', '')
+
+  print(soundFXPath)
+
+  if (not self.soundFX[soundFXPath]) then
+    self.soundFX[soundFXPath] = pd.sound.sampleplayer.new(soundFXPath)
+  end
+
+  return self.soundFX[soundFXPath]
+end
+
 function Character:SetState(state)
   -- local frame <const> = self.history.frames[self.history.counter]
 
@@ -1624,7 +1875,7 @@ function Character:SetState(state)
         IsSpecialing = state & charStates.SPECIAL ~= 0,
         isStanding = state & charStates.STAND ~= 0,
         isTransitioning = state & charStates.BEGIN ~= 0 or state & charStates.END ~= 0,
-        isWalking = state & charStates.WALK ~= 0,
+        isMoving = state & charStates.MOVE ~= 0,
       },
       state = state,
     }
@@ -1636,15 +1887,20 @@ function Character:SetState(state)
   -- self:markDirty()
 end
 
+function Character:Teardown()
+  -- TODO: Clear every single image in "self.imagetables"
+  spr.removeSprites(self.emptyCollisionSprites)
+end
+
 function Character:TransitionState()
   local frame <const> = self.history.frames[self.history.counter]
 
   if (self:HasDirectionChanged()) then
-    if (frame.checks.isWalking) then
+    if (frame.checks.isMoving) then
       if (frame.checks.isForward) then
-        self:SetState(charStates.WALK | charStates.BACK)
+        self:SetState(charStates.MOVE | charStates.BACK)
       else
-        self:SetState(charStates.WALK | charStates.FORWARD)
+        self:SetState(charStates.MOVE | charStates.FORWARD)
       end
     end
   end
@@ -1656,9 +1912,17 @@ function Character:TransitionState()
   local loops <const> = self:GetLoops()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
+  local nextState <const> = frame.nextState or frameData.nextState
 
-  if (frameData.nextState ~= nil) then
-    self:SetState(frameData.nextState)
+  if (nextState ~= nil) then
+    table.assign(
+      self.history.frames[self.history.counter],
+      {
+        nextState = nil
+      }
+    )
+
+    self:SetState(nextState)
 
     return
   end
@@ -1850,7 +2114,7 @@ function Character:UpdateFrameIndex()
   end
 
   local nextFrame <const> = self.history.frames[self.history.counter]
-  local animation <const> = self.animations[self:GetFilteredStateForAnimation(frameIndex)]
+  local animation <const> = self.animations[self:GetFilteredStateForAnimation(frame.frameIndex)]
   local nextFrameIndex = nextFrame.frameIndex
 
   if (not self:HasAnimationEnded()) then
@@ -1873,7 +2137,7 @@ function Character:UpdateFrozenSprite()
   local filteredState <const> = self:GetFilteredStateForAnimation()
   local frame <const> = self.history.frames[self.history.counter]
 
-  self.imageTable = self.imageTables[filteredState]
+  self.imagetable = self.imagetables[filteredState]
   self:SetFrameImage()
   self:moveTo(frame.position.x, frame.position.y)
 end
