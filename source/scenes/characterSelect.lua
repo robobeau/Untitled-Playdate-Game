@@ -84,13 +84,17 @@ function CharacterSelectScene:CheckInputs()
 
   -- Selection
   if (buttonState.hasPressedDown) then
-    self.gridview:selectNextRow()
+    self.soundFX.cursor:play(1)
+    self.gridview:selectNextRow(true)
   elseif (buttonState.hasPressedLeft) then
-    self.gridview:selectPreviousColumn()
+    self.soundFX.cursor:play(1)
+    self.gridview:selectPreviousColumn(true)
   elseif (buttonState.hasPressedRight) then
-    self.gridview:selectNextColumn()
+    self.soundFX.cursor:play(1)
+    self.gridview:selectNextColumn(true)
   elseif (buttonState.hasPressedUp) then
-    self.gridview:selectPreviousRow()
+    self.soundFX.cursor:play(1)
+    self.gridview:selectPreviousRow(true)
   end
 
   -- 
@@ -104,6 +108,8 @@ function CharacterSelectScene:CheckInputs()
       local config <const> = {
         character1Class = listItem.character
       }
+
+      self.soundFX.selection:play(1)
 
       sceneLoader:Start(function ()
         sceneManager:resetAndEnter(FightScene, config)
@@ -225,6 +231,10 @@ function CharacterSelectScene:Init()
   self.displayRect = pd.display.getRect()
   self.font = gfx.font.new('fonts/Super Monaco GP')
   self.font:setTracking(-1)
+  self.soundFX = {
+    cursor = snd.sampleplayer.new('sounds/24H.wav'),
+    selection = snd.sampleplayer.new('sounds/22H.wav')
+  }
 
   self:InitCharacterList()
   self:InitGrid()
