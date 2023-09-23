@@ -19,10 +19,6 @@ stages = {
   SHIBUYA = 'Shibuya',
 }
 
-function Stage:CleanUp()
-  gfx.sprite.removeSprites(self.sprites)
-end
-
 function Stage:CreateBounds()
   local width <const>, height <const> = pd.display.getSize()
   local stageSprite <const> = self:GetStageSprite()
@@ -93,6 +89,14 @@ function Stage:init(config)
   self:Load()
   self:CreateBounds()
 
+  local stageSprite <const> = self:GetStageSprite()
+  local width <const>, height <const> = pd.display.getSize()
+  local offset <const> = {
+    x = -((stageSprite.width - width) / 2),
+    y = -(stageSprite.height - height),
+  }
+
+  gfx.setDrawOffset(offset.x, offset.y)
   -- Play stage music
 end
 
@@ -135,6 +139,10 @@ function Stage:LoadTMJ()
   return json.decodeFile('tsj/Stages/' .. self.id .. '.tmj')
 end
 
+function Stage:Teardown()
+  gfx.sprite.removeSprites(self.sprites)
+end
+
 function Stage:UpdateDrawOffset()
   local x <const>, y <const> = gfx.getDrawOffset()
   local offsetPosition <const> = {
@@ -142,12 +150,15 @@ function Stage:UpdateDrawOffset()
     y = y + self.character.y,
   }
   local characterSpeed <const> = self.character:GetSpeed()
+  local width <const>, height <const> = pd.display.getSize()
+  local foo <const> = width / 2
+  local bar <const> = height / 2
   local drawOffsetVelocity <const> = {
-    x = offsetPosition.x < 100 and characterSpeed
-      or offsetPosition.x > 300 and -characterSpeed
+    x = offsetPosition.x < (foo - 100) and characterSpeed
+      or offsetPosition.x > (foo + 100) and -characterSpeed
       or 0,
-    y = offsetPosition.y < 100 and characterSpeed
-      or offsetPosition.y > 140 and -characterSpeed
+    y = offsetPosition.y < (bar - 100) and characterSpeed
+      or offsetPosition.y > (bar + 100) and -characterSpeed
       or 0,
   }
   local drawOffset <const> = {
