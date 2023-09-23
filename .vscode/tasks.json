@@ -9,12 +9,12 @@
 			"command": "pdc",
 			"args": [
 				"-sdkpath",
-				"C:\\Users\\rene\\Dev\\PlaydateSDK",
-				"'${workspaceFolder}\\source'",
+				"C:/Users/rene/Dev/PlaydateSDK",
+				"'${workspaceFolder}/source'",
 				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'"
 			],
 			"options": {
-				"cwd": "C:\\Users\\rene\\Dev\\PlaydateSDK"
+				"cwd": "C:/Users/rene/Dev/PlaydateSDK"
 			},
 			"presentation": {
 				"panel": "shared",
@@ -62,7 +62,7 @@
 			"type": "shell",
 			"command": "Remove-Item",
 			"args": [
-				"'${workspaceFolder}\\builds\\*'",
+				"'${workspaceFolder}/builds/*'",
 				"-Recurse",
 				"-Force"
 			],
@@ -75,7 +75,7 @@
 		{
 			"label": "Close Existing Sim",
 			"type": "shell",
-			"command": "${workspaceFolder}\\closeSim.ps1",
+			"command": "${workspaceFolder}/closeSim.ps1",
 			"args": [],
 			"presentation": {
 				"panel": "shared",
@@ -103,7 +103,7 @@
 		{
 			"label": "Run (Simulator)",
 			"type": "shell",
-			"command": "C:\\Users\\rene\\Dev\\PlaydateSDK/bin/PlaydateSimulator.exe",
+			"command": "C:/Users/rene/Dev/PlaydateSDK/bin/PlaydateSimulator.exe",
 			"args": [
 				"'${workspaceFolder}/builds/UntitledPlaydateGame.pdx'"
 			],

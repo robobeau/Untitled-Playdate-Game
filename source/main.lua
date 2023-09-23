@@ -6,7 +6,7 @@ import "CoreLibs/timer"
 import 'CoreLibs/ui'
 import 'CoreLibs/utilities/sampler'
 
-import 'roomy-playdate'
+import '../toyboxes/toyboxes.lua'
 
 import 'collisions/collision'
 import 'collisions/hitbox'
@@ -14,7 +14,6 @@ import 'collisions/hurtbox'
 import 'fonts'
 import 'loader'
 import 'math'
-import 'roomy-playdate'
 import 'scenes/characterSelect'
 import 'scenes/fight'
 import 'table'
