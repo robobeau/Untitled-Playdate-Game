@@ -2,18 +2,11 @@
 local pd <const> = playdate
 local dis <const> = pd.display
 local gfx <const> = pd.graphics
-local fon <const> = gfx.font
 local img <const> = gfx.image
 local tmr <const> = pd.timer
 
 local defaults <const> = {
-  fontConfig = {
-    -- path = "fonts/A.B. Cop",
-    -- path = "fonts/Battle Garegga - Type 2"
-    -- path = "fonts/ST-DIN"
-    path = "fonts/Super Monaco GP",
-    tracking = 0,
-  },
+  font = fonts.SuperMonacoGP,
   label = "TIME",
   OnStop = nil,
   OnStart = nil,
@@ -36,8 +29,7 @@ end
 
 function Timer:init(config)
   self.displayRect = dis.getRect()
-  self.font = fon.new((config.fontConfig and config.fontConfig.path) or self.fontConfig.path)
-  self.font:setTracking((config.fontConfig and config.fontConfig.tracking) or self.fontConfig.tracking)
+  self.font = config.font or self.font
   self.OnStart = config.OnStart or self.OnStart
   self.OnStop = config.OnStop or self.OnStop
   self.time.limit = (config.time and config.time.limit) or self.time.limit
@@ -48,9 +40,9 @@ function Timer:init(config)
 end
 
 function Timer:InitImages()
-  local fontHeight <const> = self.font:getHeight()
-  local labelImageWidth <const> = self.font:getTextWidth(self.label)
-  local secondsImageWidth <const> = self.font:getTextWidth(self.time.limit)
+  local fontHeight <const> = fonts.SuperMonacoGP:getHeight()
+  local labelImageWidth <const> = fonts.SuperMonacoGP:getTextWidth(self.label)
+  local secondsImageWidth <const> = fonts.SuperMonacoGP:getTextWidth(self.time.limit)
 
   self.labelImage = img.new(labelImageWidth, fontHeight)
   self.secondsImage = img.new(secondsImageWidth, fontHeight)

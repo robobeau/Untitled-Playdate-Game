@@ -229,8 +229,7 @@ function CharacterSelectScene:Init()
   }
   self.backgroundVideo.file:useScreenContext()
   self.displayRect = pd.display.getRect()
-  self.font = gfx.font.new('fonts/Super Monaco GP')
-  self.font:setTracking(-1)
+  self.font = fonts.SuperMonacoGP
   self.soundFX = {
     cursor = snd.sampleplayer.new('sounds/24H.wav'),
     selection = snd.sampleplayer.new('sounds/22H.wav')

@@ -8,10 +8,8 @@ local pd <const> = playdate
 local geo <const> = pd.geometry
 local gfx <const> = pd.graphics
 local ani <const> = gfx.animator
-local fon <const> = gfx.font
 local img <const> = gfx.image
 local rec <const> = geo.rect
-local spr <const> = gfx.sprite
 
 meterDirections = {
   LEFT = 1,
@@ -21,7 +19,7 @@ meterDirections = {
 local defaults <const> = {
   amount = 0,
   direction = meterDirections.LEFT,
-  fontPath = 'fonts/Super Monaco GP',
+  font = fonts.SuperMonacoGP,
   label = nil,
   meterRect = rec.new(0, 0, 120, 16),
   total = 0,
@@ -93,7 +91,7 @@ end
 function Meter:init(config)
   self.amount = config.amount or self.amount
   self.direction = config.direction or self.direction
-  self.font = fon.new(config.fontPath or self.fontPath)
+  self.font = config.font or self.font
   self.label = config.label or self.label
   self.meterRect = config.meterRect or self.meterRect
   self.meterImage = img.new(self.meterRect.width, self.meterRect.height)
