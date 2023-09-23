@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.1" name="KimCrescentMoonSlash" class="Animation" tilewidth="124" tileheight="124" tilecount="12" columns="0">
  <editorsettings>
-  <export target="../../../source/tsj/characters/Kim/KimCrescentMoonSlash.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/TSJs/KimCrescentMoonSlash.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
@@ -90,7 +90,7 @@
     <properties>
      <property name="damage" type="int" value="50"/>
      <property name="dizzy" type="int" value="50"/>
-     <property name="hits" propertytype="Attack" value="HIGH"/>
+     <property name="hits" value="HIGH"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="2"/>
      <property name="super" type="int" value="50"/>
@@ -114,7 +114,7 @@
     <properties>
      <property name="damage" type="int" value="50"/>
      <property name="dizzy" type="int" value="50"/>
-     <property name="hits" propertytype="Attack" value="HIGH"/>
+     <property name="hits" value="HIGH"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="2"/>
      <property name="super" type="int" value="50"/>
@@ -139,7 +139,7 @@
     <properties>
      <property name="damage" type="int" value="50"/>
      <property name="dizzy" type="int" value="50"/>
-     <property name="hits" propertytype="Attack" value="MID"/>
+     <property name="hits" value="MID"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
      <property name="super" type="int" value="50"/>

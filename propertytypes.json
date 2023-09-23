@@ -1,6 +1,7 @@
 [
     {
         "color": "#ffa0a0a4",
+        "drawFill": true,
         "id": 3,
         "members": [
             {
@@ -23,18 +24,6 @@
         ]
     },
     {
-        "id": 9,
-        "name": "Attack",
-        "storageType": "string",
-        "type": "enum",
-        "values": [
-            "LOW",
-            "HIGH",
-            "THROW"
-        ],
-        "valuesAsFlags": false
-    },
-    {
         "id": 8,
         "name": "Cancellable",
         "storageType": "int",
@@ -49,6 +38,25 @@
             "SUPER"
         ],
         "valuesAsFlags": true
+    },
+    {
+        "color": "#ffffffff",
+        "drawFill": true,
+        "id": 11,
+        "members": [
+        ],
+        "name": "Center",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
     },
     {
         "id": 7,
@@ -66,12 +74,12 @@
             "DOWN",
             "END",
             "ENTRANCE",
-            "FALL",
             "FORWARD",
             "HURT",
             "JUMP",
             "KICK",
             "KNOCKDOWN",
+            "MOVE",
             "PARRY",
             "PUNCH",
             "RISE",
@@ -79,25 +87,28 @@
             "SPECIAL",
             "STAND",
             "TAUNT",
-            "UP",
-            "WALK"
+            "UP"
         ],
         "valuesAsFlags": true
     },
     {
+        "id": 9,
+        "name": "CollisionType",
+        "storageType": "int",
+        "type": "enum",
+        "values": [
+            "HIGH",
+            "LOW",
+            "MID",
+            "THROW"
+        ],
+        "valuesAsFlags": false
+    },
+    {
         "color": "#ffa0a0a4",
+        "drawFill": true,
         "id": 2,
         "members": [
-            {
-                "name": "attackCancellable",
-                "type": "bool",
-                "value": false
-            },
-            {
-                "name": "blockCancellable",
-                "type": "bool",
-                "value": false
-            },
             {
                 "name": "cancellable",
                 "propertyType": "Cancellable",
@@ -110,17 +121,12 @@
                 "value": 0
             },
             {
-                "name": "jumpCancellable",
+                "name": "hitstunnable",
                 "type": "bool",
                 "value": false
             },
             {
                 "name": "loops",
-                "type": "bool",
-                "value": false
-            },
-            {
-                "name": "moveCancellable",
                 "type": "bool",
                 "value": false
             },
@@ -131,14 +137,11 @@
                 "value": 0
             },
             {
-                "name": "specialCancellable",
-                "type": "bool",
-                "value": false
-            },
-            {
-                "name": "superCancellable",
-                "type": "bool",
-                "value": false
+                "name": "soundFX",
+                "propertyType": "SoundFX",
+                "type": "class",
+                "value": {
+                }
             },
             {
                 "name": "velocityX",
@@ -165,19 +168,8 @@
         ]
     },
     {
-        "id": 10,
-        "name": "FrameType",
-        "storageType": "int",
-        "type": "enum",
-        "values": [
-            "ACTIVE",
-            "RECOVERY",
-            "STARTUP"
-        ],
-        "valuesAsFlags": false
-    },
-    {
         "color": "#ffaa0000",
+        "drawFill": true,
         "id": 4,
         "members": [
             {
@@ -186,20 +178,40 @@
                 "value": 0
             },
             {
-                "name": "hits",
-                "propertyType": "Attack",
-                "type": "string",
-                "value": "HIGH"
-            },
-            {
-                "name": "meter",
+                "name": "dizzy",
                 "type": "int",
                 "value": 0
             },
             {
-                "name": "stun",
+                "name": "hitstop",
                 "type": "int",
                 "value": 0
+            },
+            {
+                "name": "hitstun",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "launch",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "pushback",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "super",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "type",
+                "propertyType": "CollisionType",
+                "type": "int",
+                "value": 2
             },
             {
                 "name": "velocityX",
@@ -227,8 +239,15 @@
     },
     {
         "color": "#ffaa00ff",
+        "drawFill": true,
         "id": 5,
         "members": [
+            {
+                "name": "type",
+                "propertyType": "CollisionType",
+                "type": "int",
+                "value": 2
+            }
         ],
         "name": "Hurtbox",
         "type": "class",
@@ -245,10 +264,45 @@
     },
     {
         "color": "#ff00ff00",
+        "drawFill": true,
         "id": 6,
         "members": [
         ],
         "name": "Pushbox",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 12,
+        "members": [
+            {
+                "name": "onBlock",
+                "type": "file",
+                "value": ""
+            },
+            {
+                "name": "onHit",
+                "type": "file",
+                "value": ""
+            },
+            {
+                "name": "onWhiff",
+                "type": "file",
+                "value": ""
+            }
+        ],
+        "name": "SoundFX",
         "type": "class",
         "useAs": [
             "property",

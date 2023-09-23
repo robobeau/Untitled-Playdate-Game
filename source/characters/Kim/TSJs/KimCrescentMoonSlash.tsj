@@ -367,7 +367,6 @@
                             }, 
                             {
                              "name":"hits",
-                             "propertytype":"Attack",
                              "type":"string",
                              "value":"HIGH"
                             }, 
@@ -468,7 +467,6 @@
                             }, 
                             {
                              "name":"hits",
-                             "propertytype":"Attack",
                              "type":"string",
                              "value":"HIGH"
                             }, 
@@ -569,7 +567,6 @@
                             }, 
                             {
                              "name":"hits",
-                             "propertytype":"Attack",
                              "type":"string",
                              "value":"MID"
                             }, 
