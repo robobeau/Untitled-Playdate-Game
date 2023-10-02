@@ -1019,7 +1019,6 @@ end
 function Character:GetThrown(hitbox)
   local character <const> = hitbox.character
   local characterFrame <const> = character.history.frames[character.history.counter]
-  local characterAnimationFrame <const> = character:GetAnimationFrame(characterFrame.frameIndex)
   local frame <const> = self.history.frames[self.history.counter]
   local health = frame.health
   local hitstun = frame.hitstun
@@ -2170,7 +2169,7 @@ function Character:UpdateCounters()
     }
   )
 
-  if (frameData.histunnable) then
+  if (frameData.hitstunnable) then
     table.assign(
       self.history.frames[self.history.counter],
       {
@@ -2180,17 +2179,10 @@ function Character:UpdateCounters()
   end
 end
 
--- function Character:ShouldUpdateFrameIndex()
---   local frame <const> = self.history.frames[self.history.counter]
---   local frameData <const> = self:GetFrameData(frame.frameIndex)
-
---   return frame.frameCounter > frameData.duration
--- end
-
 function Character:UpdateFrameIndex()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
-  local isHitstunned <const> = frameData.histunnable and frame.hitstun > 0
+  local isHitstunned <const> = frameData.hitstunnable and (frame.hitstun > 0)
   local shouldUpdateFrameIndex <const> = frame.frameCounter > frameData.duration
 
   if (isHitstunned or not shouldUpdateFrameIndex) then

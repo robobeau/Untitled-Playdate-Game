@@ -44,10 +44,6 @@ function FrameData:IsChainCancellable()
   return self.cancellable & cancellableStates.CHAIN ~= 0
 end
 
--- function FrameData:IsHitstunnable()
---   return self.hitstunnable
--- end
-
 function FrameData:IsJumpCancellable()
   return self.cancellable & cancellableStates.JUMP ~= 0
 end
