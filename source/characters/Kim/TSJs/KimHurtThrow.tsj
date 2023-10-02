@@ -7,17 +7,23 @@
      "width":1
     },
  "margin":0,
- "name":"KimKnockdown",
+ "name":"KimHurtThrow",
+ "properties":[
+        {
+         "name":"loops",
+         "type":"bool",
+         "value":true
+        }],
  "spacing":0,
  "tilecount":1,
  "tiledversion":"1.10.1",
- "tileheight":48,
+ "tileheight":60,
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimKnockdown1.png",
-         "imageheight":48,
-         "imagewidth":112,
+         "image":"..\/images\/KimHurtThrow1.png",
+         "imageheight":60,
+         "imagewidth":76,
          "objectgroup":
             {
              "draworder":"index",
@@ -25,27 +31,45 @@
              "name":"",
              "objects":[
                     {
-                     "height":84,
-                     "id":1,
+                     "height":40,
+                     "id":2,
                      "name":"Pushbox",
                      "rotation":0,
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":36,
-                     "y":-40
+                     "x":18,
+                     "y":10
+                    }, 
+                    {
+                     "height":60,
+                     "id":4,
+                     "name":"Hurtbox (Mid)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":2
+                            }],
+                     "rotation":0,
+                     "type":"Hurtbox",
+                     "visible":true,
+                     "width":44,
+                     "x":9.81818,
+                     "y":0
                     }, 
                     {
                      "height":0,
-                     "id":2,
+                     "id":3,
                      "name":"Center",
                      "point":true,
                      "rotation":0,
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":56,
-                     "y":44
+                     "x":38,
+                     "y":60
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -57,17 +81,11 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":10
-                }, 
-                {
-                 "name":"nextState",
-                 "propertytype":"CharacterStates",
-                 "type":"int",
-                 "value":524288
+                 "value":1
                 }],
          "type":"Frame"
         }],
- "tilewidth":112,
+ "tilewidth":76,
  "type":"tileset",
  "version":"1.10"
 }

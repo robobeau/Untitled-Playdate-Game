@@ -72,6 +72,7 @@
             "CROUCH",
             "DASH",
             "DOWN",
+            "DIZZY",
             "END",
             "ENTRANCE",
             "FORWARD",
@@ -87,6 +88,7 @@
             "SPECIAL",
             "STAND",
             "TAUNT",
+            "THROW",
             "UP"
         ],
         "valuesAsFlags": true

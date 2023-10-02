@@ -181,7 +181,7 @@
  <tile id="11" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
-   <property name="nextState" type="int" propertytype="CharacterStates" value="2097152"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash12.png"/>
   <objectgroup draworder="index" id="2">

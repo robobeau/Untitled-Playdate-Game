@@ -25,6 +25,17 @@
              "name":"",
              "objects":[
                     {
+                     "height":42,
+                     "id":3,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":18
+                    }, 
+                    {
                      "height":0,
                      "id":2,
                      "name":"Center",
@@ -35,17 +46,6 @@
                      "width":0,
                      "x":64,
                      "y":80
-                    }, 
-                    {
-                     "height":42,
-                     "id":3,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "type":"Pushbox",
-                     "visible":true,
-                     "width":40,
-                     "x":44,
-                     "y":18
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -73,6 +73,17 @@
              "name":"",
              "objects":[
                     {
+                     "height":42,
+                     "id":3,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":18
+                    }, 
+                    {
                      "height":0,
                      "id":2,
                      "name":"Center",
@@ -83,17 +94,6 @@
                      "width":0,
                      "x":64,
                      "y":80
-                    }, 
-                    {
-                     "height":42,
-                     "id":3,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "type":"Pushbox",
-                     "visible":true,
-                     "width":40,
-                     "x":44,
-                     "y":18
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -121,6 +121,17 @@
              "name":"",
              "objects":[
                     {
+                     "height":42,
+                     "id":5,
+                     "name":"Pushbox",
+                     "rotation":0,
+                     "type":"Pushbox",
+                     "visible":true,
+                     "width":40,
+                     "x":44,
+                     "y":18
+                    }, 
+                    {
                      "height":0,
                      "id":4,
                      "name":"Center",
@@ -131,17 +142,6 @@
                      "width":0,
                      "x":64,
                      "y":80
-                    }, 
-                    {
-                     "height":42,
-                     "id":5,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "type":"Pushbox",
-                     "visible":true,
-                     "width":40,
-                     "x":44,
-                     "y":18
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -212,7 +212,7 @@
                  "name":"nextState",
                  "propertytype":"CharacterStates",
                  "type":"int",
-                 "value":16384
+                 "value":32768
                 }],
          "type":"Frame"
         }],

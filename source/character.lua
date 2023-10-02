@@ -24,6 +24,7 @@ cancellableStates = {
   MOVE = 16,
   SPECIAL = 32,
   SUPER = 64,
+  THROW = 128,
 }
 charDirections = {
   LEFT = 1,
@@ -56,24 +57,24 @@ charStates = {
   CROUCH = 32,
   DASH = 64,
   DOWN = 128,
-  END = 256,
-  ENTRANCE = 512,
-  FORWARD = 1024,
-  HURT = 2048,
-  JUMP = 4096,
-  KICK = 8192,
-  KNOCKDOWN = 16384,
-  MOVE = 32768,
-  PARRY = 65536,
-  PUNCH = 131072,
-  RISE = 262144,
-  RUN = 524288,
-  SPECIAL = 1048576,
-  STAND = 2097152,
-  TAUNT = 4194304,
-  UP = 8388608,
-  -- 16777216
-  -- 33554432
+  DIZZY = 256,
+  END = 512,
+  ENTRANCE = 1024,
+  FORWARD = 2048,
+  HURT = 4096,
+  JUMP = 8192,
+  KICK = 16384,
+  KNOCKDOWN = 32768,
+  MOVE = 65536,
+  PARRY = 131072,
+  PUNCH = 262144,
+  RISE = 524288,
+  RUN = 1048576,
+  SPECIAL = 2097152,
+  STAND = 4194304,
+  TAUNT = 8388608,
+  THROW = 16777216,
+  UP = 33554432,
   -- 67108864
   -- 134217728
   -- 268435456
@@ -93,6 +94,7 @@ charStatesList = {
   'HurtAirborne',
   'HurtAirborneEnd',
   'HurtCrouch',
+  'HurtThrow',
   'JumpBack',
   'JumpForward',
   'JumpNeutral',
@@ -111,6 +113,8 @@ charStatesList = {
   'Rise',
   'Run',
   'Stand',
+  'Throw',
+  'ThrowBegin',
   'Transition',
 }
 
@@ -181,11 +185,13 @@ local firstFrame <const> = {
     isHurt = false,
     isJumping = false,
     isKicking = false,
+    isKnockedDown = false,
     isMoving = false,
     isPunching = false,
     isRunning = false,
     IsSpecialing = false,
     isStanding = true,
+    isThrowing = false,
     isTransitioning = false,
   },
   direction = charDirections.RIGHT,
@@ -266,8 +272,6 @@ end
 function Character:update()
   local frame <const> = self.history.frames[self.history.counter]
 
-  self:Debug('Next State', frame.nextState)
-
   if (
     self.loadingState == loadingStates.IDLE or
     self.loadingState == loadingStates.LOADING
@@ -346,6 +350,10 @@ end
 
 function Character:CheckInputs()
   if (self:CheckSpecialInputs()) then
+    return
+  end
+
+  if (self:CheckThrowInputs()) then
     return
   end
 
@@ -612,8 +620,38 @@ function Character:CheckSpecialInputs()
   -- Overload this on each character's class!
 end
 
+function Character:CheckThrowInputs()
+  local frame <const> = self.history.frames[self.history.counter]
+  local frameData <const> = self:GetFrameData(frame.frameIndex)
+
+  if (not frameData.cancellable or (frameData.cancellable & cancellableStates.THROW) == 0) then
+    return false
+  end
+
+  if (not frame.checks.isThrowing) then
+    if (
+      (frame.buttonState.hasPressedB and frame.buttonState.hasPressedA) or
+      (frame.buttonState.hasPressedB and frame.buttonState.isPressingA) or
+      (frame.buttonState.isPressingB and frame.buttonState.hasPressedA)
+    ) then
+      local newState = charStates.THROW | charStates.BEGIN
+
+      -- if (frame.buttonState.isPressingBack) then
+      --   newState |= charStates.BACK
+      -- elseif (frame.buttonState.isPressingForward) then
+      --   newState |= charStates.FORWARD
+      -- end
+
+      self:SetState(newState)
+
+      return true
+    end
+  end
+end
+
 function Character:CreateCollisionSprites(objects)
   local center = nil
+  local opponentCenter = nil
   local collisions <const> = {
     Hitboxes = {},
     Hurtboxes = {},
@@ -639,6 +677,8 @@ function Character:CreateCollisionSprites(objects)
         name = object.name, -- For debugging ;)
         properties = properties,
       }))
+    elseif (object.type == 'OpponentCenter') then
+      opponentCenter = poi.new(object.x, object.y)
     elseif (object.type == 'Pushbox') then
       collisions['Pushbox'] = {
         collideRect = rec.new(object.x, object.y, object.width, object.height),
@@ -648,7 +688,7 @@ function Character:CreateCollisionSprites(objects)
     end
   end
 
-  return center, collisions
+  return center, collisions, opponentCenter
 end
 
 -- function Character:draw(x, y, width, height)
@@ -769,23 +809,6 @@ function Character:GetAnimationFrame(animationFrameIndex, historyFrameIndex)
   return animation.frames[animationFrameIndex]
 end
 
-function Character:GetAnimationLoops(frameIndex)
-  local animation <const> = self.animations[self:GetFilteredStateForAnimation(frameIndex)]
-
-  return animation.data.loops
-end
-
-function Character:GetFrameDataLoops(frameIndex)
-  local frame <const> = self.history.frames[frameIndex or self.history.counter]
-  local frameData <const> = self:GetFrameData(frame.frameIndex)
-
-  return frameData.loops
-end
-
-function Character:GetLoops(index)
-  return self:GetAnimationLoops(index) or self:GetFrameDataLoops(index)
-end
-
 -- function Character:GetBackAndForwardInputs()
 --   local frame <const> = self.history.frames[self.history.counter]
 
@@ -841,8 +864,8 @@ end
 
 -- To reduce the complexity of animation keys,
 -- we want to remove certain states under certain conditions.
-function Character:GetFilteredStateForAnimation(frameIndex)
-  local frame <const> = self.history.frames[frameIndex or self.history.counter]
+function Character:GetFilteredStateForAnimation(historyIndex)
+  local frame <const> = self.history.frames[historyIndex or self.history.counter]
   local statesToRemove = 0
 
   -- Attacking is not visually affected by dashing... yet.
@@ -881,8 +904,6 @@ function Character:GetFrameData(animationFrameIndex, historyFrameIndex)
 end
 
 function Character:GetHit(hitbox)
-  self:Debug('Character:GetHit()')
-
   local frame <const> = self.history.frames[self.history.counter]
   local health = frame.health
   local hitstun = frame.hitstun
@@ -993,6 +1014,58 @@ end
 
 function Character:GetMoveVelocity()
   return self:NormalizeHorizontalVelocity(self:GetMoveSpeed())
+end
+
+function Character:GetThrown(hitbox)
+  local character <const> = hitbox.character
+  local characterFrame <const> = character.history.frames[character.history.counter]
+  local characterAnimationFrame <const> = character:GetAnimationFrame(characterFrame.frameIndex)
+  local frame <const> = self.history.frames[self.history.counter]
+  local health = frame.health
+  local hitstun = frame.hitstun
+  local newVelocity <const> = {
+    x = frame.velocity.x,
+    y = frame.velocity.y,
+  }
+
+  if (hitbox.properties.damage) then
+    health -= hitbox.properties.damage
+  end
+
+  if (hitbox.properties.hitstun) then
+    hitstun = hitbox.properties.hitstun
+  end
+
+  if (hitbox.properties.launch) then
+    -- Note the negation of "hitbox.properties.launch"
+    newVelocity.y = -hitbox.properties.launch
+  end
+
+  if (hitbox.properties.pushback) then
+    -- Note the negation of "GetFlipSign()"
+    newVelocity.x = hitbox.properties.pushback * -self:GetFlipSign()
+  end
+
+  table.assign(
+    self.history.frames[self.history.counter],
+    {
+      health = health,
+      hitstun = hitstun,
+      velocity = newVelocity,
+    }
+  )
+
+  if (self.OnHealthChange) then
+    self.OnHealthChange(health)
+  end
+
+  if (hitbox.properties.opponentNextState) then
+    self:SetState(hitbox.properties.opponentNextState)
+  else
+    self:SetState(charStates.HURT | charStates.THROW)
+  end
+
+  spr.removeSprites({ hitbox })
 end
 
 function Character:HitBall(collision)
@@ -1262,7 +1335,7 @@ function Character:HandleJumpEnd()
 
   if (frame.checks.isHurt) then
     self:SetState(charStates.HURT | charStates.AIRBORNE | charStates.END)
-  else
+  elseif (not frame.checks.isKnockedDown) then
     self:SetState(charStates.JUMP | charStates.END)
   end
 end
@@ -1319,7 +1392,7 @@ function Character:HydrateAnimation(animation)
 
   for i, frame in ipairs(animation.tiles) do
     local frameData <const> = ConvertCustomPropertiesToTable(frame.properties or {})
-    local center <const>, collisions <const> = self:CreateCollisionSprites(frame.objectgroup.objects)
+    local center <const>, collisions <const>, opponentCenter <const> = self:CreateCollisionSprites(frame.objectgroup.objects)
 
     for j, hitbox in ipairs(collisions.Hitboxes) do
       if (frameData.soundFX) then
@@ -1341,33 +1414,12 @@ function Character:HydrateAnimation(animation)
       end
     end
 
-    -- if (frameData.soundFX) then
-      -- if (frameData.soundFX.onBlock) then
-      --   local soundFX <const> = self:SetSoundFX(frameData.soundFX.onBlock)
-
-      --   for j, hitbox in ipairs(collisions.Hitboxes) do
-      --     hitbox.soundFX.onBlock = soundFX
-      --   end
-      -- end
-
-      -- if (frameData.soundFX.onHit) then
-      --   local soundFX <const> = self:SetSoundFX(frameData.soundFX.onHit)
-
-      --   for j, hitbox in ipairs(collisions.Hitboxes) do
-      --     hitbox.soundFX.onHit = soundFX
-      --   end
-      -- end
-
-      -- if (frameData.soundFX.onWhiff) then
-      --   self:SetSoundFX(frameData.soundFX.onWhiff)
-      -- end
-    -- end
-
     frames[i] = {
       center = center,
       collisions = collisions,
       data = FrameData(frameData),
       image = frame.image,
+      opponentCenter = opponentCenter,
     }
   end
 
@@ -1407,13 +1459,6 @@ end
 
 function Character:IsActive()
   return self.loadingState == loadingStates.ACTIVE
-end
-
-function Character:IsFalling(frameIndex)
-  local frame <const> = self.history.frames[frameIndex or self.history.counter]
-
-  -- Since gravity is always being applied, we need to check above it.
-  return frame.checks.isAirborne and frame.velocity.y > self.gravity
 end
 
 function Character:IsLoading()
@@ -1588,10 +1633,11 @@ function Character:SetAnimations()
   -- Entrance
   self.animations[charStates.ENTRANCE] = self.hydratedAnimations['Entrance']
 
-  -- Hurting
+  -- Hurt
   self.animations[charStates.HURT | charStates.AIRBORNE] = self.hydratedAnimations['HurtAirborne']
   self.animations[charStates.HURT | charStates.AIRBORNE | charStates.END] = self.hydratedAnimations['HurtAirborneEnd']
   self.animations[charStates.HURT | charStates.CROUCH] = self.hydratedAnimations['HurtCrouch']
+  self.animations[charStates.HURT | charStates.THROW] = self.hydratedAnimations['HurtThrow']
   self.animations[charStates.HURT | charStates.STAND] = self.hydratedAnimations['Hurt']
 
   -- Kicking
@@ -1634,6 +1680,10 @@ function Character:SetAnimations()
 
   -- Standing
   self.animations[charStates.STAND] = self.hydratedAnimations['Stand']
+
+  -- Throw
+  self.animations[charStates.THROW] = self.hydratedAnimations['Throw']
+  self.animations[charStates.THROW | charStates.BEGIN] = self.hydratedAnimations['ThrowBegin']
 end
 
 function Character:SetAssets()
@@ -1665,10 +1715,11 @@ function Character:SetImagetables()
   -- Entrance
   self.imagetables[charStates.ENTRANCE] = self.hydratedImagetables['Entrance']
 
-  -- Hurting
+  -- Hurt
   self.imagetables[charStates.HURT | charStates.AIRBORNE] = self.hydratedImagetables['HurtAirborne']
   self.imagetables[charStates.HURT | charStates.AIRBORNE | charStates.END] = self.hydratedImagetables['HurtAirborneEnd']
   self.imagetables[charStates.HURT | charStates.CROUCH] = self.hydratedImagetables['HurtCrouch']
+  self.imagetables[charStates.HURT | charStates.THROW] = self.hydratedImagetables['HurtThrow']
   self.imagetables[charStates.HURT | charStates.STAND] = self.hydratedImagetables['Hurt']
 
   -- Kicking
@@ -1711,6 +1762,10 @@ function Character:SetImagetables()
 
   -- Standing
   self.imagetables[charStates.STAND] = self.hydratedImagetables['Stand']
+
+  -- Throwing
+  self.imagetables[charStates.THROW] = self.hydratedImagetables['Throw']
+  self.imagetables[charStates.THROW | charStates.BEGIN] = self.hydratedImagetables['ThrowBegin']
 end
 
 function Character:SetNextState(state)
@@ -1841,8 +1896,6 @@ function Character:SetSoundFX(soundFXPath)
   soundFXPath = string.gsub(soundFXPath, '%.%./%.%./%.%./', '/')
   soundFXPath = string.gsub(soundFXPath, '%.wav', '')
 
-  print(soundFXPath)
-
   if (not self.soundFX[soundFXPath]) then
     self.soundFX[soundFXPath] = pd.sound.sampleplayer.new(soundFXPath)
   end
@@ -1859,7 +1912,10 @@ function Character:SetState(state)
     self.history.frames[self.history.counter],
     {
       checks = {
-        isAttacking = state & charStates.KICK ~= 0 or state & charStates.PUNCH ~= 0 or state & charStates.SPECIAL ~= 0,
+        isAttacking = state & charStates.KICK ~= 0 or
+          state & charStates.PUNCH ~= 0 or
+          state & charStates.SPECIAL ~= 0 or
+          state & charStates.THROW ~= 0,
         isAirborne = state & charStates.AIRBORNE ~= 0,
         isBack = state & charStates.BACK ~= 0,
         isBeginning = state & charStates.BEGIN ~= 0,
@@ -1870,12 +1926,17 @@ function Character:SetState(state)
         isHurt = state & charStates.HURT ~= 0,
         isJumping = state & charStates.JUMP ~= 0,
         isKicking = state & charStates.KICK ~= 0,
+        isKnockedDown = state & charStates.KNOCKDOWN ~= 0,
+        isMoving = state & charStates.MOVE ~= 0,
         isPunching = state & charStates.PUNCH ~= 0,
         isRunning = state & charStates.RUN ~= 0,
         IsSpecialing = state & charStates.SPECIAL ~= 0,
         isStanding = state & charStates.STAND ~= 0,
-        isTransitioning = state & charStates.BEGIN ~= 0 or state & charStates.END ~= 0,
-        isMoving = state & charStates.MOVE ~= 0,
+        isThrown = state & charStates.HURT ~= 0 and
+          state & charStates.THROW ~= 0,
+        isThrowing = state & charStates.THROW ~= 0,
+        isTransitioning = state & charStates.BEGIN ~= 0 or
+          state & charStates.END ~= 0,
       },
       state = state,
     }
@@ -1895,6 +1956,23 @@ end
 function Character:TransitionState()
   local frame <const> = self.history.frames[self.history.counter]
 
+  if (frame.checks.isThrown) then
+    local opponentFrame <const> = self.opponent.history.frames[self.opponent.history.counter]
+    local opponentFrameData <const> = self.opponent:GetAnimationFrame(opponentFrame.frameIndex)
+
+    if (opponentFrameData.opponentCenter) then
+      local isOpponentFlipped <const> = opponentFrame.direction == charDirections.LEFT
+      local opponentBoundsRect <const> = self.opponent:getBoundsRect()
+      local offsetCenter <const> = opponentFrameData.opponentCenter:offsetBy(opponentBoundsRect.x, opponentBoundsRect.y)
+            offsetCenter.x = isOpponentFlipped
+              and (offsetCenter.x + opponentBoundsRect.width - (opponentFrameData.opponentCenter.x * 2))
+              or offsetCenter.x
+            offsetCenter.y = offsetCenter.y + (self.height / 2)
+
+      self:MoveToXY(offsetCenter.x, offsetCenter.y)
+    end
+  end
+
   if (self:HasDirectionChanged()) then
     if (frame.checks.isMoving) then
       if (frame.checks.isForward) then
@@ -1909,18 +1987,22 @@ function Character:TransitionState()
     return
   end
 
-  local loops <const> = self:GetLoops()
-  local frame <const> = self.history.frames[self.history.counter]
+  local state <const> = self:GetFilteredStateForAnimation()
+  local animation <const> = self.animations[state]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
+  local loops <const> = animation.data.loops or frameData.loops
   local nextState <const> = frame.nextState or frameData.nextState
 
   if (nextState ~= nil) then
-    table.assign(
-      self.history.frames[self.history.counter],
-      {
-        nextState = nil
-      }
-    )
+    -- Normally, I would use "table.assign" to set this,
+    -- but a "nil" property on a table will be ignored on "pairs()"
+    self.history.frames[self.history.counter].nextState = nil
+
+    -- A KO'd character should not get back up!
+    -- TODO: "KO" state?
+    if (state == charStates.KNOCKDOWN and nextState == charStates.RISE and frame.health <= 0) then
+      return
+    end
 
     self:SetState(nextState)
 
@@ -1941,11 +2023,13 @@ function Character:TransitionState()
       return
     end
 
-    local newState <const> = frame.state &~ statesToRemove
+    if (not frame.checks.isThrowing) then
+      local newState <const> = frame.state &~ statesToRemove
 
-    self:SetState(newState)
+      self:SetState(newState)
 
-    return
+      return
+    end
   end
 
   if (frame.checks.isEnding) then
@@ -2113,9 +2197,8 @@ function Character:UpdateFrameIndex()
     return
   end
 
-  local nextFrame <const> = self.history.frames[self.history.counter]
-  local animation <const> = self.animations[self:GetFilteredStateForAnimation(frame.frameIndex)]
-  local nextFrameIndex = nextFrame.frameIndex
+  local animation <const> = self.animations[self:GetFilteredStateForAnimation()]
+  local nextFrameIndex = frame.frameIndex
 
   if (not self:HasAnimationEnded()) then
     nextFrameIndex += 1

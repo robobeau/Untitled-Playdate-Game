@@ -136,24 +136,24 @@ end
 
 function Kim:SetAnimations()
   -- Chain Moves
-  self.animations[charStates.KICK | charStates.CHAIN | charStates.STAND] = self.hydratedAnimations['KickNeutralChain'];
+  self.animations[charStates.KICK | charStates.CHAIN | charStates.STAND] = self.hydratedAnimations['KickNeutralChain']
 
   -- Special Moves
-  self.animations[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self.hydratedAnimations['FlashKick'];
-  self.animations[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self.hydratedAnimations['DiveKick'];
-  self.animations[charStates.SPECIAL | charStates.BACK] = self.hydratedAnimations['CrescentMoonSlash'];
+  self.animations[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self.hydratedAnimations['FlashKick']
+  self.animations[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self.hydratedAnimations['DiveKick']
+  self.animations[charStates.SPECIAL | charStates.BACK] = self.hydratedAnimations['CrescentMoonSlash']
 
   Kim.super.SetAnimations(self)
 end
 
 function Kim:SetImagetables()
   -- Chain Moves
-  self.imagetables[charStates.KICK | charStates.CHAIN | charStates.STAND] = self.hydratedImagetables['KickNeutralChain'];
+  self.imagetables[charStates.KICK | charStates.CHAIN | charStates.STAND] = self.hydratedImagetables['KickNeutralChain']
 
   -- Special Moves
-  self.imagetables[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self.hydratedImagetables['FlashKick'];
-  self.imagetables[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self.hydratedImagetables['DiveKick'];
-  self.imagetables[charStates.SPECIAL | charStates.BACK] = self.hydratedImagetables['CrescentMoonSlash'];
+  self.imagetables[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self.hydratedImagetables['FlashKick']
+  self.imagetables[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self.hydratedImagetables['DiveKick']
+  self.imagetables[charStates.SPECIAL | charStates.BACK] = self.hydratedImagetables['CrescentMoonSlash']
 
   Kim.super.SetImagetables(self)
 end

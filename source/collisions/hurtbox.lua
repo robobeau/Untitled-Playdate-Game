@@ -17,18 +17,22 @@ function Hurtbox:HandleCollision(collision)
 
   local didCharacterBlock <const> = character:CheckBlockInputs()
 
-  if (not didCharacterBlock) then
-    if (hitbox.soundFX.onHit) then
-      hitbox.soundFX.onHit:play()
-    end
-
-    self.character:GetHit(hitbox)
-    hitbox:remove()
-
-    return
+  if (hitbox.properties.type == collisionBoxTypes.THROW) then
+    -- TODO: Throw Escape check
+    self.character:GetThrown(hitbox)
+    hitbox:OnHit()
   else
-    if (hitbox.soundFX.onBlock) then
-      hitbox.soundFX.onBlock:play()
+    if (not didCharacterBlock) then
+      if (hitbox.soundFX.onHit) then
+        hitbox.soundFX.onHit:play()
+      end
+
+      self.character:GetHit(hitbox)
+      hitbox:OnHit()
+    else
+      if (hitbox.soundFX.onBlock) then
+        hitbox.soundFX.onBlock:play()
+      end
     end
   end
 end

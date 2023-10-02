@@ -11,3 +11,11 @@ function Hitbox:OnAdd()
 
   Hitbox.super.OnAdd(self)
 end
+
+function Hitbox:OnHit()
+  if (self.properties.characterNextState) then
+    self.character:SetState(self.properties.characterNextState)
+  end
+
+  self:remove()
+end

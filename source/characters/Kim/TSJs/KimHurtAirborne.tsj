@@ -9,58 +9,10 @@
  "margin":0,
  "name":"KimHurtAirborne",
  "spacing":0,
- "tilecount":3,
+ "tilecount":2,
  "tiledversion":"1.10.1",
  "tileheight":96,
  "tiles":[
-        {
-         "id":0,
-         "image":"..\/images\/KimHurtAirborne1.png",
-         "imageheight":96,
-         "imagewidth":128,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "id":2,
-             "name":"",
-             "objects":[
-                    {
-                     "height":76,
-                     "id":1,
-                     "name":"Pushbox",
-                     "rotation":0,
-                     "type":"Pushbox",
-                     "visible":true,
-                     "width":40,
-                     "x":44,
-                     "y":20
-                    }, 
-                    {
-                     "height":0,
-                     "id":2,
-                     "name":"Center",
-                     "point":true,
-                     "rotation":0,
-                     "type":"Center",
-                     "visible":true,
-                     "width":0,
-                     "x":64,
-                     "y":96
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            },
-         "properties":[
-                {
-                 "name":"frameDuration",
-                 "type":"int",
-                 "value":1
-                }],
-         "type":"Frame"
-        }, 
         {
          "id":1,
          "image":"..\/images\/KimHurtAirborne1.png",
@@ -105,7 +57,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":5
+                 "value":6
                 }],
          "type":"Frame"
         }, 

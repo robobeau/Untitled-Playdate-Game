@@ -92,7 +92,7 @@
                  "name":"nextState",
                  "propertytype":"CharacterStates",
                  "type":"int",
-                 "value":320
+                 "value":576
                 }],
          "type":"Frame"
         }],

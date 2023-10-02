@@ -10,7 +10,7 @@
  <tile id="0" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="3"/>
-   <property name="nextState" type="int" propertytype="CharacterStates" value="2097152"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
   </properties>
   <image width="80" height="96" source="../../../source/characters/Kim/images/KimBlock1.png"/>
   <objectgroup draworder="index" id="2">

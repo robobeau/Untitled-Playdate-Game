@@ -68,6 +68,7 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="4"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="2049"/>
   </properties>
   <image width="80" height="128" source="../../../source/characters/Kim/images/KimJumpForward5.png"/>
   <objectgroup draworder="index" id="2">

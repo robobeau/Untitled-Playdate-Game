@@ -391,6 +391,12 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":4
+                }, 
+                {
+                 "name":"nextState",
+                 "propertytype":"CharacterStates",
+                 "type":"int",
+                 "value":2049
                 }],
          "type":"Frame"
         }, 

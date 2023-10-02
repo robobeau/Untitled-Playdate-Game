@@ -186,7 +186,6 @@ function FightScene:InitLifebars()
     if (health <= 0) then
       self:Stop(overStates.KO)
 
-      print('Setting Next State')
       self.character1:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
       self.alphaAnimator = ani.new(200, 0, 1)
     end
@@ -197,7 +196,6 @@ function FightScene:InitLifebars()
     if (health <= 0) then
       self:Stop(overStates.KO)
 
-      print('Setting Next State')
       self.character2:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
       self.alphaAnimator = ani.new(200, 0, 1)
     end

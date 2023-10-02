@@ -9,7 +9,7 @@
  </properties>
  <tile id="0" type="Frame">
   <properties>
-   <property name="cancellable" type="int" propertytype="Cancellable" value="123"/>
+   <property name="cancellable" type="int" propertytype="Cancellable" value="251"/>
    <property name="frameDuration" type="int" value="3"/>
   </properties>
   <image width="72" height="84" source="../../../source/characters/Kim/images/KimStand1.png"/>
@@ -37,7 +37,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="cancellable" type="int" propertytype="Cancellable" value="123"/>
+   <property name="cancellable" type="int" propertytype="Cancellable" value="251"/>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
   <image width="72" height="86" source="../../../source/characters/Kim/images/KimStand2.png"/>
@@ -65,7 +65,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="cancellable" type="int" propertytype="Cancellable" value="123"/>
+   <property name="cancellable" type="int" propertytype="Cancellable" value="251"/>
    <property name="frameDuration" type="int" value="5"/>
   </properties>
   <image width="72" height="86" source="../../../source/characters/Kim/images/KimStand3.png"/>
@@ -93,7 +93,7 @@
  </tile>
  <tile id="4" type="Frame">
   <properties>
-   <property name="cancellable" type="int" propertytype="Cancellable" value="123"/>
+   <property name="cancellable" type="int" propertytype="Cancellable" value="251"/>
    <property name="frameDuration" type="int" value="3"/>
   </properties>
   <image width="72" height="84" source="../../../source/characters/Kim/images/KimStand1.png"/>

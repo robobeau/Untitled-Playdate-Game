@@ -16,7 +16,7 @@ local defaults <const> = {
   properties = {},
   soundFX = {},
 }
-local collisionTypes <const> = {
+collisionBoxTypes = {
   HIGH = 1,
   LOW = 2,
   MID = 4,
