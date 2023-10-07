@@ -15,6 +15,7 @@ local kimStatesList <const> = {
   'KickNeutralChain',
 }
 local defaults <const> = {
+  assetsList = table.move(charStatesList, 1, #charStatesList, #kimStatesList + 1, kimStatesList),
   canRun = true,
   -- health = 950,
   jumpHeight = charJumpHeights.SHORT,
@@ -32,7 +33,6 @@ local defaults <const> = {
     },
     run = charSpeeds.FASTEST,
   },
-  statesList = table.move(charStatesList, 1, #charStatesList, #kimStatesList + 1, kimStatesList)
 }
 
 class('Kim', defaults).extends(Character)

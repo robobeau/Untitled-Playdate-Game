@@ -20,6 +20,7 @@ local gfx <const> = pd.graphics
 local ani <const> = gfx.animator
 local img <const> = gfx.image
 local rec <const> = geo.rect
+local snd <const> = pd.sound
 
 local fightStates <const> = {
   ACTIVE = 1,
@@ -126,7 +127,7 @@ function FightScene:InitCharacters()
 
   self.character2 = self.character2Class({
     controllable = false,
-    debug = true,
+    debug = false,
     startingDirection = charDirections.LEFT,
   })
 
@@ -218,6 +219,9 @@ function FightScene:InitMenu()
 end
 
 function FightScene:InitStage()
+  self.backgroundMusic = snd.fileplayer.new('music/Stage - Metropolis Grime - Loop.mp3')
+  self.backgroundMusic:setVolume(0.5)
+
   self.stage = Stage({
     character = self.character1,
     id = self.stageID
@@ -291,6 +295,10 @@ function FightScene:Start()
   self.state = fightStates.ACTIVE
   self.overState = nil
 
+  if (not self.backgroundMusic:isPlaying()) then
+    self.backgroundMusic:play(0)
+  end
+
   self.character1.controllable = true
   -- self.character2.controllable = true
   self.character1:setUpdatesEnabled(true)
@@ -302,6 +310,7 @@ function FightScene:Stop(overState)
   self.state = fightStates.OVER
   self.overState = overState
 
+  -- self.backgroundMusic:stop()
   self.character1.controllable = false
   self.character2.controllable = false
   -- self.character1:setUpdatesEnabled(false)
@@ -310,6 +319,9 @@ function FightScene:Stop(overState)
 end
 
 function FightScene:Teardown()
+  self.backgroundMusic:stop()
+  self.backgroundMusic = nil
+
   self.character1:remove()
   self.character1:Teardown()
   self.character1 = nil

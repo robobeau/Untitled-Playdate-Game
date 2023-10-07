@@ -5,6 +5,7 @@ import 'CoreLibs/sprites'
 
 import 'frameData'
 import 'inputs'
+import 'loadableSprite'
 import 'utils'
 
 -- Convenience variables
@@ -118,14 +119,9 @@ charStatesList = {
   'Transition',
 }
 
-local loadingStates <const> = {
-  ACTIVE = 1,
-  IDLE = 2,
-  LOADED = 4,
-  LOADING = 8,
-}
 local defaults <const> = {
   animations = {},
+  assetsList = charStatesList,
   canDoubleJump = false,
   canRun = false,
   controllable = false,
@@ -144,8 +140,6 @@ local defaults <const> = {
   hydratedImagetables = {},
   imagetables = {},
   jumpHeight = charJumpHeights.NORMAL,
-  loadedStates = 1,
-  loadingState = loadingStates.IDLE,
   menuImagePath = 'characters/Character/images/CharacterPortraitMenu',
   name = 'Character',
   opponent = nil,
@@ -167,7 +161,6 @@ local defaults <const> = {
     x = 0,
     y = 0,
   },
-  statesList = charStatesList,
   stun = 1000,
 }
 local firstFrame <const> = {
@@ -213,7 +206,7 @@ local firstFrame <const> = {
   },
 }
 
-class('Character', defaults).extends(spr)
+class('Character', defaults).extends(LoadableSprite)
 
 function Character:collisionResponse(other)
   local otherGroupMask <const> = other:getGroupMask()
@@ -224,109 +217,6 @@ function Character:collisionResponse(other)
   end
 
   return spr.kCollisionTypeFreeze
-end
-
-function Character:init(options)
-  Character.super.init(self)
-
-  local config <const> = options or {}
-
-  self.animations = {}
-  self.canDoubleJump = config.canDoubleJump or self.canDoubleJump
-  self.canRun = config.canRun or self.canRun
-  self.controllable = config.controllable or self.controllable
-  self.debug = config.debug or self.debug -- For debugging ;)
-  self.emptyCollisionSprites = {}
-  self.gravity = config.gravity or self.gravity
-  self.health = config.health or self.health
-  self.history = {
-    counter = 1,
-    frames = {
-      firstFrame,
-    }
-  }
-  self.hydratedAnimations = {}
-  self.hydratedImagetables = {}
-  self.imagetables = {}
-  self.jumpHeight = config.jumpHeight or self.jumpHeight
-  self.loadedStates = 1
-  self.loadingState = loadingStates.IDLE
-  self.name = config.name or self.name
-  self.opponent = config.opponent or self.opponent
-  self.soundFX = {
-    ['genericOnBlock'] = self:SetSoundFX('/sounds/block_medium_01.wav'),
-    ['genericOnHit'] = self:SetSoundFX('/sounds/face_hit_small_43.wav'),
-    ['genericOnWhiff'] = self:SetSoundFX('/sounds/kick_short_whoosh_01.wav'),
-  }
-  self.speeds = config.speeds or self.speeds
-  self.startingDirection = config.startingDirection or self.startingDirection
-  self.startingPosition = config.startingPosition or self.startingPosition
-  self.stun = config.stun or self.stun
-
-  self:setCenter(0.5, 1)
-  self:setCollidesWithGroupsMask(collisionTypes.PUSHBOX | collisionTypes.WALL)
-  self:setGroupMask(collisionTypes.PUSHBOX)
-  self:setZIndex(1)
-end
-
-function Character:update()
-  local frame <const> = self.history.frames[self.history.counter]
-
-  if (
-    self.loadingState == loadingStates.IDLE or
-    self.loadingState == loadingStates.LOADING
-  ) then
-    self:Load()
-
-    return
-  end
-
-
-  if (self.loadingState == loadingStates.LOADED) then
-    self.loadingState = loadingStates.ACTIVE
-
-    self:Reset()
-
-    return
-  end
-
-  -- local frame <const> = self.history.frames[frameIndex or self.history.counter]
-
-  -- self:Debug('==================================================')
-  -- self:Debug('Update!', self.x, self.y, frame.velocity.x, frame.velocity.y)
-
-  -- self:CheckCrank()
-
-  -- if (self.frozen == true) then
-  --   self:UpdateFrozenSprite()
-
-  --   return
-  -- end
-
-  -- self:markDirty()
-
-  self:TransitionState()
-  self:UpdateDirection()
-
-  self:UpdateButtonStates()
-
-  if (self.controllable) then
-    local frame <const> = self.history.frames[self.history.counter]
-
-    if (
-      frame.buttonState.current ~= 0 or
-      frame.buttonState.pressed ~= 0 or
-      frame.buttonState.released ~= 0
-    ) then
-      self:CheckInputs()
-    end
-  end
-
-  self:UpdateAnimationFrame()
-  self:UpdatePhysics()
-  self:UpdatePosition()
-
-  self:PrepareForNextLoop()
 end
 
 -- TODO: Buddy, you gotta decouple your logic so that you draw based on a state simulation
@@ -1456,44 +1346,61 @@ function Character:HydrateImageTable(animation)
   return imagetable
 end
 
-function Character:IsActive()
-  return self.loadingState == loadingStates.ACTIVE
+function Character:init(options)
+  Character.super.init(self)
+
+  local config <const> = options or {}
+
+  self.animations = {}
+  self.canDoubleJump = config.canDoubleJump or self.canDoubleJump
+  self.canRun = config.canRun or self.canRun
+  self.controllable = config.controllable or self.controllable
+  self.debug = config.debug or self.debug -- For debugging ;)
+  self.emptyCollisionSprites = {}
+  self.gravity = config.gravity or self.gravity
+  self.health = config.health or self.health
+  self.history = {
+    counter = 1,
+    frames = {
+      firstFrame,
+    }
+  }
+  self.hydratedAnimations = {}
+  self.hydratedImagetables = {}
+  self.imagetables = {}
+  self.jumpHeight = config.jumpHeight or self.jumpHeight
+  self.name = config.name or self.name
+  self.opponent = config.opponent or self.opponent
+  self.soundFX = {
+    ['genericOnBlock'] = self:SetSoundFX('/sounds/block_medium_01.wav'),
+    ['genericOnHit'] = self:SetSoundFX('/sounds/face_hit_small_43.wav'),
+    ['genericOnWhiff'] = self:SetSoundFX('/sounds/kick_short_whoosh_01.wav'),
+  }
+  self.speeds = config.speeds or self.speeds
+  self.startingDirection = config.startingDirection or self.startingDirection
+  self.startingPosition = config.startingPosition or self.startingPosition
+  self.stun = config.stun or self.stun
+
+  self:setCenter(0.5, 1)
+  self:setCollidesWithGroupsMask(collisionTypes.PUSHBOX | collisionTypes.WALL)
+  self:setGroupMask(collisionTypes.PUSHBOX)
+  self:setZIndex(1)
 end
 
-function Character:IsLoading()
-  return self.loadingState == loadingStates.LOADING
+function Character:LoadAsset()
+  self:LoadAnimation()
+  self:LoadImagetable()
 end
 
-function Character:IsLoaded()
-  return self.loadingState == loadingStates.LOADED
-end
-
-function Character:Load()
-  if (self.loadingState == loadingStates.IDLE) then
-    self.loadingState = loadingStates.LOADING
-  end
-
-  if (self.loadedStates > #self.statesList) then
-    self.loadingState = loadingStates.LOADED
-
-    self:SetAssets()
-  else
-    self:LoadAnimations()
-    self:LoadImagetables()
-
-    self.loadedStates += 1
-  end
-end
-
-function Character:LoadAnimations()
-  local animationName <const> = self.statesList[self.loadedStates]
+function Character:LoadAnimation()
+  local animationName <const> = self.assetsList[self.assetIndex]
   local animation <const> = self:LoadTSJ(animationName)
 
   self.hydratedAnimations[animationName] = self:HydrateAnimation(animation)
 end
 
-function Character:LoadImagetables()
-  local animationName <const> = self.statesList[self.loadedStates]
+function Character:LoadImagetable()
+  local animationName <const> = self.assetsList[self.assetIndex]
   local hydratedAnimation <const> = self.hydratedAnimations[animationName]
 
   self.hydratedImagetables[animationName] = self:HydrateImageTable(hydratedAnimation)
@@ -1555,6 +1462,18 @@ function Character:NormalizeHorizontalVelocity(speed)
   local moveSign <const> = frame.checks.isBack and -1 or 1
 
   return speed * flipSign * moveSign
+end
+
+function Character:OnLoaded()
+  self:Debug('Did I get here...?')
+
+  self:SetAnimations()
+  self:SetImagetables()
+
+  self.menuImage = img.new(self.menuImagePath)
+  self.portraitImage = img.new(self.portraitImagePath)
+
+  self:Reset()
 end
 
 function Character:PrepareForNextLoop()
@@ -1683,14 +1602,6 @@ function Character:SetAnimations()
   -- Throw
   self.animations[charStates.THROW] = self.hydratedAnimations['Throw']
   self.animations[charStates.THROW | charStates.BEGIN] = self.hydratedAnimations['ThrowBegin']
-end
-
-function Character:SetAssets()
-  self:SetAnimations()
-  self:SetImagetables()
-
-  self.menuImage = img.new(self.menuImagePath)
-  self.portraitImage = img.new(self.portraitImagePath)
 end
 
 function Character:SetImagetables()
@@ -2064,6 +1975,52 @@ function Character:TransitionState()
 
     return
   end
+end
+
+function Character:update()
+  if (not self:IsActive()) then
+    Character.super.update(self)
+
+    return
+  end
+
+  -- local frame <const> = self.history.frames[self.history.counter]
+
+  -- self:Debug('==================================================')
+  -- self:Debug('Update!', self.x, self.y, frame.velocity.x, frame.velocity.y)
+
+  -- self:CheckCrank()
+
+  -- if (self.frozen == true) then
+  --   self:UpdateFrozenSprite()
+
+  --   return
+  -- end
+
+  -- self:markDirty()
+
+  self:TransitionState()
+  self:UpdateDirection()
+
+  self:UpdateButtonStates()
+
+  if (self.controllable) then
+    local frame <const> = self.history.frames[self.history.counter]
+
+    if (
+      frame.buttonState.current ~= 0 or
+      frame.buttonState.pressed ~= 0 or
+      frame.buttonState.released ~= 0
+    ) then
+      self:CheckInputs()
+    end
+  end
+
+  self:UpdateAnimationFrame()
+  self:UpdatePhysics()
+  self:UpdatePosition()
+
+  self:PrepareForNextLoop()
 end
 
 function Character:UpdateAnimationFrame()

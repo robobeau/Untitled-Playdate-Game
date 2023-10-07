@@ -220,7 +220,8 @@ end
 function CharacterSelectScene:Init()
   local video <const> = vid.new('videos/FireBackground.pdv')
 
-  self.backgroundMusic = snd.sampleplayer.new('music/Hip Menus - Loop 1.wav')
+  self.backgroundMusic = snd.fileplayer.new('music/Hip Menus - Loop 1.mp3')
+  self.backgroundMusic:setVolume(0.5)
   self.backgroundMusic:play(0)
   self.backgroundVideo = {
     file = video,
