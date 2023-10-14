@@ -42,7 +42,7 @@ function Kim:CheckChainInputs()
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
   -- If we can't perform a chain, exit early.
-  if (not frameData.cancellable or (frameData.cancellable & cancellableStates.CHAIN) == 0) then
+  if (not frameData.checks.isChainCancellable) then
     return
   end
 
@@ -107,7 +107,7 @@ function Kim:CheckSpecialInputs()
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
   -- If we can't perform a special move, exit early.
-  if (not frameData.cancellable or frameData.cancellable & cancellableStates.SPECIAL == 0) then
+  if (not frameData.checks.isSpecialCancellable) then
     return
   end
 

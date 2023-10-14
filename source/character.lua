@@ -269,7 +269,7 @@ function Character:CheckAttackInputs()
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
   -- If we can't perform an attack, exit early.
-  if (not frameData.cancellable or (frameData.cancellable & cancellableStates.ATTACK) == 0) then
+  if (not frameData.checks.isAttackCancellable) then
     return
   end
 
@@ -340,11 +340,12 @@ function Character:CheckAttackInputs()
   end
 end
 
+-- TODO: Separate the input check and the state set into separate functions
 function Character:CheckBlockInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
-  if (not frameData.cancellable or (frameData.cancellable & cancellableStates.BLOCK) == 0) then
+  if (not frameData.checks.isBlockCancellable) then
     return false
   end
 
@@ -407,7 +408,7 @@ function Character:CheckJumpInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
-  if (not frameData.cancellable or (frameData.cancellable & cancellableStates.JUMP) == 0) then
+  if (not frameData.checks.isJumpCancellable) then
     return false
   end
 
@@ -440,7 +441,7 @@ function Character:CheckMovementInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
-  if (not frameData.cancellable or (frameData.cancellable & cancellableStates.MOVE) == 0) then
+  if (not frameData.checks.isMoveCancellable) then
     return false
   end
 
@@ -510,11 +511,12 @@ function Character:CheckSpecialInputs()
   -- Overload this on each character's class!
 end
 
+-- TODO: Separate the input check and the state set into separate functions
 function Character:CheckThrowInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
 
-  if (not frameData.cancellable or (frameData.cancellable & cancellableStates.THROW) == 0) then
+  if (not frameData.checks.isThrowCancellable) then
     return false
   end
 

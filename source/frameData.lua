@@ -6,6 +6,7 @@ local cancellableStates <const> = {
   MOVE = 16,
   SPECIAL = 32,
   SUPER = 64,
+  THROW = 128,
 }
 
 local defaults <const> = {
@@ -23,6 +24,16 @@ class('FrameData', defaults).extends()
 
 function FrameData:init(config)
   self.cancellable = config.cancellable or self.cancellable
+  self.checks = {
+    isAttackCancellable = self.cancellable & cancellableStates.ATTACK ~= 0,
+    isBlockCancellable = self.cancellable & cancellableStates.BLOCK ~= 0,
+    isChainCancellable = self.cancellable & cancellableStates.CHAIN ~= 0,
+    isJumpCancellable = self.cancellable & cancellableStates.JUMP ~= 0,
+    isMoveCancellable = self.cancellable & cancellableStates.MOVE ~= 0,
+    isSpecialCancellable = self.cancellable & cancellableStates.SPECIAL ~= 0,
+    isSuperCancellable = self.cancellable & cancellableStates.SUPER ~= 0,
+    isThrowCancellable = self.cancellable & cancellableStates.THROW ~= 0,
+  }
   self.duration = config.frameDuration or self.duration
   self.hitstunnable = config.hitstunnable or self.hitstunnable
   self.loops = config.loops or self.loops
@@ -30,32 +41,4 @@ function FrameData:init(config)
   self.soundFX = config.soundFX or self.soundFX
   self.velocityX = config.velocityX or self.velocityX
   self.velocityY = config.velocityY or self.velocityY
-end
-
-function FrameData:IsAttackCancellable()
-  return self.cancellable & cancellableStates.ATTACK ~= 0
-end
-
-function FrameData:IsBlockCancellable()
-  return self.cancellable & cancellableStates.BLOCK ~= 0
-end
-
-function FrameData:IsChainCancellable()
-  return self.cancellable & cancellableStates.CHAIN ~= 0
-end
-
-function FrameData:IsJumpCancellable()
-  return self.cancellable & cancellableStates.JUMP ~= 0
-end
-
-function FrameData:IsMoveCancellable()
-  return self.cancellable & cancellableStates.MOVE ~= 0
-end
-
-function FrameData:IsSpecialCancellable()
-  return self.cancellable & cancellableStates.SPECIAL ~= 0
-end
-
-function FrameData:IsSuperCancellable()
-  return self.cancellable & cancellableStates.SUPER ~= 0
 end
