@@ -244,6 +244,16 @@ function Character:CheckInputs()
   end
 
   if (self:CheckThrowInputs()) then
+    local newState = charStates.THROW | charStates.BEGIN
+
+    -- if (frame.buttonState.isPressingBack) then
+    --   newState |= charStates.BACK
+    -- elseif (frame.buttonState.isPressingForward) then
+    --   newState |= charStates.FORWARD
+    -- end
+
+    self:SetState(newState)
+
     return
   end
 
@@ -350,18 +360,6 @@ function Character:CheckBlockInputs()
   end
 
   if (frame.buttonState.isPressingBack) then
-    local newState = charStates.BLOCK
-
-    if (frame.checks.isAirborne) then
-      newState |= charStates.AIRBORNE
-    elseif (frame.checks.isCrouching) then
-      newState |= charStates.CROUCH
-    else
-      newState |= charStates.STAND
-    end
-
-    self:SetState(newState)
-
     return true
   end
 end
@@ -511,7 +509,6 @@ function Character:CheckSpecialInputs()
   -- Overload this on each character's class!
 end
 
--- TODO: Separate the input check and the state set into separate functions
 function Character:CheckThrowInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
@@ -526,19 +523,11 @@ function Character:CheckThrowInputs()
       (frame.buttonState.hasPressedB and frame.buttonState.isPressingA) or
       (frame.buttonState.isPressingB and frame.buttonState.hasPressedA)
     ) then
-      local newState = charStates.THROW | charStates.BEGIN
-
-      -- if (frame.buttonState.isPressingBack) then
-      --   newState |= charStates.BACK
-      -- elseif (frame.buttonState.isPressingForward) then
-      --   newState |= charStates.FORWARD
-      -- end
-
-      self:SetState(newState)
-
       return true
     end
   end
+
+  return false
 end
 
 function Character:CreateCollisionSprites(objects)
@@ -795,96 +784,51 @@ function Character:GetFrameData(animationFrameIndex, historyFrameIndex)
   return frame.data
 end
 
-function Character:GetHit(hitbox)
-  local frame <const> = self.history.frames[self.history.counter]
-  local health = frame.health
-  local hitstun = frame.hitstun
-  local newVelocity <const> = {
-    x = frame.velocity.x,
-    y = frame.velocity.y,
-  }
+-- function Character:GetHitByBall(hurtbox, ball)
+--   local frame <const> = self.history.frames[self.history.counter]
+--   local newState = charStates.HURT
 
-  if (hitbox.properties.damage) then
-    health -= hitbox.properties.damage
-  end
+--   if (frame.checks.isAirborne) then
+--     newState |= charStates.AIRBORNE
+--   elseif (frame.checks.isMoving or frame.checks.isStanding or frame.checks.isTransitioning) then
+--     newState |= charStates.STAND
+--   elseif (frame.checks.isCrouching) then
+--     newState |= charStates.CROUCH
+--   else
+--     newState |= charStates.STAND
+--   end
 
-  if (hitbox.properties.hitstun) then
-    hitstun = hitbox.properties.hitstun
-  end
+--   local frame <const> = self.history.frames[self.history.counter]
+--   local health <const> = frame.health - 100
 
-  if (hitbox.properties.launch) then
-    -- Note the negation of "hitbox.properties.launch"
-    newVelocity.y = -hitbox.properties.launch
-  end
+--   -- self:Debug(health)
 
-  if (hitbox.properties.pushback) then
-    -- Note the negation of "GetFlipSign()"
-    newVelocity.x = hitbox.properties.pushback * -self:GetFlipSign()
-  end
+--   table.assign(
+--     self.history.frames[self.history.counter],
+--     {
+--       health = health
+--     }
+--   )
+--   self.OnHealthChange(health)
+--   self:SetState(newState)
 
-  table.assign(
-    self.history.frames[self.history.counter],
-    {
-      health = health,
-      hitstun = hitstun,
-      velocity = newVelocity,
-    }
-  )
+--   spr.removeSprites({ hurtbox })
+-- end
 
-  if (self.OnHealthChange) then
-    self.OnHealthChange(health)
-  end
+-- function Character:GetHurt()
+--   local frame <const> = self.history.frames[self.history.counter]
+--   local newState = charStates.HURT
 
-  self:GetHurt()
+--   if (frame.checks.isAirborne) then
+--     newState |= charStates.AIRBORNE
+--   elseif (frame.checks.isCrouching) then
+--     newState |= charStates.CROUCH
+--   else
+--     newState |= charStates.STAND
+--   end
 
-  spr.removeSprites({ hitbox })
-end
-
-function Character:GetHitByBall(hurtbox, ball)
-  local frame <const> = self.history.frames[self.history.counter]
-  local newState = charStates.HURT
-
-  if (frame.checks.isAirborne) then
-    newState |= charStates.AIRBORNE
-  elseif (frame.checks.isMoving or frame.checks.isStanding or frame.checks.isTransitioning) then
-    newState |= charStates.STAND
-  elseif (frame.checks.isCrouching) then
-    newState |= charStates.CROUCH
-  else
-    newState |= charStates.STAND
-  end
-
-  local frame <const> = self.history.frames[self.history.counter]
-  local health <const> = frame.health - 100
-
-  -- self:Debug(health)
-
-  table.assign(
-    self.history.frames[self.history.counter],
-    {
-      health = health
-    }
-  )
-  self.OnHealthChange(health)
-  self:SetState(newState)
-
-  spr.removeSprites({ hurtbox })
-end
-
-function Character:GetHurt()
-  local frame <const> = self.history.frames[self.history.counter]
-  local newState = charStates.HURT
-
-  if (frame.checks.isAirborne) then
-    newState |= charStates.AIRBORNE
-  elseif (frame.checks.isCrouching) then
-    newState |= charStates.CROUCH
-  else
-    newState |= charStates.STAND
-  end
-
-  self:SetState(newState)
-end
+--   self:SetState(newState)
+-- end
 
 function Character:GetRunSpeed()
   return self.speeds.run
@@ -959,60 +903,60 @@ function Character:GetThrown(hitbox)
   spr.removeSprites({ hitbox })
 end
 
-function Character:HitBall(collision)
-  self.Debug('HitBall', collision.other.name, collision.sprite.name)
+-- function Character:HitBall(collision)
+--   self.Debug('HitBall', collision.other.name, collision.sprite.name)
 
-  local ball <const> = collision.other
-  local box <const> = collision.sprite
-  local properties <const> = box.properties
+--   local ball <const> = collision.other
+--   local box <const> = collision.sprite
+--   local properties <const> = box.properties
 
 
-  if (
-    properties.velocityX ~= nil
-    -- and collision.normal.x ~= 0
-  ) then
-    local flipSign <const> = self:GetFlipSign()
-    local velocityX <const> = properties.velocityX * flipSign
+--   if (
+--     properties.velocityX ~= nil
+--     -- and collision.normal.x ~= 0
+--   ) then
+--     local flipSign <const> = self:GetFlipSign()
+--     local velocityX <const> = properties.velocityX * flipSign
 
-    ball:SetVelocityX(velocityX)
-  end
+--     ball:SetVelocityX(velocityX)
+--   end
 
-  if (
-    properties.velocityY ~= nil
-    -- and collision.normal.y ~= 0
-  ) then
-    local velocityY <const> = properties.velocityY
+--   if (
+--     properties.velocityY ~= nil
+--     -- and collision.normal.y ~= 0
+--   ) then
+--     local velocityY <const> = properties.velocityY
 
-    ball:SetVelocityY(velocityY)
-  end
+--     ball:SetVelocityY(velocityY)
+--   end
 
-  spr.removeSprites({ hitbox })
-end
+--   spr.removeSprites({ hitbox })
+-- end
 
-function Character:HandleBallCollision(collision)
-  -- self:Debug('HandleBallCollision', collision.name)
+-- function Character:HandleBallCollision(collision)
+--   -- self:Debug('HandleBallCollision', collision.name)
 
-  local ball <const> = collision.other
-  local box <const> = collision.sprite
-  local boxGroupMask <const> = box:getGroupMask()
-  local boxIsHitbox <const> = boxGroupMask & collisionTypes.HITBOX ~= 0
-  local boxIsHurtbox <const> = boxGroupMask & collisionTypes.HURTBOX ~= 0
+--   local ball <const> = collision.other
+--   local box <const> = collision.sprite
+--   local boxGroupMask <const> = box:getGroupMask()
+--   local boxIsHitbox <const> = boxGroupMask & collisionTypes.HITBOX ~= 0
+--   local boxIsHurtbox <const> = boxGroupMask & collisionTypes.HURTBOX ~= 0
 
-  if (boxIsHitbox) then
-    self:HitBall(collision)
-  elseif (boxIsHurtbox) then
-    if (self.controllable and self:CheckBlockInputs()) then
-      return
-    end
+--   if (boxIsHitbox) then
+--     self:HitBall(collision)
+--   elseif (boxIsHurtbox) then
+--     if (self.controllable and self:CheckBlockInputs()) then
+--       return
+--     end
 
-    if (
-      (collision.normal.x ~= 0 and ball:IsDeadlyX()) or
-      (collision.normal.y ~= 0 and ball:IsDeadlyY())
-    ) then
-      self:GetHitByBall(box, ball)
-    end
-  end
-end
+--     if (
+--       (collision.normal.x ~= 0 and ball:IsDeadlyX()) or
+--       (collision.normal.y ~= 0 and ball:IsDeadlyY())
+--     ) then
+--       self:GetHitByBall(box, ball)
+--     end
+--   end
+-- end
 
 function Character:HandleCollisions(collisions)
   for i, collision in ipairs(collisions) do
@@ -1035,12 +979,11 @@ end
 
 function Character:HandleOverlapCollision(collision)
   local otherGroupMask <const> = collision.other:getGroupMask()
-  local collidedWithBall <const> = otherGroupMask & collisionTypes.BALL ~= 0
   local collidedWithPushbox <const> = otherGroupMask & collisionTypes.PUSHBOX ~= 0
 
-  if (collidedWithBall) then
-    self:HandleBallCollision(collision)
-  elseif (collidedWithPushbox) then
+  -- if (collidedWithBall) then
+  --   self:HandleBallCollision(collision)
+  if (collidedWithPushbox) then
     self:HandlePushboxCollision(collision)
   end
 end
@@ -1858,6 +1801,70 @@ function Character:SetState(state)
   self:SetAnimationFrame()
   self:DerivePhysicsFromState()
   -- self:markDirty()
+end
+
+function Character:TakeDamage(hitbox, isBlocking)
+  local frame <const> = self.history.frames[self.history.counter]
+  local health = frame.health
+  local hitstun = frame.hitstun
+  local newVelocity <const> = {
+    x = frame.velocity.x,
+    y = frame.velocity.y,
+  }
+
+  if (hitbox.properties.damage) then
+    local damage <const> = isBlocking
+      and (hitbox.properties.damage / 2)
+      or hitbox.properties.damage
+
+    -- TODO: Supers should be able to kill, even while blocking
+    health -= math.max(damage, 1)
+  end
+
+  if (hitbox.properties.hitstun) then
+    hitstun = hitbox.properties.hitstun
+  end
+
+  if (not isBlocking) then
+    if (hitbox.properties.launch) then
+      -- Note the negation of "hitbox.properties.launch"
+      newVelocity.y = -hitbox.properties.launch
+    end
+  end
+
+  if (hitbox.properties.pushback) then
+    -- Note the negation of "GetFlipSign()"
+    newVelocity.x = hitbox.properties.pushback * -self:GetFlipSign()
+  end
+
+  table.assign(
+    self.history.frames[self.history.counter],
+    {
+      health = health,
+      hitstun = hitstun,
+      velocity = newVelocity,
+    }
+  )
+
+  local newState = isBlocking
+    and charStates.BLOCK
+    or charStates.HURT
+
+  if (frame.checks.isAirborne) then
+    newState |= charStates.AIRBORNE
+  elseif (frame.checks.isCrouching) then
+    newState |= charStates.CROUCH
+  else
+    newState |= charStates.STAND
+  end
+
+  self:SetState(newState)
+
+  if (self.OnHealthChange) then
+    self.OnHealthChange(health)
+  end
+
+  spr.removeSprites({ hitbox })
 end
 
 function Character:Teardown()
