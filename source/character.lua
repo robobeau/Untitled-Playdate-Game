@@ -246,6 +246,7 @@ function Character:CheckInputs()
   if (self:CheckThrowInputs()) then
     local newState = charStates.THROW | charStates.BEGIN
 
+    -- TODO: Account for direction in throws
     -- if (frame.buttonState.isPressingBack) then
     --   newState |= charStates.BACK
     -- elseif (frame.buttonState.isPressingForward) then
@@ -288,12 +289,6 @@ function Character:CheckAttackInputs()
 
     if (frame.checks.isAirborne) then
       newState |= charStates.AIRBORNE
-
-      -- if (frame.checks.isBack) then
-      --   newState |= charStates.BACK
-      -- elseif (frame.checks.isForward) then
-      --   newState |= charStates.FORWARD
-      -- end
 
       if (math.abs(frame.velocity.x) > 0) then
         newState |= charStates.FORWARD
@@ -350,7 +345,6 @@ function Character:CheckAttackInputs()
   end
 end
 
--- TODO: Separate the input check and the state set into separate functions
 function Character:CheckBlockInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
@@ -572,12 +566,6 @@ function Character:CreateCollisionSprites(objects)
   return center, collisions, opponentCenter
 end
 
--- function Character:draw(x, y, width, height)
---   local frame <const> = self.history.frames[self.history.counter]
-
---   self.imagetable[frame.frameIndex]:draw(0, 0, self:GetFlip())
--- end
-
 -- For debugging ;)
 function Character:Debug(...)
   if (self.debug) then
@@ -588,16 +576,16 @@ end
 function Character:DeriveImageTableFromState()
   local filteredState <const> = self:GetFilteredStateForAnimation()
 
+  self.imagetable = self.imagetables[filteredState]
+
   table.assign(
     self.history.frames[self.history.counter],
     {
-      -- TODO: Why 0...?
-      frameCounter = 0,
+      -- TODO: This might need to be 0...?
+      frameCounter = 1,
       frameIndex = 1,
     }
   )
-
-  self.imagetable = self.imagetables[filteredState]
 end
 
 function Character:DerivePhysicsFromCurrentFrame()
@@ -639,8 +627,6 @@ function Character:DerivePhysicsFromState()
     x = frame.velocity.x,
     y = frame.velocity.y,
   }
-
-  -- self:Debug(newVelocity.x, newVelocity.y)
 
   -- X Velocity
 
@@ -689,16 +675,6 @@ function Character:GetAnimationFrame(animationFrameIndex, historyFrameIndex)
 
   return animation.frames[animationFrameIndex]
 end
-
--- function Character:GetBackAndForwardInputs()
---   local frame <const> = self.history.frames[self.history.counter]
-
---   if (frame.direction == charDirections.LEFT) then
---     return pd.kButtonRight, pd.kButtonLeft
---   end
-
---   return pd.kButtonLeft, pd.kButtonRight
--- end
 
 function Character:GetCenterRelativeToBounds()
   local boundsRect <const> = self:getBoundsRect()
@@ -784,52 +760,6 @@ function Character:GetFrameData(animationFrameIndex, historyFrameIndex)
   return frame.data
 end
 
--- function Character:GetHitByBall(hurtbox, ball)
---   local frame <const> = self.history.frames[self.history.counter]
---   local newState = charStates.HURT
-
---   if (frame.checks.isAirborne) then
---     newState |= charStates.AIRBORNE
---   elseif (frame.checks.isMoving or frame.checks.isStanding or frame.checks.isTransitioning) then
---     newState |= charStates.STAND
---   elseif (frame.checks.isCrouching) then
---     newState |= charStates.CROUCH
---   else
---     newState |= charStates.STAND
---   end
-
---   local frame <const> = self.history.frames[self.history.counter]
---   local health <const> = frame.health - 100
-
---   -- self:Debug(health)
-
---   table.assign(
---     self.history.frames[self.history.counter],
---     {
---       health = health
---     }
---   )
---   self.OnHealthChange(health)
---   self:SetState(newState)
-
---   spr.removeSprites({ hurtbox })
--- end
-
--- function Character:GetHurt()
---   local frame <const> = self.history.frames[self.history.counter]
---   local newState = charStates.HURT
-
---   if (frame.checks.isAirborne) then
---     newState |= charStates.AIRBORNE
---   elseif (frame.checks.isCrouching) then
---     newState |= charStates.CROUCH
---   else
---     newState |= charStates.STAND
---   end
-
---   self:SetState(newState)
--- end
-
 function Character:GetRunSpeed()
   return self.speeds.run
 end
@@ -903,61 +833,6 @@ function Character:GetThrown(hitbox)
   spr.removeSprites({ hitbox })
 end
 
--- function Character:HitBall(collision)
---   self.Debug('HitBall', collision.other.name, collision.sprite.name)
-
---   local ball <const> = collision.other
---   local box <const> = collision.sprite
---   local properties <const> = box.properties
-
-
---   if (
---     properties.velocityX ~= nil
---     -- and collision.normal.x ~= 0
---   ) then
---     local flipSign <const> = self:GetFlipSign()
---     local velocityX <const> = properties.velocityX * flipSign
-
---     ball:SetVelocityX(velocityX)
---   end
-
---   if (
---     properties.velocityY ~= nil
---     -- and collision.normal.y ~= 0
---   ) then
---     local velocityY <const> = properties.velocityY
-
---     ball:SetVelocityY(velocityY)
---   end
-
---   spr.removeSprites({ hitbox })
--- end
-
--- function Character:HandleBallCollision(collision)
---   -- self:Debug('HandleBallCollision', collision.name)
-
---   local ball <const> = collision.other
---   local box <const> = collision.sprite
---   local boxGroupMask <const> = box:getGroupMask()
---   local boxIsHitbox <const> = boxGroupMask & collisionTypes.HITBOX ~= 0
---   local boxIsHurtbox <const> = boxGroupMask & collisionTypes.HURTBOX ~= 0
-
---   if (boxIsHitbox) then
---     self:HitBall(collision)
---   elseif (boxIsHurtbox) then
---     if (self.controllable and self:CheckBlockInputs()) then
---       return
---     end
-
---     if (
---       (collision.normal.x ~= 0 and ball:IsDeadlyX()) or
---       (collision.normal.y ~= 0 and ball:IsDeadlyY())
---     ) then
---       self:GetHitByBall(box, ball)
---     end
---   end
--- end
-
 function Character:HandleCollisions(collisions)
   for i, collision in ipairs(collisions) do
     if (collision.type == spr.kCollisionTypeFreeze) then
@@ -981,8 +856,6 @@ function Character:HandleOverlapCollision(collision)
   local otherGroupMask <const> = collision.other:getGroupMask()
   local collidedWithPushbox <const> = otherGroupMask & collisionTypes.PUSHBOX ~= 0
 
-  -- if (collidedWithBall) then
-  --   self:HandleBallCollision(collision)
   if (collidedWithPushbox) then
     self:HandlePushboxCollision(collision)
   end
@@ -991,50 +864,6 @@ end
 function Character:HandlePushboxCollision(collision)
   local character <const> = collision.sprite
   local opponent <const> = collision.other
-
-  -- self:Debug('--------------- Pushbox Collision ---------------')
-  -- self:Debug('Current Position', self.x, self.y)
-
-  -- local frame <const> = self.history.frames[self.history.counter]
-  -- local newVelocity <const> = {
-  --   x = frame.velocity.x,
-  --   y = frame.velocity.y,
-  -- }
-
-  -- self:Debug('Move', collision.move)
-  -- self:Debug('Normal', collision.normal)
-  -- self:Debug('Overlaps', collision.overlaps)
-  -- self:Debug('Touch', collision.touch)
-  -- self:Debug('Sprite Bounds', collision.sprite:getBoundsRect())
-  -- self:Debug('Sprite Collide Rect', collision.sprite:getCollideRect())
-  -- self:Debug('Sprite Position', collision.sprite.x, collision.sprite.y)
-  -- self:Debug('Sprite Touch Rect', collision.spriteRect)
-  -- self:Debug('Other Bounds', collision.other:getBoundsRect())
-  -- self:Debug('Other Collide Rect', collision.other:getCollideRect())
-  -- self:Debug('Other Position', collision.other.x, collision.other.y)
-  -- self:Debug('Other Touch Rect', collision.otherRect)
-
-  -- if (collision.normal.x ~= 0) then
-  --   if (self:WouldHitAWall(self.x + collision.move.x, self.y)) then
-  --     local newPosition <const> = {
-  --       x = collision.other.x - collision.move.x,
-  --       y = collision.other.y,
-  --     }
-
-  --     self:Debug('Would hit a wall!', collision.move.x, newPosition.x)
-
-  --     collision.other:MoveToXY(newPosition.x, newPosition.y)
-  --   else
-  --     local newPosition <const> = {
-  --       x = self.x + collision.move.x,
-  --       y = self.y,
-  --     }
-
-  --     self:Debug('Will not hit a wall!', collision.move.x, newPosition.x)
-
-  --     self:MoveToXY(newPosition.x, newPosition.y)
-  --   end
-  -- end
 
   if (collision.normal.x ~= 0) then
     local characterBoundsX <const>, characterBoundsY <const> = character:getBounds()
@@ -1049,7 +878,6 @@ function Character:HandlePushboxCollision(collision)
     if (collision.normal.x < 0) then -- Collided with the opponent's left side
       if (math.abs(collision.move.x) > 0) then
         local hasCrossedOver <const> = characterCenter.x > opponentCenter.x
-        -- self:Debug('hasCrossedOver', hasCrossedOver)
 
         if (hasCrossedOver) then -- Crossed over to the opponent's right side
           local opponentRightEdge <const> = opponentOffsetPushbox.right + (characterPushbox.width / 2)
@@ -1101,19 +929,6 @@ function Character:HandlePushboxCollision(collision)
       end
     end
   end
-
-  -- if (collision.normal.y ~= 0) then
-    -- Do nothing!
-  -- end
-
-  -- table.assign(
-  --   self.history.frames[self.history.counter],
-  --   {
-  --     velocity = newVelocity
-  --   }
-  -- )
-
-  -- self:Debug('---------------------------------------------')
 end
 
 function Character:HandleWallCollision(collision)
@@ -1122,20 +937,6 @@ function Character:HandleWallCollision(collision)
     x = frame.velocity.x,
     y = frame.velocity.y,
   }
-
-  -- self:Debug('--------------- Wall Collision ---------------')
-  -- self:Debug('Move', collision.move)
-  -- self:Debug('Normal', collision.normal)
-  -- self:Debug('Overlaps', collision.overlaps)
-  -- self:Debug('Touch', collision.touch)
-  -- self:Debug('Sprite Bounds', collision.sprite:getBoundsRect())
-  -- self:Debug('Sprite Collide Rect', collision.sprite:getCollideRect())
-  -- self:Debug('Sprite Position', collision.sprite.x, collision.sprite.y)
-  -- self:Debug('Sprite Touch Rect', collision.spriteRect)
-  -- self:Debug('Other Bounds', collision.other:getBoundsRect())
-  -- self:Debug('Other Collide Rect', collision.other:getCollideRect())
-  -- self:Debug('Other Position', collision.other.x, collision.other.y)
-  -- self:Debug('Other Touch Rect', collision.otherRect)
 
   if (collision.normal.x ~= 0) then
     newVelocity.x = 0
@@ -1155,14 +956,11 @@ function Character:HandleWallCollision(collision)
       velocity = newVelocity
     }
   )
-
-  -- self:Debug('---------------------------------------------')
 end
 
 function Character:HandleJumpEnd()
   local frame <const> = self.history.frames[self.history.counter]
 
-  -- TODO: We may not need this anymore?
   if (frame.checks.isTransitioning) then
     return
   end
@@ -1266,9 +1064,6 @@ end
 
 function Character:HydrateImageTable(animation)
   local imagetable <const> = gfx.imagetable.new(#animation.frames)
-
-  -- coroutine.yield()
-
   local images <const> = {}
 
   for i, frame in ipairs(animation.frames) do
@@ -1359,9 +1154,6 @@ function Character:LoadTSJ(state)
 end
 
 function Character:MoveToXY(x, y)
-  -- self:Debug('MoveToXY', x, y)
-  -- self:Debug('originalPosition', self.x, self.y)
-
   self:moveTo(x, y)
 
   table.assign(
@@ -1374,13 +1166,9 @@ function Character:MoveToXY(x, y)
       },
     }
   )
-
-  -- self:Debug('----------------------------------------')
 end
 
 function Character:MoveToXYWithCollisions(x, y)
-  -- self:Debug('MoveToXYWithCollisions', x, y)
-
   local actualX <const>,
         actualY <const>,
         collisions <const> = self:moveWithCollisions(x, y)
@@ -1397,8 +1185,6 @@ function Character:MoveToXYWithCollisions(x, y)
       },
     }
   )
-
-  -- self:Debug('========================================')
 end
 
 function Character:NormalizeHorizontalVelocity(speed)
@@ -1410,8 +1196,6 @@ function Character:NormalizeHorizontalVelocity(speed)
 end
 
 function Character:OnLoaded()
-  self:Debug('Did I get here...?')
-
   self:SetAnimations()
   self:SetImagetables()
 
@@ -1428,7 +1212,15 @@ function Character:PrepareForNextLoop()
   self.history.frames[self.history.counter] = nextFrame
 
   self:UpdateCounters()
-  self:UpdateFrameIndex()
+
+  local frame <const> = self.history.frames[self.history.counter]
+  local frameData <const> = self:GetFrameData(frame.frameIndex)
+  local isHitstunned <const> = frameData.hitstunnable and (frame.hitstun > 0)
+  local shouldUpdateFrameIndex <const> = frame.frameCounter > frameData.duration
+
+  if (not isHitstunned and shouldUpdateFrameIndex) then
+    self:UpdateFrameIndex()
+  end
 end
 
 function Character:Reset()
@@ -1677,18 +1469,6 @@ function Character:SetFrameImage()
 
   self:setImage(nextImage, self:GetFlip())
 
-  -- local boundsRect <const> = self:getBoundsRect():copy()
-        -- boundsRect.x = boundsRect.width == 0
-        --   and self.x - (nextImage.width / 2)
-        --   or boundsRect.x
-        -- boundsRect.y = boundsRect.width == 0
-        --   and self.y - nextImage.height
-        --   or boundsRect.y
-        -- boundsRect.height = nextImage.height
-        -- boundsRect.width = nextImage.width
-
-  -- self:setBounds(boundsRect)
-
   local nextCenter <const> = self:GetCenterRelativeToBounds()
   local prevFrame <const> = self.history.frames[self.history.counter - 1] or {}
   local prevCenter <const> = prevFrame.center or nextCenter
@@ -1696,7 +1476,6 @@ function Character:SetFrameImage()
   local xDelta <const> = prevCenter.x - nextCenter.x
   local yDelta <const> = prevCenter.y - nextCenter.y
 
-  -- self:setBounds(boundsRect:offsetBy(xDelta * self:GetFlipSign(), yDelta))
   self:setBounds(self:getBoundsRect():offsetBy(xDelta, yDelta))
   self:markDirty()
 
@@ -1714,7 +1493,7 @@ end
 
 function Character:SetPushbox(pushbox)
   local boundsRect <const> = self:getBoundsRect():copy()
-        boundsRect.x = 0 -- TODO: Why do I have do this, again...?
+        boundsRect.x = 0
   local pushboxRect <const> = pushbox.collideRect:copy()
         pushboxRect:flipRelativeToRect(boundsRect, self:GetFlip())
 
@@ -1759,10 +1538,6 @@ function Character:SetSoundFX(soundFXPath)
 end
 
 function Character:SetState(state)
-  -- local frame <const> = self.history.frames[self.history.counter]
-
-  -- self:Debug('SetState()', state, keyset[state], frame.velocity.x)
-
   table.assign(
     self.history.frames[self.history.counter],
     {
@@ -1800,7 +1575,6 @@ function Character:SetState(state)
   self:DeriveImageTableFromState()
   self:SetAnimationFrame()
   self:DerivePhysicsFromState()
-  -- self:markDirty()
 end
 
 function Character:TakeDamage(hitbox, isBlocking)
@@ -1993,11 +1767,6 @@ function Character:update()
     return
   end
 
-  -- local frame <const> = self.history.frames[self.history.counter]
-
-  -- self:Debug('==================================================')
-  -- self:Debug('Update!', self.x, self.y, frame.velocity.x, frame.velocity.y)
-
   -- self:CheckCrank()
 
   -- if (self.frozen == true) then
@@ -2005,8 +1774,6 @@ function Character:update()
 
   --   return
   -- end
-
-  -- self:markDirty()
 
   self:TransitionState()
   self:UpdateDirection()
@@ -2146,16 +1913,8 @@ function Character:UpdateCounters()
 end
 
 function Character:UpdateFrameIndex()
-  local frame <const> = self.history.frames[self.history.counter]
-  local frameData <const> = self:GetFrameData(frame.frameIndex)
-  local isHitstunned <const> = frameData.hitstunnable and (frame.hitstun > 0)
-  local shouldUpdateFrameIndex <const> = frame.frameCounter > frameData.duration
-
-  if (isHitstunned or not shouldUpdateFrameIndex) then
-    return
-  end
-
   local animation <const> = self.animations[self:GetFilteredStateForAnimation()]
+  local frame <const> = self.history.frames[self.history.counter]
   local nextFrameIndex = frame.frameIndex
 
   if (not self:HasAnimationEnded()) then
@@ -2171,7 +1930,6 @@ function Character:UpdateFrameIndex()
       frameIndex = nextFrameIndex,
     }
   )
-  -- self:markDirty()
 end
 
 function Character:UpdateFrozenSprite()
@@ -2211,12 +1969,7 @@ function Character:UpdatePosition()
     y = self.y + frame.velocity.y,
   }
 
-  -- If there's no velocity, exit early.
-  -- if (frame.velocity.x == 0 and frame.velocity.y == 0) then
-  --   return
-  -- end
-
-    self:MoveToXYWithCollisions(newPosition.x, newPosition.y)
+  self:MoveToXYWithCollisions(newPosition.x, newPosition.y)
 end
 
 function Character:WouldHitAWall(x, y)
