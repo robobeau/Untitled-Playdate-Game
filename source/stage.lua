@@ -83,12 +83,17 @@ end
 
 function Stage:init(config)
   self.bounds = {}
-  self.character = config.character
+  self.character1 = config.character1
+  self.character2 = config.character2
   self.id = config.id or stages.CLIFTON
 
   self:Load()
   self:CreateBounds()
+  self:InitOffset()
+  -- Play stage music
+end
 
+function Stage:InitOffset()
   local stageSprite <const> = self:GetStageSprite()
   local width <const>, height <const> = pd.display.getSize()
   local offset <const> = {
@@ -96,11 +101,9 @@ function Stage:init(config)
     y = -(stageSprite.height - height),
   }
 
-  gfx.setDrawOffset(offset.x, offset.y)
-  -- Play stage music
-end
+  -- printTable(offset)
 
-function Stage:GetMinMaxBounds()
+  gfx.setDrawOffset(offset.x, offset.y)
 end
 
 function Stage:Load()
@@ -139,36 +142,59 @@ function Stage:LoadTMJ()
   return json.decodeFile('tsj/Stages/' .. self.id .. '.tmj')
 end
 
+function Stage:Reset()
+  self:InitOffset()
+end
+
 function Stage:Teardown()
   gfx.sprite.removeSprites(self.sprites)
 end
 
 function Stage:UpdateDrawOffset()
-  local x <const>, y <const> = gfx.getDrawOffset()
-  local offsetPosition <const> = {
-    x = x + self.character.x,
-    y = y + self.character.y,
+  local char1Velocity = 0
+  local char2Velocity = 0
+  local displayWidth <const>, displayHeight <const> = pd.display.getSize()
+  local drawOffsetX <const>, drawOffsetY <const> = gfx.getDrawOffset()
+  -- local offsetChar1Position <const> = {
+  --   x = self.character1.x,
+  --   y = drawOffsetY + self.character1.y,
+  -- }
+  -- local offsetChar2Position <const> = {
+  --   x = self.character2.x,
+  --   y = drawOffsetY + self.character2.y,
+  -- }
+  -- local stage <const> = self:GetStageSprite()
+  local offsetCenter <const> = {
+    x = math.abs(drawOffsetX) + (displayWidth / 2),
+    y = drawOffsetY + (displayHeight / 2),
   }
-  local characterSpeed <const> = self.character:GetSpeed()
-  local width <const>, height <const> = pd.display.getSize()
-  local foo <const> = width / 2
-  local bar <const> = height / 2
+  local leftThreshold <const> = offsetCenter.x - 100
+  local rightThreshold <const> = offsetCenter.x + 100
+
+  if (self.character1.x < leftThreshold) then
+    char1Velocity = 5
+  elseif (self.character1.x > rightThreshold) then
+    char1Velocity = -5
+  end
+
+  if (self.character2.x < leftThreshold) then
+    char2Velocity = 5
+  elseif (self.character2.x > rightThreshold) then
+    char2Velocity = -5
+  end
+
   local drawOffsetVelocity <const> = {
-    x = offsetPosition.x < (foo - 100) and characterSpeed
-      or offsetPosition.x > (foo + 100) and -characterSpeed
-      or 0,
-    y = offsetPosition.y < (bar - 100) and characterSpeed
-      or offsetPosition.y > (bar + 100) and -characterSpeed
-      or 0,
+    x = char1Velocity + char2Velocity,
+    y = 0
   }
   local drawOffset <const> = {
     x = math.clamp(
-      x + drawOffsetVelocity.x,
+      drawOffsetX + drawOffsetVelocity.x,
       self.minDrawOffset.x,
       self.maxDrawOffset.x
     ),
     y = math.clamp(
-      y + drawOffsetVelocity.y,
+      drawOffsetY + drawOffsetVelocity.y,
       self.minDrawOffset.y,
       self.maxDrawOffset.y
     )
