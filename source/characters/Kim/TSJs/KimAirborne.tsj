@@ -17,8 +17,8 @@
         {
          "id":1,
          "image":"..\/images\/KimAirborne1.png",
-         "imageheight":128,
-         "imagewidth":64,
+         "imageheight":76,
+         "imagewidth":62,
          "objectgroup":
             {
              "draworder":"index",
@@ -33,30 +33,44 @@
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":14,
-                     "y":22
+                     "x":12,
+                     "y":0
                     }, 
                     {
-                     "height":54,
+                     "height":52,
                      "id":3,
                      "name":"Hurtbox (Mid)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":4
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
-                     "width":62,
-                     "x":2,
-                     "y":44
+                     "width":56,
+                     "x":4,
+                     "y":22
                     }, 
                     {
                      "height":38,
                      "id":1,
                      "name":"Hurtbox (High)",
+                     "properties":[
+                            {
+                             "name":"type",
+                             "propertytype":"CollisionType",
+                             "type":"int",
+                             "value":1
+                            }],
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
                      "width":40,
-                     "x":14,
-                     "y":22
+                     "x":12,
+                     "y":0
                     }, 
                     {
                      "height":0,
@@ -67,8 +81,8 @@
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":34,
-                     "y":128
+                     "x":32,
+                     "y":106
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -87,19 +101,14 @@
                  "name":"frameDuration",
                  "type":"int",
                  "value":2
-                }, 
-                {
-                 "name":"loops",
-                 "type":"bool",
-                 "value":false
                 }],
          "type":"Frame"
         }, 
         {
          "id":2,
          "image":"..\/images\/KimAirborne2.png",
-         "imageheight":128,
-         "imagewidth":64,
+         "imageheight":120,
+         "imagewidth":50,
          "objectgroup":
             {
              "draworder":"index",
@@ -107,15 +116,15 @@
              "name":"",
              "objects":[
                     {
-                     "height":84,
+                     "height":106,
                      "id":8,
                      "name":"Pushbox",
                      "rotation":0,
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":14,
-                     "y":44
+                     "x":6,
+                     "y":14
                     }, 
                     {
                      "height":56,
@@ -124,9 +133,9 @@
                      "rotation":0,
                      "type":"Hurtbox",
                      "visible":true,
-                     "width":50,
-                     "x":8,
-                     "y":56
+                     "width":48,
+                     "x":2,
+                     "y":48
                     }, 
                     {
                      "height":38,
@@ -136,8 +145,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":40,
-                     "x":14,
-                     "y":22
+                     "x":6,
+                     "y":14
                     }, 
                     {
                      "height":0,
@@ -148,8 +157,8 @@
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":34,
-                     "y":128
+                     "x":26,
+                     "y":120
                     }],
              "opacity":1,
              "type":"objectgroup",

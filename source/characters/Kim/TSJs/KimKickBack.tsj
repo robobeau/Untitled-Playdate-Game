@@ -10,7 +10,7 @@
  "name":"KimKickBack",
  "spacing":0,
  "tilecount":5,
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.2",
  "tileheight":128,
  "tiles":[
         {
@@ -79,7 +79,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":4
+                 "value":3
                 }],
          "type":"Frame"
         }, 
@@ -128,7 +128,6 @@
                             }, 
                             {
                              "name":"hits",
-                             "propertytype":"Attack",
                              "type":"string",
                              "value":"HIGH"
                             }, 
@@ -186,7 +185,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":10
+                 "value":6
                 }],
          "type":"Frame"
         }, 
@@ -251,7 +250,6 @@
                             }, 
                             {
                              "name":"hits",
-                             "propertytype":"Attack",
                              "type":"string",
                              "value":"HIGH"
                             }, 
@@ -315,7 +313,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":4
+                 "value":6
                 }],
          "type":"Frame"
         }, 
@@ -502,7 +500,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":4
+                 "value":3
                 }],
          "type":"Frame"
         }],

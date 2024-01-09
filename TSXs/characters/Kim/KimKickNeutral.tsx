@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimKickNeutral" class="Animation" tilewidth="96" tileheight="96" tilecount="4" columns="0" objectalignment="bottom">
+<tileset version="1.10" tiledversion="1.10.2" name="KimKickNeutral" class="Animation" tilewidth="96" tileheight="96" tilecount="4" columns="0" objectalignment="bottom">
  <editorsettings>
   <export target="../../../source/characters/Kim/TSJs/KimKickNeutral.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="frameDuration" type="int" value="3"/>
   </properties>
   <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral1.png"/>
   <objectgroup draworder="index" id="2">
@@ -35,7 +35,7 @@
  <tile id="2" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="100"/>
-   <property name="frameDuration" type="int" value="8"/>
+   <property name="frameDuration" type="int" value="6"/>
    <property name="soundFX" type="class" propertytype="SoundFX">
     <properties>
      <property name="onHit" type="file" value="../../../source/sounds/face_hit_small_43.wav"/>
@@ -67,7 +67,7 @@
  </tile>
  <tile id="4" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="6"/>
+   <property name="frameDuration" type="int" value="3"/>
   </properties>
   <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral4.png"/>
   <objectgroup draworder="index" id="2">

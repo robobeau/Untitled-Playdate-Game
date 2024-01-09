@@ -11,14 +11,14 @@
  "objectalignment":"bottom",
  "spacing":0,
  "tilecount":3,
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.2",
  "tileheight":80,
  "tiles":[
         {
          "id":0,
          "image":"..\/images\/KimPunchForward1.png",
-         "imageheight":80,
-         "imagewidth":128,
+         "imageheight":78,
+         "imagewidth":66,
          "objectgroup":
             {
              "draworder":"index",
@@ -33,8 +33,8 @@
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":16,
-                     "y":-4
+                     "x":14,
+                     "y":-6
                     }, 
                     {
                      "height":16,
@@ -51,8 +51,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
-                     "x":4,
-                     "y":64
+                     "x":2,
+                     "y":62
                     }, 
                     {
                      "height":42,
@@ -69,8 +69,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":50,
-                     "x":8,
-                     "y":22
+                     "x":6,
+                     "y":20
                     }, 
                     {
                      "height":40,
@@ -87,8 +87,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":42,
-                     "x":22,
-                     "y":2
+                     "x":20,
+                     "y":0
                     }, 
                     {
                      "height":0,
@@ -99,8 +99,8 @@
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":36,
-                     "y":80
+                     "x":34,
+                     "y":78
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -119,8 +119,8 @@
         {
          "id":1,
          "image":"..\/images\/KimPunchForward2.png",
-         "imageheight":80,
-         "imagewidth":128,
+         "imageheight":74,
+         "imagewidth":118,
          "objectgroup":
             {
              "draworder":"index",
@@ -135,8 +135,8 @@
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":16,
-                     "y":-4
+                     "x":6,
+                     "y":-10
                     }, 
                     {
                      "height":14,
@@ -153,8 +153,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":78,
-                     "x":10,
-                     "y":66
+                     "x":0,
+                     "y":60
                     }, 
                     {
                      "height":40,
@@ -171,8 +171,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":54,
-                     "x":28,
-                     "y":26
+                     "x":18,
+                     "y":20
                     }, 
                     {
                      "height":40,
@@ -189,8 +189,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":42,
-                     "x":48,
-                     "y":6
+                     "x":38,
+                     "y":0
                     }, 
                     {
                      "height":30,
@@ -200,17 +200,17 @@
                             {
                              "name":"damage",
                              "type":"int",
-                             "value":100
+                             "value":25
                             }, 
                             {
                              "name":"hitstun",
                              "type":"int",
-                             "value":5
+                             "value":4
                             }, 
                             {
                              "name":"pushback",
                              "type":"int",
-                             "value":5
+                             "value":2
                             }, 
                             {
                              "name":"super",
@@ -221,7 +221,7 @@
                              "name":"type",
                              "propertytype":"CollisionType",
                              "type":"int",
-                             "value":2
+                             "value":4
                             }, 
                             {
                              "name":"velocityX",
@@ -237,8 +237,8 @@
                      "type":"Hitbox",
                      "visible":true,
                      "width":50,
-                     "x":82,
-                     "y":26
+                     "x":72,
+                     "y":20
                     }, 
                     {
                      "height":0,
@@ -249,8 +249,8 @@
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":36,
-                     "y":80
+                     "x":26,
+                     "y":74
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -260,23 +260,17 @@
             },
          "properties":[
                 {
-                 "name":"cancellable",
-                 "propertytype":"Cancellable",
-                 "type":"int",
-                 "value":0
-                }, 
-                {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":9
+                 "value":4
                 }],
          "type":"Frame"
         }, 
         {
          "id":2,
          "image":"..\/images\/KimPunchForward3.png",
-         "imageheight":80,
-         "imagewidth":128,
+         "imageheight":78,
+         "imagewidth":66,
          "objectgroup":
             {
              "draworder":"index",
@@ -291,8 +285,8 @@
                      "type":"Pushbox",
                      "visible":true,
                      "width":40,
-                     "x":16,
-                     "y":-4
+                     "x":14,
+                     "y":-6
                     }, 
                     {
                      "height":16,
@@ -309,8 +303,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":64,
-                     "x":4,
-                     "y":64
+                     "x":2,
+                     "y":62
                     }, 
                     {
                      "height":42,
@@ -327,8 +321,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":50,
-                     "x":8,
-                     "y":22
+                     "x":6,
+                     "y":20
                     }, 
                     {
                      "height":40,
@@ -345,8 +339,8 @@
                      "type":"Hurtbox",
                      "visible":true,
                      "width":42,
-                     "x":22,
-                     "y":2
+                     "x":20,
+                     "y":0
                     }, 
                     {
                      "height":0,
@@ -357,8 +351,8 @@
                      "type":"Center",
                      "visible":true,
                      "width":0,
-                     "x":36,
-                     "y":80
+                     "x":34,
+                     "y":78
                     }],
              "opacity":1,
              "type":"objectgroup",

@@ -10,7 +10,7 @@
  "name":"KimKickJumpForward",
  "spacing":0,
  "tilecount":3,
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.2",
  "tileheight":128,
  "tiles":[
         {
@@ -79,7 +79,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"Frame"
         }, 
@@ -144,7 +144,6 @@
                             }, 
                             {
                              "name":"hits",
-                             "propertytype":"Attack",
                              "type":"string",
                              "value":"HIGH"
                             }, 
@@ -272,7 +271,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }, 
                 {
                  "name":"nextState",

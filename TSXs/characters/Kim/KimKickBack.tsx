@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimKickBack" class="Animation" tilewidth="128" tileheight="128" tilecount="5" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="KimKickBack" class="Animation" tilewidth="128" tileheight="128" tilecount="5" columns="0">
  <editorsettings>
-  <export target="../tsjs/KimKickBack.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/TSJs/KimKickBack.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="frameDuration" type="int" value="3"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack2.png"/>
   <objectgroup draworder="index" id="2">
@@ -20,7 +20,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="10"/>
+   <property name="frameDuration" type="int" value="6"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack3.png"/>
   <objectgroup draworder="index" id="2">
@@ -29,7 +29,7 @@
    <object id="2" name="Hitbox" type="Hitbox" x="38" y="6" width="44" height="50">
     <properties>
      <property name="damage" type="int" value="50"/>
-     <property name="hits" propertytype="Attack" value="HIGH"/>
+     <property name="hits" value="HIGH"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
      <property name="super" type="int" value="50"/>
@@ -45,7 +45,7 @@
  <tile id="3" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="frameDuration" type="int" value="6"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack4.png"/>
   <objectgroup draworder="index" id="2">
@@ -56,7 +56,7 @@
     <properties>
      <property name="damage" type="int" value="50"/>
      <property name="dizzy" type="int" value="50"/>
-     <property name="hits" propertytype="Attack" value="HIGH"/>
+     <property name="hits" value="HIGH"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
      <property name="super" type="int" value="50"/>
@@ -96,7 +96,7 @@
  </tile>
  <tile id="5" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="frameDuration" type="int" value="3"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack2.png"/>
   <objectgroup draworder="index" id="2">

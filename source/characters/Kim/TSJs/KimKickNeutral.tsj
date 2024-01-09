@@ -11,7 +11,7 @@
  "objectalignment":"bottom",
  "spacing":0,
  "tilecount":4,
- "tiledversion":"1.10.1",
+ "tiledversion":"1.10.2",
  "tileheight":96,
  "tiles":[
         {
@@ -80,7 +80,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"Frame"
         }, 
@@ -278,7 +278,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":8
+                 "value":6
                 }, 
                 {
                  "name":"soundFX",
@@ -358,7 +358,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":6
+                 "value":3
                 }],
          "type":"Frame"
         }],

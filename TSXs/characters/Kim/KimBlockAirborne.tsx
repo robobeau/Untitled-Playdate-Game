@@ -9,13 +9,13 @@
  </properties>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="3"/>
+   <property name="frameDuration" type="int" value="4"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
   </properties>
-  <image width="64" height="80" source="../../../source/characters/Kim/images/KimBlockAirborne1.png"/>
+  <image width="54" height="80" source="../../../source/characters/Kim/images/KimBlockAirborne1.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Pushbox" type="Pushbox" x="6" y="4" width="40" height="76"/>
-   <object id="3" name="Center" type="Center" x="26" y="80">
+   <object id="2" name="Pushbox" type="Pushbox" x="6" y="2" width="40" height="76"/>
+   <object id="3" name="Center" type="Center" x="26" y="106">
     <point/>
    </object>
   </objectgroup>

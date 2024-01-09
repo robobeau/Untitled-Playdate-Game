@@ -39,7 +39,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="frameDuration" type="int" value="6"/>
   </properties>
   <image width="70" height="86" source="../../../source/characters/Kim/images/KimThrow2.png"/>
   <objectgroup draworder="index" id="2">
@@ -69,7 +69,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="frameDuration" type="int" value="8"/>
   </properties>
   <image width="94" height="74" source="../../../source/characters/Kim/images/KimThrow3.png"/>
   <objectgroup draworder="index" id="2">

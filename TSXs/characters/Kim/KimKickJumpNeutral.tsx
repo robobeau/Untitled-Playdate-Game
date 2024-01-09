@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimKickJumpNeutral" class="Animation" tilewidth="112" tileheight="128" tilecount="3" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="KimKickJumpNeutral" class="Animation" tilewidth="112" tileheight="128" tilecount="3" columns="0">
  <editorsettings>
   <export target="../../../source/tsj/characters/Kim/KimKickJumpNeutral.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="frameDuration" type="int" value="3"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimKickJumpNeutral1.png"/>
   <objectgroup draworder="index" id="2">
@@ -31,7 +31,7 @@
     <properties>
      <property name="damage" type="int" value="75"/>
      <property name="dizzy" type="int" value="75"/>
-     <property name="hits" propertytype="Attack" value="HIGH"/>
+     <property name="hits" value="HIGH"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
      <property name="super" type="int" value="75"/>
@@ -45,7 +45,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="frameDuration" type="int" value="3"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimKickJumpNeutral1.png"/>

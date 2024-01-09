@@ -244,7 +244,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":4
+                 "value":6
                 }],
          "type":"Frame"
         }, 
@@ -407,7 +407,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":4
+                 "value":8
                 }],
          "type":"Frame"
         }],

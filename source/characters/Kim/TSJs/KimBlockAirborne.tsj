@@ -23,7 +23,7 @@
          "id":0,
          "image":"..\/images\/KimBlockAirborne1.png",
          "imageheight":80,
-         "imagewidth":64,
+         "imagewidth":54,
          "objectgroup":
             {
              "draworder":"index",
@@ -39,7 +39,7 @@
                      "visible":true,
                      "width":40,
                      "x":6,
-                     "y":4
+                     "y":2
                     }, 
                     {
                      "height":0,
@@ -51,7 +51,7 @@
                      "visible":true,
                      "width":0,
                      "x":26,
-                     "y":80
+                     "y":106
                     }],
              "opacity":1,
              "type":"objectgroup",
@@ -63,7 +63,7 @@
                 {
                  "name":"frameDuration",
                  "type":"int",
-                 "value":3
+                 "value":4
                 }, 
                 {
                  "name":"nextState",
