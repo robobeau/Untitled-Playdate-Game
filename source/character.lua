@@ -44,10 +44,10 @@ charSpeeds = {
   SLOWEST = 1,
   SLOWER = 2,
   SLOW = 4,
-  NORMAL = 5,
-  FAST = 6,
-  FASTER = 8,
-  FASTEST = 10,
+  NORMAL = 6,
+  FAST = 8,
+  FASTER = 10,
+  FASTEST = 12,
 }
 charStates = {
   AIRBORNE = 1,
@@ -680,9 +680,8 @@ function Character:GetCenterRelativeToBounds()
   local boundsRect <const> = self:getBoundsRect()
   local frame <const> = self.history.frames[self.history.counter]
   local animationFrame <const> = self:GetAnimationFrame(frame.frameIndex)
-  local isFlipped <const> = frame.direction == charDirections.LEFT
   local offset <const> = {
-    x = isFlipped
+    x = self:IsFlipped(self.history.counter)
       and (boundsRect.x + boundsRect.width - (animationFrame.center.x * 2))
       or boundsRect.x,
     y = boundsRect.y,
@@ -741,17 +740,15 @@ function Character:GetFilteredStateForAnimation(historyIndex)
 end
 
 function Character:GetFlip(frameIndex)
-  local frame <const> = self.history.frames[frameIndex or self.history.counter]
-  local isFlipped <const> = frame.direction == charDirections.LEFT
-
-  return isFlipped and gfx.kImageFlippedX or gfx.kImageUnflipped
+  return self:IsFlipped(frameIndex)
+    and gfx.kImageFlippedX
+    or gfx.kImageUnflipped
 end
 
 function Character:GetFlipSign(frameIndex)
-  local frame <const> = self.history.frames[frameIndex or self.history.counter]
-  local isFlipped <const> = frame.direction == charDirections.LEFT
-
-  return isFlipped and -1 or 1
+  return self:IsFlipped(frameIndex)
+    and -1
+    or 1
 end
 
 function Character:GetFrameData(animationFrameIndex, historyFrameIndex)
@@ -1125,6 +1122,12 @@ function Character:init(options)
   self:setCollidesWithGroupsMask(collisionTypes.PUSHBOX | collisionTypes.WALL)
   self:setGroupMask(collisionTypes.PUSHBOX)
   self:setZIndex(1)
+end
+
+function Character:IsFlipped(frameIndex)
+  local frame <const> = self.history.frames[frameIndex or self.history.counter]
+
+  return frame.direction == charDirections.LEFT
 end
 
 function Character:LoadAsset()
@@ -1627,9 +1630,16 @@ function Character:TakeDamage(hitbox, isBlocking)
   if (frame.checks.isAirborne) then
     newState |= charStates.AIRBORNE
   elseif (frame.checks.isCrouching) then
-    newState |= charStates.CROUCH
+      newState |= charStates.CROUCH
   else
-    newState |= charStates.STAND
+    -- Did the character get sweeped?
+    if (hitbox.properties.type == collisionBoxTypes.LOW) then
+      -- TODO: Make a better state than this
+      newState = charStates.HURT | charStates.AIRBORNE
+      newVelocity.y = -3
+    else
+      newState |= charStates.STAND
+    end
   end
 
   self:SetState(newState)
