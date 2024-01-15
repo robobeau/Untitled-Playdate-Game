@@ -53,7 +53,6 @@ function Timer:Reset()
   self.time.seconds = self.time.limit
 
   self:UpdateTimerImage()
-  self:Draw()
 end
 
 function Timer:Start()
