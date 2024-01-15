@@ -12,6 +12,8 @@ loaderStates = {
 }
 
 local defaults <const> = {
+  -- loadingTextCounter1 = 1,
+  -- loadingTextCounter2 = 8,
   state = loaderStates.IDLE
 }
 local kimLoaderImagetable <const> = gfx.imagetable.new('images/loaders/KimLoader')
@@ -34,6 +36,26 @@ function Loader:Draw()
   if (self.state == loaderStates.ACTIVE) then
     gfx.pushContext(self.loaderImage)
       self.loaderImageMask:invertedImage():draw(0, 0)
+
+      -- local loadingText = '       LOADING'
+      -- local loadingText1 = string.sub(loadingText, self.loadingTextCounter1)
+      -- local loadingText2 = string.sub(loadingText, self.loadingTextCounter2)
+
+      -- if (self.loadingTextCounter1 == #loadingText) then
+      --   self.loadingTextCounter1 = 1
+      -- else
+      --   self.loadingTextCounter1 += 1
+      -- end
+
+      -- if (self.loadingTextCounter2 == #loadingText) then
+      --   self.loadingTextCounter2 = 1
+      -- else
+      --   self.loadingTextCounter2 += 1
+      -- end
+
+      -- gfx.setImageDrawMode(gfx.kDrawModeInverted)
+      -- self.font:drawTextAligned(loadingText1, 235, 190, kTextAlignment.left)
+      -- self.font:drawTextAligned(loadingText2, 235, 205, kTextAlignment.left)
     gfx.popContext()
   else
     self.loaderImage:setMaskImage(self.loaderImageMask)
@@ -45,6 +67,7 @@ end
 function Loader:init(config)
   self.displayRect = pd.display.getRect()
   self.fadeImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorBlack)
+  self.font = fonts.SuperMonacoGP
   self.loaderImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.loaderImageMask = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
 end
