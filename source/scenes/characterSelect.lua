@@ -123,6 +123,8 @@ function CharacterSelectScene:CheckInputs()
       sceneLoader:Start(function ()
         sceneManager:resetAndEnter(FightScene, config)
       end)
+    else
+      self.soundFX.deny:play(1)
     end
   end
 end
@@ -192,10 +194,10 @@ function CharacterSelectScene:DrawCharacter()
       -- nameImageScaled:draw(namePosition.x, namePosition.y)
 
       local namePosition <const> = {
-        x = 10,
-        y = 200
+        x = 365,
+        y = 205
       }
-      listItem.images.name2:drawAnchored(namePosition.x, namePosition.y, 0, 0.5)
+      listItem.images.name2:drawAnchored(namePosition.x, namePosition.y, 1, 0.5)
     gfx.popContext()
   end
 end
@@ -204,15 +206,15 @@ function CharacterSelectScene:DrawDisclaimers()
   gfx.pushContext(self.gridviewImage)
     gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
     gfx.drawTextAligned(
-      '*None* of these characters will be in the final game',
-      390,
-      0,
+      'None of these characters',
+      380,
+      50,
       kTextAlignment.right
     )
     gfx.drawTextAligned(
-      'Also, this screen is mocked _LOL_',
-      390,
-      gfx.getSystemFont():getHeight(),
+      'will be in the final game',
+      380,
+      50 + gfx.getSystemFont():getHeight(),
       kTextAlignment.right
     )
   gfx.popContext()
@@ -248,8 +250,11 @@ function CharacterSelectScene:Init()
   self.font = fonts.SuperMonacoGP
   self.soundFX = {
     cursor = snd.sampleplayer.new('sounds/24H.wav'),
+    deny = snd.sampleplayer.new('sounds/23H.wav'),
+    getReady = snd.sampleplayer.new('sounds/announcerGetReady.wav'),
     selection = snd.sampleplayer.new('sounds/22H.wav')
   }
+  self.soundFX.getReady:play(1)
 
   self:InitCharacterList()
   self:InitGrid()

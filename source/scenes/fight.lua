@@ -41,6 +41,7 @@ local defaults <const> = {
   overState = nil,
   round = 1,
   rounds = 2,
+  soundFX = {},
   stageID = stages.LAWSON,
   state = fightStates.IDLE,
   uiTextState = nil,
@@ -157,6 +158,7 @@ end
 function FightScene:EndMatch()
   tmr.performAfterDelay(1000, function()
     self.uiTextState = uiTextStates.THANK_YOU_FOR_PLAYING
+    self.soundFX.gameOver:play(1)
     self:StartFadeInTextAnimator()
 
     tmr.performAfterDelay(5000, function()
@@ -181,15 +183,17 @@ function FightScene:EndRound(overState)
     pd.display.setRefreshRate(10)
 
     self.uiTextState = uiTextStates.KO
+    self.soundFX.ko:play(1)
   elseif (self.overState == overStates.TIME_OVER) then
     self.uiTextState = uiTextStates.TIME_OVER
+    self.soundFX.timeOver:play(1)
   end
 
   self:DetermineWinner()
 
   self:StartFadeInTextAnimator()
 
-  tmr.performAfterDelay(2000, function()
+  tmr.performAfterDelay(1500, function()
     pd.display.setRefreshRate(30)
 
     self:StartFadeOutTextAnimator()
@@ -197,8 +201,10 @@ function FightScene:EndRound(overState)
     tmr.performAfterDelay(500, function()
       if (self.winnerState == winnerStates.CHAR_1) then
         self.uiTextState = uiTextStates.YOU_WIN
+        self.soundFX.youWin:play(1)
       elseif (self.winnerState == winnerStates.CHAR_2) then
         self.uiTextState = uiTextStates.YOU_LOSE
+        self.soundFX.youLose:play(1)
       elseif (self.winnerState == winnerStates.DRAW) then
         self.uiTextState = uiTextStates.DRAW
       end
@@ -222,12 +228,16 @@ function FightScene:EndRound(overState)
 
         self:StartFadeInBlackScreenAnimator()
 
-        tmr.performAfterDelay(1000, function()
-          self.round += 1
+        tmr.performAfterDelay(200, function()
+          self:StartFadeOutTextAnimator()
 
-          self:ResetRound()
-          self:StartFadeOutBlackScreenAnimator()
-          self:StartRound()
+          tmr.performAfterDelay(1000, function()
+            self.round += 1
+
+            self:ResetRound()
+            self:StartFadeOutBlackScreenAnimator()
+            self:StartRound()
+          end)
         end)
       end)
     end)
@@ -252,6 +262,7 @@ function FightScene:Init(config)
   self:InitTimer()
   self:InitImages()
   self:InitMenu()
+  self:InitSoundFX()
 
   self.character1:add()
   self.character2:add()
@@ -323,18 +334,22 @@ function FightScene:InitLifebars()
     self.lifebar1:SetAmount(health)
 
     if (health <= 0) then
-      self:EndRound(overStates.KO)
+      if (self.state ~= fightStates.ROUND_END) then
+        self:EndRound(overStates.KO)
 
-      self.character1:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
+        self.character1:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
+      end
     end
   end)
   self.character2.OnHealthChange = (function (health)
     self.lifebar2:SetAmount(health)
 
     if (health <= 0) then
-      self:EndRound(overStates.KO)
+      if (self.state ~= fightStates.ROUND_END) then
+        self:EndRound(overStates.KO)
 
-      self.character2:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
+        self.character2:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
+      end
     end
   end)
 
@@ -359,6 +374,20 @@ function FightScene:InitMenu()
             self:StartMatch()
           end)
         end)
+end
+
+function FightScene:InitSoundFX()
+  self.soundFX = {
+    fight = snd.sampleplayer.new('sounds/announcerFight.wav'),
+    finalRound = snd.sampleplayer.new('sounds/announcerFinalRound.wav'),
+    gameOver = snd.sampleplayer.new('sounds/announcerGameOver.wav'),
+    ko = snd.sampleplayer.new('sounds/announcerKO.wav'),
+    round1 = snd.sampleplayer.new('sounds/announcerRound1.wav'),
+    round2 = snd.sampleplayer.new('sounds/announcerRound2.wav'),
+    timeOver = snd.sampleplayer.new('sounds/announcerTimeOver.wav'),
+    youLose = snd.sampleplayer.new('sounds/announcerYouLose.wav'),
+    youWin = snd.sampleplayer.new('sounds/announcerYouWin.wav'),
+  }
 end
 
 function FightScene:InitStage()
@@ -416,7 +445,7 @@ function FightScene:Reset()
   self.lifebar2:Reset()
 
   -- Reset Stage
-  -- self.stage:Reset()
+  self.stage:Reset()
 
   -- Reset Timer
   self.timer:Stop()
@@ -482,13 +511,23 @@ function FightScene:StartRound()
 
   tmr.performAfterDelay(200, function()
     self.uiTextState = uiTextStates.ROUND_START
+
+    if (self.round == 1) then
+      self.soundFX.round1:play(1)
+    elseif (self.round == 2) then
+      self.soundFX.round2:play(1)
+    else
+      self.soundFX.finalRound:play(1)
+    end
+
     self:StartFadeInTextAnimator()
 
-    tmr.performAfterDelay(2000, function()
+    tmr.performAfterDelay(1500, function()
       self:StartFadeOutTextAnimator()
 
       tmr.performAfterDelay(500, function()
         self.uiTextState = uiTextStates.FIGHT
+        self.soundFX.fight:play(1)
         self:StartFadeInTextAnimator()
 
         tmr.performAfterDelay(1000, function()
