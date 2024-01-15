@@ -21,6 +21,7 @@ local defaults <const> = {
   jumpHeight = charJumpHeights.SHORT,
   menuImagePath = 'characters/Kim/images/KimPortraitMenu',
   name = 'Kim',
+  nameImagePath = 'characters/Kim/images/KimName',
   portraitImagePath = 'characters/Kim/images/KimPortrait',
   speeds = {
     dash = {

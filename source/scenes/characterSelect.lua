@@ -14,46 +14,55 @@ local vid <const> = gfx.video
 local Andy <const> = {
   menuImagePath = 'images/characters/AndyMenu',
   name = 'Andy',
+  nameImagePath = 'images/characters/AndyName',
   portraitImagePath = 'images/characters/AndyPortrait',
 }
 local Geese <const> = {
   menuImagePath = 'images/characters/GeeseMenu',
   name = 'Geese',
+  nameImagePath = 'images/characters/GeeseName',
   portraitImagePath = 'images/characters/GeesePortrait',
 }
 local JetAxel <const> = {
   menuImagePath = 'images/characters/JetAxelMenu',
   name = 'Jet Axel',
+  nameImagePath = 'images/characters/JetAxelName',
   portraitImagePath = 'images/characters/JetAxelPortrait',
 }
 local Joe <const> = {
   menuImagePath = 'images/characters/JoeMenu',
   name = 'Joe',
+  nameImagePath = 'images/characters/JoeName',
   portraitImagePath = 'images/characters/JoePortrait',
 }
 local Li <const> = {
   menuImagePath = 'images/characters/LiMenu',
   name = 'Li',
+  nameImagePath = 'images/characters/LiName',
   portraitImagePath = 'images/characters/LiPortrait',
 }
 local Mai <const> = {
   menuImagePath = 'images/characters/MaiMenu',
   name = 'Mai',
+  nameImagePath = 'images/characters/MaiName',
   portraitImagePath = 'images/characters/MaiPortrait',
 }
 local Rick <const> = {
   menuImagePath = 'images/characters/RickMenu',
   name = 'Rick',
+  nameImagePath = 'images/characters/RickName',
   portraitImagePath = 'images/characters/RickPortrait',
 }
 local Sandwichard <const> = {
   menuImagePath = 'images/characters/RichMenu',
   name = 'Sandwichard',
+  nameImagePath = 'images/characters/RichName',
   portraitImagePath = 'images/characters/RichPortrait',
 }
 local Terry <const> = {
   menuImagePath = 'images/characters/TerryMenu',
   name = 'Terry',
+  nameImagePath = 'images/characters/TerryName',
   portraitImagePath = 'images/characters/TerryPortrait',
 }
 
@@ -140,20 +149,20 @@ function CharacterSelectScene:DrawCharacter()
   local listItem <const> = self.characterList[row][column]
 
   if (listItem) then
-    listItem.images.name:clear(gfx.kColorClear)
+    -- listItem.images.name:clear(gfx.kColorClear)
 
     -- Draw name
-    gfx.pushContext(listItem.images.name)
-      gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
-      self.font:drawTextAligned(listItem.character.name:upper(), 0, 0, kTextAlignment.left)
-    gfx.popContext()
+    -- gfx.pushContext(listItem.images.name)
+    --   gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
+    --   self.font:drawTextAligned(listItem.character.name:upper(), 0, 0, kTextAlignment.left)
+    -- gfx.popContext()
 
     gfx.pushContext(self.gridviewImage)
-      local nameImageScaled <const> = listItem.images.name:scaledImage(3)
-      local namePosition <const> = {
-        x = 20,
-        y = 200,
-      }
+      -- local nameImageScaled <const> = listItem.images.name:scaledImage(3)
+      -- local namePosition <const> = {
+      --   x = 20,
+      --   y = 200,
+      -- }
       local portraitImageScaled <const> = listItem.images.portrait:scaledImage(1)
       local portraitPosition <const> = {
         x = 0,
@@ -172,15 +181,21 @@ function CharacterSelectScene:DrawCharacter()
       portraitImageScaled:draw(0, 240 - portraitImageScaled.height)
 
       -- Draw name's stroke
-      gfx.setImageDrawMode(gfx.kDrawModeFillBlack)
-      nameImageScaled:draw(namePosition.x - 1, namePosition.y - 1)
-      nameImageScaled:draw(namePosition.x - 1, namePosition.y + 1)
-      nameImageScaled:draw(namePosition.x + 1, namePosition.y - 1)
-      nameImageScaled:draw(namePosition.x + 1, namePosition.y + 1)
+      -- gfx.setImageDrawMode(gfx.kDrawModeFillBlack)
+      -- nameImageScaled:draw(namePosition.x - 1, namePosition.y - 1)
+      -- nameImageScaled:draw(namePosition.x - 1, namePosition.y + 1)
+      -- nameImageScaled:draw(namePosition.x + 1, namePosition.y - 1)
+      -- nameImageScaled:draw(namePosition.x + 1, namePosition.y + 1)
 
-      -- Draw name
-      gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
-      nameImageScaled:draw(namePosition.x, namePosition.y)
+      -- -- Draw name
+      -- gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
+      -- nameImageScaled:draw(namePosition.x, namePosition.y)
+
+      local namePosition <const> = {
+        x = 10,
+        y = 200
+      }
+      listItem.images.name2:drawAnchored(namePosition.x, namePosition.y, 0, 0.5)
     gfx.popContext()
   end
 end
@@ -251,6 +266,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(Kim.menuImagePath),
           name = img.new(self.font:getTextWidth(Kim.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(Kim.nameImagePath),
           portrait = img.new(Kim.portraitImagePath),
         },
         selectable = true,
@@ -261,6 +277,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(Terry.menuImagePath),
           name = img.new(self.font:getTextWidth(Terry.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(Terry.nameImagePath),
           portrait = img.new(Terry.portraitImagePath),
         },
         selectable = false,
@@ -271,6 +288,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(Andy.menuImagePath),
           name = img.new(self.font:getTextWidth(Andy.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(Andy.nameImagePath),
           portrait = img.new(Andy.portraitImagePath),
         },
         selectable = false,
@@ -281,6 +299,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(Joe.menuImagePath),
           name = img.new(self.font:getTextWidth(Joe.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(Joe.nameImagePath),
           portrait = img.new(Joe.portraitImagePath),
         },
         selectable = false,
@@ -291,6 +310,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(JetAxel.menuImagePath),
           name = img.new(self.font:getTextWidth(JetAxel.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(JetAxel.nameImagePath),
           portrait = img.new(JetAxel.portraitImagePath),
         },
         selectable = false,
@@ -303,6 +323,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(Li.menuImagePath),
           name = img.new(self.font:getTextWidth(Li.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(Li.nameImagePath),
           portrait = img.new(Li.portraitImagePath),
         },
         selectable = false,
@@ -313,6 +334,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(Geese.menuImagePath),
           name = img.new(self.font:getTextWidth(Geese.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(Geese.nameImagePath),
           portrait = img.new(Geese.portraitImagePath),
         },
         selectable = false,
@@ -323,6 +345,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(Rick.menuImagePath),
           name = img.new(self.font:getTextWidth(Rick.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(Rick.nameImagePath),
           portrait = img.new(Rick.portraitImagePath),
         },
         selectable = false,
@@ -333,6 +356,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(Mai.menuImagePath),
           name = img.new(self.font:getTextWidth(Mai.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(Mai.nameImagePath),
           portrait = img.new(Mai.portraitImagePath),
         },
         selectable = false,
@@ -343,6 +367,7 @@ function CharacterSelectScene:InitCharacterList()
         images = {
           menu = img.new(Sandwichard.menuImagePath),
           name = img.new(self.font:getTextWidth(Sandwichard.name:upper()), fontHeight, gfx.kColorClear),
+          name2 = img.new(Sandwichard.nameImagePath),
           portrait = img.new(Sandwichard.portraitImagePath),
         },
         selectable = false,
