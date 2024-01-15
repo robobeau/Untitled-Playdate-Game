@@ -251,10 +251,10 @@ function CharacterSelectScene:Init()
   self.soundFX = {
     cursor = snd.sampleplayer.new('sounds/24H.wav'),
     deny = snd.sampleplayer.new('sounds/23H.wav'),
-    getReady = snd.sampleplayer.new('sounds/announcerGetReady.wav'),
+    selectYourFighter = snd.sampleplayer.new('sounds/announcerSelectYourFighter.wav'),
     selection = snd.sampleplayer.new('sounds/22H.wav')
   }
-  self.soundFX.getReady:play(1)
+  self.soundFX.selectYourFighter:play(1)
 
   self:InitCharacterList()
   self:InitGrid()
