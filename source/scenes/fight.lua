@@ -21,67 +21,217 @@ local ani <const> = gfx.animator
 local img <const> = gfx.image
 local rec <const> = geo.rect
 local snd <const> = pd.sound
+local tmr <const> = pd.timer
 
 local fightStates <const> = {
   ACTIVE = 1,
   IDLE = 2,
   OVER = 4,
+  STARTING = 8,
+  MATCH_END = 16,
+  MATCH_START = 32,
+  ROUND_END = 64,
+  ROUND_START = 128,
 }
 local defaults <const> = {
   character1Class = Kim,
+  character1Wins = 0,
   character2Class = Kim,
+  character2Wins = 0,
   overState = nil,
   round = 1,
   rounds = 2,
   stageID = stages.LAWSON,
   state = fightStates.IDLE,
+  uiTextState = nil,
+  winnerState = nil,
 }
 local overStates <const> = {
   KO = 1,
-  TIMEOVER = 2,
+  TIME_OVER = 4,
+}
+local uiTextStates <const> = {
+  DRAW = 1,
+  FIGHT = 2,
+  KO = 4,
+  ROUND_START = 8,
+  THANK_YOU_FOR_PLAYING = 16,
+  TIME_OVER = 32,
+  YOU_LOSE = 64,
+  YOU_WIN = 128,
+}
+local winnerStates <const> = {
+  CHAR_1 = 1,
+  CHAR_2 = 2,
+  DRAW = 4,
 }
 -- local roundStates <const> = {
 --   ACTIVE = 1,
 --   IDLE = 2,
 --   OVER = 4,
 -- }
-local strings <const> = {
-  ko = 'KO',
-  timeOver = 'TIME OVER'
-}
+-- local strings <const> = {
+--   ko = 'KO',
+--   matchStart = 'FIGHT',
+--   roundStart = 'ROUND',
+--   timeOver = 'TIME OVER'
+-- }
 
 class('FightScene', defaults).extends(Room)
 
-function FightScene:draw()
-  if (self.state == fightStates.OVER) then
-    self.messageImage:clear(gfx.kColorClear)
+function FightScene:ActivateRound()
+  self.character1.controllable = true
+  -- self.character2.controllable = true
+  self.character1:setUpdatesEnabled(true)
+  self.character2:setUpdatesEnabled(true)
+  self.overState = nil
+  self.state = fightStates.ACTIVE
+  self.timer:Start()
+end
 
-    if (self.overState == overStates.KO) then
-      self:UpdateKOImage()
-
-      gfx.pushContext(self.messageImage)
-        self.koImage:drawFaded(
-          0,
-          0,
-          self.alphaAnimator:currentValue(),
-          img.kDitherTypeBayer8x8
-        )
-      gfx.popContext()
-    elseif (self.overState == overStates.TIMEOVER) then
-      self:UpdateTimeOverImage()
-
-      gfx.pushContext(self.messageImage)
-        self.timeOverImage:drawFaded(
-          0,
-          0,
-          self.alphaAnimator:currentValue(),
-          img.kDitherTypeBayer8x8
-        )
-      gfx.popContext()
-    end      
-
-    self.messageImage:drawIgnoringOffset(0, 0)
+function FightScene:DetermineWinner()
+  if (
+    self.lifebar1.amount == self.lifebar2.amount or
+    (self.lifebar1.amount <= 0 and self.lifebar2.amount <= 0)
+  ) then
+    self.character1Wins += 1
+    self.character2Wins += 1
+    self.winnerState = winnerStates.DRAW
+  elseif (self.lifebar1.amount > self.lifebar2.amount) then
+    self.character1Wins += 1
+    self.winnerState = winnerStates.CHAR_1
+  elseif (self.lifebar1.amount < self.lifebar2.amount) then
+    self.character2Wins += 1
+    self.winnerState = winnerStates.CHAR_2
+  else
+    -- This should be an impossible state
   end
+end
+
+function FightScene:draw()
+  self:DrawUITextImage()
+  self:DrawBlackScreen()
+end
+
+function FightScene:DrawBlackScreen()
+  local transparency <const> = self.blackScreenAlphaAnimator and self.blackScreenAlphaAnimator:currentValue() or 1
+
+  if (transparency == 1) then
+    return
+  end
+
+  if (transparency > 0) then
+    self.blackScreenImage:clear(gfx.kColorClear)
+  end
+
+  gfx.pushContext(self.blackScreenImage)
+    gfx.setDitherPattern(transparency, img.kDitherTypeBayer8x8)
+    gfx.fillRect(0, 0, self.blackScreenImage:getSize())
+  gfx.popContext()
+
+  self.blackScreenImage:drawIgnoringOffset(0, 0)
+end
+
+function FightScene:DrawUITextImage()
+  local opacity <const> = self.alphaAnimator and self.alphaAnimator:currentValue() or 0
+
+  if (opacity == 0) then
+    return
+  end
+
+  if (opacity < 1) then
+    self.uiImage:clear(gfx.kColorClear)
+  end
+
+  self:UpdateUITextImage()
+
+  gfx.pushContext(self.uiImage)
+    -- gfx.setDitherPattern(opacity, img.kDitherTypeBayer8x8)
+    self.uiTextImage:drawFaded(0, 0, opacity, img.kDitherTypeBayer8x8)
+    -- self.uiTextImage:drawAnchored(200, 220, 0.5, 0.5)
+  gfx.popContext()
+
+  self.uiImage:drawIgnoringOffset(0, 0)
+end
+
+function FightScene:EndMatch()
+  tmr.performAfterDelay(1000, function()
+    self.uiTextState = uiTextStates.THANK_YOU_FOR_PLAYING
+    self:StartFadeInTextAnimator()
+
+    tmr.performAfterDelay(5000, function()
+      sceneLoader:Start(function()
+        sceneManager:resetAndEnter(CharacterSelectScene)
+      end)
+    end)
+  end)
+end
+
+function FightScene:EndRound(overState)
+  -- self.backgroundMusic:stop()
+  self.character1.controllable = false
+  self.character2.controllable = false
+  -- self.character1:setUpdatesEnabled(false)
+  -- self.character2:setUpdatesEnabled(false)
+  self.overState = overState
+  self.state = fightStates.ROUND_END
+  self.timer:Stop()
+
+  if (self.overState == overStates.KO) then
+    pd.display.setRefreshRate(10)
+
+    self.uiTextState = uiTextStates.KO
+  elseif (self.overState == overStates.TIME_OVER) then
+    self.uiTextState = uiTextStates.TIME_OVER
+  end
+
+  self:DetermineWinner()
+
+  self:StartFadeInTextAnimator()
+
+  tmr.performAfterDelay(2000, function()
+    pd.display.setRefreshRate(30)
+
+    self:StartFadeOutTextAnimator()
+
+    tmr.performAfterDelay(500, function()
+      if (self.winnerState == winnerStates.CHAR_1) then
+        self.uiTextState = uiTextStates.YOU_WIN
+      elseif (self.winnerState == winnerStates.CHAR_2) then
+        self.uiTextState = uiTextStates.YOU_LOSE
+      elseif (self.winnerState == winnerStates.DRAW) then
+        self.uiTextState = uiTextStates.DRAW
+      end
+
+      self:StartFadeInTextAnimator()
+
+      tmr.performAfterDelay(2000, function()
+        if (self.round == 1) then
+          -- Do nothing...?
+        elseif (self.round == 2) then
+          if (self.character1Wins >= 2 or self.character2Wins >= 2) then
+            self:EndMatch()
+
+            return
+          end
+        else
+          self:EndMatch()
+
+          return
+        end
+
+        self:StartFadeInBlackScreenAnimator()
+
+        tmr.performAfterDelay(1000, function()
+          self.round += 1
+
+          self:ResetRound()
+          self:StartFadeOutBlackScreenAnimator()
+          self:StartRound()
+        end)
+      end)
+    end)
+  end)
 end
 
 function FightScene:enter(previous, ...)
@@ -94,7 +244,7 @@ function FightScene:Init(config)
   self.round = config.round or self.round
   self.rounds = config.rounds or self.rounds
   self.stageID = config.stageID or self.stageID
-  -- self.state = config.state or self.state
+  self.state = config.state or self.state
 
   self:InitCharacters()
   self:InitLifebars()
@@ -103,28 +253,18 @@ function FightScene:Init(config)
   self:InitImages()
   self:InitMenu()
 
-  -- self.theBall = Ball({
-  --   startingPosition = {
-  --     x = 200,
-  --     y = 30,
-  --   },
-  --   type = ballTypes.TENNISBALL,
-  -- })
-
   self.character1:add()
   self.character2:add()
-  -- self.theBall:add()
 
   pd.setMenuImage(img.new('images/Controls'))
 end
 
 function FightScene:InitCharacters()
   self.character1 = self.character1Class({
-    controllable = true,
+    controllable = false,
     debug = false,
     startingDirection = charDirections.RIGHT,
   })
-
   self.character2 = self.character2Class({
     controllable = false,
     debug = false,
@@ -138,35 +278,33 @@ end
 function FightScene:InitImages()
   local displayRect <const> = pd.display.getRect()
 
-  self.koImage = img.new(
-    displayRect.width,
-    displayRect.height,
-    gfx.kColorClear
-  )
-  self.koTextImage = img.new(
-    fonts.SuperMonacoGP:getTextWidth(strings.ko),
-    fonts.SuperMonacoGP:getHeight(),
-    gfx.kColorClear
-  )
-  self.messageImage = img.new(
-    displayRect.width,
-    displayRect.height,
-    gfx.kColorClear
-  )
-  self.timeOverImage = img.new(
-    displayRect.width,
-    displayRect.height,
-    gfx.kColorClear
-  )
-  self.timeOverTextImage = img.new(
-    fonts.SuperMonacoGP:getTextWidth(strings.timeOver),
-    fonts.SuperMonacoGP:getHeight(),
-    gfx.kColorClear
-  )
+  self.blackScreenImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.drawTextImage = img.new('images/ui/DrawText')
+  self.fightImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.fightTextImage = img.new('images/ui/FightText')
+  self.finalRoundTextImage = img.new('images/ui/FinalRoundText')
+  self.koTextImage = img.new('images/ui/KOText')
+  self.matchEndImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.matchEndTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.matchStartImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.matchStartTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.roundEndImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.roundEndTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.round1TextImage = img.new('images/ui/Round1Text')
+  self.round2TextImage = img.new('images/ui/Round2Text')
+  self.roundStartImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.roundStartTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.thankYouForPlayingTextImage = img.new('images/ui/ThankYouForPlayingText')
+  self.timeOverImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.timeOverTextImage = img.new('images/ui/TimeOverText')
+  self.youLoseTextImage = img.new('images/ui/YouLoseText')
+  self.youWinTextImage = img.new('images/ui/YouWinText')
+  self.uiImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.uiTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
 end
 
 function FightScene:InitLifebars()
-  self.lifebar = Meter({
+  self.lifebar1 = Meter({
     amount = self.character1.health,
     direction = meterDirections.LEFT,
     label = self.character1.name:upper(),
@@ -182,39 +320,44 @@ function FightScene:InitLifebars()
   })
 
   self.character1.OnHealthChange = (function (health)
-    self.lifebar:SetAmount(health)
+    self.lifebar1:SetAmount(health)
 
     if (health <= 0) then
-      self:Stop(overStates.KO)
+      self:EndRound(overStates.KO)
 
       self.character1:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
-      self.alphaAnimator = ani.new(200, 0, 1)
     end
   end)
   self.character2.OnHealthChange = (function (health)
     self.lifebar2:SetAmount(health)
 
     if (health <= 0) then
-      self:Stop(overStates.KO)
+      self:EndRound(overStates.KO)
 
       self.character2:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
-      self.alphaAnimator = ani.new(200, 0, 1)
     end
   end)
 
-  self.lifebar:Update()
+  self.lifebar1:Update()
   self.lifebar2:Update()
 end
 
 function FightScene:InitMenu()
   local menu <const> = pd.getSystemMenu()
-        menu:addMenuItem("Char. Select", function ()
+        menu:addMenuItem("Char Select", function()
           sceneLoader:Start(function()
             sceneManager:resetAndEnter(CharacterSelectScene)
           end)
         end)
-        menu:addMenuItem("Reset", function ()
-          self:Reset()
+
+        menu:addMenuItem("Reset Match", function()
+          self:StartFadeInBlackScreenAnimator()
+
+          tmr.performAfterDelay(1000, function()
+            self:ResetMatch()
+            self:StartFadeOutBlackScreenAnimator()
+            self:StartMatch()
+          end)
         end)
 end
 
@@ -223,7 +366,8 @@ function FightScene:InitStage()
   self.backgroundMusic:setVolume(0.5)
 
   self.stage = Stage({
-    character = self.character1,
+    character1 = self.character1,
+    character2 = self.character2,
     id = self.stageID
   })
 
@@ -238,87 +382,127 @@ function FightScene:InitStage()
     x = stageCenter + 100,
     y = stageSprite.height - 20,
   }
-
-  self.stage:update()
 end
 
 function FightScene:InitTimer()
   self.timer = Timer({
-    OnStop = function ()
-      self:Stop(overStates.TIMEOVER)
-
-      self.alphaAnimator = ani.new(200, 0, 1)
+    OnStop = function()
+      self:EndRound(overStates.TIME_OVER)
     end,
     time = {
       limit = 90,
     },
   })
-
-  self.timer:Update()
 end
 
 function FightScene:leave(next, ...)
   self:Teardown()
 end
 
-function FightScene:pause()
-  self.character1:setUpdatesEnabled(false)
-  self.character2:setUpdatesEnabled(false)
-end
+-- function FightScene:pause()
+--   self.character1:setUpdatesEnabled(false)
+--   self.character2:setUpdatesEnabled(false)
+-- end
 
 function FightScene:Reset()
-  self:Stop()
-
+  -- Reset Character 1
   self.character1:Reset()
-  self.character2:Reset()
+  self.character1.controllable = false
+  self.lifebar1:Reset()
 
-  self.lifebar:Reset()
+  -- Reset Character 2
+  self.character2:Reset()
+  self.character2.controllable = false
   self.lifebar2:Reset()
 
-  -- self.theBall:Reset()
+  -- Reset Stage
+  -- self.stage:Reset()
 
+  -- Reset Timer
   self.timer:Stop()
   self.timer:Reset()
-  self.timer:Start()
 
-  self:Start()
-end
-
-function FightScene:resume()
-  self.character1.controllable = true
-  -- self.character2.controllable = true
-  self.character1:setUpdatesEnabled(true)
-  self.character2:setUpdatesEnabled(true)
-end
-
-function FightScene:Start()
-  self.state = fightStates.ACTIVE
   self.overState = nil
+  self.uiTextState = nil
+  self.winnerState = nil
+end
 
+function FightScene:ResetMatch()
+  self.character1Wins = 0
+  self.character2Wins = 0
+  self.round = 1
+  self.state = fightStates.IDLE
+
+  self:Reset()
+end
+
+-- function FightScene:RestartMatch()
+--   self:ResetMatch()
+--   self:StartMatch()
+-- end
+
+function FightScene:ResetRound()
+  self:Reset()
+end
+
+-- function FightScene:resume()
+--   self.character1.controllable = true
+--   self.character1:setUpdatesEnabled(true)
+
+--   -- self.character2.controllable = true
+--   self.character2:setUpdatesEnabled(true)
+-- end
+
+function FightScene:StartFadeInBlackScreenAnimator(duration)
+  self.blackScreenAlphaAnimator = ani.new(duration or 200, 1, 0)
+end
+
+function FightScene:StartFadeOutBlackScreenAnimator(duration)
+  self.blackScreenAlphaAnimator = ani.new(duration or 200, 0, 1)
+end
+
+function FightScene:StartFadeInTextAnimator(duration)
+  self.alphaAnimator = ani.new(duration or 200, 0, 1)
+end
+
+function FightScene:StartFadeOutTextAnimator(duration)
+  self.alphaAnimator = ani.new(duration or 200, 1, 0)
+end
+
+function FightScene:StartMatch()
   if (not self.backgroundMusic:isPlaying()) then
     self.backgroundMusic:play(0)
   end
 
-  self.character1.controllable = true
-  -- self.character2.controllable = true
-  self.character1:setUpdatesEnabled(true)
-  self.character2:setUpdatesEnabled(true)
-  self.timer:Start()
+  self:StartRound()
 end
 
-function FightScene:Stop(overState)
-  self.state = fightStates.OVER
-  self.overState = overState
+function FightScene:StartRound()
+  self.state = fightStates.ROUND_START
 
-  -- self.backgroundMusic:stop()
-  self.character1.controllable = false
-  self.character2.controllable = false
-  -- self.character1:setUpdatesEnabled(false)
-  -- self.character2:setUpdatesEnabled(false)
-  self.timer:Stop()
+  tmr.performAfterDelay(200, function()
+    self.uiTextState = uiTextStates.ROUND_START
+    self:StartFadeInTextAnimator()
+
+    tmr.performAfterDelay(2000, function()
+      self:StartFadeOutTextAnimator()
+
+      tmr.performAfterDelay(500, function()
+        self.uiTextState = uiTextStates.FIGHT
+        self:StartFadeInTextAnimator()
+
+        tmr.performAfterDelay(1000, function()
+          self:ActivateRound()
+          self:StartFadeOutTextAnimator()
+        end)
+      end)
+    end)
+  end)
 end
 
 function FightScene:Teardown()
+  self:ResetMatch()
+
   self.backgroundMusic:stop()
   self.backgroundMusic = nil
 
@@ -330,12 +514,10 @@ function FightScene:Teardown()
   self.character2:Teardown()
   self.character2 = nil
 
-  self.state = fightStates.IDLE
   self.stage:Teardown()
 
-  -- self.lifebar:Teardown()
+  -- self.lifebar1:Teardown()
   -- self.lifebar2:Teardown()
-  -- self.theBall:remove()
   -- self.timer:Teardown()
 
   pd.getSystemMenu():removeAllMenuItems()
@@ -343,78 +525,75 @@ function FightScene:Teardown()
 end
 
 function FightScene:update(dt)
-  if (self.state == fightStates.IDLE) then
-    if (self.character1:IsLoaded()) then
-      self.character1:ResetPosition()
-    end
-
-    if (self.character2:IsLoaded()) then
-      self.character2:ResetPosition()
-    end
-
-    if (self.character1:IsActive() and self.character2:IsActive()) then
-      if (sceneLoader.state == loaderStates.ACTIVE) then
-        sceneLoader:Stop(function ()
-          self:Start()
-        end)
-      end
-    end
+  if (self.state == fightStates.ACTIVE) then
+    self:UpdateActiveState()
+  elseif (self.state == fightStates.IDLE) then
+    self:UpdateIdleState()
+  elseif (self.state == fightStates.MATCH_END) then
+    -- self:UpdateMatchEndState()
+  -- elseif (self.state == fightStates.MATCH_START) then
+    -- self:UpdateMatchStartState()
+  elseif (self.state == fightStates.ROUND_END) then
+    -- self:UpdateRoundEndState()
+  elseif (self.state == fightStates.ROUND_START) then
+    -- self:UpdateRoundStartState()
+  -- elseif (self.state == fightStates.STARTING) then
+  --   self:UpdateStartingState()
   end
+end
 
+function FightScene:UpdateActiveState()
+  self.lifebar1:Update()
+  self.lifebar2:Update()
   self.stage:update()
   self.timer:Update()
-  self.lifebar:Update()
-  self.lifebar2:Update()
 end
 
-function FightScene:UpdateKOImage()
-  gfx.pushContext(self.koTextImage)
-    fonts.SuperMonacoGP:drawText(strings.ko, 0, 0)
-  gfx.popContext()
+function FightScene:UpdateIdleState()
+  if (self.character1:IsActive() and self.character2:IsActive()) then
+    if (sceneLoader.state == loaderStates.ACTIVE) then
+      sceneLoader:Stop(function()
+        self:ResetMatch()
+        self:StartMatch()
+      end)
+    end
+  end
+end
 
-  local scaledKOImage <const> = self.koTextImage:scaledImage(6)
+function FightScene:UpdateMatchStartImage()
+  self.matchStartTextImage:clear(gfx.kColorClear)
 
-  gfx.pushContext(self.koImage)
-    local imagePosition <const> = {
-      x = (self.koImage.width - scaledKOImage.width) / 2,
-      y = ((self.koImage.height - scaledKOImage.height) / 2),
-    }
-
-    -- Draw the text's stroke
-    gfx.setImageDrawMode(gfx.kDrawModeCopy)
-    scaledKOImage:draw(imagePosition.x - 1, imagePosition.y - 1)
-    scaledKOImage:draw(imagePosition.x - 1, imagePosition.y + 1)
-    scaledKOImage:draw(imagePosition.x + 1, imagePosition.y - 1)
-    scaledKOImage:draw(imagePosition.x + 1, imagePosition.y + 1)
-
-    -- Draw the text
-    gfx.setImageDrawMode(gfx.kDrawModeInverted)
-    scaledKOImage:draw(imagePosition.x, imagePosition.y)
+  gfx.pushContext(self.matchStartTextImage)
+    self.fightTextImage:drawCentered(200, 120)
   gfx.popContext()
 end
 
-function FightScene:UpdateTimeOverImage()
-  gfx.pushContext(self.timeOverTextImage)
-    fonts.SuperMonacoGP:drawText(strings.timeOver, 0, 0)
-  gfx.popContext()
+function FightScene:UpdateUITextImage()
+  self.uiTextImage:clear(gfx.kColorClear)
 
-  local scaledTimeOverImage <const> = self.timeOverTextImage:scaledImage(4)
-
-  gfx.pushContext(self.timeOverImage)
-    local imagePosition <const> = {
-      x = (self.timeOverImage.width - scaledTimeOverImage.width) / 2,
-      y = ((self.timeOverImage.height - scaledTimeOverImage.height) / 2),
-    }
-
-    -- Draw the text's stroke
-    gfx.setImageDrawMode(gfx.kDrawModeCopy)
-    scaledTimeOverImage:draw(imagePosition.x - 1, imagePosition.y - 1)
-    scaledTimeOverImage:draw(imagePosition.x - 1, imagePosition.y + 1)
-    scaledTimeOverImage:draw(imagePosition.x + 1, imagePosition.y - 1)
-    scaledTimeOverImage:draw(imagePosition.x + 1, imagePosition.y + 1)
-
-    -- Draw the text
-    gfx.setImageDrawMode(gfx.kDrawModeInverted)
-    scaledTimeOverImage:draw(imagePosition.x, imagePosition.y)
+  gfx.pushContext(self.uiTextImage)
+    if (self.uiTextState == uiTextStates.DRAW) then
+      self.drawTextImage:drawCentered(200, 120)
+    elseif (self.uiTextState == uiTextStates.FIGHT) then
+      self.fightTextImage:drawCentered(200, 120)
+    elseif (self.uiTextState == uiTextStates.KO) then
+      self.koTextImage:drawCentered(220, 120)
+    elseif (self.uiTextState == uiTextStates.ROUND_START) then
+      if (self.round == 1) then
+        self.round1TextImage:drawCentered(200, 120)
+      elseif (self.round == 2) then
+        self.round2TextImage:drawCentered(200, 120)
+      else
+        self.finalRoundTextImage:drawCentered(200, 120)
+      end
+    elseif (self.uiTextState == uiTextStates.THANK_YOU_FOR_PLAYING) then
+      self.thankYouForPlayingTextImage:drawCentered(200, 120)
+    elseif (self.uiTextState == uiTextStates.TIME_OVER) then
+      self.timeOverTextImage:drawCentered(200, 120)
+    elseif (self.uiTextState == uiTextStates.YOU_LOSE) then
+      self.youLoseTextImage:drawCentered(200, 120)
+    elseif (self.uiTextState == uiTextStates.YOU_WIN) then
+      self.youWinTextImage:drawCentered(200, 120)
+    end
   gfx.popContext()
 end
