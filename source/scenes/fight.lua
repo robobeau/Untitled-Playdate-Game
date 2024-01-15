@@ -362,7 +362,7 @@ function FightScene:InitMenu()
 end
 
 function FightScene:InitStage()
-  self.backgroundMusic = snd.fileplayer.new('music/Stage - Metropolis Grime - Loop.mp3')
+  self.backgroundMusic = snd.fileplayer.new('music/Stage - Metropolis Grime - Loop')
   self.backgroundMusic:setVolume(0.5)
 
   self.stage = Stage({
