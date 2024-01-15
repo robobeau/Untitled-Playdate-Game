@@ -2,6 +2,5 @@ author=robobeau
 bundleID=com.robobeau.untitled
 description=I think this might be a fighting game...??
 imagePath=images/launcher
-launchSoundPath=sounds/announcerLetsRock.wav
 name=Untitled Playdate Game
 version=0.5.5
