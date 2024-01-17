@@ -12,7 +12,7 @@
    <property name="cancellable" type="int" propertytype="Cancellable" value="115"/>
    <property name="frameDuration" type="int" value="1"/>
   </properties>
-  <image width="72" height="72" source="../../../source/characters/Kim/images/KimCrouch1.png"/>
+  <image width="72" height="72" source="../../../source/characters/Kim/images/KimCrouch1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="16" y="-12" width="40" height="84"/>
    <object id="3" name="Hurtbox (Low)" type="Hurtbox" x="0" y="24" width="54" height="48">

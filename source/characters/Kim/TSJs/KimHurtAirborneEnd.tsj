@@ -15,7 +15,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimHurtAirborneEnd1.png",
+         "image":"..\/images\/KimHurtAirborneEnd1.gif",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -63,7 +63,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimHurtAirborneEnd2.png",
+         "image":"..\/images\/KimHurtAirborneEnd2.gif",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -111,7 +111,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimHurtAirborneEnd3.png",
+         "image":"..\/images\/KimHurtAirborneEnd3.gif",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -164,7 +164,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/images\/KimHurtAirborneEnd3.png",
+         "image":"..\/images\/KimHurtAirborneEnd3.gif",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":

@@ -11,7 +11,7 @@
   <properties>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
-  <image width="70" height="78" source="../../../source/characters/Kim/images/KimThrow1.png"/>
+  <image width="70" height="78" source="../../../source/characters/Kim/images/KimThrow1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="10" y="-6" width="40" height="84"/>
    <object id="6" name="Hurtbox (Low)" type="Hurtbox" x="0" y="66" width="58" height="12">
@@ -41,7 +41,7 @@
   <properties>
    <property name="frameDuration" type="int" value="6"/>
   </properties>
-  <image width="70" height="86" source="../../../source/characters/Kim/images/KimThrow2.png"/>
+  <image width="70" height="86" source="../../../source/characters/Kim/images/KimThrow2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="16" y="46" width="40" height="40"/>
    <object id="7" name="Hurtbox (Low)" type="Hurtbox" x="6" y="74" width="62" height="12">
@@ -71,7 +71,7 @@
   <properties>
    <property name="frameDuration" type="int" value="8"/>
   </properties>
-  <image width="94" height="74" source="../../../source/characters/Kim/images/KimThrow3.png"/>
+  <image width="94" height="74" source="../../../source/characters/Kim/images/KimThrow3.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="44" y="34" width="40" height="40"/>
    <object id="6" name="Hurtbox (Low)" type="Hurtbox" x="34" y="62" width="60" height="12">

@@ -21,7 +21,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimDiveKick1.png",
+         "image":"..\/images\/KimDiveKick1.gif",
          "imageheight":112,
          "imagewidth":80,
          "objectgroup":
@@ -149,7 +149,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimDiveKick2.png",
+         "image":"..\/images\/KimDiveKick2.gif",
          "imageheight":112,
          "imagewidth":80,
          "objectgroup":

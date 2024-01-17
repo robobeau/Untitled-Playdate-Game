@@ -21,7 +21,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimBlockAirborne1.png",
+         "image":"..\/images\/KimBlockAirborne1.gif",
          "imageheight":80,
          "imagewidth":54,
          "objectgroup":

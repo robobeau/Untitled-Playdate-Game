@@ -16,7 +16,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimPunchForward1.png",
+         "image":"..\/images\/KimPunchForward1.gif",
          "imageheight":78,
          "imagewidth":66,
          "objectgroup":
@@ -118,7 +118,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimPunchForward2.png",
+         "image":"..\/images\/KimPunchForward2.gif",
          "imageheight":74,
          "imagewidth":118,
          "objectgroup":
@@ -268,7 +268,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimPunchForward3.png",
+         "image":"..\/images\/KimPunchForward3.gif",
          "imageheight":78,
          "imagewidth":66,
          "objectgroup":

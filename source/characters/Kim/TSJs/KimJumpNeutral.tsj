@@ -16,7 +16,7 @@
  "tiles":[
         {
          "id":1,
-         "image":"..\/images\/KimJumpNeutral1.png",
+         "image":"..\/images\/KimJumpNeutral1.gif",
          "imageheight":128,
          "imagewidth":80,
          "objectgroup":
@@ -92,7 +92,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimJumpNeutral2.png",
+         "image":"..\/images\/KimJumpNeutral2.gif",
          "imageheight":128,
          "imagewidth":80,
          "objectgroup":
@@ -168,7 +168,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/images\/KimJumpNeutral3.png",
+         "image":"..\/images\/KimJumpNeutral3.gif",
          "imageheight":128,
          "imagewidth":80,
          "objectgroup":

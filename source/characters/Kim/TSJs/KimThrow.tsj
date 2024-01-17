@@ -22,7 +22,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimThrow1.png",
+         "image":"..\/images\/KimThrow1.gif",
          "imageheight":78,
          "imagewidth":70,
          "objectgroup":
@@ -136,7 +136,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimThrow2.png",
+         "image":"..\/images\/KimThrow2.gif",
          "imageheight":86,
          "imagewidth":70,
          "objectgroup":
@@ -250,7 +250,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimThrow3.png",
+         "image":"..\/images\/KimThrow3.gif",
          "imageheight":74,
          "imagewidth":94,
          "objectgroup":

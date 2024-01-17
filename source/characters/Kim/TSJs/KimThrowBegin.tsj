@@ -16,7 +16,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimThrow1.png",
+         "image":"..\/images\/KimThrow1.gif",
          "imageheight":78,
          "imagewidth":70,
          "objectgroup":
@@ -142,7 +142,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/images\/KimHurt1.png",
+         "image":"..\/images\/KimHurt1.gif",
          "imageheight":80,
          "imagewidth":112,
          "objectgroup":

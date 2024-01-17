@@ -9,7 +9,7 @@
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="62" height="76" source="../../../source/characters/Kim/images/KimAirborne1.png"/>
+  <image width="62" height="76" source="../../../source/characters/Kim/images/KimAirborne1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="12" y="0" width="40" height="76"/>
    <object id="3" name="Hurtbox (Mid)" type="Hurtbox" x="4" y="22" width="56" height="52">
@@ -33,7 +33,7 @@
    <property name="frameDuration" type="int" value="1"/>
    <property name="loops" type="bool" value="true"/>
   </properties>
-  <image width="50" height="120" source="../../../source/characters/Kim/images/KimAirborne2.png"/>
+  <image width="50" height="120" source="../../../source/characters/Kim/images/KimAirborne2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="8" name="Pushbox" type="Pushbox" x="6" y="14" width="40" height="106"/>
    <object id="9" name="Hurtbox (Mid)" type="Hurtbox" x="2" y="48" width="48" height="56"/>

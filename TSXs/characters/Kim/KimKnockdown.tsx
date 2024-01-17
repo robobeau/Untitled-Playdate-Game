@@ -9,7 +9,7 @@
    <property name="frameDuration" type="int" value="10"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="524288"/>
   </properties>
-  <image width="112" height="48" source="../../../source/characters/Kim/images/KimKnockdown1.png"/>
+  <image width="112" height="48" source="../../../source/characters/Kim/images/KimKnockdown1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="36" y="-40" width="40" height="84"/>
    <object id="2" name="Center" type="Center" x="56" y="44">

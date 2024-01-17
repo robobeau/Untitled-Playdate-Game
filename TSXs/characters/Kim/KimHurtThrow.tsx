@@ -11,7 +11,7 @@
   <properties>
    <property name="frameDuration" type="int" value="1"/>
   </properties>
-  <image width="76" height="60" source="../../../source/characters/Kim/images/KimHurtThrow1.png"/>
+  <image width="76" height="60" source="../../../source/characters/Kim/images/KimHurtThrow1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="18" y="10" width="40" height="40"/>
    <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="9.81818" y="0" width="44" height="60">

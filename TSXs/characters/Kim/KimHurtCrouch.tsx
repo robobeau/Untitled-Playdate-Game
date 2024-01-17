@@ -8,7 +8,7 @@
   <properties>
    <property name="frameDuration" type="int" value="1"/>
   </properties>
-  <image width="112" height="64" source="../../../source/characters/Kim/images/KimHurtCrouch1.png"/>
+  <image width="112" height="64" source="../../../source/characters/Kim/images/KimHurtCrouch1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="56" y="-20" width="40" height="84"/>
    <object id="3" name="Center" type="Center" x="76" y="64">
@@ -21,7 +21,7 @@
    <property name="frameDuration" type="int" value="5"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="32"/>
   </properties>
-  <image width="112" height="64" source="../../../source/characters/Kim/images/KimHurtCrouch1.png"/>
+  <image width="112" height="64" source="../../../source/characters/Kim/images/KimHurtCrouch1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="56" y="-20" width="40" height="84"/>
    <object id="3" name="Center" type="Center" x="76" y="64">

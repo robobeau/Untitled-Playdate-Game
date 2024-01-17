@@ -15,7 +15,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimCrescentMoonSlash1.png",
+         "image":"..\/images\/KimCrescentMoonSlash1.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -85,7 +85,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimCrescentMoonSlash2.png",
+         "image":"..\/images\/KimCrescentMoonSlash2.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -138,7 +138,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimCrescentMoonSlash3.png",
+         "image":"..\/images\/KimCrescentMoonSlash3.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -186,7 +186,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/images\/KimCrescentMoonSlash4.png",
+         "image":"..\/images\/KimCrescentMoonSlash4.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -234,7 +234,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/images\/KimCrescentMoonSlash5.png",
+         "image":"..\/images\/KimCrescentMoonSlash5.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -282,7 +282,7 @@
         }, 
         {
          "id":5,
-         "image":"..\/images\/KimCrescentMoonSlash6.png",
+         "image":"..\/images\/KimCrescentMoonSlash6.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -330,7 +330,7 @@
         }, 
         {
          "id":6,
-         "image":"..\/images\/KimCrescentMoonSlash7.png",
+         "image":"..\/images\/KimCrescentMoonSlash7.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -430,7 +430,7 @@
         }, 
         {
          "id":7,
-         "image":"..\/images\/KimCrescentMoonSlash8.png",
+         "image":"..\/images\/KimCrescentMoonSlash8.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -530,7 +530,7 @@
         }, 
         {
          "id":8,
-         "image":"..\/images\/KimCrescentMoonSlash9.png",
+         "image":"..\/images\/KimCrescentMoonSlash9.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -635,7 +635,7 @@
         }, 
         {
          "id":9,
-         "image":"..\/images\/KimCrescentMoonSlash10.png",
+         "image":"..\/images\/KimCrescentMoonSlash10.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -683,7 +683,7 @@
         }, 
         {
          "id":10,
-         "image":"..\/images\/KimCrescentMoonSlash11.png",
+         "image":"..\/images\/KimCrescentMoonSlash11.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":
@@ -753,7 +753,7 @@
         }, 
         {
          "id":11,
-         "image":"..\/images\/KimCrescentMoonSlash12.png",
+         "image":"..\/images\/KimCrescentMoonSlash12.gif",
          "imageheight":124,
          "imagewidth":124,
          "objectgroup":

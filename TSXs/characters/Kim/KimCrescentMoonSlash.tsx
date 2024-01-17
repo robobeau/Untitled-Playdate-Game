@@ -8,7 +8,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash1.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="58" y="40" width="40" height="84"/>
    <object id="2" name="Hurtbox (Mid)" type="Hurtbox" x="42" y="72" width="58" height="52"/>
@@ -23,7 +23,7 @@
    <property name="frameDuration" type="int" value="2"/>
    <property name="velocityX" type="int" value="6"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash2.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="58" y="40" width="40" height="84"/>
    <object id="2" name="Center" type="Center" x="78" y="124">
@@ -35,7 +35,7 @@
   <properties>
    <property name="frameDuration" type="int" value="1"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash3.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash3.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="58" y="26" width="40" height="42"/>
    <object id="2" name="Center" type="Center" x="78" y="124">
@@ -47,7 +47,7 @@
   <properties>
    <property name="frameDuration" type="int" value="1"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash4.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash4.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="42" y="28" width="40" height="42"/>
    <object id="2" name="Center" type="Center" x="62" y="124">
@@ -59,7 +59,7 @@
   <properties>
    <property name="frameDuration" type="int" value="1"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash5.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash5.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="42" y="28" width="40" height="42"/>
    <object id="3" name="Center" type="Center" x="62" y="124">
@@ -71,7 +71,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash6.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash6.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="26" y="32" width="40" height="42"/>
    <object id="3" name="Center" type="Center" x="46" y="124">
@@ -83,7 +83,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash7.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash7.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="42" y="40" width="40" height="84"/>
    <object id="2" name="Hitbox" type="Hitbox" x="60" y="-4" width="36" height="44">
@@ -107,7 +107,7 @@
   <properties>
    <property name="frameDuration" type="int" value="1"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash8.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash8.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="42" y="40" width="40" height="84"/>
    <object id="3" name="Hitbox" type="Hitbox" x="72" y="8" width="52" height="52">
@@ -132,7 +132,7 @@
    <property name="frameDuration" type="int" value="2"/>
    <property name="velocityX" type="int" value="0"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash9.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash9.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="44" y="40" width="40" height="84"/>
    <object id="2" name="Hitbox" type="Hitbox" x="90" y="36" width="38" height="84">
@@ -156,7 +156,7 @@
   <properties>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash10.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash10.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="44" y="40" width="40" height="84"/>
    <object id="3" name="Center" type="Center" x="64" y="124">
@@ -168,7 +168,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash11.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash11.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="44" y="40" width="40" height="84"/>
    <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="28" y="76" width="62" height="48"/>
@@ -183,7 +183,7 @@
    <property name="frameDuration" type="int" value="2"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
   </properties>
-  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash12.png"/>
+  <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash12.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="42" y="40" width="40" height="84"/>
    <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="30" y="66" width="64" height="58"/>

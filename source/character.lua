@@ -1066,9 +1066,9 @@ function Character:HydrateImageTable(animation)
   for i, frame in ipairs(animation.frames) do
     local image
     local imagePath = frame.image
-          -- Chop off the "../" and ".png"
+          -- Chop off the "../" and ".gif"
           imagePath = string.gsub(imagePath, '%.%./', 'characters/' .. self.name .. '/')
-          imagePath = string.gsub(imagePath, '%.png', '')
+          imagePath = string.gsub(imagePath, '%.gif', '')
 
     if (images[imagePath] ~= nil) then
       image = images[imagePath]

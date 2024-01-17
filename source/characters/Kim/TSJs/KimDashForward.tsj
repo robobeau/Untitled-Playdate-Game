@@ -22,7 +22,7 @@
  "tiles":[
         {
          "id":1,
-         "image":"..\/images\/KimDashForward1.png",
+         "image":"..\/images\/KimDashForward1.gif",
          "imageheight":112,
          "imagewidth":64,
          "objectgroup":

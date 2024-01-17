@@ -8,7 +8,7 @@
   <properties>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
-  <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise1.png"/>
+  <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="40" y="6" width="40" height="84"/>
    <object id="2" name="Center" type="Center" x="60" y="90">
@@ -20,7 +20,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise2.png"/>
+  <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="36" y="12" width="40" height="84"/>
    <object id="2" name="Center" type="Center" x="56" y="96">
@@ -32,7 +32,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise3.png"/>
+  <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise3.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="36" y="12" width="40" height="84"/>
    <object id="2" name="Center" type="Center" x="56" y="96">
@@ -45,7 +45,7 @@
    <property name="frameDuration" type="int" value="2"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
   </properties>
-  <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise4.png"/>
+  <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise4.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="36" y="12" width="40" height="84"/>
    <object id="2" name="Center" type="Center" x="56" y="96">

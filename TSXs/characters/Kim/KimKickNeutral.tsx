@@ -8,7 +8,7 @@
   <properties>
    <property name="frameDuration" type="int" value="3"/>
   </properties>
-  <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral1.png"/>
+  <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="4" name="Pushbox" type="Pushbox" x="42" y="12" width="40" height="84"/>
    <object id="5" name="Hurtbox (Mid)" type="Hurtbox" x="26" y="44" width="58" height="52"/>
@@ -22,7 +22,7 @@
   <properties>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
-  <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral2.png"/>
+  <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="4" name="Pushbox" type="Pushbox" x="40" y="12" width="40" height="84"/>
    <object id="6" name="Hurtbox (Mid)" type="Hurtbox" x="18" y="36" width="48" height="60"/>
@@ -43,7 +43,7 @@
     </properties>
    </property>
   </properties>
-  <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral3.png"/>
+  <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral3.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="40" y="12" width="40" height="84"/>
    <object id="6" name="Hurtbox (Mid)" type="Hurtbox" x="8" y="38" width="46" height="58"/>
@@ -69,7 +69,7 @@
   <properties>
    <property name="frameDuration" type="int" value="3"/>
   </properties>
-  <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral4.png"/>
+  <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral4.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="6" name="Pushbox" type="Pushbox" x="42" y="12" width="40" height="84"/>
    <object id="7" name="Hurtbox (Mid)" type="Hurtbox" x="26" y="44" width="58" height="52"/>

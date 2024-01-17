@@ -16,7 +16,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimKickNeutral1.png",
+         "image":"..\/images\/KimKickNeutral1.gif",
          "imageheight":96,
          "imagewidth":96,
          "objectgroup":
@@ -86,7 +86,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimKickNeutral2.png",
+         "image":"..\/images\/KimKickNeutral2.gif",
          "imageheight":96,
          "imagewidth":96,
          "objectgroup":
@@ -156,7 +156,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimKickNeutral3.png",
+         "image":"..\/images\/KimKickNeutral3.gif",
          "imageheight":96,
          "imagewidth":96,
          "objectgroup":
@@ -294,7 +294,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/images\/KimKickNeutral4.png",
+         "image":"..\/images\/KimKickNeutral4.gif",
          "imageheight":96,
          "imagewidth":96,
          "objectgroup":

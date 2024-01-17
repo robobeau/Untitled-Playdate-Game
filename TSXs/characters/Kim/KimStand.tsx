@@ -12,7 +12,7 @@
    <property name="cancellable" type="int" propertytype="Cancellable" value="251"/>
    <property name="frameDuration" type="int" value="3"/>
   </properties>
-  <image width="72" height="84" source="../../../source/characters/Kim/images/KimStand1.png"/>
+  <image width="72" height="84" source="../../../source/characters/Kim/images/KimStand1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="16" y="0" width="40" height="84"/>
    <object id="6" name="Hurtbox (Low)" type="Hurtbox" x="4" y="68" width="64" height="16">
@@ -40,7 +40,7 @@
    <property name="cancellable" type="int" propertytype="Cancellable" value="251"/>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
-  <image width="72" height="86" source="../../../source/characters/Kim/images/KimStand2.png"/>
+  <image width="72" height="86" source="../../../source/characters/Kim/images/KimStand2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="16" y="2" width="40" height="84"/>
    <object id="7" name="Hurtbox (Low)" type="Hurtbox" x="4" y="68" width="64" height="18">
@@ -68,7 +68,7 @@
    <property name="cancellable" type="int" propertytype="Cancellable" value="251"/>
    <property name="frameDuration" type="int" value="5"/>
   </properties>
-  <image width="72" height="86" source="../../../source/characters/Kim/images/KimStand3.png"/>
+  <image width="72" height="86" source="../../../source/characters/Kim/images/KimStand3.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="16" y="2" width="40" height="84"/>
    <object id="6" name="Hurtbox (Low)" type="Hurtbox" x="4" y="68" width="64" height="18">
@@ -96,7 +96,7 @@
    <property name="cancellable" type="int" propertytype="Cancellable" value="251"/>
    <property name="frameDuration" type="int" value="3"/>
   </properties>
-  <image width="72" height="84" source="../../../source/characters/Kim/images/KimStand1.png"/>
+  <image width="72" height="84" source="../../../source/characters/Kim/images/KimStand1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="16" y="0" width="40" height="84"/>
    <object id="6" name="Hurtbox (Low)" type="Hurtbox" x="4" y="68" width="64" height="16">

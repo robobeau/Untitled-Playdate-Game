@@ -11,7 +11,7 @@
   <properties>
    <property name="frameDuration" type="int" value="4"/>
   </properties>
-  <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance1.png"/>
+  <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="22" y="12" width="40" height="84"/>
    <object id="1" name="Hurtbox (Mid)" type="Hurtbox" x="12" y="42" width="64" height="54"/>
@@ -25,7 +25,7 @@
   <properties>
    <property name="frameDuration" type="int" value="8"/>
   </properties>
-  <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance2.png"/>
+  <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="24" y="12" width="40" height="84"/>
    <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="14" y="44" width="58" height="52"/>
@@ -39,7 +39,7 @@
   <properties>
    <property name="frameDuration" type="int" value="8"/>
   </properties>
-  <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance3.png"/>
+  <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance3.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="24" y="12" width="40" height="84"/>
    <object id="3" name="Hurtbox (Mid)" type="Hurtbox" x="14" y="44" width="58" height="52"/>
@@ -54,7 +54,7 @@
    <property name="frameDuration" type="int" value="20"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
   </properties>
-  <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance4.png"/>
+  <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance4.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="24" y="12" width="40" height="84"/>
    <object id="3" name="Hurtbox (Mid)" type="Hurtbox" x="14" y="42" width="58" height="54"/>

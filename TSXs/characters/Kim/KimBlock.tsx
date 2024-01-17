@@ -12,7 +12,7 @@
    <property name="frameDuration" type="int" value="3"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
   </properties>
-  <image width="80" height="96" source="../../../source/characters/Kim/images/KimBlock1.png"/>
+  <image width="80" height="96" source="../../../source/characters/Kim/images/KimBlock1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="10" y="16" width="40" height="80"/>
    <object id="3" name="Center" type="Center" x="30" y="96">

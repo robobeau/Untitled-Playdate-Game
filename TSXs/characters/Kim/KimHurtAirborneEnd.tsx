@@ -8,7 +8,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd1.png"/>
+  <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="44" y="18" width="40" height="42"/>
    <object id="2" name="Center" type="Center" x="64" y="80">
@@ -20,7 +20,7 @@
   <properties>
    <property name="frameDuration" type="int" value="1"/>
   </properties>
-  <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd2.png"/>
+  <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="3" name="Pushbox" type="Pushbox" x="44" y="18" width="40" height="42"/>
    <object id="2" name="Center" type="Center" x="64" y="80">
@@ -33,7 +33,7 @@
    <property name="frameDuration" type="int" value="1"/>
    <property name="velocityX" type="int" value="-1"/>
   </properties>
-  <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd3.png"/>
+  <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd3.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="5" name="Pushbox" type="Pushbox" x="44" y="18" width="40" height="42"/>
    <object id="4" name="Center" type="Center" x="64" y="80">
@@ -46,7 +46,7 @@
    <property name="frameDuration" type="int" value="5"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="32768"/>
   </properties>
-  <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd3.png"/>
+  <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd3.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="44" y="18" width="40" height="42"/>
    <object id="3" name="Center" type="Center" x="64" y="80">

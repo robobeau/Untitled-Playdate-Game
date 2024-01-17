@@ -16,7 +16,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimKickForward1.png",
+         "image":"..\/images\/KimKickForward1.gif",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -86,7 +86,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimKickForward2.png",
+         "image":"..\/images\/KimKickForward2.gif",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -156,7 +156,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/images\/KimKickForward3.png",
+         "image":"..\/images\/KimKickForward3.gif",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -280,7 +280,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/images\/KimKickForward2.png",
+         "image":"..\/images\/KimKickForward2.gif",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":
@@ -350,7 +350,7 @@
         }, 
         {
          "id":5,
-         "image":"..\/images\/KimKickForward1.png",
+         "image":"..\/images\/KimKickForward1.gif",
          "imageheight":96,
          "imagewidth":128,
          "objectgroup":

@@ -13,7 +13,7 @@
    <property name="velocityX" type="int" value="4"/>
    <property name="velocityY" type="int" value="8"/>
   </properties>
-  <image width="80" height="112" source="../../../source/characters/Kim/images/KimDiveKick1.png"/>
+  <image width="80" height="112" source="../../../source/characters/Kim/images/KimDiveKick1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="20" y="28" width="40" height="84"/>
    <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="2" y="24" width="78" height="62"/>
@@ -38,7 +38,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="80" height="112" source="../../../source/characters/Kim/images/KimDiveKick2.png"/>
+  <image width="80" height="112" source="../../../source/characters/Kim/images/KimDiveKick2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="20" y="28" width="40" height="84"/>
    <object id="4" name="Hurtbox (Mid)" type="Hurtbox" x="2" y="24" width="78" height="62"/>

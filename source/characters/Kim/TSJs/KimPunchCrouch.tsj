@@ -15,7 +15,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimPunchCrouch1.png",
+         "image":"..\/images\/KimPunchCrouch1.gif",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -99,7 +99,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimPunchCrouch2.png",
+         "image":"..\/images\/KimPunchCrouch2.gif",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -183,7 +183,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimPunchCrouch3.png",
+         "image":"..\/images\/KimPunchCrouch3.gif",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":
@@ -311,7 +311,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/images\/KimPunchCrouch4.png",
+         "image":"..\/images\/KimPunchCrouch4.gif",
          "imageheight":80,
          "imagewidth":128,
          "objectgroup":

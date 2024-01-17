@@ -22,7 +22,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimStand1.png",
+         "image":"..\/images\/KimStand1.gif",
          "imageheight":84,
          "imagewidth":72,
          "objectgroup":
@@ -130,7 +130,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimStand2.png",
+         "image":"..\/images\/KimStand2.gif",
          "imageheight":86,
          "imagewidth":72,
          "objectgroup":
@@ -238,7 +238,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimStand3.png",
+         "image":"..\/images\/KimStand3.gif",
          "imageheight":86,
          "imagewidth":72,
          "objectgroup":
@@ -346,7 +346,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/images\/KimStand1.png",
+         "image":"..\/images\/KimStand1.gif",
          "imageheight":84,
          "imagewidth":72,
          "objectgroup":

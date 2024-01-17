@@ -22,7 +22,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimEntrance1.png",
+         "image":"..\/images\/KimEntrance1.gif",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":
@@ -92,7 +92,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimEntrance2.png",
+         "image":"..\/images\/KimEntrance2.gif",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":
@@ -162,7 +162,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimEntrance3.png",
+         "image":"..\/images\/KimEntrance3.gif",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":
@@ -232,7 +232,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/images\/KimEntrance4.png",
+         "image":"..\/images\/KimEntrance4.gif",
          "imageheight":96,
          "imagewidth":80,
          "objectgroup":

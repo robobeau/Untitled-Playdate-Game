@@ -21,7 +21,7 @@
  "tiles":[
         {
          "id":1,
-         "image":"..\/images\/KimLaunch1.png",
+         "image":"..\/images\/KimLaunch1.gif",
          "imageheight":88,
          "imagewidth":74,
          "objectgroup":
@@ -123,7 +123,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimLaunch2.png",
+         "image":"..\/images\/KimLaunch2.gif",
          "imageheight":88,
          "imagewidth":60,
          "objectgroup":
@@ -225,7 +225,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/images\/KimLaunch3.png",
+         "image":"..\/images\/KimLaunch3.gif",
          "imageheight":90,
          "imagewidth":88,
          "objectgroup":

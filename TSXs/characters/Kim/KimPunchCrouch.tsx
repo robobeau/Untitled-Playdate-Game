@@ -8,7 +8,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch1.png"/>
+  <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="22" y="-10" width="40" height="84"/>
    <object id="2" name="Hurtbox (Low)" type="Hurtbox" x="14" y="24" width="48" height="50">
@@ -30,7 +30,7 @@
   <properties>
    <property name="frameDuration" type="int" value="2"/>
   </properties>
-  <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch2.png"/>
+  <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="20" y="-12" width="40" height="84"/>
    <object id="2" name="Hurtbox (Low)" type="Hurtbox" x="12" y="30" width="50" height="42">
@@ -53,7 +53,7 @@
    <property name="cancellable" type="int" propertytype="Cancellable" value="0"/>
    <property name="frameDuration" type="int" value="10"/>
   </properties>
-  <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch3.png"/>
+  <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch3.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="20" y="-4" width="40" height="84"/>
    <object id="2" name="Hurtbox (Low)" type="Hurtbox" x="14" y="38" width="50" height="42">
@@ -84,7 +84,7 @@
   <properties>
    <property name="frameDuration" type="int" value="3"/>
   </properties>
-  <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch4.png"/>
+  <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch4.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="1" name="Pushbox" type="Pushbox" x="20" y="-4" width="40" height="84"/>
    <object id="2" name="Hurtbox (Low)" type="Hurtbox" x="18" y="38" width="46" height="42">

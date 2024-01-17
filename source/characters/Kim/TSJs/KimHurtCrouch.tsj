@@ -15,7 +15,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimHurtCrouch1.png",
+         "image":"..\/images\/KimHurtCrouch1.gif",
          "imageheight":64,
          "imagewidth":112,
          "objectgroup":
@@ -63,7 +63,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimHurtCrouch1.png",
+         "image":"..\/images\/KimHurtCrouch1.gif",
          "imageheight":64,
          "imagewidth":112,
          "objectgroup":

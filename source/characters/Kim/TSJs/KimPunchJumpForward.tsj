@@ -16,7 +16,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimPunchJumpForward1.png",
+         "image":"..\/images\/KimPunchJumpForward1.gif",
          "imageheight":96,
          "imagewidth":64,
          "objectgroup":

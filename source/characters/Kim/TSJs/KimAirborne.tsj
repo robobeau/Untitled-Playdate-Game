@@ -16,7 +16,7 @@
  "tiles":[
         {
          "id":1,
-         "image":"..\/images\/KimAirborne1.png",
+         "image":"..\/images\/KimAirborne1.gif",
          "imageheight":76,
          "imagewidth":62,
          "objectgroup":
@@ -106,7 +106,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimAirborne2.png",
+         "image":"..\/images\/KimAirborne2.gif",
          "imageheight":120,
          "imagewidth":50,
          "objectgroup":

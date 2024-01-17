@@ -15,7 +15,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimTransition1.png",
+         "image":"..\/images\/KimTransition1.gif",
          "imageheight":80,
          "imagewidth":80,
          "objectgroup":

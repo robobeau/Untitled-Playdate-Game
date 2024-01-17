@@ -21,7 +21,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimRun1.png",
+         "image":"..\/images\/KimRun1.gif",
          "imageheight":80,
          "imagewidth":96,
          "objectgroup":
@@ -97,7 +97,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimRun2.png",
+         "image":"..\/images\/KimRun2.gif",
          "imageheight":80,
          "imagewidth":96,
          "objectgroup":
@@ -173,7 +173,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimRun3.png",
+         "image":"..\/images\/KimRun3.gif",
          "imageheight":80,
          "imagewidth":96,
          "objectgroup":
@@ -249,7 +249,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/images\/KimRun4.png",
+         "image":"..\/images\/KimRun4.gif",
          "imageheight":80,
          "imagewidth":96,
          "objectgroup":
@@ -325,7 +325,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/images\/KimRun5.png",
+         "image":"..\/images\/KimRun5.gif",
          "imageheight":80,
          "imagewidth":96,
          "objectgroup":
@@ -401,7 +401,7 @@
         }, 
         {
          "id":5,
-         "image":"..\/images\/KimRun6.png",
+         "image":"..\/images\/KimRun6.gif",
          "imageheight":80,
          "imagewidth":96,
          "objectgroup":

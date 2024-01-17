@@ -21,7 +21,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimHurtThrow1.png",
+         "image":"..\/images\/KimHurtThrow1.gif",
          "imageheight":60,
          "imagewidth":76,
          "objectgroup":

@@ -15,7 +15,7 @@
  "tiles":[
         {
          "id":2,
-         "image":"..\/images\/KimFlashKick1.png",
+         "image":"..\/images\/KimFlashKick1.gif",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -95,7 +95,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/images\/KimFlashKick1.png",
+         "image":"..\/images\/KimFlashKick1.gif",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -165,7 +165,7 @@
         }, 
         {
          "id":4,
-         "image":"..\/images\/KimFlashKick2.png",
+         "image":"..\/images\/KimFlashKick2.gif",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -235,7 +235,7 @@
         }, 
         {
          "id":5,
-         "image":"..\/images\/KimFlashKick3.png",
+         "image":"..\/images\/KimFlashKick3.gif",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -348,7 +348,7 @@
         }, 
         {
          "id":6,
-         "image":"..\/images\/KimFlashKick4.png",
+         "image":"..\/images\/KimFlashKick4.gif",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":
@@ -418,7 +418,7 @@
         }, 
         {
          "id":7,
-         "image":"..\/images\/KimFlashKick5.png",
+         "image":"..\/images\/KimFlashKick5.gif",
          "imageheight":128,
          "imagewidth":112,
          "objectgroup":

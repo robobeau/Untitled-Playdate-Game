@@ -22,7 +22,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimMove1.png",
+         "image":"..\/images\/KimMove1.gif",
          "imageheight":96,
          "imagewidth":64,
          "objectgroup":
@@ -98,7 +98,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimMove2.png",
+         "image":"..\/images\/KimMove2.gif",
          "imageheight":96,
          "imagewidth":64,
          "objectgroup":
@@ -174,7 +174,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimMove3.png",
+         "image":"..\/images\/KimMove3.gif",
          "imageheight":96,
          "imagewidth":64,
          "objectgroup":

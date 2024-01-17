@@ -15,7 +15,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimRise1.png",
+         "image":"..\/images\/KimRise1.gif",
          "imageheight":96,
          "imagewidth":112,
          "objectgroup":
@@ -63,7 +63,7 @@
         }, 
         {
          "id":1,
-         "image":"..\/images\/KimRise2.png",
+         "image":"..\/images\/KimRise2.gif",
          "imageheight":96,
          "imagewidth":112,
          "objectgroup":
@@ -111,7 +111,7 @@
         }, 
         {
          "id":2,
-         "image":"..\/images\/KimRise3.png",
+         "image":"..\/images\/KimRise3.gif",
          "imageheight":96,
          "imagewidth":112,
          "objectgroup":
@@ -159,7 +159,7 @@
         }, 
         {
          "id":3,
-         "image":"..\/images\/KimRise4.png",
+         "image":"..\/images\/KimRise4.gif",
          "imageheight":96,
          "imagewidth":112,
          "objectgroup":

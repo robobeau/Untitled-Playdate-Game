@@ -21,7 +21,7 @@
  "tiles":[
         {
          "id":0,
-         "image":"..\/images\/KimBlockCrouch1.png",
+         "image":"..\/images\/KimBlockCrouch1.gif",
          "imageheight":80,
          "imagewidth":64,
          "objectgroup":
