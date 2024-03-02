@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimKickBack" class="Animation" tilewidth="128" tileheight="128" tilecount="5" columns="0">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimKickBack.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/TSJs/KimKickBack.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1" type="Frame">
@@ -28,13 +28,12 @@
    <object id="3" name="Hurtbox (Mid)" type="Hurtbox" x="38" y="46" width="40" height="82"/>
    <object id="2" name="Hitbox" type="Hitbox" x="38" y="6" width="44" height="50">
     <properties>
-     <property name="damage" type="int" value="50"/>
-     <property name="hits" value="HIGH"/>
+     <property name="damage" type="int" value="5"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
-     <property name="super" type="int" value="50"/>
-     <property name="velocityX" type="int" value="2"/>
-     <property name="velocityY" type="int" value="-16"/>
+     <property name="stun" type="int" value="5"/>
+     <property name="super" type="int" value="5"/>
+     <property name="type" type="int" propertytype="CollisionType" value="0"/>
     </properties>
    </object>
    <object id="4" name="Center" type="Center" x="36" y="128">
@@ -54,14 +53,12 @@
    <object id="3" name="Hurtbox (High)" type="Hurtbox" x="32" y="34" width="36" height="28"/>
    <object id="2" name="Hitbox" type="Hitbox" x="68" y="12" width="52" height="52">
     <properties>
-     <property name="damage" type="int" value="50"/>
-     <property name="dizzy" type="int" value="50"/>
-     <property name="hits" value="HIGH"/>
+     <property name="damage" type="int" value="5"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
-     <property name="super" type="int" value="50"/>
-     <property name="velocityX" type="int" value="12"/>
-     <property name="velocityY" type="int" value="-12"/>
+     <property name="stun" type="int" value="5"/>
+     <property name="super" type="int" value="5"/>
+     <property name="type" type="int" propertytype="CollisionType" value="0"/>
     </properties>
    </object>
    <object id="5" name="Center" type="Center" x="36" y="128">
@@ -80,13 +77,12 @@
    <object id="3" name="Hurtbox (High)" type="Hurtbox" x="30" y="40" width="36" height="28"/>
    <object id="2" name="Hitbox" type="Hitbox" x="66" y="62" width="66" height="38">
     <properties>
-     <property name="damage" type="int" value="50"/>
-     <property name="dizzy" type="int" value="50"/>
+     <property name="damage" type="int" value="5"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
-     <property name="super" type="int" value="50"/>
-     <property name="velocityX" type="int" value="12"/>
-     <property name="velocityY" type="int" value="6"/>
+     <property name="stun" type="int" value="5"/>
+     <property name="super" type="int" value="5"/>
+     <property name="type" type="int" propertytype="CollisionType" value="0"/>
     </properties>
    </object>
    <object id="5" name="Center" type="Center" x="36" y="128">

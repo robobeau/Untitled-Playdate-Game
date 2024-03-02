@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimKickForward" class="Animation" tilewidth="128" tileheight="96" tilecount="5" columns="0" objectalignment="bottom">
+<tileset version="1.10" tiledversion="1.10.2" name="KimKickForward" class="Animation" tilewidth="128" tileheight="96" tilecount="5" columns="0" objectalignment="bottom">
  <editorsettings>
   <export target="../tsjs/KimKickForward.tsj" format="json"/>
  </editorsettings>
@@ -44,13 +44,12 @@
    <object id="1" name="Hurtbox (High)" type="Hurtbox" x="22" y="18" width="36" height="26"/>
    <object id="2" name="Hitbox" type="Hitbox" x="58" y="30" width="74" height="34">
     <properties>
-     <property name="damage" type="int" value="100"/>
-     <property name="dizzy" type="int" value="100"/>
-     <property name="hits" propertytype="Attack" value="MID"/>
+     <property name="damage" type="int" value="10"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
-     <property name="velocityX" type="int" value="16"/>
-     <property name="velocityY" type="int" value="-8"/>
+     <property name="stun" type="int" value="10"/>
+     <property name="super" type="int" value="5"/>
+     <property name="type" type="int" propertytype="CollisionType" value="2"/>
     </properties>
    </object>
    <object id="5" name="Center" type="Center" x="44" y="96">

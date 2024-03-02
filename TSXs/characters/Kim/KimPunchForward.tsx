@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="3"/>
+   <property name="frameDuration" type="int" value="4"/>
   </properties>
   <image width="66" height="78" source="../../../source/characters/Kim/images/KimPunchForward1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -16,7 +16,7 @@
      <property name="type" type="int" propertytype="CollisionType" value="1"/>
     </properties>
    </object>
-   <object id="8" name="Hurtbox (MId)" type="Hurtbox" x="6" y="20" width="50" height="42">
+   <object id="8" name="Hurtbox (Mid)" type="Hurtbox" x="6" y="20" width="50" height="42">
     <properties>
      <property name="type" type="int" propertytype="CollisionType" value="2"/>
     </properties>
@@ -33,7 +33,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="frameDuration" type="int" value="6"/>
   </properties>
   <image width="118" height="74" source="../../../source/characters/Kim/images/KimPunchForward2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -55,13 +55,12 @@
    </object>
    <object id="2" name="Hitbox" type="Hitbox" x="72" y="20" width="50" height="30">
     <properties>
-     <property name="damage" type="int" value="25"/>
-     <property name="hitstun" type="int" value="4"/>
-     <property name="pushback" type="int" value="2"/>
-     <property name="super" type="int" value="100"/>
-     <property name="type" type="int" propertytype="CollisionType" value="4"/>
-     <property name="velocityX" type="int" value="16"/>
-     <property name="velocityY" type="int" value="-8"/>
+     <property name="damage" type="int" value="15"/>
+     <property name="hitstun" type="int" value="5"/>
+     <property name="pushback" type="int" value="5"/>
+     <property name="stun" type="int" value="5"/>
+     <property name="super" type="int" value="5"/>
+     <property name="type" type="int" propertytype="CollisionType" value="2"/>
     </properties>
    </object>
    <object id="4" name="Center" type="Center" x="26" y="74">
@@ -71,7 +70,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="3"/>
+   <property name="frameDuration" type="int" value="6"/>
   </properties>
   <image width="66" height="78" source="../../../source/characters/Kim/images/KimPunchForward3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -81,7 +80,7 @@
      <property name="type" type="int" propertytype="CollisionType" value="1"/>
     </properties>
    </object>
-   <object id="8" name="Hurtbox (MId)" type="Hurtbox" x="6" y="20" width="50" height="42">
+   <object id="8" name="Hurtbox (Mid)" type="Hurtbox" x="6" y="20" width="50" height="42">
     <properties>
      <property name="type" type="int" propertytype="CollisionType" value="2"/>
     </properties>

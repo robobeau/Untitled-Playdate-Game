@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimThrow" class="Animation" tilewidth="94" tileheight="86" tilecount="3" columns="0" objectalignment="bottom">
+<tileset version="1.10" tiledversion="1.10.2" name="KimThrow" class="Animation" tilewidth="94" tileheight="86" tilecount="3" columns="0" objectalignment="bottom">
  <editorsettings>
   <export target="../../../source/characters/Kim/TSJs/KimThrow.tsj" format="json"/>
  </editorsettings>
@@ -97,13 +97,13 @@
    </object>
    <object id="8" name="Throwbox" type="Hitbox" x="-10" y="-12" width="20" height="20">
     <properties>
-     <property name="damage" type="int" value="75"/>
-     <property name="dizzy" type="int" value="75"/>
+     <property name="damage" type="int" value="15"/>
      <property name="launch" type="int" value="4"/>
      <property name="opponentNextState" type="int" propertytype="CharacterStates" value="4097"/>
      <property name="pushback" type="int" value="-4"/>
-     <property name="super" type="int" value="75"/>
-     <property name="type" type="int" propertytype="CollisionType" value="8"/>
+     <property name="stun" type="int" value="15"/>
+     <property name="super" type="int" value="5"/>
+     <property name="type" type="int" propertytype="CollisionType" value="3"/>
     </properties>
    </object>
   </objectgroup>

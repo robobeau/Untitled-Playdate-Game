@@ -30,14 +30,12 @@
    <object id="7" name="Hurtbox (High)" type="Hurtbox" x="24" y="12" width="40" height="38"/>
    <object id="5" name="Hitbox" type="Hitbox" x="64" y="20" width="68" height="32">
     <properties>
-     <property name="damage" type="int" value="50"/>
-     <property name="dizzy" type="int" value="50"/>
-     <property name="hits" value="MID"/>
+     <property name="damage" type="int" value="5"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
-     <property name="super" type="int" value="50"/>
-     <property name="velocityX" type="int" value="16"/>
-     <property name="velocityY" type="int" value="-16"/>
+     <property name="stun" type="int" value="5"/>
+     <property name="super" type="int" value="5"/>
+     <property name="type" type="int" propertytype="CollisionType" value="2"/>
     </properties>
    </object>
    <object id="6" name="Center" type="Center" x="56" y="96">

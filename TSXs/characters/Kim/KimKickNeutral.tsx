@@ -7,6 +7,7 @@
  <tile id="0" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="3"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -36,12 +37,6 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="100"/>
    <property name="frameDuration" type="int" value="6"/>
-   <property name="soundFX" type="class" propertytype="SoundFX">
-    <properties>
-     <property name="onHit" type="file" value="../../../source/sounds/face_hit_small_43.wav"/>
-     <property name="onWhiff" type="file" value="../../../source/sounds/kick_short_whoosh_01.wav"/>
-    </properties>
-   </property>
   </properties>
   <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -50,14 +45,18 @@
    <object id="1" name="Hurtbox (High)" type="Hurtbox" x="10" y="8" width="40" height="36"/>
    <object id="2" name="Hitbox" type="Hitbox" x="50" y="8" width="52" height="48">
     <properties>
-     <property name="damage" type="int" value="50"/>
-     <property name="dizzy" type="int" value="50"/>
-     <property name="hits" value="HIGH"/>
+     <property name="damage" type="int" value="5"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="2"/>
-     <property name="super" type="int" value="50"/>
-     <property name="velocityX" type="int" value="16"/>
-     <property name="velocityY" type="int" value="-16"/>
+     <property name="soundFX" type="class" propertytype="SoundFX">
+      <properties>
+       <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_small_01.wav"/>
+      </properties>
+     </property>
+     <property name="stun" type="int" value="5"/>
+     <property name="super" type="int" value="5"/>
+     <property name="type" type="int" propertytype="CollisionType" value="2"/>
     </properties>
    </object>
    <object id="4" name="Center" type="Center" x="60" y="96">

@@ -18,6 +18,7 @@ local defaults <const> = {
   assetsList = table.move(charStatesList, 1, #charStatesList, #kimStatesList + 1, kimStatesList),
   canRun = true,
   -- health = 950,
+  -- gravity = 0.75,
   jumpHeight = charJumpHeights.SHORT,
   menuImagePath = 'characters/Kim/images/KimPortraitMenu',
   name = 'Kim',
@@ -28,6 +29,7 @@ local defaults <const> = {
       back = charSpeeds.FASTEST,
       forward = charSpeeds.FASTEST,
     },
+    -- jump = 18,
     move = {
       back = charSpeeds.SLOW,
       forward = charSpeeds.NORMAL,
@@ -37,6 +39,51 @@ local defaults <const> = {
 }
 
 class('Kim', defaults).extends(Character)
+
+Kim.AnimationObjects = {
+  Airborne = import 'TSJs/KimAirborne.lua',
+  Block = import 'TSJs/KimBlock.lua',
+  BlockAirborne = import 'TSJs/KimBlockAirborne.lua',
+  BlockCrouch = import 'TSJs/KimBlockCrouch.lua',
+  CrescentMoonSlash = import 'TSJs/KimCrescentMoonSlash.lua',
+  Crouch = import 'TSJs/KimCrouch.lua',
+  DashBack = import 'TSJs/KimDashBack.lua',
+  DashForward = import 'TSJs/KimDashForward.lua',
+  DiveKick = import 'TSJs/KimDiveKick.lua',
+  Entrance = import 'TSJs/KimEntrance.lua',
+  FlashKick = import 'TSJs/KimFlashKick.lua',
+  Hurt = import 'TSJs/KimHurt.lua',
+  HurtAirborne = import 'TSJs/KimHurtAirborne.lua',
+  HurtAirborneEnd = import 'TSJs/KimHurtAirborneEnd.lua',
+  HurtBegin = import 'TSJs/KimHurtBegin.lua',
+  HurtCrouch = import 'TSJs/KimHurtCrouch.lua',
+  HurtEnd = import 'TSJs/KimHurtEnd.lua',
+  HurtHigh = import 'TSJs/KimHurtHigh.lua',
+  HurtMid = import 'TSJs/KimHurtMid.lua',
+  HurtThrow = import 'TSJs/KimHurtThrow.lua',
+  JumpBack = import 'TSJs/KimJumpBack.lua',
+  JumpForward = import 'TSJs/KimJumpForward.lua',
+  JumpNeutral = import 'TSJs/KimJumpNeutral.lua',
+  KickBack = import 'TSJs/KimKickBack.lua',
+  KickCrouch = import 'TSJs/KimKickCrouch.lua',
+  KickForward = import 'TSJs/KimKickForward.lua',
+  KickJumpForward = import 'TSJs/KimKickJumpForward.lua',
+  KickJumpNeutral = import 'TSJs/KimKickJumpNeutral.lua',
+  KickNeutral = import 'TSJs/KimKickNeutral.lua',
+  KickNeutralChain = import 'TSJs/KimKickNeutralChain.lua',
+  Knockdown = import 'TSJs/KimKnockdown.lua',
+  MoveBack = import 'TSJs/KimMoveBack.lua',
+  MoveForward = import 'TSJs/KimMoveForward.lua',
+  PunchCrouch = import 'TSJs/KimPunchCrouch.lua',
+  PunchForward = import 'TSJs/KimPunchForward.lua',
+  PunchJumpForward = import 'TSJs/KimPunchJumpForward.lua',
+  Rise = import 'TSJs/KimRise.lua',
+  Run = import 'TSJs/KimRun.lua',
+  Stand = import 'TSJs/KimStand.lua',
+  Throw = import 'TSJs/KimThrow.lua',
+  ThrowBegin = import 'TSJs/KimThrowBegin.lua',
+  Transition = import 'TSJs/KimTransition.lua',
+}
 
 function Kim:CheckChainInputs()
   local frame <const> = self.history.frames[self.history.counter]

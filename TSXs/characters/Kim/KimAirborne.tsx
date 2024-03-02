@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimJumpNeutral" class="Animation" tilewidth="64" tileheight="128" tilecount="2" columns="0" objectalignment="bottom">
+<tileset version="1.10" tiledversion="1.10.2" name="KimJumpNeutral" class="Animation" tilewidth="64" tileheight="128" tilecount="2" columns="0" objectalignment="bottom">
  <editorsettings>
   <export target="../../../source/characters/Kim/TSJs/KimAirborne.tsj" format="json"/>
  </editorsettings>
@@ -14,12 +14,12 @@
    <object id="2" name="Pushbox" type="Pushbox" x="12" y="0" width="40" height="76"/>
    <object id="3" name="Hurtbox (Mid)" type="Hurtbox" x="4" y="22" width="56" height="52">
     <properties>
-     <property name="type" type="int" propertytype="CollisionType" value="4"/>
+     <property name="type" type="int" propertytype="CollisionType" value="2"/>
     </properties>
    </object>
    <object id="1" name="Hurtbox (High)" type="Hurtbox" x="12" y="0" width="40" height="38">
     <properties>
-     <property name="type" type="int" propertytype="CollisionType" value="1"/>
+     <property name="type" type="int" propertytype="CollisionType" value="0"/>
     </properties>
    </object>
    <object id="4" name="Center" type="Center" x="32" y="106">
@@ -36,8 +36,16 @@
   <image width="50" height="120" source="../../../source/characters/Kim/images/KimAirborne2.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="8" name="Pushbox" type="Pushbox" x="6" y="14" width="40" height="106"/>
-   <object id="9" name="Hurtbox (Mid)" type="Hurtbox" x="2" y="48" width="48" height="56"/>
-   <object id="10" name="Hurtbox (High)" type="Hurtbox" x="6" y="14" width="40" height="38"/>
+   <object id="9" name="Hurtbox (Mid)" type="Hurtbox" x="2" y="48" width="48" height="56">
+    <properties>
+     <property name="type" type="int" propertytype="CollisionType" value="2"/>
+    </properties>
+   </object>
+   <object id="10" name="Hurtbox (High)" type="Hurtbox" x="6" y="14" width="40" height="38">
+    <properties>
+     <property name="type" type="int" propertytype="CollisionType" value="0"/>
+    </properties>
+   </object>
    <object id="11" name="Center" type="Center" x="26" y="120">
     <point/>
    </object>

@@ -129,7 +129,7 @@ local defaults <const> = {
   debug = false,
   emptyCollisionSprites = {},
   gravity = 1,
-  health = 1000,
+  health = 100,
   history = {
     counter = 1,
     frames = {
@@ -161,7 +161,7 @@ local defaults <const> = {
     x = 0,
     y = 0,
   },
-  stun = 1000,
+  stun = 50,
 }
 local firstFrame <const> = {
   buttonState = {},
@@ -534,7 +534,7 @@ function Character:CreateCollisionSprites(objects)
   }
 
   for _, object in ipairs(objects) do
-    local properties <const> = ConvertCustomPropertiesToTable(object.properties or {})
+    local properties <const> = object.properties or {}
 
     if (object.type == 'Center') then
       center = poi.new(object.x, object.y)
@@ -1016,32 +1016,32 @@ function Character:HasStateChanged()
 end
 
 function Character:HydrateAnimation(animation)
-  local animationData <const> = ConvertCustomPropertiesToTable(animation.properties or {})
+  local animationData <const> = animation.properties or {}
   local frames <const> = {}
 
   for i, frame in ipairs(animation.tiles) do
-    local frameData <const> = ConvertCustomPropertiesToTable(frame.properties or {})
-    local center <const>, collisions <const>, opponentCenter <const> = self:CreateCollisionSprites(frame.objectgroup.objects)
+    local frameData <const> = frame.properties or {}
+    local center <const>, collisions <const>, opponentCenter <const> = self:CreateCollisionSprites(frame.objectGroup.objects)
 
-    for j, hitbox in ipairs(collisions.Hitboxes) do
-      if (frameData.soundFX) then
-        if (frameData.soundFX.onBlock) then
-          hitbox.soundFX.onBlock = self:SetSoundFX(frameData.soundFX.onBlock)
-        end
+    -- for j, hitbox in ipairs(collisions.Hitboxes) do
+    --   if (frameData.soundFX) then
+    --     if (frameData.soundFX.onBlock) then
+    --       hitbox.soundFX.onBlock = self:SetSoundFX(frameData.soundFX.onBlock)
+    --     end
 
-        if (frameData.soundFX.onHit) then
-          hitbox.soundFX.onHit = self:SetSoundFX(frameData.soundFX.onHit)
-        end
+    --     if (frameData.soundFX.onHit) then
+    --       hitbox.soundFX.onHit = self:SetSoundFX(frameData.soundFX.onHit)
+    --     end
 
-        if (frameData.soundFX.onWhiff) then
-          hitbox.soundFX.onWhiff = self:SetSoundFX(frameData.soundFX.onWhiff)
-        end
-      else
-        hitbox.soundFX.onBlock = self.soundFX['genericOnBlock']
-        hitbox.soundFX.onHit = self.soundFX['genericOnHit']
-        hitbox.soundFX.onWhiff = self.soundFX['genericOnWhiff']
-      end
-    end
+    --     if (frameData.soundFX.onWhiff) then
+    --       hitbox.soundFX.onWhiff = self:SetSoundFX(frameData.soundFX.onWhiff)
+    --     end
+    --   else
+    --     hitbox.soundFX.onBlock = self.soundFX['genericOnBlock']
+    --     hitbox.soundFX.onHit = self.soundFX['genericOnHit']
+    --     hitbox.soundFX.onWhiff = self.soundFX['genericOnWhiff']
+    --   end
+    -- end
 
     frames[i] = {
       center = center,
@@ -1109,9 +1109,9 @@ function Character:init(options)
   self.name = config.name or self.name
   self.opponent = config.opponent or self.opponent
   self.soundFX = {
-    ['genericOnBlock'] = self:SetSoundFX('/sounds/block_medium_01.wav'),
-    ['genericOnHit'] = self:SetSoundFX('/sounds/face_hit_small_43.wav'),
-    ['genericOnWhiff'] = self:SetSoundFX('/sounds/kick_short_whoosh_01.wav'),
+    ['genericOnBlock'] = self:SetSoundFX('/sounds/blocks/block_small_10.wav'),
+    ['genericOnHit'] = self:SetSoundFX('/sounds/hits/face_hit_small_01.wav'),
+    ['genericOnWhiff'] = self:SetSoundFX('/sounds/whooshes/kick_short_whoosh_01.wav'),
   }
   self.speeds = config.speeds or self.speeds
   self.startingDirection = config.startingDirection or self.startingDirection
@@ -1137,7 +1137,7 @@ end
 
 function Character:LoadAnimation()
   local animationName <const> = self.assetsList[self.assetIndex]
-  local animation <const> = self:LoadTSJ(animationName)
+  local animation <const> = self.AnimationObjects[animationName]
 
   self.hydratedAnimations[animationName] = self:HydrateAnimation(animation)
 end
@@ -1147,13 +1147,6 @@ function Character:LoadImagetable()
   local hydratedAnimation <const> = self.hydratedAnimations[animationName]
 
   self.hydratedImagetables[animationName] = self:HydrateImageTable(hydratedAnimation)
-end
-
-function Character:LoadTSJ(state)
-  -- TODO: Trim whitespace for "self.name"
-  local filePath <const> = 'characters/' .. self.name .. '/TSJs/' .. self.name .. state .. '.tsj'
-
-  return json.decodeFile(filePath)
 end
 
 function Character:MoveToXY(x, y)
@@ -1531,7 +1524,6 @@ end
 function Character:SetSoundFX(soundFXPath)
   -- Chop off the "../" and ".wav"
   soundFXPath = string.gsub(soundFXPath, '%.%./%.%./%.%./', '/')
-  soundFXPath = string.gsub(soundFXPath, '%.wav', '')
 
   if (not self.soundFX[soundFXPath]) then
     self.soundFX[soundFXPath] = pd.sound.sampleplayer.new(soundFXPath)
@@ -1654,6 +1646,11 @@ end
 function Character:Teardown()
   -- TODO: Clear every single image in "self.imagetables"
   spr.removeSprites(self.emptyCollisionSprites)
+
+  self.animations = {}
+  self.history = {}
+  self.hydratedAnimations = {}
+  self.hydratedImagetables = {}
 end
 
 function Character:TransitionState()

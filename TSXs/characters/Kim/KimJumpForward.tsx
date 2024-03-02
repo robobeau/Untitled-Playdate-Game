@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimJumpForward" class="Animation" tilewidth="80" tileheight="128" tilecount="6" columns="0" objectalignment="bottom">
+<tileset version="1.10" tiledversion="1.10.2" name="KimJumpForward" class="Animation" tilewidth="80" tileheight="128" tilecount="6" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../../../source/tsj/characters/Kim/KimJumpForward.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/TSJs/KimJumpForward.tsj" format="json"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1" type="Frame">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimBlock" class="Animation" tilewidth="80" tileheight="96" tilecount="1" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="KimBlock" class="Animation" tilewidth="80" tileheight="96" tilecount="1" columns="0">
  <editorsettings>
-  <export target="../../../source/tsj/characters/Kim/KimBlock.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/TSJs/KimBlock.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>

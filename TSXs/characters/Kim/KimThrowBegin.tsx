@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimThrowBegin" class="Animation" tilewidth="112" tileheight="80" tilecount="2" columns="0" objectalignment="bottom">
+<tileset version="1.10" tiledversion="1.10.2" name="KimThrowBegin" class="Animation" tilewidth="112" tileheight="80" tilecount="2" columns="0" objectalignment="bottom">
  <editorsettings>
   <export target="../../../source/characters/Kim/TSJs/KimThrowBegin.tsj" format="json"/>
  </editorsettings>
@@ -14,7 +14,7 @@
    <object id="7" name="Throwbox" type="Hitbox" x="54" y="0" width="20" height="78">
     <properties>
      <property name="characterNextState" type="int" propertytype="CharacterStates" value="16777216"/>
-     <property name="type" type="int" propertytype="CollisionType" value="8"/>
+     <property name="type" type="int" propertytype="CollisionType" value="3"/>
     </properties>
    </object>
    <object id="6" name="Hurtbox (Low)" type="Hurtbox" x="0" y="66" width="58" height="12">

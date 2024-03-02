@@ -68,14 +68,12 @@
    </object>
    <object id="3" name="Hitbox" type="Hitbox" x="90" y="52" width="58" height="28">
     <properties>
-     <property name="damage" type="int" value="50"/>
-     <property name="dizzy" type="int" value="50"/>
+     <property name="damage" type="int" value="5"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="1"/>
-     <property name="super" type="int" value="50"/>
-     <property name="type" type="int" propertytype="CollisionType" value="4"/>
-     <property name="velocityX" type="int" value="12"/>
-     <property name="velocityY" type="int" value="-6"/>
+     <property name="stun" type="int" value="5"/>
+     <property name="super" type="int" value="5"/>
+     <property name="type" type="int" propertytype="CollisionType" value="1"/>
     </properties>
    </object>
    <object id="4" name="Center" type="Center" x="64" y="80">
