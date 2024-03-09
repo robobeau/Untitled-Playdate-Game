@@ -157,15 +157,18 @@ end
 function Kim:CheckSpecialInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
-  local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
-  local isPressingDown <const> = frame.buttonState.current & pd.kButtonDown ~= 0
 
   -- If we can't perform a special move, exit early.
   if (not frameData.checks.isSpecialCancellable) then
     return
   end
 
-  if (frame.checks.isAirborne) then
+  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
+
+  if (isAirborne) then
+    local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
+    local isPressingDown <const> = frame.buttonState.current & pd.kButtonDown ~= 0
+
     if (hasPressedB and isPressingDown) then
       self:SetState(charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN)
 
