@@ -41,48 +41,48 @@ local defaults <const> = {
 class('Kim', defaults).extends(Character)
 
 Kim.AnimationObjects = {
-  Airborne = import 'TSJs/KimAirborne.lua',
-  Block = import 'TSJs/KimBlock.lua',
-  BlockAirborne = import 'TSJs/KimBlockAirborne.lua',
-  BlockCrouch = import 'TSJs/KimBlockCrouch.lua',
-  CrescentMoonSlash = import 'TSJs/KimCrescentMoonSlash.lua',
-  Crouch = import 'TSJs/KimCrouch.lua',
-  DashBack = import 'TSJs/KimDashBack.lua',
-  DashForward = import 'TSJs/KimDashForward.lua',
-  DiveKick = import 'TSJs/KimDiveKick.lua',
-  Entrance = import 'TSJs/KimEntrance.lua',
-  FlashKick = import 'TSJs/KimFlashKick.lua',
-  Hurt = import 'TSJs/KimHurt.lua',
-  HurtAirborne = import 'TSJs/KimHurtAirborne.lua',
-  HurtAirborneEnd = import 'TSJs/KimHurtAirborneEnd.lua',
-  HurtBegin = import 'TSJs/KimHurtBegin.lua',
-  HurtCrouch = import 'TSJs/KimHurtCrouch.lua',
-  HurtEnd = import 'TSJs/KimHurtEnd.lua',
-  HurtHigh = import 'TSJs/KimHurtHigh.lua',
-  HurtMid = import 'TSJs/KimHurtMid.lua',
-  HurtThrow = import 'TSJs/KimHurtThrow.lua',
-  JumpBack = import 'TSJs/KimJumpBack.lua',
-  JumpForward = import 'TSJs/KimJumpForward.lua',
-  JumpNeutral = import 'TSJs/KimJumpNeutral.lua',
-  KickBack = import 'TSJs/KimKickBack.lua',
-  KickCrouch = import 'TSJs/KimKickCrouch.lua',
-  KickForward = import 'TSJs/KimKickForward.lua',
-  KickJumpForward = import 'TSJs/KimKickJumpForward.lua',
-  KickJumpNeutral = import 'TSJs/KimKickJumpNeutral.lua',
-  KickNeutral = import 'TSJs/KimKickNeutral.lua',
-  KickNeutralChain = import 'TSJs/KimKickNeutralChain.lua',
-  Knockdown = import 'TSJs/KimKnockdown.lua',
-  MoveBack = import 'TSJs/KimMoveBack.lua',
-  MoveForward = import 'TSJs/KimMoveForward.lua',
-  PunchCrouch = import 'TSJs/KimPunchCrouch.lua',
-  PunchForward = import 'TSJs/KimPunchForward.lua',
-  PunchJumpForward = import 'TSJs/KimPunchJumpForward.lua',
-  Rise = import 'TSJs/KimRise.lua',
-  Run = import 'TSJs/KimRun.lua',
-  Stand = import 'TSJs/KimStand.lua',
-  Throw = import 'TSJs/KimThrow.lua',
-  ThrowBegin = import 'TSJs/KimThrowBegin.lua',
-  Transition = import 'TSJs/KimTransition.lua',
+  Airborne = import 'animations/KimAirborne.lua',
+  Block = import 'animations/KimBlock.lua',
+  BlockAirborne = import 'animations/KimBlockAirborne.lua',
+  BlockCrouch = import 'animations/KimBlockCrouch.lua',
+  CrescentMoonSlash = import 'animations/KimCrescentMoonSlash.lua',
+  Crouch = import 'animations/KimCrouch.lua',
+  DashBack = import 'animations/KimDashBack.lua',
+  DashForward = import 'animations/KimDashForward.lua',
+  DiveKick = import 'animations/KimDiveKick.lua',
+  Entrance = import 'animations/KimEntrance.lua',
+  FlashKick = import 'animations/KimFlashKick.lua',
+  Hurt = import 'animations/KimHurt.lua',
+  HurtAirborne = import 'animations/KimHurtAirborne.lua',
+  HurtAirborneEnd = import 'animations/KimHurtAirborneEnd.lua',
+  HurtBegin = import 'animations/KimHurtBegin.lua',
+  HurtCrouch = import 'animations/KimHurtCrouch.lua',
+  HurtEnd = import 'animations/KimHurtEnd.lua',
+  HurtHigh = import 'animations/KimHurtHigh.lua',
+  HurtMid = import 'animations/KimHurtMid.lua',
+  HurtThrow = import 'animations/KimHurtThrow.lua',
+  JumpBack = import 'animations/KimJumpBack.lua',
+  JumpForward = import 'animations/KimJumpForward.lua',
+  JumpNeutral = import 'animations/KimJumpNeutral.lua',
+  KickBack = import 'animations/KimKickBack.lua',
+  KickCrouch = import 'animations/KimKickCrouch.lua',
+  KickForward = import 'animations/KimKickForward.lua',
+  KickJumpForward = import 'animations/KimKickJumpForward.lua',
+  KickJumpNeutral = import 'animations/KimKickJumpNeutral.lua',
+  KickNeutral = import 'animations/KimKickNeutral.lua',
+  KickNeutralChain = import 'animations/KimKickNeutralChain.lua',
+  Knockdown = import 'animations/KimKnockdown.lua',
+  MoveBack = import 'animations/KimMoveBack.lua',
+  MoveForward = import 'animations/KimMoveForward.lua',
+  PunchCrouch = import 'animations/KimPunchCrouch.lua',
+  PunchForward = import 'animations/KimPunchForward.lua',
+  PunchJumpForward = import 'animations/KimPunchJumpForward.lua',
+  Rise = import 'animations/KimRise.lua',
+  Run = import 'animations/KimRun.lua',
+  Stand = import 'animations/KimStand.lua',
+  Throw = import 'animations/KimThrow.lua',
+  ThrowBegin = import 'animations/KimThrowBegin.lua',
+  Transition = import 'animations/KimTransition.lua',
 }
 
 function Kim:CheckChainInputs()
@@ -94,7 +94,9 @@ function Kim:CheckChainInputs()
     return
   end
 
-  if (frame.buttonState.hasPressedB) then
+  local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
+
+  if (hasPressedB) then
     local newState = charStates.CHAIN | charStates.KICK | charStates.STAND
 
     self:SetState(newState)
@@ -107,16 +109,19 @@ end
 
 function Kim:CheckCrescentMoonKickInput()
   local frame <const> = self.history.frames[self.history.counter]
+  local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
+  local hasReleasedB <const> = frame.buttonState.released & pd.kButtonB ~= 0
 
-  if (frame.buttonState.hasPressedB or frame.buttonState.hasReleasedB) then
-    local buttonStates <const> = {}
+  if (hasPressedB or hasReleasedB) then
     local frameCount <const> = 15
-    local start <const> = math.max(#self.history.frames - frameCount - 1, 1)
-    local stop <const> = math.max(#self.history.frames - 1, 1)
-
-    for i = start, stop, 1 do
-      table.insert(buttonStates, self.history.frames[i].buttonState)
-    end
+    local start <const> = math.max(#self.history.frames - frameCount, 1)
+    local stop <const> = math.max(#self.history.frames, 1)
+    local buttonStates <const> = table.map(
+      self.history.frames,
+      function (f) return f.buttonState end,
+      start,
+      stop
+    )
 
     return Inputs:CheckQuarterCircleInput(buttonStates, inputDirections.BACK)
   end
@@ -124,35 +129,36 @@ end
 
 function Kim:CheckFlyingSliceInput()
   local frame <const> = self.history.frames[self.history.counter]
+  local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
+  local hasPressedUp <const> = frame.buttonState.pressed & pd.kButtonUp ~= 0
+  local hasReleasedB <const> = frame.buttonState.released & pd.kButtonB ~= 0
+  local hasReleasedUp <const> = frame.buttonState.released & pd.kButtonUp ~= 0
+  local isPressingUp <const> = frame.buttonState.current & pd.kButtonUp ~= 0
 
   if (
-    (
-      frame.buttonState.hasPressedB or
-      frame.buttonState.hasReleasedB
-    ) and
-    (
-      frame.buttonState.hasPressedUp or
-      frame.buttonState.hasReleasedUp or
-      frame.buttonState.isPressingUp
-    )
+    (hasPressedB or hasReleasedB) and
+    (hasPressedUp or hasReleasedUp or isPressingUp)
   ) then
-    local buttonStates <const> = {}
-    local milliseconds <const> = 30
-    local frameCount <const> = milliseconds + 1
-    local start <const> = #self.history.frames - frameCount - 1
-    local stop <const> = #self.history.frames - 1
+    local chargeFrames <const> = 30
+    local frameCount <const> = chargeFrames + 5
+    local start <const> = #self.history.frames - frameCount
+    local stop <const> = #self.history.frames
+    local buttonStates <const> = table.map(
+      self.history.frames,
+      function (f) return f.buttonState end,
+      start,
+      stop
+    )
 
-    for i = start, stop, 1 do
-      table.insert(buttonStates, self.history.frames[i].buttonState)
-    end
-
-    return Inputs:CheckChargeDownInput(buttonStates, milliseconds)
+    return Inputs:CheckChargeDownInput(buttonStates, chargeFrames, frame.direction)
   end
 end
 
 function Kim:CheckSpecialInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(frame.frameIndex)
+  local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
+  local isPressingDown <const> = frame.buttonState.current & pd.kButtonDown ~= 0
 
   -- If we can't perform a special move, exit early.
   if (not frameData.checks.isSpecialCancellable) then
@@ -160,7 +166,7 @@ function Kim:CheckSpecialInputs()
   end
 
   if (frame.checks.isAirborne) then
-    if (frame.buttonState.hasPressedB and frame.buttonState.isPressingDown) then
+    if (hasPressedB and isPressingDown) then
       self:SetState(charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN)
 
       return true

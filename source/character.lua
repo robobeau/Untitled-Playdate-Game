@@ -247,9 +247,9 @@ function Character:CheckInputs()
     local newState = charStates.THROW | charStates.BEGIN
 
     -- TODO: Account for direction in throws
-    -- if (frame.buttonState.isPressingBack) then
+    -- if (isPressingBack) then
     --   newState |= charStates.BACK
-    -- elseif (frame.buttonState.isPressingForward) then
+    -- elseif (isPressingForward) then
     --   newState |= charStates.FORWARD
     -- end
 
@@ -284,7 +284,9 @@ function Character:CheckAttackInputs()
     return
   end
 
-  if (frame.buttonState.hasPressedB) then
+  local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
+
+  if (hasPressedB) then
     local newState = charStates.KICK
 
     if (frame.checks.isAirborne) then
@@ -316,15 +318,26 @@ function Character:CheckAttackInputs()
     return true
   end
 
-  if (frame.buttonState.hasPressedA) then
+  local hasPressedA <const> = frame.buttonState.pressed & pd.kButtonA ~= 0
+
+  if (hasPressedA) then
     local newState = charStates.PUNCH
 
     if (frame.checks.isAirborne) then
+      local backInput <const> = frame.direction == charDirections.LEFT
+        and pd.kButtonRight
+        or pd.kButtonLeft
+      local forwardInput <const> = frame.direction == charDirections.LEFT
+        and pd.kButtonLeft
+        or pd.kButtonRight
+      local isPressingBack <const> = frame.buttonState.current & backInput ~= 0
+      local isPressingForward <const> = frame.buttonState.current & forwardInput ~= 0
+
       newState |= charStates.AIRBORNE
 
-      if (frame.buttonState.isPressingBack) then
+      if (isPressingBack) then
         newState |= charStates.BACK
-      elseif (frame.buttonState.isPressingForward) then
+      elseif (isPressingForward) then
         newState |= charStates.FORWARD
       end
 
@@ -353,7 +366,12 @@ function Character:CheckBlockInputs()
     return false
   end
 
-  if (frame.buttonState.isPressingBack) then
+  local backInput <const> = frame.direction == charDirections.LEFT
+    and pd.kButtonRight
+    or pd.kButtonLeft
+  local isPressingBack <const> = frame.buttonState.current & backInput ~= 0
+
+  if (isPressingBack) then
     return true
   end
 end
@@ -364,8 +382,12 @@ end
 
 function Character:CheckDashBackInput()
   local frame <const> = self.history.frames[self.history.counter]
+  local backInput <const> = frame.direction == charDirections.LEFT
+    and pd.kButtonRight
+    or pd.kButtonLeft
+  local isPressingBack <const> = frame.buttonState.current & backInput ~= 0
 
-  if (frame.buttonState.isPressingBack) then
+  if (isPressingBack) then
     local buttonStates <const> = {}
     local frameCount <const> = 10
     local start <const> = math.max(#self.history.frames - frameCount - 1, 1)
@@ -375,14 +397,18 @@ function Character:CheckDashBackInput()
       table.insert(buttonStates, self.history.frames[i].buttonState)
     end
 
-    return Inputs:CheckDashBackInput(buttonStates)
+    return Inputs:CheckDashBackInput(buttonStates, frame.direction)
   end
 end
 
 function Character:CheckDashForwardInput()
   local frame <const> = self.history.frames[self.history.counter]
+  local forwardInput <const> = frame.direction == charDirections.LEFT
+    and pd.kButtonLeft
+    or pd.kButtonRight
+  local isPressingForward <const> = frame.buttonState.current & forwardInput ~= 0
 
-  if (frame.buttonState.isPressingForward) then
+  if (isPressingForward) then
     local buttonStates <const> = {}
     local frameCount <const> = 10
     local start <const> = math.max(#self.history.frames - frameCount - 1, 1)
@@ -392,7 +418,7 @@ function Character:CheckDashForwardInput()
       table.insert(buttonStates, self.history.frames[i].buttonState)
     end
 
-    return Inputs:CheckDashForwardInput(buttonStates)
+    return Inputs:CheckDashForwardInput(buttonStates, frame.direction)
   end
 end
 
@@ -405,16 +431,26 @@ function Character:CheckJumpInputs()
   end
 
   if (not frame.checks.isJumping) then
-    if (frame.buttonState.isPressingUp) then
+    local isPressingUp <const> = frame.buttonState.current & pd.kButtonUp ~= 0
+
+    if (isPressingUp) then
+      local backInput <const> = frame.direction == charDirections.LEFT
+        and pd.kButtonRight
+        or pd.kButtonLeft
+      local forwardInput <const> = frame.direction == charDirections.LEFT
+        and pd.kButtonLeft
+        or pd.kButtonRight
+      local isPressingBack <const> = frame.buttonState.current & backInput ~= 0
+      local isPressingForward <const> = frame.buttonState.current & forwardInput ~= 0
       local newState = charStates.JUMP | charStates.BEGIN
 
-      if (frame.buttonState.isPressingBack) then
+      if (isPressingBack) then
         newState |= charStates.BACK
 
         if (frame.checks.isRunning) then
           newState |= charStates.RUN
         end
-      elseif (frame.buttonState.isPressingForward) then
+      elseif (isPressingForward) then
         newState |= charStates.FORWARD
 
         if (frame.checks.isRunning) then
@@ -457,11 +493,20 @@ function Character:CheckMovementInputs()
 
     -- Move check
     if (not frame.checks.isDashing and not frame.checks.isMoving and not frame.checks.isRunning) then
-      if (frame.buttonState.isPressingBack) then
+      local backInput <const> = frame.direction == charDirections.LEFT
+        and pd.kButtonRight
+        or pd.kButtonLeft
+      local forwardInput <const> = frame.direction == charDirections.LEFT
+        and pd.kButtonLeft
+        or pd.kButtonRight
+      local isPressingBack <const> = frame.buttonState.current & backInput ~= 0
+      local isPressingForward <const> = frame.buttonState.current & forwardInput ~= 0
+
+      if (isPressingBack) then
         self:SetState(charStates.MOVE | charStates.BACK)
 
         return true
-      elseif (frame.buttonState.isPressingForward) then
+      elseif (isPressingForward) then
         self:SetState(charStates.MOVE | charStates.FORWARD)
 
         return true
@@ -470,7 +515,9 @@ function Character:CheckMovementInputs()
 
     -- Crouch check
     if (not frame.checks.isDashing) then
-      if (frame.buttonState.isPressingDown) then
+      local isPressingDown <const> = frame.buttonState.current & pd.kButtonDown ~= 0
+
+      if (isPressingDown) then
         self:SetState(charStates.CROUCH)
 
         return true
@@ -479,19 +526,30 @@ function Character:CheckMovementInputs()
 
     -- Stand checks
     if (frame.checks.isMoving or frame.checks.isRunning) then
-      if (frame.buttonState.hasReleasedBack) then
+      local backInput <const> = frame.direction == charDirections.LEFT
+        and pd.kButtonRight
+        or pd.kButtonLeft
+      local forwardInput <const> = frame.direction == charDirections.LEFT
+        and pd.kButtonLeft
+        or pd.kButtonRight
+      local hasReleasedBack <const> = frame.buttonState.released & backInput ~= 0
+      local hasReleasedForward <const> = frame.buttonState.released & forwardInput ~= 0
+
+      if (hasReleasedBack) then
         self:SetState(charStates.STAND)
 
         return true
-      elseif (frame.buttonState.hasReleasedForward) then
+      elseif (hasReleasedForward) then
         self:SetState(charStates.STAND)
 
         return true
       end
     end
   else
+    local hasReleasedDown <const> = frame.buttonState.released & pd.kButtonDown ~= 0
+
     -- Stand check
-    if (frame.buttonState.hasReleasedDown) then
+    if (hasReleasedDown) then
       self:SetState(charStates.STAND)
 
       return true
@@ -512,10 +570,15 @@ function Character:CheckThrowInputs()
   end
 
   if (not frame.checks.isThrowing) then
+    local hasPressedA <const> = frame.buttonState.pressed & pd.kButtonA ~= 0
+    local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
+    local isPressingA <const> = frame.buttonState.current & pd.kButtonA ~= 0
+    local isPressingB <const> = frame.buttonState.current & pd.kButtonB ~= 0
+    
     if (
-      (frame.buttonState.hasPressedB and frame.buttonState.hasPressedA) or
-      (frame.buttonState.hasPressedB and frame.buttonState.isPressingA) or
-      (frame.buttonState.isPressingB and frame.buttonState.hasPressedA)
+      (hasPressedB and hasPressedA) or
+      (hasPressedB and isPressingA) or
+      (isPressingB and hasPressedA)
     ) then
       return true
     end
@@ -1202,10 +1265,18 @@ function Character:OnLoaded()
 end
 
 function Character:PrepareForNextLoop()
-  local nextFrame <const> = table.deepcopy(self.history.frames[self.history.counter])
+  local nextFrame = {}
+  local prevFrame <const> = self.history.frames[self.history.counter]
+  -- local nextFrame <const> = table.deepcopy(self.history.frames[self.history.counter])
 
   self.history.counter += 1
+
+  -- if (self.history.counter % 10) then
+    nextFrame = table.deepcopy(prevFrame)
+  -- end
+
   self.history.frames[self.history.counter] = nextFrame
+  -- self.history.frames[self.history.counter - 30] = nil
 
   self:UpdateCounters()
 
@@ -1829,36 +1900,6 @@ function Character:UpdateButtonStates()
         current = current,
         pressed = pressed,
         released = released,
-
-        -- Has pressed
-        hasPressedA = pressed & pd.kButtonA ~= 0,
-        hasPressedB = pressed & pd.kButtonB ~= 0,
-        hasPressedBack = pressed & backInput ~= 0,
-        hasPressedDown = pressed & pd.kButtonDown ~= 0,
-        hasPressedForward = pressed & forwardInput ~= 0,
-        hasPressedLeft = pressed & pd.kButtonLeft ~= 0,
-        hasPressedRight = pressed & pd.kButtonRight ~= 0,
-        hasPressedUp = pressed & pd.kButtonUp ~= 0,
-
-        -- Has released
-        hasReleasedA = released & pd.kButtonA ~= 0,
-        hasReleasedB = released & pd.kButtonB ~= 0,
-        hasReleasedBack = released & backInput ~= 0,
-        hasReleasedDown = released & pd.kButtonDown ~= 0,
-        hasReleasedForward = released & forwardInput ~= 0,
-        hasReleasedLeft = released & pd.kButtonLeft ~= 0,
-        hasReleasedRight = released & pd.kButtonRight ~= 0,
-        hasReleasedUp = released & pd.kButtonUp ~= 0,
-
-        -- Is pressing
-        isPressingA = current & pd.kButtonA ~= 0,
-        isPressingB = current & pd.kButtonB ~= 0,
-        isPressingBack = current & backInput ~= 0,
-        isPressingDown = current & pd.kButtonDown ~= 0,
-        isPressingForward = current & forwardInput ~= 0,
-        isPressingLeft = current & pd.kButtonLeft ~= 0,
-        isPressingRight = current & pd.kButtonRight ~= 0,
-        isPressingUp = current & pd.kButtonUp ~= 0,
       }
     }
   )
