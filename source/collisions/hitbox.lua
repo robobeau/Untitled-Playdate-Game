@@ -7,7 +7,9 @@ local defaults <const> = {
 class('Hitbox', defaults).extends(Collision)
 
 function Hitbox:OnAdd()
-  self.soundFX.onWhiff:play()
+  -- if (self.soundFX.onWhiff) then
+  --   self.soundFX.onWhiff:play()
+  -- end
 
   Hitbox.super.OnAdd(self)
 end

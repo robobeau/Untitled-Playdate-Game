@@ -69,45 +69,30 @@ local Terry <const> = {
 class('CharacterSelectScene').extends(Room)
 
 function CharacterSelectScene:CheckInputs()
-  local current <const>, pressed <const>, released <const> = table.unpack({ pd.getButtonState() })
-  local buttonState <const> = {
-    hasPressedA = pressed & pd.kButtonA ~= 0,
-    hasPressedB = pressed & pd.kButtonB ~= 0,
-    hasPressedDown = pressed & pd.kButtonDown ~= 0,
-    hasPressedLeft = pressed & pd.kButtonLeft ~= 0,
-    hasPressedRight = pressed & pd.kButtonRight ~= 0,
-    hasPressedUp = pressed & pd.kButtonUp ~= 0,
-    hasReleasedA = released & pd.kButtonA ~= 0,
-    hasReleasedB = released & pd.kButtonB ~= 0,
-    hasReleasedDown = released & pd.kButtonDown ~= 0,
-    hasReleasedLeft = released & pd.kButtonLeft ~= 0,
-    hasReleasedRight = released & pd.kButtonRight ~= 0,
-    hasReleasedUp = released & pd.kButtonUp ~= 0,
-    isPressingA = current & pd.kButtonA ~= 0,
-    isPressingB = current & pd.kButtonB ~= 0,
-    isPressingDown = current & pd.kButtonDown ~= 0,
-    isPressingLeft = current & pd.kButtonLeft ~= 0,
-    isPressingRight = current & pd.kButtonRight ~= 0,
-    isPressingUp = current & pd.kButtonUp ~= 0,
-  }
+  local _, pressed <const> = table.unpack({ pd.getButtonState() })
+  local hasPressedA <const> = pressed & pd.kButtonA ~= 0
+  local hasPressedDown <const> = pressed & pd.kButtonDown ~= 0
+  local hasPressedLeft <const> = pressed & pd.kButtonLeft ~= 0
+  local hasPressedRight <const> = pressed & pd.kButtonRight ~= 0
+  local hasPressedUp <const> = pressed & pd.kButtonUp ~= 0
 
   -- Selection
-  if (buttonState.hasPressedDown) then
-    self.soundFX.cursor:play(1)
+  if (hasPressedDown) then
+    self.soundFX.cursor:play()
     self.gridview:selectNextRow(true)
-  elseif (buttonState.hasPressedLeft) then
-    self.soundFX.cursor:play(1)
+  elseif (hasPressedLeft) then
+    self.soundFX.cursor:play()
     self.gridview:selectPreviousColumn(true)
-  elseif (buttonState.hasPressedRight) then
-    self.soundFX.cursor:play(1)
+  elseif (hasPressedRight) then
+    self.soundFX.cursor:play()
     self.gridview:selectNextColumn(true)
-  elseif (buttonState.hasPressedUp) then
-    self.soundFX.cursor:play(1)
+  elseif (hasPressedUp) then
+    self.soundFX.cursor:play()
     self.gridview:selectPreviousRow(true)
   end
 
   -- 
-  if (buttonState.hasPressedA) then
+  if (hasPressedA) then
     local section <const>,
           row <const>,
           column <const> = self.gridview:getSelection()
@@ -118,13 +103,13 @@ function CharacterSelectScene:CheckInputs()
         character1Class = listItem.character
       }
 
-      self.soundFX.selection:play(1)
+      self.soundFX.selection:play()
 
       sceneLoader:Start(function ()
         sceneManager:resetAndEnter(FightScene, config)
       end)
     else
-      self.soundFX.deny:play(1)
+      self.soundFX.deny:play()
     end
   end
 end
@@ -249,12 +234,12 @@ function CharacterSelectScene:Init()
   self.displayRect = pd.display.getRect()
   self.font = fonts.SuperMonacoGP
   self.soundFX = {
-    cursor = snd.sampleplayer.new('sounds/24H.wav'),
-    deny = snd.sampleplayer.new('sounds/23H.wav'),
-    selectYourFighter = snd.sampleplayer.new('sounds/announcerSelectYourFighter.wav'),
-    selection = snd.sampleplayer.new('sounds/22H.wav')
+    cursor = snd.sampleplayer.new('sounds/ui/24H.wav'),
+    deny = snd.sampleplayer.new('sounds/ui/23H.wav'),
+    selectYourFighter = snd.sampleplayer.new('sounds/announcer/selectyourfighter.wav'),
+    selection = snd.sampleplayer.new('sounds/ui/22H.wav')
   }
-  self.soundFX.selectYourFighter:play(1)
+  self.soundFX.selectYourFighter:play()
 
   self:InitCharacterList()
   self:InitGrid()
@@ -441,7 +426,7 @@ function CharacterSelectScene:leave(next, ...)
 end
 
 function CharacterSelectScene:pause()
-  self.backgroundMusic:stop()
+  self.backgroundMusic:pause()
 end
 
 function CharacterSelectScene:resume()

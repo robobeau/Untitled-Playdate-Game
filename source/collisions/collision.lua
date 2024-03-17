@@ -17,10 +17,10 @@ local defaults <const> = {
   soundFX = {},
 }
 collisionBoxTypes = {
-  HIGH = 1,
-  LOW = 2,
-  MID = 4,
-  THROW = 8
+  HIGH = 0,
+  LOW = 1,
+  MID = 2,
+  THROW = 3
 }
 
 class('Collision', defaults).extends(spr)
@@ -49,6 +49,7 @@ function Collision:init(config)
   local collideRect <const> = self.collideRect:offsetBy(boundsRect.x, boundsRect.y)
         collideRect:flipRelativeToRect(boundsRect, self.character:GetFlip())
 
+  self:InitSoundFX()
   self:setCenter(0, 0)
   self:setBounds(collideRect)
   self:setCollideRect(0, 0, self:getSize())
@@ -56,8 +57,37 @@ function Collision:init(config)
   self:setGroupMask(config.groupMask or self.groupMask)
 end
 
+function Collision:InitSoundFX()
+  if (self.properties.soundFX == nil) then
+    return
+  end
+
+  if (self.properties.soundFX.onBlock) then
+    self.soundFX.onBlock = self:SetSoundFX(self.properties.soundFX.onBlock)
+  end
+
+  if (self.properties.soundFX.onHit) then
+    self.soundFX.onHit = self:SetSoundFX(self.properties.soundFX.onHit)
+  end
+
+  if (self.properties.soundFX.onWhiff) then
+    self.soundFX.onWhiff = self:SetSoundFX(self.properties.soundFX.onWhiff)
+  end
+end
+
 function Collision:OnAdd()
   self:UpdatePosition()
+end
+
+function Collision:SetSoundFX(soundFXPath)
+  -- Chop off the "../"
+  soundFXPath = string.gsub(soundFXPath, '%.%./%.%./%.%./', '/')
+
+  if (not self.soundFX[soundFXPath]) then
+    self.soundFX[soundFXPath] = pd.sound.sampleplayer.new(soundFXPath)
+  end
+
+  return self.soundFX[soundFXPath]
 end
 
 function Collision:update()

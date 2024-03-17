@@ -10,6 +10,7 @@ import 'CoreLibs/utilities/sampler'
 import '../characters/Kim/kim'
 import '../collisionTypes'
 import '../meter'
+import '../musicPlayer'
 import '../stage'
 import '../timer'
 
@@ -110,8 +111,20 @@ function FightScene:DetermineWinner()
 end
 
 function FightScene:draw()
-  self:DrawUITextImage()
+  self:DrawUI()
   self:DrawBlackScreen()
+end
+
+function FightScene:DrawUI()
+  self.uiImage:clear(gfx.kColorClear)
+
+  self:DrawUITextImage()
+
+  if (self.state == fightStates.ACTIVE) then
+    self:DrawWins()
+  end
+
+  self.uiImage:drawIgnoringOffset(0, 0)
 end
 
 function FightScene:DrawBlackScreen()
@@ -140,28 +153,69 @@ function FightScene:DrawUITextImage()
     return
   end
 
-  if (opacity < 1) then
-    self.uiImage:clear(gfx.kColorClear)
-  end
-
   self:UpdateUITextImage()
 
   gfx.pushContext(self.uiImage)
-    -- gfx.setDitherPattern(opacity, img.kDitherTypeBayer8x8)
     self.uiTextImage:drawFaded(0, 0, opacity, img.kDitherTypeBayer8x8)
-    -- self.uiTextImage:drawAnchored(200, 220, 0.5, 0.5)
   gfx.popContext()
+end
 
-  self.uiImage:drawIgnoringOffset(0, 0)
+function FightScene:DrawWins()
+  gfx.pushContext(self.uiImage)
+    local foo <const> = self.displayRect.width / 2
+    local height <const> = 10
+    local width <const> = 10
+    local y <const> = 27
+    local xMargin <const> = 3
+    local character1WinsStart <const> = foo - 40
+    local character2WinsStart <const> = foo + 30
+
+    -- Character 1 Wins
+    gfx.setColor(gfx.kColorBlack)
+    gfx.fillCircleInRect(character1WinsStart - width - xMargin, y, width, height)
+    gfx.fillCircleInRect(character1WinsStart, y, width, height)
+
+    if (self.character1Wins > 0) then
+      gfx.setColor(gfx.kColorWhite)
+      gfx.fillCircleInRect(character1WinsStart - width - xMargin, y, width, height)
+
+      if (self.character1Wins > 1) then
+        gfx.fillCircleInRect(character1WinsStart, y, width, height)
+      end
+    end
+
+    gfx.setColor(gfx.kColorBlack)
+    gfx.drawCircleInRect(character1WinsStart - width - xMargin, y, width, height)
+    gfx.drawCircleInRect(character1WinsStart, y, width, height)
+
+    -- Character 2 Wins
+    gfx.setColor(gfx.kColorBlack)
+    gfx.fillCircleInRect(character2WinsStart + width + xMargin, y, width, height)
+    gfx.fillCircleInRect(character2WinsStart, y, width, height)
+
+    if (self.character2Wins > 0) then
+      gfx.setColor(gfx.kColorWhite)
+      gfx.fillCircleInRect(character2WinsStart + width + xMargin, y, width, height)
+
+      if (self.character2Wins > 1) then
+        gfx.fillCircleInRect(character2WinsStart, y, width, height)
+      end
+    end
+
+    gfx.setColor(gfx.kColorBlack)
+    gfx.drawCircleInRect(character2WinsStart + width + xMargin, y, width, height)
+    gfx.drawCircleInRect(character2WinsStart, y, width, height)
+  gfx.popContext()
 end
 
 function FightScene:EndMatch()
-  tmr.performAfterDelay(1000, function()
+  self.delayTimer = tmr.performAfterDelay(1000, function()
     self.uiTextState = uiTextStates.THANK_YOU_FOR_PLAYING
-    self.soundFX.gameOver:play(1)
+
+    self.soundFX.gameOver:play()
     self:StartFadeInTextAnimator()
 
-    tmr.performAfterDelay(5000, function()
+    self.delayTimer = tmr.performAfterDelay(5000, function()
       sceneLoader:Start(function()
         sceneManager:resetAndEnter(CharacterSelectScene)
       end)
@@ -170,7 +224,7 @@ function FightScene:EndMatch()
 end
 
 function FightScene:EndRound(overState)
-  -- self.backgroundMusic:stop()
+  -- self.bgMusicPlayer:Stop()
   self.character1.controllable = false
   self.character2.controllable = false
   -- self.character1:setUpdatesEnabled(false)
@@ -183,35 +237,35 @@ function FightScene:EndRound(overState)
     pd.display.setRefreshRate(10)
 
     self.uiTextState = uiTextStates.KO
-    self.soundFX.ko:play(1)
+    self.soundFX.ko:play()
   elseif (self.overState == overStates.TIME_OVER) then
     self.uiTextState = uiTextStates.TIME_OVER
-    self.soundFX.timeOver:play(1)
+    self.soundFX.timeOver:play()
   end
 
   self:DetermineWinner()
 
   self:StartFadeInTextAnimator()
 
-  tmr.performAfterDelay(1500, function()
+  self.delayTimer = tmr.performAfterDelay(1500, function()
     pd.display.setRefreshRate(30)
 
     self:StartFadeOutTextAnimator()
 
-    tmr.performAfterDelay(500, function()
+    self.delayTimer = tmr.performAfterDelay(500, function()
       if (self.winnerState == winnerStates.CHAR_1) then
         self.uiTextState = uiTextStates.YOU_WIN
-        self.soundFX.youWin:play(1)
+        self.soundFX.youWin:play()
       elseif (self.winnerState == winnerStates.CHAR_2) then
         self.uiTextState = uiTextStates.YOU_LOSE
-        self.soundFX.youLose:play(1)
+        self.soundFX.youLose:play()
       elseif (self.winnerState == winnerStates.DRAW) then
         self.uiTextState = uiTextStates.DRAW
       end
 
       self:StartFadeInTextAnimator()
 
-      tmr.performAfterDelay(2000, function()
+      self.delayTimer = tmr.performAfterDelay(2000, function()
         if (self.round == 1) then
           -- Do nothing...?
         elseif (self.round == 2) then
@@ -228,10 +282,10 @@ function FightScene:EndRound(overState)
 
         self:StartFadeInBlackScreenAnimator()
 
-        tmr.performAfterDelay(200, function()
+        self.delayTimer = tmr.performAfterDelay(200, function()
           self:StartFadeOutTextAnimator()
 
-          tmr.performAfterDelay(1000, function()
+          self.delayTimer = tmr.performAfterDelay(1000, function()
             self.round += 1
 
             self:ResetRound()
@@ -251,6 +305,7 @@ end
 function FightScene:Init(config)
   self.character1Class = config.character1Class or self.character1Class
   self.character2Class = config.character2Class or self.character2Class
+  self.displayRect = pd.display.getRect()
   self.round = config.round or self.round
   self.rounds = config.rounds or self.rounds
   self.stageID = config.stageID or self.stageID
@@ -287,47 +342,45 @@ function FightScene:InitCharacters()
 end
 
 function FightScene:InitImages()
-  local displayRect <const> = pd.display.getRect()
-
-  self.blackScreenImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.blackScreenImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.drawTextImage = img.new('images/ui/DrawText')
-  self.fightImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.fightImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.fightTextImage = img.new('images/ui/FightText')
   self.finalRoundTextImage = img.new('images/ui/FinalRoundText')
   self.koTextImage = img.new('images/ui/KOText')
-  self.matchEndImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
-  self.matchEndTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
-  self.matchStartImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
-  self.matchStartTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
-  self.roundEndImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
-  self.roundEndTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.matchEndImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
+  self.matchEndTextImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
+  self.matchStartImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
+  self.matchStartTextImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
+  self.roundEndImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
+  self.roundEndTextImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.round1TextImage = img.new('images/ui/Round1Text')
   self.round2TextImage = img.new('images/ui/Round2Text')
-  self.roundStartImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
-  self.roundStartTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.roundStartImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
+  self.roundStartTextImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.thankYouForPlayingTextImage = img.new('images/ui/ThankYouForPlayingText')
-  self.timeOverImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.timeOverImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.timeOverTextImage = img.new('images/ui/TimeOverText')
   self.youLoseTextImage = img.new('images/ui/YouLoseText')
   self.youWinTextImage = img.new('images/ui/YouWinText')
-  self.uiImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
-  self.uiTextImage = img.new(displayRect.width, displayRect.height, gfx.kColorClear)
+  self.uiImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
+  self.uiTextImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
 end
 
 function FightScene:InitLifebars()
   self.lifebar1 = Meter({
-    amount = self.character1.health,
+    amount = self.character1:GetHealth(),
     direction = meterDirections.LEFT,
     label = self.character1.name:upper(),
     meterRect = rec.new(20, 10, 150, 16),
-    total = self.character1.health,
+    total = self.character1.maxHealth,
   })
   self.lifebar2 = Meter({
-    amount = self.character2.health,
+    amount = self.character2:GetHealth(),
     direction = meterDirections.RIGHT,
     label = self.character2.name:upper(),
     meterRect = rec.new(380, 10, 150, 16),
-    total = self.character2.health,
+    total = self.character2.maxHealth,
   })
 
   self.character1.OnHealthChange = (function (health)
@@ -368,7 +421,7 @@ function FightScene:InitMenu()
         menu:addMenuItem("Reset Match", function()
           self:StartFadeInBlackScreenAnimator()
 
-          tmr.performAfterDelay(1000, function()
+          self.delayTimer = tmr.performAfterDelay(1000, function()
             self:ResetMatch()
             self:StartFadeOutBlackScreenAnimator()
             self:StartMatch()
@@ -378,22 +431,24 @@ end
 
 function FightScene:InitSoundFX()
   self.soundFX = {
-    fight = snd.sampleplayer.new('sounds/announcerFight.wav'),
-    finalRound = snd.sampleplayer.new('sounds/announcerFinalRound.wav'),
-    gameOver = snd.sampleplayer.new('sounds/announcerGameOver.wav'),
-    ko = snd.sampleplayer.new('sounds/announcerKO.wav'),
-    round1 = snd.sampleplayer.new('sounds/announcerRound1.wav'),
-    round2 = snd.sampleplayer.new('sounds/announcerRound2.wav'),
-    timeOver = snd.sampleplayer.new('sounds/announcerTimeOver.wav'),
-    youLose = snd.sampleplayer.new('sounds/announcerYouLose.wav'),
-    youWin = snd.sampleplayer.new('sounds/announcerYouWin.wav'),
+    fight = snd.sampleplayer.new('sounds/announcer/fight2.wav'),
+    finalRound = snd.sampleplayer.new('sounds/announcer/finalround.wav'),
+    gameOver = snd.sampleplayer.new('sounds/announcer/gameover.wav'),
+    ko = snd.sampleplayer.new('sounds/announcer/ko2.wav'),
+    round1 = snd.sampleplayer.new('sounds/announcer/round1.wav'),
+    round2 = snd.sampleplayer.new('sounds/announcer/round2.wav'),
+    timeOver = snd.sampleplayer.new('sounds/announcer/timesup.wav'),
+    youLose = snd.sampleplayer.new('sounds/announcer/youlose.wav'),
+    youWin = snd.sampleplayer.new('sounds/announcer/youwin.wav'),
   }
 end
 
 function FightScene:InitStage()
-  self.backgroundMusic = snd.fileplayer.new('music/Stage - Metropolis Grime - Loop')
-  self.backgroundMusic:setVolume(0.5)
-
+  self.bgMusicPlayer = MusicPlayer({
+    announces = true,
+    playlist = { fightPlaylist[math.random(#fightPlaylist)] },
+    loops = true,
+  })
   self.stage = Stage({
     character1 = self.character1,
     character2 = self.character2,
@@ -499,8 +554,8 @@ function FightScene:StartFadeOutTextAnimator(duration)
 end
 
 function FightScene:StartMatch()
-  if (not self.backgroundMusic:isPlaying()) then
-    self.backgroundMusic:play(0)
+  if (not self.bgMusicPlayer:IsPlaying()) then
+    self.bgMusicPlayer:Play()
   end
 
   self:StartRound()
@@ -509,28 +564,28 @@ end
 function FightScene:StartRound()
   self.state = fightStates.ROUND_START
 
-  tmr.performAfterDelay(200, function()
+  self.delayTimer = tmr.performAfterDelay(200, function()
     self.uiTextState = uiTextStates.ROUND_START
 
     if (self.round == 1) then
-      self.soundFX.round1:play(1)
+      self.soundFX.round1:play()
     elseif (self.round == 2) then
-      self.soundFX.round2:play(1)
+      self.soundFX.round2:play()
     else
-      self.soundFX.finalRound:play(1)
+      self.soundFX.finalRound:play()
     end
 
     self:StartFadeInTextAnimator()
 
-    tmr.performAfterDelay(1500, function()
+    self.delayTimer = tmr.performAfterDelay(1500, function()
       self:StartFadeOutTextAnimator()
 
-      tmr.performAfterDelay(500, function()
+      self.delayTimer = tmr.performAfterDelay(500, function()
         self.uiTextState = uiTextStates.FIGHT
-        self.soundFX.fight:play(1)
+        self.soundFX.fight:play()
         self:StartFadeInTextAnimator()
 
-        tmr.performAfterDelay(1000, function()
+        self.delayTimer = tmr.performAfterDelay(1000, function()
           self:ActivateRound()
           self:StartFadeOutTextAnimator()
         end)
@@ -540,10 +595,15 @@ function FightScene:StartRound()
 end
 
 function FightScene:Teardown()
+  if (self.delayTimer) then
+    self.delayTimer:remove()
+  end
+
   self:ResetMatch()
 
-  self.backgroundMusic:stop()
-  self.backgroundMusic = nil
+  self.bgMusicPlayer:Stop()
+  self.bgMusicPlayer:Teardown()
+  self.bgMusicPlayer = nil
 
   self.character1:remove()
   self.character1:Teardown()
