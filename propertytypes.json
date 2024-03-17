@@ -94,7 +94,7 @@
         "valuesAsFlags": true
     },
     {
-        "id": 9,
+        "id": 12,
         "name": "CollisionType",
         "storageType": "int",
         "type": "enum",
@@ -140,10 +140,8 @@
             },
             {
                 "name": "soundFX",
-                "propertyType": "SoundFX",
-                "type": "class",
-                "value": {
-                }
+                "type": "file",
+                "value": ""
             },
             {
                 "name": "velocityX",
@@ -180,11 +178,6 @@
                 "value": 0
             },
             {
-                "name": "dizzy",
-                "type": "int",
-                "value": 0
-            },
-            {
                 "name": "hitstop",
                 "type": "int",
                 "value": 0
@@ -201,6 +194,18 @@
             },
             {
                 "name": "pushback",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "soundFX",
+                "propertyType": "SoundFX",
+                "type": "class",
+                "value": {
+                }
+            },
+            {
+                "name": "stun",
                 "type": "int",
                 "value": 0
             },
@@ -286,7 +291,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 12,
+        "id": 13,
         "members": [
             {
                 "name": "onBlock",

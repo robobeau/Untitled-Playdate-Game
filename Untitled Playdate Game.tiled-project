@@ -6,6 +6,8 @@
     "folders": [
         "."
     ],
+    "properties": [
+    ],
     "propertyTypes": [
         {
             "color": "#ffa0a0a4",
@@ -30,19 +32,6 @@
                 "wangcolor",
                 "wangset"
             ]
-        },
-        {
-            "id": 9,
-            "name": "Attack",
-            "storageType": "string",
-            "type": "enum",
-            "values": [
-                "HIGH",
-                "LOW",
-                "MID",
-                "THROW"
-            ],
-            "valuesAsFlags": false
         },
         {
             "id": 8,
@@ -93,14 +82,15 @@
                 "CROUCH",
                 "DASH",
                 "DOWN",
+                "DIZZY",
                 "END",
                 "ENTRANCE",
-                "FALL",
                 "FORWARD",
                 "HURT",
                 "JUMP",
                 "KICK",
                 "KNOCKDOWN",
+                "MOVE",
                 "PARRY",
                 "PUNCH",
                 "RISE",
@@ -108,10 +98,23 @@
                 "SPECIAL",
                 "STAND",
                 "TAUNT",
-                "UP",
-                "WALK"
+                "THROW",
+                "UP"
             ],
             "valuesAsFlags": true
+        },
+        {
+            "id": 12,
+            "name": "CollisionType",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "HIGH",
+                "LOW",
+                "MID",
+                "THROW"
+            ],
+            "valuesAsFlags": false
         },
         {
             "color": "#ffa0a0a4",
@@ -146,6 +149,11 @@
                     "value": 0
                 },
                 {
+                    "name": "soundFX",
+                    "type": "file",
+                    "value": ""
+                },
+                {
                     "name": "velocityX",
                     "type": "int",
                     "value": 0
@@ -170,18 +178,6 @@
             ]
         },
         {
-            "id": 10,
-            "name": "FrameType",
-            "storageType": "int",
-            "type": "enum",
-            "values": [
-                "ACTIVE",
-                "RECOVERY",
-                "STARTUP"
-            ],
-            "valuesAsFlags": false
-        },
-        {
             "color": "#ffaa0000",
             "drawFill": true,
             "id": 4,
@@ -192,15 +188,9 @@
                     "value": 0
                 },
                 {
-                    "name": "dizzy",
+                    "name": "hitstop",
                     "type": "int",
                     "value": 0
-                },
-                {
-                    "name": "hits",
-                    "propertyType": "Attack",
-                    "type": "string",
-                    "value": "LOW"
                 },
                 {
                     "name": "hitstun",
@@ -218,19 +208,27 @@
                     "value": 0
                 },
                 {
+                    "name": "soundFX",
+                    "propertyType": "SoundFX",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "stun",
+                    "type": "int",
+                    "value": 0
+                },
+                {
                     "name": "super",
                     "type": "int",
                     "value": 0
                 },
                 {
-                    "name": "velocityX",
+                    "name": "type",
+                    "propertyType": "CollisionType",
                     "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "velocityY",
-                    "type": "int",
-                    "value": 0
+                    "value": 2
                 }
             ],
             "name": "Hitbox",
@@ -251,6 +249,12 @@
             "drawFill": true,
             "id": 5,
             "members": [
+                {
+                    "name": "type",
+                    "propertyType": "CollisionType",
+                    "type": "int",
+                    "value": 2
+                }
             ],
             "name": "Hurtbox",
             "type": "class",
@@ -272,6 +276,40 @@
             "members": [
             ],
             "name": "Pushbox",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 13,
+            "members": [
+                {
+                    "name": "onBlock",
+                    "type": "file",
+                    "value": ""
+                },
+                {
+                    "name": "onHit",
+                    "type": "file",
+                    "value": ""
+                },
+                {
+                    "name": "onWhiff",
+                    "type": "file",
+                    "value": ""
+                }
+            ],
+            "name": "SoundFX",
             "type": "class",
             "useAs": [
                 "property",
