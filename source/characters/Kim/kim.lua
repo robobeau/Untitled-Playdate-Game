@@ -17,8 +17,6 @@ local kimStatesList <const> = {
 local defaults <const> = {
   assetsList = table.move(charStatesList, 1, #charStatesList, #kimStatesList + 1, kimStatesList),
   canRun = true,
-  -- health = 950,
-  -- gravity = 0.75,
   jumpHeight = charJumpHeights.SHORT,
   menuImagePath = 'characters/Kim/images/KimPortraitMenu',
   name = 'Kim',
@@ -29,7 +27,6 @@ local defaults <const> = {
       back = charSpeeds.FASTEST,
       forward = charSpeeds.FASTEST,
     },
-    -- jump = 18,
     move = {
       back = charSpeeds.SLOW,
       forward = charSpeeds.NORMAL,
@@ -87,7 +84,7 @@ Kim.AnimationObjects = {
 
 function Kim:CheckChainInputs()
   local frame <const> = self.history.frames[self.history.counter]
-  local frameData <const> = self:GetFrameData(frame.frameIndex)
+  local frameData <const> = self:GetFrameData(self.ram.frameIndex)
 
   -- If we can't perform a chain, exit early.
   if (not frameData.checks.isChainCancellable) then
@@ -123,7 +120,7 @@ function Kim:CheckCrescentMoonKickInput()
       stop
     )
 
-    return Inputs:CheckQuarterCircleInput(buttonStates, inputDirections.BACK)
+    return Inputs:CheckQuarterCircleInput(buttonStates, inputDirections.BACK, self.ram.direction)
   end
 end
 
@@ -150,20 +147,20 @@ function Kim:CheckFlyingSliceInput()
       stop
     )
 
-    return Inputs:CheckChargeDownInput(buttonStates, chargeFrames, frame.direction)
+    return Inputs:CheckChargeDownInput(buttonStates, chargeFrames, self.ram.direction)
   end
 end
 
 function Kim:CheckSpecialInputs()
   local frame <const> = self.history.frames[self.history.counter]
-  local frameData <const> = self:GetFrameData(frame.frameIndex)
+  local frameData <const> = self:GetFrameData(self.ram.frameIndex)
 
   -- If we can't perform a special move, exit early.
   if (not frameData.checks.isSpecialCancellable) then
     return
   end
 
-  local isAirborne <const> = frame.state & charStates.AIRBORNE ~= 0
+  local isAirborne <const> = self.ram.state & charStates.AIRBORNE ~= 0
 
   if (isAirborne) then
     local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
