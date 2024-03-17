@@ -73,7 +73,7 @@
      <property name="pushback" type="int" value="1"/>
      <property name="stun" type="int" value="5"/>
      <property name="super" type="int" value="5"/>
-     <property name="type" type="int" propertytype="CollisionType" value="1"/>
+     <property name="type" type="int" propertytype="CollisionType" value="2"/>
     </properties>
    </object>
    <object id="4" name="Center" type="Center" x="64" y="80">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimJumpBack" class="Animation" tilewidth="112" tileheight="128" tilecount="5" columns="0" objectalignment="bottom">
+<tileset version="1.10" tiledversion="1.10.2" name="KimJumpBack" class="Animation" tilewidth="112" tileheight="128" tilecount="5" columns="0" objectalignment="bottom">
  <editorsettings>
   <export target="../../../source/tsj/characters/Kim/KimJumpBack.tsj" format="json"/>
  </editorsettings>
@@ -68,7 +68,7 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
    <property name="frameDuration" type="int" value="4"/>
-   <property name="nextState" type="int" propertytype="CharacterStates" value="3"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimJumpBack6.gif"/>
   <objectgroup draworder="index" id="2">

@@ -8,7 +8,7 @@
   <properties>
    <property name="frameDuration" type="int" value="1"/>
    <property name="velocityX" type="int" value="2"/>
-   <property name="velocityY" type="int" value="-8"/>
+   <property name="velocityY" type="int" value="-10"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick1.gif"/>
   <objectgroup draworder="index" id="2">
