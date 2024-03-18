@@ -1563,13 +1563,14 @@ function Character:TakeDamage(hitbox, isBlocking)
   if (isAirborne) then
     newState |= charStates.AIRBORNE
   elseif (isCrouching) then
-      newState |= charStates.CROUCH
+    newState |= charStates.CROUCH
   else
     -- Did the character get sweeped?
     if (hitbox.properties.type == collisionBoxTypes.LOW) then
       -- TODO: Make a better state than this
       newState = charStates.HURT | charStates.AIRBORNE
-      newVelocity.y = -3
+
+      self.ram.velocity.y = -3
     else
       newState |= charStates.STAND
     end
