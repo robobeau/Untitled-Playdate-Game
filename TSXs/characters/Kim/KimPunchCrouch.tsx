@@ -52,6 +52,7 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="0"/>
    <property name="frameDuration" type="int" value="10"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_long_whoosh_15.wav"/>
   </properties>
   <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -69,6 +70,12 @@
    <object id="3" name="Hitbox" type="Hitbox" x="64" y="52" width="68" height="28">
     <properties>
      <property name="damage" type="int" value="10"/>
+     <property name="soundFX" type="class" propertytype="SoundFX">
+      <properties>
+       <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_large_65.wav"/>
+      </properties>
+     </property>
      <property name="stun" type="int" value="10"/>
      <property name="super" type="int" value="5"/>
      <property name="type" type="int" propertytype="CollisionType" value="1"/>

@@ -7,7 +7,6 @@
  <tile id="0" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="3"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -37,6 +36,7 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="100"/>
    <property name="frameDuration" type="int" value="6"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral3.gif"/>
   <objectgroup draworder="index" id="2">

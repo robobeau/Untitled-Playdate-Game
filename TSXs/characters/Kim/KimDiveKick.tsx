@@ -10,6 +10,7 @@
  <tile id="0" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
    <property name="velocityX" type="int" value="4"/>
    <property name="velocityY" type="int" value="8"/>
   </properties>
@@ -30,6 +31,12 @@
     <properties>
      <property name="damage" type="int" value="5"/>
      <property name="hitstun" type="int" value="2"/>
+     <property name="soundFX" type="class" propertytype="SoundFX">
+      <properties>
+       <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_small_01.wav"/>
+      </properties>
+     </property>
      <property name="stun" type="int" value="5"/>
      <property name="super" type="int" value="5"/>
      <property name="type" type="int" propertytype="CollisionType" value="0"/>
@@ -43,6 +50,7 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="80" height="112" source="../../../source/characters/Kim/images/KimDiveKick2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -61,6 +69,12 @@
     <properties>
      <property name="damage" type="int" value="5"/>
      <property name="hitstun" type="int" value="5"/>
+     <property name="soundFX" type="class" propertytype="SoundFX">
+      <properties>
+       <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_small_01.wav"/>
+      </properties>
+     </property>
      <property name="stun" type="int" value="5"/>
      <property name="super" type="int" value="5"/>
      <property name="type" type="int" propertytype="CollisionType" value="0"/>

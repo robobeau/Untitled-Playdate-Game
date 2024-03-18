@@ -29,6 +29,7 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/somersault_05.wav"/>
    <property name="velocityX" type="int" value="6"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash2.gif"/>
@@ -154,16 +155,6 @@
      <property name="type" type="int" propertytype="CollisionType" value="0"/>
     </properties>
    </object>
-   <object id="2" name="Hitbox" type="Hitbox" x="60" y="-4" width="36" height="44">
-    <properties>
-     <property name="damage" type="int" value="5"/>
-     <property name="hitstun" type="int" value="5"/>
-     <property name="pushback" type="int" value="2"/>
-     <property name="stun" type="int" value="5"/>
-     <property name="super" type="int" value="5"/>
-     <property name="type" type="int" propertytype="CollisionType" value="0"/>
-    </properties>
-   </object>
    <object id="3" name="Center" type="Center" x="62" y="124">
     <point/>
    </object>
@@ -183,16 +174,6 @@
    </object>
    <object id="7" name="Hurtbox (High)" type="Hurtbox" x="36" y="30" width="36" height="28">
     <properties>
-     <property name="type" type="int" propertytype="CollisionType" value="0"/>
-    </properties>
-   </object>
-   <object id="3" name="Hitbox" type="Hitbox" x="72" y="8" width="52" height="52">
-    <properties>
-     <property name="damage" type="int" value="5"/>
-     <property name="hitstun" type="int" value="5"/>
-     <property name="pushback" type="int" value="2"/>
-     <property name="stun" type="int" value="5"/>
-     <property name="super" type="int" value="5"/>
      <property name="type" type="int" propertytype="CollisionType" value="0"/>
     </properties>
    </object>
@@ -220,6 +201,12 @@
      <property name="damage" type="int" value="15"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
+     <property name="soundFX" type="class" propertytype="SoundFX">
+      <properties>
+       <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_large_65.wav"/>
+      </properties>
+     </property>
      <property name="stun" type="int" value="10"/>
      <property name="super" type="int" value="10"/>
      <property name="type" type="int" propertytype="CollisionType" value="0"/>

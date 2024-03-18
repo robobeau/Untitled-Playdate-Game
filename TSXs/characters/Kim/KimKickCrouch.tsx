@@ -52,6 +52,7 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
    <property name="frameDuration" type="int" value="4"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_03.wav"/>
   </properties>
   <image width="144" height="80" source="../../../source/characters/Kim/images/KimKickCrouch3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -71,6 +72,12 @@
      <property name="damage" type="int" value="5"/>
      <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="1"/>
+     <property name="soundFX" type="class" propertytype="SoundFX">
+      <properties>
+       <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_small_65.wav"/>
+      </properties>
+     </property>
      <property name="stun" type="int" value="5"/>
      <property name="super" type="int" value="5"/>
      <property name="type" type="int" propertytype="CollisionType" value="2"/>

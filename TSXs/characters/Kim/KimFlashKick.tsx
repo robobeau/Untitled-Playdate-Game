@@ -51,6 +51,7 @@
  <tile id="5" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="8"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_long_whoosh_15.wav"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -61,6 +62,12 @@
     <properties>
      <property name="damage" type="int" value="20"/>
      <property name="pushback" type="int" value="5"/>
+     <property name="soundFX" type="class" propertytype="SoundFX">
+      <properties>
+       <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_large_14.wav"/>
+      </properties>
+     </property>
      <property name="stun" type="int" value="10"/>
      <property name="super" type="int" value="10"/>
      <property name="type" type="int" propertytype="CollisionType" value="2"/>
