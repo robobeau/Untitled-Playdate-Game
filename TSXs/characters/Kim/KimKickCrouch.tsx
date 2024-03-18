@@ -52,7 +52,7 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
    <property name="frameDuration" type="int" value="4"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_03.wav"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="144" height="80" source="../../../source/characters/Kim/images/KimKickCrouch3.gif"/>
   <objectgroup draworder="index" id="2">

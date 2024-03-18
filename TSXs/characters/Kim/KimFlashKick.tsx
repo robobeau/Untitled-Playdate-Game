@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimFlashKick" class="Animation" tilewidth="112" tileheight="128" tilecount="6" columns="0">
  <editorsettings>
-  <export target="../tsjs/KimFlashKick.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/animations/KimFlashKick.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2" type="Frame">
@@ -51,7 +51,7 @@
  <tile id="5" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="8"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_long_whoosh_15.wav"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick3.gif"/>
   <objectgroup draworder="index" id="2">

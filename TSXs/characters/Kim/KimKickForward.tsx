@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimKickForward" class="Animation" tilewidth="128" tileheight="96" tilecount="5" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../tsjs/KimKickForward.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/animations/KimKickForward.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
@@ -36,7 +36,7 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
    <property name="frameDuration" type="int" value="8"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_long_whoosh_15.wav"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="128" height="96" source="../../../source/characters/Kim/images/KimKickForward3.gif"/>
   <objectgroup draworder="index" id="2">

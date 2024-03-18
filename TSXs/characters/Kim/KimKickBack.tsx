@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimKickBack" class="Animation" tilewidth="128" tileheight="128" tilecount="5" columns="0">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimKickBack.lua" format="lua"/>
+  <export target="../../../source/characters/Kim/animations/KimKickBack.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1" type="Frame">
@@ -21,7 +21,7 @@
  <tile id="2" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="6"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_long_whoosh_15.wav"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -52,7 +52,7 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
    <property name="frameDuration" type="int" value="6"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_long_whoosh_15.wav"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack4.gif"/>
   <objectgroup draworder="index" id="2">
@@ -83,7 +83,7 @@
  <tile id="4" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="4"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_long_whoosh_15.wav"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack5.gif"/>
   <objectgroup draworder="index" id="2">
