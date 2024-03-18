@@ -1053,25 +1053,14 @@ function Character:HydrateAnimation(animation)
     local frameData <const> = frame.properties or {}
     local center <const>, collisions <const>, opponentCenter <const> = self:CreateCollisionSprites(frame.objectGroup.objects)
 
-    -- for j, hitbox in ipairs(collisions.Hitboxes) do
-    --   if (frameData.soundFX) then
-    --     if (frameData.soundFX.onBlock) then
-    --       hitbox.soundFX.onBlock = self:SetSoundFX(frameData.soundFX.onBlock)
-    --     end
+    if (frameData.soundFX ~= nil) then
+      local soundFXPath = frameData.soundFX
+          -- Chop off the "../" and ".wav"
+          soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
+          soundFXPath = string.gsub(soundFXPath, '%.wav', '')
 
-    --     if (frameData.soundFX.onHit) then
-    --       hitbox.soundFX.onHit = self:SetSoundFX(frameData.soundFX.onHit)
-    --     end
-
-    --     if (frameData.soundFX.onWhiff) then
-    --       hitbox.soundFX.onWhiff = self:SetSoundFX(frameData.soundFX.onWhiff)
-    --     end
-    --   else
-    --     hitbox.soundFX.onBlock = self.soundFX['genericOnBlock']
-    --     hitbox.soundFX.onHit = self.soundFX['genericOnHit']
-    --     hitbox.soundFX.onWhiff = self.soundFX['genericOnWhiff']
-    --   end
-    -- end
+      self:SetSoundFX(soundFXPath)
+    end
 
     frames[i] = {
       center = center,
@@ -1139,11 +1128,7 @@ function Character:init(options)
   self.jumpHeight = config.jumpHeight or self.jumpHeight
   self.name = config.name or self.name
   self.opponent = config.opponent or self.opponent
-  self.soundFX = {
-    ['genericOnBlock'] = self:SetSoundFX('/sounds/blocks/block_small_10.wav'),
-    ['genericOnHit'] = self:SetSoundFX('/sounds/hits/face_hit_small_01.wav'),
-    ['genericOnWhiff'] = self:SetSoundFX('/sounds/whooshes/kick_short_whoosh_01.wav'),
-  }
+  self.soundFX = {}
   self.speeds = config.speeds or self.speeds
   self.startingDirection = config.startingDirection or self.startingDirection
   self.startingPosition = config.startingPosition or self.startingPosition
@@ -1274,7 +1259,7 @@ end
 function Character:SetAnimationFrame()
     self:SetFrameImage()
     self:SetFrameCollisions()
-    -- self:PlaySoundFX()
+    self:PlaySoundFX()
 end
 
 function Character:SetAnimations()
@@ -1429,21 +1414,18 @@ function Character:SetNextState(state)
   self.ram.nextState = state
 end
 
--- function Character:PlaySoundFX()
---   local frame <const> = self.history.frames[self.history.counter]
---   local frameData <const> = self:GetFrameData(self.ram.frameIndex)
+function Character:PlaySoundFX()
+  local frameData <const> = self:GetFrameData(self.ram.frameIndex)
 
---   -- self:Debug('Sound FX', frame.soundFX, frameData.soundFX)
+  if (frameData.soundFX) then
+    local soundFXPath = frameData.soundFX
+          -- Chop off the "../" and ".wav"
+          soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
+          soundFXPath = string.gsub(soundFXPath, '%.wav', '')
 
---   if (frameData.soundFX) then
---     local soundFXPath = frameData.soundFX.onWhiff
---           -- Chop off the "../" and ".wav"
---           soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
---           soundFXPath = string.gsub(soundFXPath, '%.wav', '')
-
---     self.soundFX[soundFXPath]:play()
---   end
--- end
+    self.soundFX[soundFXPath]:play()
+  end
+end
 
 function Character:SetFrameCollisions()
   local nextAnimationFrame <const> = self:GetAnimationFrame(self.ram.frameIndex)
@@ -1525,7 +1507,8 @@ end
 
 function Character:SetSoundFX(soundFXPath)
   -- Chop off the "../" and ".wav"
-  soundFXPath = string.gsub(soundFXPath, '%.%./%.%./%.%./', '/')
+  soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
+  soundFXPath = string.gsub(soundFXPath, '%.wav', '')
 
   if (not self.soundFX[soundFXPath]) then
     self.soundFX[soundFXPath] = pd.sound.sampleplayer.new(soundFXPath)
@@ -1609,6 +1592,7 @@ function Character:Teardown()
   self.history = {}
   self.hydratedAnimations = {}
   self.hydratedImagetables = {}
+  self.soundFX = {}
 end
 
 function Character:TransitionState()
