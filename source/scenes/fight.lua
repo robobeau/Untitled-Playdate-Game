@@ -419,6 +419,8 @@ function FightScene:InitMenu()
         end)
 
         menu:addMenuItem("Reset Match", function()
+          pd.display.setRefreshRate(30)
+
           if (self.delayTimer) then
             self.delayTimer:remove()
           end
@@ -599,6 +601,8 @@ function FightScene:StartRound()
 end
 
 function FightScene:Teardown()
+  pd.display.setRefreshRate(30)
+
   if (self.delayTimer) then
     self.delayTimer:remove()
   end
