@@ -91,7 +91,6 @@
  <tile id="3" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="3"/>
-   <property name="nextState" type="int" propertytype="CharacterStates" value="32"/>
   </properties>
   <image width="144" height="80" source="../../../source/characters/Kim/images/KimKickCrouch4.gif"/>
   <objectgroup draworder="index" id="2">
