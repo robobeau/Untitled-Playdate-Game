@@ -419,6 +419,10 @@ function FightScene:InitMenu()
         end)
 
         menu:addMenuItem("Reset Match", function()
+          if (self.delayTimer) then
+            self.delayTimer:remove()
+          end
+
           self:StartFadeInBlackScreenAnimator()
 
           self.delayTimer = tmr.performAfterDelay(1000, function()
