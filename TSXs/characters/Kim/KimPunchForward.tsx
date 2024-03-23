@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimPunchForward" class="Animation" tilewidth="128" tileheight="80" tilecount="3" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimPunchForward.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/animations/KimPunchForward.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="4"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/punch_long_whoosh_01.wav"/>
   </properties>
   <image width="66" height="78" source="../../../source/characters/Kim/images/KimPunchForward1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -34,7 +35,6 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="6"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/punch_long_whoosh_28.wav"/>
   </properties>
   <image width="118" height="74" source="../../../source/characters/Kim/images/KimPunchForward2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -62,7 +62,7 @@
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
        <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
-       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_large_76.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_large_02.wav"/>
       </properties>
      </property>
      <property name="stun" type="int" value="5"/>

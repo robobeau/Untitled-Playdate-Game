@@ -21,6 +21,7 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_21.wav"/>
   </properties>
   <image width="128" height="96" source="../../../source/characters/Kim/images/KimKickForward2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -36,7 +37,6 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
    <property name="frameDuration" type="int" value="8"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="128" height="96" source="../../../source/characters/Kim/images/KimKickForward3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -51,7 +51,7 @@
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
        <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
-       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_large_76.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_small_65.wav"/>
       </properties>
      </property>
      <property name="stun" type="int" value="10"/>

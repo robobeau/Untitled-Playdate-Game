@@ -23,6 +23,7 @@
  <tile id="3" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="1"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/somersault_01.wav"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -51,7 +52,6 @@
  <tile id="5" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="8"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -61,6 +61,7 @@
    <object id="2" name="Hitbox" type="Hitbox" x="6" y="6" width="100" height="94">
     <properties>
      <property name="damage" type="int" value="20"/>
+     <property name="hitstun" type="int" value="5"/>
      <property name="pushback" type="int" value="5"/>
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>

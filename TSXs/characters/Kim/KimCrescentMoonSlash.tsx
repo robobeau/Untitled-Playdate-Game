@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimCrescentMoonSlash" class="Animation" tilewidth="124" tileheight="124" tilecount="12" columns="0">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimCrescentMoonSlash.lua" format="lua"/>
+  <export target="../../../source/characters/Kim/animations/KimCrescentMoonSlash.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
@@ -29,7 +29,7 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/somersault_05.wav"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/somersault_01.wav"/>
    <property name="velocityX" type="int" value="6"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash2.gif"/>
@@ -204,7 +204,7 @@
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
        <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
-       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_large_65.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_small_65.wav"/>
       </properties>
      </property>
      <property name="stun" type="int" value="10"/>

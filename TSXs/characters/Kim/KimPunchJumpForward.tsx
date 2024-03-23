@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimPunchJumpForward" class="Animation" tilewidth="64" tileheight="96" tilecount="1" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../tsjs/KimPunchJumpForward.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/animations/KimPunchJumpForward.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="8"/>
+   <property name="frameDuration" type="int" value="14"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/punch_short_whoosh_10.wav"/>
   </properties>
@@ -23,7 +23,7 @@
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
        <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
-       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_small_01.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_small_14.wav"/>
       </properties>
      </property>
      <property name="stun" type="int" value="5"/>

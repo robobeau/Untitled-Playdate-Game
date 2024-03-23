@@ -21,7 +21,7 @@
  <tile id="2" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="6"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_21.wav"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -83,7 +83,6 @@
  <tile id="4" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="4"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack5.gif"/>
   <objectgroup draworder="index" id="2">
@@ -98,7 +97,7 @@
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
        <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
-       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_large_14.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_small_14.wav"/>
       </properties>
      </property>
      <property name="stun" type="int" value="5"/>

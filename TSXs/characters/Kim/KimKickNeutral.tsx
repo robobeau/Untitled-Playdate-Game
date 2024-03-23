@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimKickNeutral" class="Animation" tilewidth="96" tileheight="96" tilecount="4" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimKickNeutral.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/animations/KimKickNeutral.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
@@ -21,6 +21,7 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="4"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -36,7 +37,6 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="100"/>
    <property name="frameDuration" type="int" value="6"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="96" height="96" source="../../../source/characters/Kim/images/KimKickNeutral3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -51,7 +51,7 @@
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
        <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
-       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_small_01.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/face_hit_small_14.wav"/>
       </properties>
      </property>
      <property name="stun" type="int" value="5"/>

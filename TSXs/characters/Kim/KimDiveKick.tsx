@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimDiveKick" class="Animation" tilewidth="80" tileheight="112" tilecount="2" columns="0">
  <editorsettings>
-  <export target="../tsjs/KimDiveKick.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/animations/KimDiveKick.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>

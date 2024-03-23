@@ -29,6 +29,7 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="2"/>
+   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_21.wav"/>
   </properties>
   <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -52,7 +53,6 @@
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="0"/>
    <property name="frameDuration" type="int" value="10"/>
-   <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -73,7 +73,7 @@
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
        <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>
-       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_large_65.wav"/>
+       <property name="onHit" type="file" value="../../../source/sounds/hits/body_hit_large_02.wav"/>
       </properties>
      </property>
      <property name="stun" type="int" value="10"/>
@@ -89,6 +89,7 @@
  <tile id="3" type="Frame">
   <properties>
    <property name="frameDuration" type="int" value="3"/>
+   <property name="nextState" type="int" propertytype="CharacterStates" value="32"/>
   </properties>
   <image width="128" height="80" source="../../../source/characters/Kim/images/KimPunchCrouch4.gif"/>
   <objectgroup draworder="index" id="2">
