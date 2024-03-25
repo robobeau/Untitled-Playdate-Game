@@ -1528,6 +1528,19 @@ function Character:SetState(state)
 end
 
 function Character:TakeDamage(hitbox, isBlocking)
+  local isAirborne <const> = self.ram.state  & charStates.AIRBORNE ~= 0
+  local isCrouching <const> = self.ram.state  & charStates.CROUCH ~= 0
+  local newState = isBlocking
+    and charStates.BLOCK
+    or charStates.HURT
+
+  if (isAirborne) then
+    newState |= charStates.AIRBORNE
+  elseif (isCrouching) then
+    newState |= charStates.CROUCH
+  else
+    newState |= charStates.STAND
+  end
 
   if (hitbox.properties.damage) then
     local damage <const> = isBlocking
@@ -1544,6 +1557,8 @@ function Character:TakeDamage(hitbox, isBlocking)
 
   if (not isBlocking) then
     if (hitbox.properties.launch) then
+      newState = charStates.HURT | charStates.AIRBORNE
+
       -- Note the negation of "hitbox.properties.launch"
       self.ram.velocity.y = -hitbox.properties.launch
     end
@@ -1554,26 +1569,12 @@ function Character:TakeDamage(hitbox, isBlocking)
     self.ram.velocity.x = hitbox.properties.pushback * -self:GetFlipSign()
   end
 
-  local isAirborne <const> = self.ram.state  & charStates.AIRBORNE ~= 0
-  local isCrouching <const> = self.ram.state  & charStates.CROUCH ~= 0
-  local newState = isBlocking
-    and charStates.BLOCK
-    or charStates.HURT
+  -- Did the character get sweeped?
+  if (hitbox.properties.type == collisionBoxTypes.LOW) then
+    -- TODO: Make a better state than this
+    newState = charStates.HURT | charStates.AIRBORNE
 
-  if (isAirborne) then
-    newState |= charStates.AIRBORNE
-  elseif (isCrouching) then
-    newState |= charStates.CROUCH
-  else
-    -- Did the character get sweeped?
-    if (hitbox.properties.type == collisionBoxTypes.LOW) then
-      -- TODO: Make a better state than this
-      newState = charStates.HURT | charStates.AIRBORNE
-
-      self.ram.velocity.y = -3
-    else
-      newState |= charStates.STAND
-    end
+    self.ram.velocity.y = -3
   end
 
   self:SetState(newState)
