@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.1" name="KimMoveForward" class="Animation" tilewidth="64" tileheight="96" tilecount="3" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../source/tsj/Kim/KimMoveForward.tsj" format="json"/>
+  <export target="../source/tsj/Kim/KimMoveForward.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>

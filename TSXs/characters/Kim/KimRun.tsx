@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.1" name="KimRun" class="Animation" tilewidth="96" tileheight="80" tilecount="6" columns="0">
  <editorsettings>
-  <export target="../source/tsj/Kim/KimRun.tsj" format="json"/>
+  <export target="../source/tsj/Kim/KimRun.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>

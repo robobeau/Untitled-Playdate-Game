@@ -62,7 +62,8 @@
     <properties>
      <property name="damage" type="int" value="20"/>
      <property name="hitstun" type="int" value="5"/>
-     <property name="pushback" type="int" value="5"/>
+     <property name="launch" type="int" value="10"/>
+     <property name="pushback" type="int" value="2"/>
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
        <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>

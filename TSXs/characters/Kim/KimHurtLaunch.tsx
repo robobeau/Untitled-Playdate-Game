@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimHurtAirborne" class="Animation" tilewidth="88" tileheight="90" tilecount="3" columns="0">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimHurtAirborne.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/TSJs/KimHurtAirborne.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>

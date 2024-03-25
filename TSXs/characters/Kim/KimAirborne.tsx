@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimJumpNeutral" class="Animation" tilewidth="64" tileheight="128" tilecount="2" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimAirborne.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/TSJs/KimAirborne.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1" type="Frame">
