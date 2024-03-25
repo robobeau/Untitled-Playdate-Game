@@ -69,10 +69,6 @@ function Collision:InitSoundFX()
   if (self.properties.soundFX.onHit) then
     self.soundFX.onHit = self:SetSoundFX(self.properties.soundFX.onHit)
   end
-
-  if (self.properties.soundFX.onWhiff) then
-    self.soundFX.onWhiff = self:SetSoundFX(self.properties.soundFX.onWhiff)
-  end
 end
 
 function Collision:OnAdd()
