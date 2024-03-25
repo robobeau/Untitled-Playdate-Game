@@ -10,7 +10,7 @@
  <tile id="0" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="115"/>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
   </properties>
   <image width="72" height="72" source="../../../source/characters/Kim/images/KimCrouch1.gif"/>
   <objectgroup draworder="index" id="2">

@@ -866,8 +866,8 @@ function Character:GetThrown(hitbox)
     self.OnHealthChange(self.ram.health)
   end
 
-  if (hitbox.properties.opponentNextState) then
-    self:SetState(hitbox.properties.opponentNextState)
+  if (hitbox.properties.opponentState) then
+    self:SetState(hitbox.properties.opponentState)
   else
     self:SetState(charStates.HURT | charStates.THROW)
   end

@@ -9,7 +9,7 @@
  </properties>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
   </properties>
   <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -23,7 +23,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="8"/>
+   <property name="duration" type="int" value="8"/>
   </properties>
   <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -37,7 +37,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="8"/>
+   <property name="duration" type="int" value="8"/>
   </properties>
   <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -51,7 +51,7 @@
  </tile>
  <tile id="4" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="20"/>
+   <property name="duration" type="int" value="20"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
   </properties>
   <image width="80" height="96" source="../../../source/characters/Kim/images/KimEntrance4.gif"/>

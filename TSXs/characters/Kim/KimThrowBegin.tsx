@@ -6,14 +6,14 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
   </properties>
   <image width="70" height="78" source="../../../source/characters/Kim/images/KimThrow1.gif"/>
   <objectgroup draworder="index" id="2">
    <object id="2" name="Pushbox" type="Pushbox" x="10" y="-6" width="40" height="84"/>
    <object id="7" name="Throwbox" type="Hitbox" x="54" y="0" width="20" height="78">
     <properties>
-     <property name="characterNextState" type="int" propertytype="CharacterStates" value="16777216"/>
+     <property name="characterState" type="int" propertytype="CharacterStates" value="16777216"/>
      <property name="type" type="int" propertytype="CollisionType" value="3"/>
     </properties>
    </object>
@@ -39,7 +39,7 @@
  </tile>
  <tile id="4" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="10"/>
+   <property name="duration" type="int" value="10"/>
   </properties>
   <image width="112" height="80" source="../../../source/characters/Kim/images/KimHurt1.gif"/>
   <objectgroup draworder="index" id="2">

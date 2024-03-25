@@ -29,7 +29,7 @@ return {
       id = 0,
       type = "Frame",
       properties = {
-        ["frameDuration"] = 2
+        ["duration"] = 2
       },
       image = "../images/KimHurt1.gif",
       width = 112,
@@ -81,7 +81,7 @@ return {
       id = 2,
       type = "Frame",
       properties = {
-        ["frameDuration"] = 1,
+        ["duration"] = 1,
         ["hitstunnable"] = true
       },
       image = "../images/KimHurt2.gif",
@@ -179,7 +179,7 @@ return {
       id = 3,
       type = "Frame",
       properties = {
-        ["frameDuration"] = 2,
+        ["duration"] = 2,
         ["nextState"] = 4194304,
         ["velocityX"] = 0
       },

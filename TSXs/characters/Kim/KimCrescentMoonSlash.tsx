@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -28,7 +28,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/somersault_01.wav"/>
    <property name="velocityX" type="int" value="6"/>
   </properties>
@@ -52,7 +52,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -74,7 +74,7 @@
  </tile>
  <tile id="3" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash4.gif"/>
   <objectgroup draworder="index" id="2">
@@ -96,7 +96,7 @@
  </tile>
  <tile id="4" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash5.gif"/>
   <objectgroup draworder="index" id="2">
@@ -118,7 +118,7 @@
  </tile>
  <tile id="5" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash6.gif"/>
   <objectgroup draworder="index" id="2">
@@ -140,7 +140,7 @@
  </tile>
  <tile id="6" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash7.gif"/>
   <objectgroup draworder="index" id="2">
@@ -162,7 +162,7 @@
  </tile>
  <tile id="7" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash8.gif"/>
   <objectgroup draworder="index" id="2">
@@ -184,7 +184,7 @@
  </tile>
  <tile id="8" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
    <property name="velocityX" type="int" value="0"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash9.gif"/>
@@ -219,7 +219,7 @@
  </tile>
  <tile id="9" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash10.gif"/>
   <objectgroup draworder="index" id="2">
@@ -237,7 +237,7 @@
  </tile>
  <tile id="10" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash11.gif"/>
   <objectgroup draworder="index" id="2">
@@ -259,7 +259,7 @@
  </tile>
  <tile id="11" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
   </properties>
   <image width="124" height="124" source="../../../source/characters/Kim/images/KimCrescentMoonSlash12.gif"/>

@@ -29,7 +29,7 @@ return {
       id = 0,
       type = "Frame",
       properties = {
-        ["frameDuration"] = 2
+        ["duration"] = 2
       },
       image = "../images/KimHurtAirborneEnd1.gif",
       width = 128,
@@ -81,7 +81,7 @@ return {
       id = 1,
       type = "Frame",
       properties = {
-        ["frameDuration"] = 1
+        ["duration"] = 1
       },
       image = "../images/KimHurtAirborneEnd2.gif",
       width = 128,
@@ -133,7 +133,7 @@ return {
       id = 2,
       type = "Frame",
       properties = {
-        ["frameDuration"] = 1,
+        ["duration"] = 1,
         ["velocityX"] = -1
       },
       image = "../images/KimHurtAirborneEnd3.gif",
@@ -186,7 +186,7 @@ return {
       id = 3,
       type = "Frame",
       properties = {
-        ["frameDuration"] = 5,
+        ["duration"] = 5,
         ["nextState"] = 32768
       },
       image = "../images/KimHurtAirborneEnd3.gif",

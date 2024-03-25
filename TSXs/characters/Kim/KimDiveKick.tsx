@@ -9,7 +9,7 @@
  </properties>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
    <property name="velocityX" type="int" value="4"/>
    <property name="velocityY" type="int" value="8"/>
@@ -49,7 +49,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="80" height="112" source="../../../source/characters/Kim/images/KimDiveKick2.gif"/>

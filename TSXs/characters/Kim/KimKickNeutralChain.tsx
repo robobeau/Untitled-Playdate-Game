@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="3"/>
+   <property name="duration" type="int" value="3"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_21.wav"/>
   </properties>
   <image width="128" height="96" source="../../../source/characters/Kim/images/KimKickNeutralChain1.gif"/>
@@ -22,7 +22,7 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="0"/>
-   <property name="frameDuration" type="int" value="8"/>
+   <property name="duration" type="int" value="8"/>
   </properties>
   <image width="128" height="96" source="../../../source/characters/Kim/images/KimKickNeutralChain2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -53,7 +53,7 @@
  <tile id="2" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="0"/>
-   <property name="frameDuration" type="int" value="6"/>
+   <property name="duration" type="int" value="6"/>
   </properties>
   <image width="128" height="96" source="../../../source/characters/Kim/images/KimKickNeutralChain1.gif"/>
   <objectgroup draworder="index" id="2">

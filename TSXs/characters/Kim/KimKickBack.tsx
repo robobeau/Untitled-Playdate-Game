@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="3"/>
+   <property name="duration" type="int" value="3"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -20,7 +20,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="6"/>
+   <property name="duration" type="int" value="6"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_21.wav"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack3.gif"/>
@@ -51,7 +51,7 @@
  <tile id="3" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
-   <property name="frameDuration" type="int" value="6"/>
+   <property name="duration" type="int" value="6"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack4.gif"/>
@@ -82,7 +82,7 @@
  </tile>
  <tile id="4" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack5.gif"/>
   <objectgroup draworder="index" id="2">
@@ -112,7 +112,7 @@
  </tile>
  <tile id="5" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="3"/>
+   <property name="duration" type="int" value="3"/>
   </properties>
   <image width="128" height="128" source="../../../source/characters/Kim/images/KimKickBack2.gif"/>
   <objectgroup draworder="index" id="2">

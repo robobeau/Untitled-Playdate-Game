@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
   </properties>
   <image width="112" height="64" source="../../../source/characters/Kim/images/KimHurtCrouch1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -18,7 +18,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="5"/>
+   <property name="duration" type="int" value="5"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="32"/>
   </properties>
   <image width="112" height="64" source="../../../source/characters/Kim/images/KimHurtCrouch1.gif"/>

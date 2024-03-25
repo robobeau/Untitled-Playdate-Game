@@ -9,7 +9,7 @@
  </properties>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="3"/>
+   <property name="duration" type="int" value="3"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="32"/>
   </properties>
   <image width="64" height="80" source="../../../source/characters/Kim/images/KimBlockCrouch1.gif"/>

@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
   </properties>
   <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -18,7 +18,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -30,7 +30,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -42,7 +42,7 @@
  </tile>
  <tile id="3" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
   </properties>
   <image width="112" height="96" source="../../../source/characters/Kim/images/KimRise4.gif"/>

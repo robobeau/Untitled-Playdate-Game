@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="3"/>
+   <property name="duration" type="int" value="3"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/kick_short_whoosh_01.wav"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimKickJumpNeutral1.gif"/>
@@ -21,7 +21,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="8"/>
+   <property name="duration" type="int" value="8"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimKickJumpNeutral2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -51,7 +51,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="3"/>
+   <property name="duration" type="int" value="3"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimKickJumpNeutral1.gif"/>

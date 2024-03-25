@@ -10,7 +10,7 @@
  <tile id="0" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="121"/>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="96" height="80" source="../../../source/characters/Kim/images/KimRun1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -25,7 +25,7 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="121"/>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="96" height="80" source="../../../source/characters/Kim/images/KimRun2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -40,7 +40,7 @@
  <tile id="2" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="121"/>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="96" height="80" source="../../../source/characters/Kim/images/KimRun3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -55,7 +55,7 @@
  <tile id="3" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="121"/>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="96" height="80" source="../../../source/characters/Kim/images/KimRun4.gif"/>
   <objectgroup draworder="index" id="2">
@@ -70,7 +70,7 @@
  <tile id="4" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="121"/>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="96" height="80" source="../../../source/characters/Kim/images/KimRun5.gif"/>
   <objectgroup draworder="index" id="2">
@@ -85,7 +85,7 @@
  <tile id="5" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="121"/>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="96" height="80" source="../../../source/characters/Kim/images/KimRun6.gif"/>
   <objectgroup draworder="index" id="2">

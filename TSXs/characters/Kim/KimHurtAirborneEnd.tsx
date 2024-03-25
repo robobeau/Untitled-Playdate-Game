@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -18,7 +18,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
   </properties>
   <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -30,7 +30,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
    <property name="velocityX" type="int" value="-1"/>
   </properties>
   <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd3.gif"/>
@@ -43,7 +43,7 @@
  </tile>
  <tile id="3" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="5"/>
+   <property name="duration" type="int" value="5"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="32768"/>
   </properties>
   <image width="128" height="80" source="../../../source/characters/Kim/images/KimHurtAirborneEnd3.gif"/>

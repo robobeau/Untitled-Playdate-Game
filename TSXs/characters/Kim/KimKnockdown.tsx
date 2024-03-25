@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="10"/>
+   <property name="duration" type="int" value="10"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="524288"/>
   </properties>
   <image width="112" height="48" source="../../../source/characters/Kim/images/KimKnockdown1.gif"/>

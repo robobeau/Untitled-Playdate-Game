@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
    <property name="velocityX" type="int" value="2"/>
    <property name="velocityY" type="int" value="-10"/>
   </properties>
@@ -22,7 +22,7 @@
  </tile>
  <tile id="3" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/somersault_01.wav"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick1.gif"/>
@@ -37,7 +37,7 @@
  </tile>
  <tile id="4" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -51,7 +51,7 @@
  </tile>
  <tile id="5" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="8"/>
+   <property name="duration" type="int" value="8"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -81,7 +81,7 @@
  </tile>
  <tile id="6" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick4.gif"/>
   <objectgroup draworder="index" id="2">
@@ -95,7 +95,7 @@
  </tile>
  <tile id="7" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
   </properties>
   <image width="112" height="128" source="../../../source/characters/Kim/images/KimFlashKick5.gif"/>

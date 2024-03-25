@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
    <property name="hitstunnable" type="bool" value="true"/>
   </properties>
   <image width="76" height="60" source="../../../source/characters/Kim/images/KimHurtMid1.gif"/>

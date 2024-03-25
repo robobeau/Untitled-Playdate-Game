@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="14"/>
+   <property name="duration" type="int" value="14"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/punch_short_whoosh_10.wav"/>
   </properties>

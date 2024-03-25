@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
    <property name="soundFX" type="file" value="../../../source/sounds/whooshes/punch_long_whoosh_01.wav"/>
   </properties>
   <image width="66" height="78" source="../../../source/characters/Kim/images/KimPunchForward1.gif"/>
@@ -34,7 +34,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="6"/>
+   <property name="duration" type="int" value="6"/>
   </properties>
   <image width="118" height="74" source="../../../source/characters/Kim/images/KimPunchForward2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -77,7 +77,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="6"/>
+   <property name="duration" type="int" value="6"/>
   </properties>
   <image width="66" height="78" source="../../../source/characters/Kim/images/KimPunchForward3.gif"/>
   <objectgroup draworder="index" id="2">

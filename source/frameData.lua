@@ -34,7 +34,7 @@ function FrameData:init(config)
     isSuperCancellable = self.cancellable & cancellableStates.SUPER ~= 0,
     isThrowCancellable = self.cancellable & cancellableStates.THROW ~= 0,
   }
-  self.duration = config.frameDuration or self.duration
+  self.duration = config.duration or self.duration
   self.hitstunnable = config.hitstunnable or self.hitstunnable
   self.loops = config.loops or self.loops
   self.nextState = config.nextState or self.nextState

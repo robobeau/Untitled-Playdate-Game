@@ -7,7 +7,7 @@
  <tile id="0" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="96"/>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
   </properties>
   <image width="80" height="80" source="../../../source/characters/Kim/images/KimTransition1.gif"/>
   <objectgroup draworder="index" id="2">

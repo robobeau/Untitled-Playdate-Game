@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimThrow" class="Animation" tilewidth="94" tileheight="86" tilecount="3" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimThrow.tsj" format="json"/>
+  <export target="../../../source/characters/Kim/animations/KimThrow.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>
@@ -9,7 +9,7 @@
  </properties>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
   </properties>
   <image width="70" height="78" source="../../../source/characters/Kim/images/KimThrow1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -39,7 +39,7 @@
  </tile>
  <tile id="1" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="6"/>
+   <property name="duration" type="int" value="6"/>
   </properties>
   <image width="70" height="86" source="../../../source/characters/Kim/images/KimThrow2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -69,7 +69,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="8"/>
+   <property name="duration" type="int" value="8"/>
   </properties>
   <image width="94" height="74" source="../../../source/characters/Kim/images/KimThrow3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -89,22 +89,22 @@
      <property name="type" type="int" propertytype="CollisionType" value="0"/>
     </properties>
    </object>
-   <object id="7" name="OpponentCenter" type="OpponentCenter" x="0" y="0">
-    <point/>
-   </object>
-   <object id="5" name="Center" type="Center" x="64" y="74">
-    <point/>
-   </object>
    <object id="8" name="Throwbox" type="Hitbox" x="-10" y="-12" width="20" height="20">
     <properties>
      <property name="damage" type="int" value="15"/>
      <property name="launch" type="int" value="4"/>
-     <property name="opponentNextState" type="int" propertytype="CharacterStates" value="4097"/>
+     <property name="opponentState" type="int" propertytype="CharacterStates" value="4097"/>
      <property name="pushback" type="int" value="-4"/>
      <property name="stun" type="int" value="15"/>
      <property name="super" type="int" value="5"/>
      <property name="type" type="int" propertytype="CollisionType" value="3"/>
     </properties>
+   </object>
+   <object id="7" name="OpponentCenter" type="OpponentCenter" x="0" y="0">
+    <point/>
+   </object>
+   <object id="5" name="Center" type="Center" x="64" y="74">
+    <point/>
    </object>
   </objectgroup>
  </tile>

@@ -6,7 +6,7 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="112" height="80" source="../../../source/characters/Kim/images/KimHurt1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -18,7 +18,7 @@
  </tile>
  <tile id="2" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="1"/>
+   <property name="duration" type="int" value="1"/>
    <property name="hitstunnable" type="bool" value="true"/>
   </properties>
   <image width="112" height="80" source="../../../source/characters/Kim/images/KimHurt2.gif"/>
@@ -46,7 +46,7 @@
  </tile>
  <tile id="3" type="Frame">
   <properties>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="4194304"/>
    <property name="velocityX" type="int" value="0"/>
   </properties>

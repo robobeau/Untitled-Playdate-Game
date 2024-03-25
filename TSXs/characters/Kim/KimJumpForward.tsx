@@ -7,7 +7,7 @@
  <tile id="1" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="80" height="128" source="../../../source/characters/Kim/images/KimJumpForward1.gif"/>
   <objectgroup draworder="index" id="2">
@@ -22,7 +22,7 @@
  <tile id="2" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="80" height="128" source="../../../source/characters/Kim/images/KimJumpForward2.gif"/>
   <objectgroup draworder="index" id="2">
@@ -37,7 +37,7 @@
  <tile id="3" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
-   <property name="frameDuration" type="int" value="2"/>
+   <property name="duration" type="int" value="2"/>
   </properties>
   <image width="80" height="128" source="../../../source/characters/Kim/images/KimJumpForward3.gif"/>
   <objectgroup draworder="index" id="2">
@@ -52,7 +52,7 @@
  <tile id="4" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
   </properties>
   <image width="80" height="128" source="../../../source/characters/Kim/images/KimJumpForward4.gif"/>
   <objectgroup draworder="index" id="2">
@@ -67,7 +67,7 @@
  <tile id="5" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="2049"/>
   </properties>
   <image width="80" height="128" source="../../../source/characters/Kim/images/KimJumpForward5.gif"/>
@@ -83,7 +83,7 @@
  <tile id="6" type="Frame">
   <properties>
    <property name="cancellable" type="int" propertytype="Cancellable" value="99"/>
-   <property name="frameDuration" type="int" value="4"/>
+   <property name="duration" type="int" value="4"/>
    <property name="nextState" type="int" propertytype="CharacterStates" value="1"/>
   </properties>
   <image width="80" height="128" source="../../../source/characters/Kim/images/KimJumpForward6.gif"/>
