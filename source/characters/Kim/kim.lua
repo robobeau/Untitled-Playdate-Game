@@ -110,7 +110,7 @@ function Kim:CheckCrescentMoonKickInput()
   local hasReleasedB <const> = frame.buttonState.released & pd.kButtonB ~= 0
 
   if (hasPressedB or hasReleasedB) then
-    local frameCount <const> = 15
+    local frameCount <const> = 10
     local start <const> = math.max(#self.history.frames - frameCount, 1)
     local stop <const> = math.max(#self.history.frames, 1)
     local buttonStates <const> = table.map(
@@ -136,7 +136,7 @@ function Kim:CheckFlyingSliceInput()
     (hasPressedB or hasReleasedB) and
     (hasPressedUp or hasReleasedUp or isPressingUp)
   ) then
-    local chargeFrames <const> = 30
+    local chargeFrames <const> = pd.display.getRefreshRate() -- 1 second
     local frameCount <const> = chargeFrames + 5
     local start <const> = #self.history.frames - frameCount
     local stop <const> = #self.history.frames
