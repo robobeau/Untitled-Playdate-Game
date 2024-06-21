@@ -93,16 +93,16 @@ end
 
 function FightScene:DetermineWinner()
   if (
-    self.lifebar1.amount == self.lifebar2.amount or
-    (self.lifebar1.amount <= 0 and self.lifebar2.amount <= 0)
+    self.lifeBar1.amount == self.lifeBar2.amount or
+    (self.lifeBar1.amount <= 0 and self.lifeBar2.amount <= 0)
   ) then
     self.character1Wins += 1
     self.character2Wins += 1
     self.winnerState = winnerStates.DRAW
-  elseif (self.lifebar1.amount > self.lifebar2.amount) then
+  elseif (self.lifeBar1.amount > self.lifeBar2.amount) then
     self.character1Wins += 1
     self.winnerState = winnerStates.CHAR_1
-  elseif (self.lifebar1.amount < self.lifebar2.amount) then
+  elseif (self.lifeBar1.amount < self.lifeBar2.amount) then
     self.character2Wins += 1
     self.winnerState = winnerStates.CHAR_2
   else
@@ -121,6 +121,7 @@ function FightScene:DrawUI()
   self:DrawUITextImage()
 
   if (self.state == fightStates.ACTIVE) then
+    self:DrawPortraits()
     self:DrawWins()
   end
 
@@ -146,6 +147,37 @@ function FightScene:DrawBlackScreen()
   self.blackScreenImage:drawIgnoringOffset(0, 0)
 end
 
+function FightScene:DrawPortrait(portrait, x, y, flip)
+  local cornerRadius <const> = 5
+
+  gfx.setColor(gfx.kColorWhite)
+  gfx.fillRoundRect(x, y, self.portraitSourceRect.width, self.portraitSourceRect.height, cornerRadius)
+
+  portrait:draw(x, y, flip, self.portraitSourceRect)
+
+  gfx.setColor(gfx.kColorBlack)
+  gfx.drawRoundRect(x, y, self.portraitSourceRect.width, self.portraitSourceRect.height, cornerRadius)
+end
+
+function FightScene:DrawPortraits()
+  local cropAmount <const> = 10
+  local marginX <const> = 5
+  local marginY <const> = 5
+  local char1PortraitPosition <const> = {
+    x = marginX,
+    y = marginY,
+  }
+  local char2PortraitPosition <const> = {
+    x = self.displayRect.width - marginX - self.char1Portrait.width + cropAmount,
+    y = marginY,
+  }
+
+  gfx.pushContext(self.uiImage)
+    self:DrawPortrait(self.char1Portrait, char1PortraitPosition.x, char1PortraitPosition.y, gfx.kImageUnflipped)
+    self:DrawPortrait(self.char2Portrait, char2PortraitPosition.x, char2PortraitPosition.y, gfx.kImageFlippedX)
+  gfx.popContext()
+end
+
 function FightScene:DrawUITextImage()
   local opacity <const> = self.alphaAnimator and self.alphaAnimator:currentValue() or 0
 
@@ -162,49 +194,50 @@ end
 
 function FightScene:DrawWins()
   gfx.pushContext(self.uiImage)
-    local foo <const> = self.displayRect.width / 2
+    local displayCenter <const> = self.displayRect.width / 2
     local height <const> = 10
+    local lifebarWidthPlusMargin <const> = 155
     local width <const> = 10
     local y <const> = 27
     local xMargin <const> = 3
-    local character1WinsStart <const> = foo - 40
-    local character2WinsStart <const> = foo + 30
+    local character1WinsStart <const> = displayCenter - lifebarWidthPlusMargin
+    local character2WinsStart <const> = displayCenter + lifebarWidthPlusMargin
 
     -- Character 1 Wins
     gfx.setColor(gfx.kColorBlack)
-    gfx.fillCircleInRect(character1WinsStart - width - xMargin, y, width, height)
     gfx.fillCircleInRect(character1WinsStart, y, width, height)
+    gfx.fillCircleInRect(character1WinsStart + width + xMargin, y, width, height)
 
     if (self.character1Wins > 0) then
       gfx.setColor(gfx.kColorWhite)
-      gfx.fillCircleInRect(character1WinsStart - width - xMargin, y, width, height)
+      gfx.fillCircleInRect(character1WinsStart, y, width, height)
 
       if (self.character1Wins > 1) then
-        gfx.fillCircleInRect(character1WinsStart, y, width, height)
+        gfx.fillCircleInRect(character1WinsStart + width + xMargin, y, width, height)
       end
     end
 
     gfx.setColor(gfx.kColorBlack)
-    gfx.drawCircleInRect(character1WinsStart - width - xMargin, y, width, height)
     gfx.drawCircleInRect(character1WinsStart, y, width, height)
+    gfx.drawCircleInRect(character1WinsStart + width + xMargin, y, width, height)
 
     -- Character 2 Wins
     gfx.setColor(gfx.kColorBlack)
-    gfx.fillCircleInRect(character2WinsStart + width + xMargin, y, width, height)
-    gfx.fillCircleInRect(character2WinsStart, y, width, height)
+    gfx.fillCircleInRect(character2WinsStart - width, y, width, height)
+    gfx.fillCircleInRect(character2WinsStart - (width * 2) - xMargin, y, width, height)
 
     if (self.character2Wins > 0) then
       gfx.setColor(gfx.kColorWhite)
-      gfx.fillCircleInRect(character2WinsStart + width + xMargin, y, width, height)
+      gfx.fillCircleInRect(character2WinsStart - width, y, width, height)
 
       if (self.character2Wins > 1) then
-        gfx.fillCircleInRect(character2WinsStart, y, width, height)
+        gfx.fillCircleInRect(character2WinsStart - (width * 2) - xMargin, y, width, height)
       end
     end
 
     gfx.setColor(gfx.kColorBlack)
-    gfx.drawCircleInRect(character2WinsStart + width + xMargin, y, width, height)
-    gfx.drawCircleInRect(character2WinsStart, y, width, height)
+    gfx.drawCircleInRect(character2WinsStart - width, y, width, height)
+    gfx.drawCircleInRect(character2WinsStart - (width * 2) - xMargin, y, width, height)
   gfx.popContext()
 end
 
@@ -312,7 +345,7 @@ function FightScene:Init(config)
   self.state = config.state or self.state
 
   self:InitCharacters()
-  self:InitLifebars()
+  self:InitMeters()
   self:InitStage()
   self:InitTimer()
   self:InitImages()
@@ -343,6 +376,8 @@ end
 
 function FightScene:InitImages()
   self.blackScreenImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
+  self.char1Portrait = img.new(self.character1.menuImagePath)
+  self.char2Portrait = img.new(self.character2.menuImagePath)
   self.drawTextImage = img.new('images/ui/DrawText')
   self.fightImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.fightTextImage = img.new('images/ui/FightText')
@@ -352,6 +387,7 @@ function FightScene:InitImages()
   self.matchEndTextImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.matchStartImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.matchStartTextImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
+  self.portraitSourceRect = rec.new(5, 5, 34, 44)
   self.roundEndImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.roundEndTextImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
   self.round1TextImage = img.new('images/ui/Round1Text')
@@ -367,47 +403,93 @@ function FightScene:InitImages()
   self.uiTextImage = img.new(self.displayRect.width, self.displayRect.height, gfx.kColorClear)
 end
 
-function FightScene:InitLifebars()
-  self.lifebar1 = Meter({
-    amount = self.character1:GetHealth(),
+function FightScene:InitMeters()
+  self:InitLifeBars()
+  self:InitSuperBars()
+end
+
+function FightScene:InitLifeBars()
+  local displayCenter <const> = self.displayRect.width / 2
+  local displayCenterMargin <const> = 25
+  local lifeBarHeight <const> = 16
+  local lifeBarWidth <const> = 130
+  local lifeBarY <const> = 10
+
+  self.lifeBar1 = Meter({
     direction = meterDirections.LEFT,
     label = self.character1.name:upper(),
-    meterRect = rec.new(20, 10, 150, 16),
-    total = self.character1.maxHealth,
+    max = self.character1.maxHealth,
+    meterRect = rec.new(displayCenter - displayCenterMargin - lifeBarWidth, lifeBarY, lifeBarWidth, lifeBarHeight),
+    startingAmount = self.character1.maxHealth,
   })
-  self.lifebar2 = Meter({
-    amount = self.character2:GetHealth(),
+  self.lifeBar1:Update()
+  self.character1.OnHealthChange = (function (health)
+    self.lifeBar1:SetAmount(health)
+
+    if (health <= 0) then
+      if (self.state ~= fightStates.ROUND_END) then
+        self:EndRound(overStates.KO)
+
+        self.character1:SetNextState(charStates.HURT | charStates.AIRBORNE)
+      end
+    end
+  end)
+
+  self.lifeBar2 = Meter({
     direction = meterDirections.RIGHT,
     label = self.character2.name:upper(),
-    meterRect = rec.new(380, 10, 150, 16),
-    total = self.character2.maxHealth,
+    max = self.character2.maxHealth,
+    meterRect = rec.new(displayCenter + displayCenterMargin + lifeBarWidth, lifeBarY, lifeBarWidth, lifeBarHeight),
+    startingAmount = self.character2.maxHealth,
   })
-
-  self.character1.OnHealthChange = (function (health)
-    self.lifebar1:SetAmount(health)
-
-    if (health <= 0) then
-      if (self.state ~= fightStates.ROUND_END) then
-        self:EndRound(overStates.KO)
-
-        self.character1:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
-      end
-    end
-  end)
+  self.lifeBar2:Update()
   self.character2.OnHealthChange = (function (health)
-    self.lifebar2:SetAmount(health)
+    self.lifeBar2:SetAmount(health)
 
     if (health <= 0) then
       if (self.state ~= fightStates.ROUND_END) then
         self:EndRound(overStates.KO)
 
-        self.character2:SetNextState(charStates.HURT | charStates.AIRBORNE | charStates.END)
+        self.character2:SetNextState(charStates.HURT | charStates.AIRBORNE)
       end
     end
   end)
+end
 
-  self.lifebar1:Update()
-  self.lifebar2:Update()
+function FightScene:InitSuperBars()
+  local displayCenter <const> = self.displayRect.width / 2
+  local displayCenterMargin <const> = 25
+  local superbarAlpha <const> = 0.50
+  local superbarHeight <const> = 10
+  local superbarStartingAmount <const> = 0
+  local superbarWidth <const> = 100
+  local superbarY <const> = 27
+
+  self.superBar1 = Meter({
+    alpha = superbarAlpha,
+    direction = meterDirections.LEFT,
+    ditherType = img.kDitherTypeBayer8x8,
+    max = self.character1.maxSuper,
+    meterRect = rec.new(displayCenter - displayCenterMargin - superbarWidth, superbarY, superbarWidth, superbarHeight),
+    startingAmount = superbarStartingAmount,
+  })
+  self.superBar1:Update()
+  self.character1.OnSuperChange = (function (super)
+    self.superBar1:SetAmount(super)
+  end)
+
+  self.superBar2 = Meter({
+    alpha = superbarAlpha,
+    direction = meterDirections.RIGHT,
+    ditherType = img.kDitherTypeBayer8x8,
+    max = self.character2.maxSuper,
+    meterRect = rec.new(displayCenter + displayCenterMargin + superbarWidth, superbarY, superbarWidth, superbarHeight),
+    startingAmount = superbarStartingAmount,
+  })
+  self.superBar2:Update()
+  self.character2.OnSuperChange = (function (super)
+    self.superBar2:SetAmount(super)
+  end)
 end
 
 function FightScene:InitMenu()
@@ -498,12 +580,14 @@ function FightScene:Reset()
   -- Reset Character 1
   self.character1:Reset()
   self.character1.controllable = false
-  self.lifebar1:Reset()
+  self.lifeBar1:Reset()
+  self.superBar1:Reset()
 
   -- Reset Character 2
   self.character2:Reset()
   self.character2.controllable = false
-  self.lifebar2:Reset()
+  self.lifeBar2:Reset()
+  self.superBar2:Reset()
 
   -- Reset Stage
   self.stage:Reset()
@@ -623,8 +707,9 @@ function FightScene:Teardown()
 
   self.stage:Teardown()
 
-  -- self.lifebar1:Teardown()
-  -- self.lifebar2:Teardown()
+  -- TODO: Make a Teardown method for meters and timers
+  -- self.lifeBar1:Teardown()
+  -- self.lifeBar2:Teardown()
   -- self.timer:Teardown()
 
   pd.getSystemMenu():removeAllMenuItems()
@@ -650,8 +735,10 @@ function FightScene:update(dt)
 end
 
 function FightScene:UpdateActiveState()
-  self.lifebar1:Update()
-  self.lifebar2:Update()
+  self.lifeBar1:Update()
+  self.lifeBar2:Update()
+  self.superBar1:Update()
+  self.superBar2:Update()
   self.stage:update()
   self.timer:Update()
 end
