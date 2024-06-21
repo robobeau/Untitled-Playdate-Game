@@ -93,6 +93,103 @@ function Inputs:CheckDashForwardInput(buttonStates, charDirection)
   return self:CheckDashInput(buttonStates, inputDirections.FORWARD, charDirection)
 end
 
+function Inputs:CheckFCBInput(buttonStates, charDirection)
+  return self:CheckFullCircleInput(buttonStates, inputDirections.BACK, charDirection)
+end
+
+function Inputs:CheckFCFInput(buttonStates, charDirection)
+  return self:CheckFullCircleInput(buttonStates, inputDirections.FORWARD, charDirection)
+end
+
+function Inputs:CheckFullCircleInput(buttonStates, direction, charDirection)
+  local backInput <const> = charDirection == charDirections.LEFT
+    and pd.kButtonRight
+    or pd.kButtonLeft
+  local forwardInput <const> = charDirection == charDirections.LEFT
+    and pd.kButtonLeft
+    or pd.kButtonRight
+  local checks <const> = {
+    hasInputtedFirstDirection = false,
+    hasInputtedFirstDiagonal = false,
+    hasInputtedDown = false,
+    hasInputtedFinalDiagonal = false,
+    hasInputtedFinalDirection = false,
+  }
+
+  for i = #buttonStates, 1, -1 do
+    local buttonState <const> = buttonStates[i]
+    local hasPressedDown <const> = buttonState.pressed & pd.kButtonDown ~= 0
+    local hasPressedFirst <const> = {
+      [inputDirections.BACK] = buttonState.pressed & forwardInput ~= 0,
+      [inputDirections.FORWARD] = buttonState.pressed & backInput ~= 0,
+    }
+    local hasPressedFirstDirection <const> = hasPressedFirst[direction]
+    local hasPressedFinal <const> = {
+      [inputDirections.BACK] = buttonState.pressed & backInput ~= 0,
+      [inputDirections.FORWARD] = buttonState.pressed & forwardInput ~= 0,
+    }
+    local hasPressedFinalDirection <const> = hasPressedFinal[direction]
+    local isPressingFirst <const> = {
+      [inputDirections.BACK] = buttonState.current & forwardInput ~= 0,
+      [inputDirections.FORWARD] = buttonState.current & backInput ~= 0,
+    }
+    local isPressingFirstDirection <const> = isPressingFirst[direction]
+    local isPressingFinal <const> = {
+      [inputDirections.BACK] = buttonState.current & backInput ~= 0,
+      [inputDirections.FORWARD] = buttonState.current & forwardInput ~= 0,
+    }
+    local isPressingFinalDirection <const> = isPressingFinal[direction]
+    local isPressingDown <const> = buttonState.current & pd.kButtonDown ~= 0
+
+    if (checks.hasInputtedFinalDirection) then
+      if (checks.hasInputtedFinalDiagonal) then
+        if (checks.hasInputtedDown) then
+          if (checks.hasInputtedFirstDiagonal) then
+            if (checks.hasInputtedFirstDirection) then
+              return true
+            else
+              if (
+                (hasPressedFirstDirection or isPressingFirstDirection) and
+                not isPressingDown
+              ) then
+                checks.hasInputtedFirstDirection = true
+              end
+            end
+          else
+            if (
+              (hasPressedFirstDirection or isPressingFirstDirection) and
+              isPressingDown
+            ) then
+              checks.hasInputtedFirstDiagonal = true
+            end
+          end
+        else
+          if (
+            (hasPressedDown or isPressingDown) and
+            not isPressingDirection
+          ) then
+            checks.hasInputtedDown = true
+          end
+        end
+      else
+        if (
+          (hasPressedFinalDirection or isPressingFinalDirection) and
+          isPressingDown
+        ) then
+          checks.hasInputtedFinalDiagonal = true
+        end
+      end
+    else
+      if (
+        (hasPressedFinalDirection or isPressingFinalDirection) and
+        not isPressingDown
+      ) then
+        checks.hasInputtedFinalDirection = true
+      end
+    end
+  end
+end
+
 function Inputs:CheckQCBInput(buttonStates, charDirection)
   return self:CheckQuarterCircleInput(buttonStates, inputDirections.BACK, charDirection)
 end
