@@ -1,5 +1,7 @@
 import 'characters/Kim/kim'
 
+import '../musicPlayer'
+
 -- Convenience variables
 local pd <const> = playdate
 local geo <const> = pd.geometry
@@ -221,8 +223,10 @@ end
 
 function CharacterSelectScene:Init()
   local video <const> = vid.new('videos/FireBackground.pdv')
+  local menuSong <const> = menuSongs.CharacterSelect
 
-  self.backgroundMusic = snd.fileplayer.new('music/Hip Menus - Loop 1')
+  self.backgroundMusic = snd.fileplayer.new(menuSong.filePath)
+  self.backgroundMusic:setLoopRange(menuSong.loopRange.start, menuSong.loopRange.stop)
   self.backgroundMusic:setVolume(0.5)
   self.backgroundMusic:play(0)
   self.backgroundVideo = {

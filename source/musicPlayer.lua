@@ -6,16 +6,28 @@ fightSongs = {
   DowntownStreets = {
     artist = 'Voltz Supreme',
     filePath = 'music/Stage - Downtown Streets - Early Rounds Loop',
+    loopRange = {
+      start = 0,
+      stop = 103.641,
+    },
     title = 'Downtown Streets',
   },
   DrunkenMaster = {
     artist = 'Voltz Supreme',
     filePath = 'music/Stage - Metropolis Grime - Loop',
+    loopRange = {
+      start = 0,
+      stop = 139.637,
+    },
     title = 'Metropolis Grime',
   },
   MetropolisGrime = {
     artist = 'Voltz Supreme',
     filePath = 'music/Stage - The Drunken Master - Loop',
+    loopRange = {
+      start = 0,
+      stop = 156.279,
+    },
     title = 'The Drunken Master',
   },
 }
@@ -28,7 +40,11 @@ fightPlaylist = {
 menuSongs = {
   CharacterSelect = {
     artist = 'Voltz Supreme',
-    filePath = 'source/music/Hip Menus - Loop 1.wav',
+    filePath = 'music/Hip Menus - Loop 1',
+    loopRange = {
+      start = 0,
+      stop = 29.539,
+    },
     title = 'Hip Menus',
   },
 }
@@ -62,8 +78,9 @@ function MusicPlayer:init(config)
   self.volume = config.volume or self.volume
 end
 
-function MusicPlayer:InitPlayer(filePath)
-  self.player = snd.fileplayer.new(filePath)
+function MusicPlayer:InitPlayer(song)
+  self.player = snd.fileplayer.new(song.filePath)
+  self.player:setLoopRange(song.loopRange.start, song.loopRange.stop)
   self.player:setVolume(self.volume)
 end
 
@@ -75,8 +92,9 @@ function MusicPlayer:LoadSong(song)
   if (self.player) then
     self.player:stop()
     self.player:load(song.filePath)
+    self.player:setLoopRange(song.loopRange.start, song.loopRange.stop)
   else
-    self:InitPlayer(song.filePath)
+    self:InitPlayer(song)
   end
 
   if (self.playCount <= #self.playlist) then
