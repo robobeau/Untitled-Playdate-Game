@@ -17,12 +17,15 @@ meterDirections = {
 }
 
 local defaults <const> = {
+  alpha = 1,
   amount = 0,
   direction = meterDirections.LEFT,
+  ditherType = nil,
   font = fonts.SuperMonacoGP,
   label = nil,
+  max = 0,
   meterRect = rec.new(0, 0, 120, 16),
-  total = 0,
+  startingAmount = 0,
 }
 
 class('Meter', defaults).extends()
@@ -73,7 +76,7 @@ function Meter:DrawPercentage()
   local amount <const> = self.amountAnimator
     and self.amountAnimator:currentValue()
     or self.amount
-  local amountPercentage <const> = amount / self.total
+  local amountPercentage <const> = amount / self.max
   local amountWidth <const> = math.floor(amountPercentage * self.meterRect.width)
   local position <const> = {
     x = self.direction == meterDirections.LEFT
@@ -84,25 +87,33 @@ function Meter:DrawPercentage()
 
   gfx.pushContext(self.meterImage)
     gfx.setColor(gfx.kColorWhite)
+
+    if (self.alpha and self.ditherType) then
+      gfx.setDitherPattern(self.alpha, self.ditherType)
+    end
+
     gfx.fillRect(position.x, position.y, amountWidth, self.meterRect.height)
   gfx.popContext()
 end
 
 function Meter:init(config)
-  self.amount = config.amount or self.amount
+  self.alpha = config.alpha or self.alpha
   self.direction = config.direction or self.direction
+  self.ditherType = config.ditherType or self.ditherType
   self.font = config.font or self.font
   self.label = config.label or self.label
+  self.max = config.max or self.max
   self.meterRect = config.meterRect or self.meterRect
   self.meterImage = img.new(self.meterRect.width, self.meterRect.height)
-  self.total = config.total or self.total
+  self.startingAmount = config.startingAmount or self.startingAmount
+  self.amount = self.startingAmount
 
   self:UpdateMeterImage()
   self:Draw()
 end
 
 function Meter:Reset()
-  self:SetAmount(self.total)
+  self:SetAmount(self.startingAmount)
 end
 
 function Meter:SetAmount(amount)
