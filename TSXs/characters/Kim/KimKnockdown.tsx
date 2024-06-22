@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="KimKnockdown" class="Animation" tilewidth="112" tileheight="48" tilecount="1" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="KimKnockdown" class="Animation" tilewidth="112" tileheight="48" tilecount="1" columns="0">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimKnockdown.lua" format="lua"/>
+  <export target="../../../source/characters/Kim/animations/KimKnockdown.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">

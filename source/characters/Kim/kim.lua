@@ -13,6 +13,8 @@ local kimStatesList <const> = {
   'DiveKick',
   'FlashKick',
   'KickNeutralChain',
+  'SuperAirborne',
+  'SuperAirborneBegin',
 }
 local defaults <const> = {
   assetsList = table.move(charStatesList, 1, #charStatesList, #kimStatesList + 1, kimStatesList),
@@ -77,6 +79,8 @@ Kim.AnimationObjects = {
   Rise = import 'animations/KimRise.lua',
   Run = import 'animations/KimRun.lua',
   Stand = import 'animations/KimStand.lua',
+  SuperAirborne = import 'animations/KimSuperAirborne.lua',
+  SuperAirborneBegin = import 'animations/KimSuperAirborneBegin.lua',
   Throw = import 'animations/KimThrow.lua',
   ThrowBegin = import 'animations/KimThrowBegin.lua',
   Transition = import 'animations/KimTransition.lua',
@@ -151,6 +155,26 @@ function Kim:CheckFlyingSliceInput()
   end
 end
 
+function Kim:CheckHeavenlyPhoenixKickInput()
+  local frame <const> = self.history.frames[self.history.counter]
+  local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
+  local hasReleasedB <const> = frame.buttonState.released & pd.kButtonB ~= 0
+
+  if (hasPressedB or hasReleasedB) then
+    local frameCount <const> = 10
+    local start <const> = math.max(#self.history.frames - frameCount, 1)
+    local stop <const> = math.max(#self.history.frames, 1)
+    local buttonStates <const> = table.map(
+      self.history.frames,
+      function (f) return f.buttonState end,
+      start,
+      stop
+    )
+
+    return Inputs:CheckFCFInput(buttonStates, self.ram.direction)
+  end
+end
+
 function Kim:CheckSpecialInputs()
   local frame <const> = self.history.frames[self.history.counter]
   local frameData <const> = self:GetFrameData(self.ram.frameIndex)
@@ -188,6 +212,35 @@ function Kim:CheckSpecialInputs()
   Kim.super.CheckSpecialInputs(self)
 end
 
+function Kim:CheckSuperInputs()
+  if (not Kim.super.CheckSuperInputs(self)) then
+    return false
+  end
+
+  local frame <const> = self.history.frames[self.history.counter]
+  local frameData <const> = self:GetFrameData(self.ram.frameIndex)
+
+  -- If we can't perform a super move, exit early.
+  if (not frameData.checks.isSuperCancellable) then
+    return
+  end
+
+  local isAirborne <const> = self.ram.state & charStates.AIRBORNE ~= 0
+
+  if (isAirborne) then
+    local hasPressedB <const> = frame.buttonState.pressed & pd.kButtonB ~= 0
+
+    if (hasPressedB) then
+      if (self:CheckHeavenlyPhoenixKickInput()) then
+        self:SetState(charStates.SUPER | charStates.AIRBORNE | charStates.BEGIN)
+        self:SetSuper(0)
+
+        return true
+      end
+    end
+  end
+end
+
 function Kim:SetAnimations()
   -- Chain Moves
   self.animations[charStates.KICK | charStates.CHAIN | charStates.STAND] = self.hydratedAnimations['KickNeutralChain']
@@ -196,6 +249,10 @@ function Kim:SetAnimations()
   self.animations[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self.hydratedAnimations['FlashKick']
   self.animations[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self.hydratedAnimations['DiveKick']
   self.animations[charStates.SPECIAL | charStates.BACK] = self.hydratedAnimations['CrescentMoonSlash']
+
+  -- Super Moves
+  self.animations[charStates.SUPER | charStates.AIRBORNE | charStates.BEGIN] = self.hydratedAnimations['SuperAirborneBegin']
+  self.animations[charStates.SUPER | charStates.AIRBORNE] = self.hydratedAnimations['SuperAirborne']
 
   Kim.super.SetAnimations(self)
 end
@@ -208,6 +265,10 @@ function Kim:SetImagetables()
   self.imagetables[charStates.SPECIAL | charStates.AIRBORNE | charStates.UP] = self.hydratedImagetables['FlashKick']
   self.imagetables[charStates.SPECIAL | charStates.AIRBORNE | charStates.DOWN] = self.hydratedImagetables['DiveKick']
   self.imagetables[charStates.SPECIAL | charStates.BACK] = self.hydratedImagetables['CrescentMoonSlash']
+
+  -- Super Moves
+  self.imagetables[charStates.SUPER | charStates.AIRBORNE | charStates.BEGIN] = self.hydratedImagetables['SuperAirborneBegin']
+  self.imagetables[charStates.SUPER | charStates.AIRBORNE] = self.hydratedImagetables['SuperAirborne']
 
   Kim.super.SetImagetables(self)
 end

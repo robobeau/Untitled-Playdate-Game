@@ -15,6 +15,12 @@ function Hitbox:OnBlock()
 end
 
 function Hitbox:OnHit()
+  if (self.properties.super) then
+    local super <const> = self.character:GetSuper()
+
+    self.character:SetSuper(super + self.properties.super)
+  end
+
   if (self.properties.characterState) then
     self.character:SetState(self.properties.characterState)
   end

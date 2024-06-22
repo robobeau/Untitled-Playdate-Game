@@ -73,10 +73,10 @@ charStates = {
   RUN = 1048576,
   SPECIAL = 2097152,
   STAND = 4194304,
-  TAUNT = 8388608,
-  THROW = 16777216,
-  UP = 33554432,
-  -- 67108864
+  SUPER = 8388608,
+  TAUNT = 16777216,
+  THROW = 33554432,
+  UP = 67108864,
   -- 134217728
   -- 268435456
   -- 536870912
@@ -128,6 +128,8 @@ local defaultRAM <const> = {
   prevDirection = nil,
   prevFrameIndex = nil,
   state = charStates.STAND,
+  stun = 0,
+  super = 0,
   velocity = {
     x = 0,
     y = 0,
@@ -159,6 +161,7 @@ local defaults <const> = {
   jumpHeight = charJumpHeights.NORMAL,
   maxHealth = 100,
   maxStun = 50,
+  maxSuper = 75,
   menuImagePath = 'characters/Character/images/CharacterPortraitMenu',
   name = 'Character',
   opponent = nil,
@@ -217,12 +220,16 @@ function Character:CheckCrank()
 end
 
 function Character:CheckInputs()
+  if (self:CheckSuperInputs()) then
+    return
+  end
+
   if (self:CheckSpecialInputs()) then
     return
   end
 
   if (self:CheckThrowInputs()) then
-    local newState = charStates.THROW | charStates.BEGIN
+    local newState = charStates.BEGIN | charStates.THROW
 
     -- TODO: Account for direction in throws
     -- if (isPressingBack) then
@@ -267,8 +274,8 @@ function Character:CheckAttackInputs()
   if (hasPressedB) then
     local newState = charStates.KICK
     local isAirborne <const> = self.ram.state  & charStates.AIRBORNE ~= 0
-    local isCrouching <const> = self.ram.state  & charStates.CROUCH ~= 0
     local isDashing <const> = self.ram.state  & charStates.DASH ~= 0
+    local isPressingDown <const> = frame.buttonState.current & pd.kButtonDown ~= 0
 
     if (isAirborne) then
       local isRunning <const> = self.ram.state  & charStates.RUN ~= 0
@@ -284,7 +291,7 @@ function Character:CheckAttackInputs()
       elseif (isDashing) then
         newState |= charStates.DASH
       end
-    elseif (isCrouching) then
+    elseif (isPressingDown) then
       newState |= charStates.CROUCH
     else
       local isBack <const> = self.ram.state  & charStates.BACK ~= 0
@@ -309,7 +316,7 @@ function Character:CheckAttackInputs()
   if (hasPressedA) then
     local newState = charStates.PUNCH
     local isAirborne <const> = self.ram.state  & charStates.AIRBORNE ~= 0
-    local isCrouching <const> = self.ram.state  & charStates.CROUCH ~= 0
+    local isPressingDown <const> = frame.buttonState.current & pd.kButtonDown ~= 0
 
     if (isAirborne) then
       local backInput <const> = self.ram.direction == charDirections.LEFT
@@ -336,7 +343,7 @@ function Character:CheckAttackInputs()
       elseif (isDashing) then
         newState |= charStates.DASH
       end
-    elseif (isCrouching) then
+    elseif (isPressingDown) then
       newState |= charStates.CROUCH
     else
       newState |= charStates.STAND
@@ -434,7 +441,7 @@ function Character:CheckJumpInputs()
         or pd.kButtonRight
       local isPressingBack <const> = frame.buttonState.current & backInput ~= 0
       local isPressingForward <const> = frame.buttonState.current & forwardInput ~= 0
-      local newState = charStates.JUMP | charStates.BEGIN
+      local newState = charStates.BEGIN | charStates.JUMP
 
       if (isPressingBack) then
         local isRunning <const> = self.ram.state  & charStates.RUN ~= 0
@@ -562,6 +569,15 @@ end
 function Character:CheckSpecialInputs()
   -- Overload this on each character's class!
 end
+
+function Character:CheckSuperInputs()
+  if (self.ram.super == self.maxSuper) then
+    return true
+  end
+
+  return false
+end
+
 
 function Character:CheckThrowInputs()
   local frame <const> = self.history.frames[self.history.counter]
@@ -770,14 +786,11 @@ end
 -- To reduce the complexity of animation keys,
 -- we want to remove certain states under certain conditions.
 function Character:GetFilteredStateForAnimation()
+  local isAttacking <const> = self:IsAttacking()
   local isBeginning <const> = self.ram.state  & charStates.BEGIN ~= 0
   local isEnding <const> = self.ram.state  & charStates.END ~= 0
   local isJumping <const> = self.ram.state  & charStates.JUMP ~= 0
-  local isKicking <const> = self.ram.state  & charStates.KICK ~= 0
-  local isPunching <const> = self.ram.state  & charStates.PUNCH ~= 0
-  local isSpecialing <const> = self.ram.state  & charStates.SPECIAL ~= 0
-  local isThrowing <const> = self.ram.state  & charStates.THROW ~= 0
-  local isAttacking <const> = isKicking or isPunching or isSpecialing or isThrowing
+  local isKnockedDownExclusively <const> = self.ram.state == charStates.KNOCKDOWN
   local statesToRemove = 0
 
   -- Attacking is not visually affected by dashing... yet.
@@ -790,6 +803,10 @@ function Character:GetFilteredStateForAnimation()
   -- so we don't need to distinguish between back/forward movement.
   if (isBeginning or isEnding) then
     statesToRemove |= charStates.BACK | charStates.FORWARD
+  end
+
+  if (not isKnockedDownExclusively) then
+    statesToRemove |= charStates.KNOCKDOWN
   end
 
   return self.ram.state  &~ statesToRemove
@@ -843,13 +860,21 @@ function Character:GetMoveVelocity()
   return self:NormalizeHorizontalVelocity(self:GetMoveSpeed())
 end
 
+function Character:GetSuper()
+  return self.ram.super
+end
+
 function Character:GetThrown(hitbox)
   if (hitbox.properties.damage) then
     self.ram.health -= hitbox.properties.damage
+
+    if (self.OnHealthChange) then
+      self.OnHealthChange(self.ram.health)
+    end
   end
 
   if (hitbox.properties.hitstun) then
-    self.ram.hitstun = hitbox.properties.hitstun
+    self:SetHitstun(hitbox.properties.hitstun)
   end
 
   if (hitbox.properties.launch) then
@@ -860,10 +885,6 @@ function Character:GetThrown(hitbox)
   if (hitbox.properties.pushback) then
     -- Note the negation of "GetFlipSign()"
     self.ram.velocity.x = hitbox.properties.pushback * -self:GetFlipSign()
-  end
-
-  if (self.OnHealthChange) then
-    self.OnHealthChange(self.ram.health)
   end
 
   if (hitbox.properties.opponentState) then
@@ -1000,20 +1021,26 @@ function Character:HandleWallCollision(collision)
 end
 
 function Character:HandleJumpEnd()
-  local isBeginning <const> = self.ram.state  & charStates.BEGIN ~= 0
-  local isEnding <const> = self.ram.state  & charStates.END ~= 0
-  local isTransitioning <const> = isBeginning or isEnding
-
-  if (isTransitioning) then
-    return
-  end
-
   local isHurt <const> = self.ram.state  & charStates.HURT ~= 0
   local isKnockedDown <const> = self.ram.state  & charStates.KNOCKDOWN ~= 0
 
   if (isHurt) then
-    self:SetState(charStates.HURT | charStates.AIRBORNE | charStates.END)
+    local isHurtAirborneEnd <const> = self.ram.state == charStates.HURT | charStates.AIRBORNE | charStates.END
+
+    self.ram.velocity.y = 0
+
+    if (not isHurtAirborneEnd) then
+      local isHitstunned <const> = self.ram.hitstun > 0
+
+      self:SetState(charStates.HURT | charStates.AIRBORNE | charStates.END)
+
+      if (isHitstunned) then
+        self:SetHistun(0)
+      end
+    end
   elseif (not isKnockedDown) then
+    self.ram.velocity.y = 0
+
     self:SetState(charStates.JUMP | charStates.END)
   end
 end
@@ -1023,7 +1050,7 @@ function Character:HasAnimationEnded()
 end
 
 function Character:HasAnimationFrameEnded()
-    local frameData <const> = self:GetFrameData(self.ram.frameIndex)
+  local frameData <const> = self:GetFrameData(self.ram.frameIndex)
 
   return self.ram.frameCounter == frameData.duration
 end
@@ -1043,6 +1070,10 @@ function Character:HasFrameIndexChanged()
   end
 
   return self.ram.prevFrameIndex ~= self.ram.frameIndex
+end
+
+function Character:HasHitstunEnded()
+  return self.ram.hitstun == 0 and self.ram.prevHitstun == 1
 end
 
 function Character:HydrateAnimation(animation)
@@ -1139,6 +1170,16 @@ function Character:init(options)
   self:setZIndex(1)
 end
 
+function Character:IsAttacking()
+  local isKicking <const> = self.ram.state & charStates.KICK ~= 0
+  local isPunching <const> = self.ram.state & charStates.PUNCH ~= 0
+  local isSpecialing <const> = self.ram.state & charStates.SPECIAL ~= 0
+  local isSupering <const> = self.ram.state & charStates.SUPER ~= 0
+  local isThrowing <const> = self.ram.state & charStates.THROW ~= 0
+
+  return isKicking or isPunching or isSpecialing or isSupering or isThrowing
+end
+
 function Character:IsFlipped()
   return self.ram.direction == charDirections.LEFT
 end
@@ -1213,10 +1254,9 @@ function Character:PrepareForNextLoop()
   self:UpdateCounters()
 
   local frameData <const> = self:GetFrameData(self.ram.frameIndex)
-  local isHitstunned <const> = frameData.hitstunnable and (self.ram.hitstun > 0)
   local shouldUpdateFrameIndex <const> = self.ram.frameCounter > frameData.duration
 
-  if (not isHitstunned and shouldUpdateFrameIndex) then
+  if (shouldUpdateFrameIndex) then
     self:UpdateFrameIndex()
   end
 end
@@ -1230,10 +1270,10 @@ function Character:Reset()
       firstFrame,
     },
   }
-  self.super = 0
   self.ram = table.deepcopy(defaultRAM)
   self.ram.health = self.maxHealth
   self.ram.stun = self.maxStun
+  self.ram.super = 0
 
   self:SetDirection(self.startingDirection)
   self:ResetEmptyCollisionSprites()
@@ -1505,6 +1545,11 @@ function Character:SetFrameIndex(frameIndex)
   self.ram.frameIndex = frameIndex
 end
 
+function Character:SetHistun(hitstun)
+  self.ram.prevHitstun = self.ram.hitstun
+  self.ram.hitstun = hitstun
+end
+
 function Character:SetSoundFX(soundFXPath)
   -- Chop off the "../" and ".wav"
   soundFXPath = string.gsub(soundFXPath, '%.%./', '/')
@@ -1518,6 +1563,8 @@ function Character:SetSoundFX(soundFXPath)
 end
 
 function Character:SetState(state)
+  self:Debug('SetState', state)
+
   self.ram.frameCounter = 1
   self.ram.state = state
 
@@ -1526,6 +1573,47 @@ function Character:SetState(state)
   self:SetAnimationFrame()
   self:DerivePhysicsFromState()
 end
+
+function Character:SetHealth(health)
+  self.ram.health = math.clamp(health, 0, self.maxHealth)
+
+  if (self.OnHealthChange) then
+    self.OnHealthChange(self.ram.health)
+  end
+end
+
+function Character:SetSuper(super)
+  self.ram.super = math.clamp(super, 0, self.maxSuper)
+
+  if (self.OnSuperChange) then
+    self.OnSuperChange(self.ram.super)
+  end
+end
+
+-- function Character:OnBlock(hitbox)
+--   local damage <const> = self.ram.health - ((hitbox.properties.damage or 0) / 2)
+
+--   self:OnFoo(damage)
+-- end
+
+-- function Character:OnHit(hitbox)
+--   local damage <const> = self.ram.health - (hitbox.properties.damage or 0)
+
+--   self:OnFoo(damage)
+-- end
+
+-- function Character:OnThrow(hitbox)
+--   local damage <const> = self.ram.health - (hitbox.properties.damage or 0)
+
+--   self:OnFoo(damage)
+-- end
+
+-- function Character:OnFoo(damage, hitstun)
+--   self.ram.health -= math.max(damage, 1)
+
+--   self:SetHistun(hitstun)
+  
+-- end
 
 function Character:TakeDamage(hitbox, isBlocking)
   local isAirborne <const> = self.ram.state  & charStates.AIRBORNE ~= 0
@@ -1548,16 +1636,24 @@ function Character:TakeDamage(hitbox, isBlocking)
       or hitbox.properties.damage
 
     -- TODO: Supers should be able to kill, even while blocking
-    self.ram.health -= math.max(damage, 1)
+    local health <const> = self.ram.health - damage
+
+    self:SetHealth(health)
   end
 
   if (hitbox.properties.hitstun) then
-    self.ram.hitstun = hitbox.properties.hitstun
+    self:SetHistun(hitbox.properties.hitstun)
   end
 
   if (not isBlocking) then
+    if (hitbox.properties.knockdown) then
+      newState = charStates.AIRBORNE | charStates.HURT | charStates.KNOCKDOWN
+
+      self.ram.velocity.y = -(charJumpHeights.SHORTEST / 2)
+    end
+
     if (hitbox.properties.launch) then
-      newState = charStates.HURT | charStates.AIRBORNE
+      newState = charStates.AIRBORNE | charStates.HURT
 
       -- Note the negation of "hitbox.properties.launch"
       self.ram.velocity.y = -hitbox.properties.launch
@@ -1569,18 +1665,10 @@ function Character:TakeDamage(hitbox, isBlocking)
     self.ram.velocity.x = hitbox.properties.pushback * -self:GetFlipSign()
   end
 
-  -- Did the character get sweeped?
-  if (hitbox.properties.type == collisionBoxTypes.LOW) then
-    -- TODO: Make a better state than this
-    newState = charStates.HURT | charStates.AIRBORNE
-
-    self.ram.velocity.y = -3
-  end
-
-  self:SetState(newState)
-
-  if (self.OnHealthChange) then
-    self.OnHealthChange(self.ram.health)
+  if (hitbox.properties.opponentState) then
+    self:SetState(hitbox.properties.opponentState)
+  else
+    self:SetState(newState)
   end
 
   spr.removeSprites({ hitbox })
@@ -1598,8 +1686,6 @@ function Character:Teardown()
 end
 
 function Character:TransitionState()
-  local frame <const> = self.history.frames[self.history.counter]
-
   local isHurt <const> = self.ram.state  & charStates.HURT ~= 0
   local isThrowing <const> = self.ram.state  & charStates.THROW ~= 0
   local isThrown <const> = isHurt and isThrowing
@@ -1633,6 +1719,22 @@ function Character:TransitionState()
       else
         self:SetState(charStates.MOVE | charStates.FORWARD)
       end
+    end
+  end
+
+  if (self:HasHitstunEnded()) then
+    local isBeginning <const> = self.ram.state  & charStates.BEGIN ~= 0
+    local isEnding <const> = self.ram.state  & charStates.END ~= 0
+    local isKnockedDown <const> = self.ram.state  & charStates.KNOCKDOWN ~= 0
+    local isKOd <const> = self.ram.health <= 0
+    local isTransitioning <const> = isBeginning or isEnding
+
+    self.ram.prevHitstun = 0
+
+    if (isHurt and not isKnockedDown and not isKOd and not isTransitioning) then
+      local newState <const> = self.ram.state &~ charStates.HURT
+
+      self:SetState(newState)
     end
   end
 
@@ -1794,12 +1896,8 @@ end
 
 function Character:UpdateDirection()
   local isAirborne <const> = self.ram.state  & charStates.AIRBORNE ~= 0
-  local isKicking <const> = self.ram.state  & charStates.KICK ~= 0
-  local isPunching <const> = self.ram.state  & charStates.PUNCH ~= 0
+  local isAttacking <const> = self:IsAttacking()
   local isRunning <const> = self.ram.state  & charStates.RUN ~= 0
-  local isSpecialing <const> = self.ram.state  & charStates.SPECIAL ~= 0
-  local isThrowing <const> = self.ram.state  & charStates.THROW ~= 0
-  local isAttacking <const> = isKicking or isPunching or isSpecialing or isThrowing
   local opponentCenter <const> = self.opponent:getBoundsRect():centerPoint()
   local selfCenter <const> = self:getBoundsRect():centerPoint()
 
@@ -1823,12 +1921,12 @@ function Character:UpdateDirection()
 end
 
 function Character:UpdateCounters()
-  local frameData <const> = self:GetFrameData(self.ram.frameIndex)
+  local isHitstunned <const> = self.ram.hitstun > 0
 
   self.ram.frameCounter += 1
 
-  if (frameData.hitstunnable) then
-    self.ram.hitstun -= 1
+  if (isHitstunned) then
+    self:SetHistun(self.ram.hitstun - 1)
   end
 end
 

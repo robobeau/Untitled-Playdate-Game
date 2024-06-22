@@ -13,7 +13,7 @@
   </properties>
   <image width="70" height="78" source="../../../source/characters/Kim/images/KimThrow1.gif"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Pushbox" type="Pushbox" x="10" y="-6" width="40" height="84"/>
+   <object id="2" name="Pushbox" type="Pushbox" x="10" y="-2" width="40" height="80"/>
    <object id="6" name="Hurtbox (Low)" type="Hurtbox" x="0" y="66" width="58" height="12">
     <properties>
      <property name="type" type="int" propertytype="CollisionType" value="1"/>

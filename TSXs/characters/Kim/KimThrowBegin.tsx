@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="KimThrowBegin" class="Animation" tilewidth="112" tileheight="80" tilecount="2" columns="0" objectalignment="bottom">
  <editorsettings>
-  <export target="../../../source/characters/Kim/TSJs/KimThrowBegin.lua" format="lua"/>
+  <export target="../../../source/characters/Kim/animations/KimThrowBegin.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0" type="Frame">
@@ -10,10 +10,12 @@
   </properties>
   <image width="70" height="78" source="../../../source/characters/Kim/images/KimThrow1.gif"/>
   <objectgroup draworder="index" id="2">
-   <object id="2" name="Pushbox" type="Pushbox" x="10" y="-6" width="40" height="84"/>
+   <object id="2" name="Pushbox" type="Pushbox" x="10" y="-2" width="40" height="80"/>
    <object id="7" name="Throwbox" type="Hitbox" x="54" y="0" width="20" height="78">
     <properties>
-     <property name="characterState" type="int" propertytype="CharacterStates" value="16777216"/>
+     <property name="characterState" type="int" propertytype="CharacterStates" value="33554432"/>
+     <property name="stun" type="int" value="10"/>
+     <property name="super" type="int" value="10"/>
      <property name="type" type="int" propertytype="CollisionType" value="3"/>
     </properties>
    </object>
@@ -43,7 +45,7 @@
   </properties>
   <image width="112" height="80" source="../../../source/characters/Kim/images/KimHurt1.gif"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" name="Pushbox" type="Pushbox" x="34" y="-4" width="40" height="84"/>
+   <object id="1" name="Pushbox" type="Pushbox" x="34" y="0" width="40" height="80"/>
    <object id="5" name="Hurtbox (Low)" type="Hurtbox" x="24" y="66" width="58" height="14">
     <properties>
      <property name="type" type="int" propertytype="CollisionType" value="4"/>

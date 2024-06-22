@@ -12,7 +12,6 @@ local cancellableStates <const> = {
 local defaults <const> = {
   cancellable = 0,
   duration = 0, -- Nil?
-  hitstunnable = false,
   loops = false,
   nextState = nil,
   soundFX = nil,
@@ -35,7 +34,6 @@ function FrameData:init(config)
     isThrowCancellable = self.cancellable & cancellableStates.THROW ~= 0,
   }
   self.duration = config.duration or self.duration
-  self.hitstunnable = config.hitstunnable or self.hitstunnable
   self.loops = config.loops or self.loops
   self.nextState = config.nextState or self.nextState
   self.soundFX = config.soundFX or self.soundFX

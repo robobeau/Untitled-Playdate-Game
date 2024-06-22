@@ -70,6 +70,7 @@
    <object id="3" name="Hitbox" type="Hitbox" x="64" y="52" width="68" height="28">
     <properties>
      <property name="damage" type="int" value="10"/>
+     <property name="knockdown" type="bool" value="true"/>
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
        <property name="onBlock" type="file" value="../../../source/sounds/blocks/block_small_10.wav"/>

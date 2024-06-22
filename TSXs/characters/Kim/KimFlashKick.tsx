@@ -61,8 +61,8 @@
    <object id="2" name="Hitbox" type="Hitbox" x="6" y="6" width="100" height="94">
     <properties>
      <property name="damage" type="int" value="20"/>
-     <property name="hitstun" type="int" value="5"/>
-     <property name="launch" type="int" value="10"/>
+     <property name="hitstun" type="int" value="10"/>
+     <property name="knockdown" type="bool" value="true"/>
      <property name="pushback" type="int" value="2"/>
      <property name="soundFX" type="class" propertytype="SoundFX">
       <properties>
